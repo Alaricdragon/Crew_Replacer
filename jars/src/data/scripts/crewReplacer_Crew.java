@@ -1,7 +1,9 @@
 package data.scripts;
 
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
+import com.fs.starfarer.api.campaign.TextPanelAPI;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class crewReplacer_Crew {
@@ -13,9 +15,9 @@ public class crewReplacer_Crew {
     public float crewPriority = 0;
     public float crewPower = 1;
 
-    public float maxLosePercent = 0;
+    /*public float maxLosePercent = 0;
     public float minLosePercent = 0;
-    public boolean NormalLossRules = true;
+    public boolean NormalLossRules = true;*/
 
 
 
@@ -49,7 +51,9 @@ public class crewReplacer_Crew {
             }
         }
     }
-
+    public float getCrewToLose(float crewUsed,float crewLost){
+        return crewLost;
+    }
     public void removeCrew(CampaignFleetAPI fleet,float CrewToLost){
         fleet.getCargo().removeCommodity(name, CrewToLost);
     }
@@ -60,8 +64,33 @@ public class crewReplacer_Crew {
     public float getCrewPowerInFleet(CampaignFleetAPI fleet){
         return getCrewInFleet(fleet) * crewPower;
     }
-    public double getCrewLostPercent(){
+    /*public double getCrewLostPercent(){
         return (Math.random() * (maxLosePercent - minLosePercent)) + minLosePercent;
+    }*/
+    public void DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text, Color highlight){
+        String[] message = {
+                "",
+                "an",
+        };
+        String output;
+        String displayName;
+        if(numberOfItems != 0){
+            output =  "" + numberOfItems + " " + name + "s";
+        }else{
+            output = message[1] + " " + name;
+        }
+        if(numberOfItems > 1){
+            displayName = name + "s";
+            text.appendToLastParagraph(message[0] + "" + numberOfItems + " " + displayName);
+            text.highlightInLastPara(highlight, displayName);
+        }else if(numberOfItems == 1){
+            displayName = name;
+            text.appendToLastParagraph(message[1] + " " + displayName);
+            text.highlightInLastPara(highlight, displayName);
+        }
+        //return output;
+        // text.appendToLastParagraph(message[1] + " " + displayName);
+        //                text.highlightInLastPara(highlight, displayName);
     }
 
 

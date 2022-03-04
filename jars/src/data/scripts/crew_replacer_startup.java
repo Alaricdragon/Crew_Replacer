@@ -69,16 +69,16 @@ public class crew_replacer_startup extends BaseModPlugin {
     }
     private static void startup2(){
         crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_main");
-        tempJob.addNewCrew("crew",1,10,0,0,true);
+        tempJob.addNewCrew("crew",1,10/*,0,0,true*/);
 
         tempJob = crewReplacer_Main.getJob("salvage_Secondary");
-        tempJob.addNewCrew("heavy_machinery",1,10,0,0,true);
+        tempJob.addNewCrew("heavy_machinery",1,10/*,0,0,true*/);
 
         tempJob = crewReplacer_Main.getJob("fleet");
-        tempJob.addNewCrew("crew",1,10,0,0,true);
+        tempJob.addNewCrew("crew",1,10/*,0,0,true*/);
 
         tempJob = crewReplacer_Main.getJob("survey_main");
-        tempJob.addNewCrew("crew",1,10,0,0,true);
+        tempJob.addNewCrew("crew",1,10/*,0,0,true*/);
 
         //crewReplacer_Main.addOrMergeJob(tempJob);
 
@@ -93,6 +93,6 @@ public class crew_replacer_startup extends BaseModPlugin {
         crewReplacer_Main.addNewJob(tempJob);*/
 
         tempJob = crewReplacer_Main.getJob("combat");
-        tempJob.addNewCrew("marines",1,10,0,0,true);
+        tempJob.addNewCrew("marines",1,10/*,0,0,true*/);
     }
 }

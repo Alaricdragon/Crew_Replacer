@@ -43,17 +43,17 @@ public class codetester {
     private static void startup2(){
         crewReplacer_Job tempJob = new crewReplacer_Job();
         tempJob.name = "salvage_main";
-        tempJob.addNewCrew("crew",1,10,0,0,true);
+        //tempJob.addNewCrew("crew",1,10,0,0,true);
         crewReplacer_Main.addOrMergeJob(tempJob);
 
         tempJob = new crewReplacer_Job();
         tempJob.name = "fleet";
-        tempJob.addNewCrew("crew",1,10,0,0,true);
+        //tempJob.addNewCrew("crew",1,10,0,0,true);
         crewReplacer_Main.addOrMergeJob(tempJob);
 
         tempJob = new crewReplacer_Job();
         tempJob.name = "survey_main";
-        tempJob.addNewCrew("crew",1,10,0,0,true);
+        //tempJob.addNewCrew("crew",1,10,0,0,true);
         crewReplacer_Main.addOrMergeJob(tempJob);
 
         /*tempJob = new crewReplacer_Job();
@@ -68,7 +68,7 @@ public class codetester {
 
         tempJob = new crewReplacer_Job();
         tempJob.name = "combat";
-        tempJob.addNewCrew("marines",1,10,0,0,true);
+        //tempJob.addNewCrew("marines",1,10,0,0,true);
         crewReplacer_Main.addOrMergeJob(tempJob);
     }
 }

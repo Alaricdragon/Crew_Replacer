@@ -68,7 +68,7 @@ public class crewReplacer_Job {
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew.name)){
                 output = false;
-                mergeCrew(Crews.get(a),crew.crewPower,crew.crewPriority,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules);
+                mergeCrew(Crews.get(a),crew.crewPower,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
                 break;
             }
         }
@@ -77,7 +77,7 @@ public class crewReplacer_Job {
         }
         return output;
     }
-    public boolean addNewCrew(String crew,float crewPower,float crewPriority,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules){
+    public boolean addNewCrew(String crew,float crewPower,float crewPriority/*,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules*/){
         boolean output = true;
         crewReplacer_Crew temp = new crewReplacer_Crew();
         for(int a = 0; a < Crews.size(); a++){
@@ -91,15 +91,15 @@ public class crewReplacer_Job {
             temp.name = crew;
             Crews.add(temp);
         }
-        mergeCrew(temp,crewPower,crewPriority,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules);
+        mergeCrew(temp,crewPower,crewPriority/*,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules*/);
         return output;
     }
-    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules){
+    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority/*,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules*/){
         crew.crewPower = crewPower;
         crew.crewPriority = crewPriority;
-        crew.maxLosePercent = crewMaxLosePercent;
-        crew.maxLosePercent = crewMinLosePercent;
-        crew.NormalLossRules = crewNormalLoseRules;
+        //crew.maxLosePercent = crewMaxLosePercent;
+        //crew.maxLosePercent = crewMinLosePercent;
+        //crew.NormalLossRules = crewNormalLoseRules;
     }
     public boolean hasTag(String tag){
         boolean output = false;
@@ -276,26 +276,27 @@ public class crewReplacer_Job {
         output = getRandomNumberList(crewUsed,temp2,crew_power_to_lose);
         float temp;
         for(int a = 0; a < output.size(); a++){
-            temp = (float) Crews.get(a).getCrewLostPercent();
+            output.set(a,Crews.get(a).getCrewToLose(crewUsed.get(a),output.get(a)));//new system, to allow more contol.
+            //temp = (float) Crews.get(a).getCrewLostPercent();
             //1,15,0 == 15//1,15,30 == 0
-            output.set(a,output.get(a) + (temp * Math.max(crewUsed.get(a) - output.get(a),0)));
+            //output.set(a,output.get(a) + (temp * Math.max(crewUsed.get(a) - output.get(a),0)));
         }
         return output;
     }
     public void displayCrewLost(ArrayList<Float> crewLost, TextPanelAPI text, Color highlight){
-        String[] message = {
-                "",
-                "an",
-        };
         //text.appendToLastParagraph(" runing display for:  " + name);//for testing.
         //text.appendToLastParagraph(" sizes: " + crewLost.size() + ", " + Crews.size());
         boolean last = false;
         for(int a = 0; a < crewLost.size(); a++){
-            String displayName = Crews.get(a).name;//HERE need to change this from the Commodity ID to the name of said Commodity.
+            //String displayName = Crews.get(a).name;
             if(last && crewLost.get(a) >= 1){
-                text.appendToLastParagraph(" and ");
+                text.appendToLastParagraph(", ");
             }
-            if(crewLost.get(a) > 1){
+            if(crewLost.get(a) != 0){
+                last = true;
+                Crews.get(a).DisplayedCrewNumbers(crewLost.get(a),text,highlight);
+            }
+            /*if(crewLost.get(a) > 1){
                 last = true;
                 text.appendToLastParagraph(message[0] + "" + crewLost.get(a) + " " + displayName + "s");
                 text.highlightInLastPara(highlight, displayName + "s");
@@ -303,7 +304,7 @@ public class crewReplacer_Job {
                 last = true;
                 text.appendToLastParagraph(message[1] + " " + displayName);
                 text.highlightInLastPara(highlight, displayName);
-            }
+            }*/
         }
     }
     public void applyCrewLost(ArrayList<Float> crewLost,CampaignFleetAPI fleet){
@@ -405,17 +406,14 @@ public class crewReplacer_Job {
     }
 
     public void displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text, Color highlight){
-        String[] message = {
-                "",
-                "an",
-        };
         for(int a = 0; a < Crews.size(); a++){
-            float crew = Crews.get(a).getCrewInFleet(fleet);
+            Crews.get(a).DisplayedCrewNumbers(Crews.get(a).getCrewInFleet(fleet),text,highlight);
+            /*float crew = Crews.get(a).getCrewInFleet(fleet);
             if(crew == 1){
                 text.appendToLastParagraph(message[0] + "" + crew + " " + Crews.get(a).name + "s");
             }else if(crew != 0){
                 text.appendToLastParagraph(message[1] + "" + crew + " " + Crews.get(a).name);
-            }
+            }*/
         }
     }
     static private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<Float> power,float input){

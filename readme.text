@@ -11,8 +11,10 @@
     and in the second, i will add a new crew type and name it 'heavy_machinery'
     now if a modder wants to add a second item that can act as crew in the salvage task they can try:
       crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_main");
-      tempJob.addNewCrew("name of this crew",1,10,0,0,true);
+      tempJob.addNewCrew("name of this crew",1,10);
         -"name of this crew" is the commodities ID of the item you want to act as crew.
+        -"1" is the crew power
+        -"10" is the crew priority.
     and then, just like that, there is a second crew type added to this job. it will act the same as the normal crew
     and will loss crew at the same time the normal crew would, if it happens to be used in said job.
 
@@ -53,31 +55,31 @@
         again, please do not edit this directly, or things can go wrong.
     -getCrew(String crew)
         return crewReplacer_Crew
-        returns if a crew in this objects memory matches the inputed name, reutrn it. otherwize create a new crew with this name, then returns it.
+        returns if a crew in this objects memory matches the inputted name, return it. otherwise create a new crew with this name, then returns it.
     -removeCrew(String crew)
         return boolean
-        returns true if a crew is removed from this object. false otherwize
-        only removes a crew if it matches the inputed string
+        returns true if a crew is removed from this object. false otherwise
+        only removes a crew if it matches the inputted string
     -addCrew(crewReplacer_Crew crew)
         return boolean
         returns true if a new crew is added, or false if said crew replaces an old one.
-        only replaces a crew if one already exsists with the same name.
-    -addNewCrew(String crew,float crewPower,float crewPriority,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules)
+        only replaces a crew if one already exists with the same name.
+    -addNewCrew(String crew,float crewPower,float crewPriority)
         return boolean
         returns true if a new crew is added, or false if said crew replaces an old one.
-        only replaces a crew if one already exsists with the same name.
-        the exstra inputs lets a user create a crew here if they want, instead of createing a new crew
+        only replaces a crew if one already exists with the same name.
+        the extra inputs lets a user create a crew here if they want, instead of creating a new crew
 
     -hasTag(String tag)
         return boolean
-        reutrns true if this object has a tag with the same name
+        returns true if this object has a tag with the same name
     -addTag(String tag)
-        adds a tag with the inputed name
+        adds a tag with the inputted name
     -removeTag(String tag)
-        removes the tag (if any) with the inputed name
+        removes the tag (if any) with the inputted name
 
     -organizePriority()
-        sorts iternal data of the object. must after a crew is added, or has its priority or crewpower changed. runs once on onGameLoad.
+        sorts internal data of the object. must after a crew is added, or has its priority or crewPower changed. runs once on onGameLoad.
     -getAvailableCrew(CampaignFleetAPI fleet)
         return float[]
         returns the the number of crew for every crewReplacer_crew in this object.
@@ -85,12 +87,12 @@
         return float
         returns the crew power for all crew in this object combined.
 
-    -automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text, Color highlight)
-        a basic 'do it all' comand, for applying and displaying crew losses in a fleet
-    -automaticlyGetAndApplyCrewLost(CampaignFleetAPI fleet, int crewPowerRequired, float crew_power_to_lose)
+    -automaticallyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text, Color highlight)
+        a basic 'do it all' command, for applying and displaying crew losses in a fleet
+    -automaticallyGetAndApplyCrewLost(CampaignFleetAPI fleet, int crewPowerRequired, float crew_power_to_lose)
         returns ArrayList<Float>
         returns crew lost data. to be put into displayCrewLost
-        like automaticlyGetDisplayAndApplyCrewLost, but it dose not display, instead it outputs crew_lost data
+        like automaticallyGetDisplayAndApplyCrewLost, but it dose not display, instead it outputs crew_lost data
 
     -getCrewForJob(CampaignFleetAPI fleet, float crewPowerRequired)
         return ArrayList<float>
@@ -118,81 +120,74 @@
     *make sure to run organizePriority of the crewReplacer_job class this crew is apart of, if any, when adding a crew or changeing
      the crewPriority or crewPower mid game.
     -public String name;
-        commoditie ID of the item you want to act like a crew in this context.
+        commodities ID of the item you want to act like a crew in this context.
     -public ArrayList<String> tags;
         for user. dose nothing on its own
     -public float crewPriority = 0;
         the crewPriority of this crew. make sure to run
     -public float crewPower = 1;
         the 'strangth' of each crew in doing its job.
-    -public float maxLosePercent = 0;
-        (should always be between 0 and 1)
-        the max percent of crew i want to loss every time i loss crew for this job.
-        is in addition to the crew normaly lost in this job.
-    -public float minLosePercent = 0;
-        (should always be between 0 and 1)
-        the min percent of crew i want to loss every time i loss crew for this job.
-        is in addition to the crew normaly lost in this job.
-    -public boolean NormalLossRules = true;
-        wether or not this crew should be alowd to loss crew by the normal loss rules.
-        dose not effect max/min lose percent.
+
 
     -hasTag(String tag)
         return boolean
-        returns true if a tag with the inputed Strings name exsists in this crews memeory
+        returns true if a tag with the inputted Strings name exists in this crews memory
     -AddTag(String tag)
-        adds an tag with the inputed Strings name (dose nothing if tag with same name already exsists)
+        adds an tag with the inputted Strings name (dose nothing if tag with same name already exists)
     -RemoveTag(String tag)
-        removes a tag with the same name as the inputed String (of there is one)
+        removes a tag with the same name as the inputted String (of there is one)
     -getCrewInFleet(CampaignFleetAPI fleet)
         return float
-        reutrns number of crew in this fleet.
+        returns number of crew in this fleet.
     -getCrewPowerInFleet(CampaignFleetAPI fleet)
         return float
         returns number of crew in this fleet * crew power.
-    -getCrewLostPercent()
-        return double
-        returns a loss perent based on the minLossPercent and the MaxLossPercent.
+    -getCrewToLose(float crewUsed,float crewLost)
+        returns float
+        returns the number of crew you want to lose (default: crewLost)
+    -removeCrew(CampaignFleetAPI fleet,float CrewToLost)
+        removes a number of this crew from this fleet.
+    -DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text, Color highlight)
+        adds to text an display of the number of crew, with the crew name highlighted.
 
-
-# Things that need to be done to compleat this project
+# Things that need to be done to complete this project
   fixes
     - survey is so broken. helps.
-  furtures
-    -quests that require items might want to have a job assined to them.
-    - the ability to change what items crew/supply/repair ships, if that is possable.
+  futures
+    -quests that require items might want to have a job assigned to them.
+    - the ability to change what items crew/supply/repair ships, if that is possible.
 
 
-# Job data that needs to be set and implumented (only jobs that are in the base game please)
-  example_job_data_name(done/workingon/notstarted/untested)
+# Job data that needs to be set and implemented (only jobs that are in the base game please)
+  example_job_data_name(done/working on/not started/untested)
     - notes on this task
-    job0intask(done/workingon/notstarted/untested)
-      - notes on this jobintask
-    job1intask(done/workingon/notstarted/untested)
-      - notes on this jobintask
-    job2intask(done/workingon/notstarted/untested)
-      - notes on this jobintask
+    job0intask(done/working on/not started/untested)
+      - notes on this job in task
+    job1intask(done/workingon/not started/untested)
+      - notes on this job in task
+    job2intask(done/working on/not started/untested)
+      - notes on this job in task
 
-  survey(workingon)
-    -currently inplemented in the survey plugin. this is bad, because the survey plugin only effects the cost of the survey, not what i have. so instead of haveing exstra crew
+  survey(working on)
+    -currently implemented in the survey plugin. this is bad, because the survey plugin only effects the cost of the survey, not what i have. so instead of haveing exstra crew
       i reduce the cost of the survey. same effect, but kinda confuseing and disorentateing. also cant remove crews like i would like.
     survey_main(done)
     survey_supplys(not stated)
-    survey_heavy_matchineary(not started)
+    survey_heavy_machinery(not started)
   salvage(done/untested)
-    -DONE in theory. might have a bug or 50, but i simplely dont know for sure. i think its working though
+    -DONE in theory. might have a bug or 50, but i simply don't know for sure. i think its working though
     -might need to make names more clear.
     salvage_main(done)
     salvage_Secondary(done)
   raiding(not started)
-    -found something in the MarketCMD thing, that might be were the game cheacks the player for mirrians, and removes them. will need more data. (look at the rules.csv file or the crew_replacer_MarketCMD.java file for detailes, got the functions maped there.)
+    -found something in the MarketCMD thing, that might be were the game checks the player for mirrians, and removes them. will need more data. (look at the rules.csv file or the crew_replacer_MarketCMD.java file for details, got the functions mapped there.)
     Marines
   crewships(not started)
     crew
-    -i know there is code somewere to cheack for the crew in ships, but i have no idea were
+    -i know there is code somewhere to check for the crew in ships, but i have no idea were
   supplyships(not started)
     supplyships
-    -ship supplys would be a usefull crewjob to have for modders. no idea were this is calculated.
-  credits per moumth cost(?)?
-    -im almost 100% sure that this would be a pain to implement, but at the same time, i remember reading somewere that changeing the display were the game shows you the cost per moumth
-      thing is very difracalt, so it might be nice to have an 'job' that takes a tag and applys a crew cost for everything in it.
+    -ship supply would be a useful crew job to have for modders. no idea were this is calculated.
+  credits per mouth cost(?)?
+    -im almost 100% sure that this would be a pain to implement, but at the same time, i remember reading somewhere that changing the display were the game shows you the cost per momth
+      thing is very diffract, so it might be nice to have an 'job' that takes a tag and applys a crew cost for everything in it.

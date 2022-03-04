@@ -1,0 +1,11 @@
+{
+	"plugins":{
+		"surveyPlugin":"data.scripts.replacementscripts.SurveyPluginImpl",
+	},
+	"ruleCommandPackages":[
+		"data.scripts.replacementscripts.Salvage",
+		"data.scripts.starfarer.api.impl.campaign.rulemd",
+	],
+
+}
+

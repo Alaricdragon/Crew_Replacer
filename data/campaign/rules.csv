@@ -1,0 +1,27 @@
+id,trigger,conditions,script,text,options,notes
+# salvage changes for hullmod,,,,,,
+sal_showRatingAndCost,BeginSalvage,,"crew_replacer_SalvageEntity showCost
+FireAll PopulateSalvageOptions2",,,
+sal_optionCheckAccidents,DialogOptionSelected,$option == salSalvage,crew_replacer_SalvageEntity checkAccidents,,,
+sal_salvageOptionSelected,DialogOptionSelected,$option == salPerform,"crew_replacer_SalvageEntity performSalvage
+FireBest PostSalvagePerform",,,
+sal_scavengeDebris,OpenInteractionDialog,"$tag:salvageable
+$customType == debris_field_shared score:100","SalvageGenFromSeed
+ShowDefaultVisual
+crew_replacer_SalvageEntity descDebris
+FireBest SalvageCheckHostile",Your $shipOrFleet assumes a stable orbit relative to the debris field.,,
+sal_forceRecoveryOptSel,DialogOptionSelected,$option == salMakeRecoverable,"crew_replacer_SalvageEntity showRecoverable
+FireBest CheckSalvageSpecial",,,
+sal_demolishOptionConfirmed,DialogOptionSelected,$option == salDemolishConfirm,crew_replacer_SalvageEntity demolish,,,
+,,,,,,
+#marketHostileRaidSel,DialogOptionSelected,$option == mktRaid,MarketCMD raidMenu,,,
+#marketHostileRaidNonMarket,DialogOptionSelected,$option == mktRaidNonMarket,MarketCMD raidNonMarket,,,
+#marketHostileRaidGoBackSel,DialogOptionSelected,$option == mktRaidGoBack,MarketCMD goBackToDefenses,,,
+#marketHostileRaidRareSel,DialogOptionSelected,$option == mktRaidRare,MarketCMD raidRare,,,Unused.
+#marketHostileRaidValuableSel,DialogOptionSelected,$option == mktRaidValuable,MarketCMD raidValuable,,,
+#marketHostileRaidDisruptSel,DialogOptionSelected,$option == mktRaidDisrupt,MarketCMD raidDisrupt,,,
+#marketHostileRaidConfirmSel,DialogOptionSelected,$option == mktRaidConfirm,MarketCMD raidConfirm,,,
+#marketHostileRaidConfirmContSel,DialogOptionSelected,$option == mktRaidConfirmContinue,MarketCMD raidConfirmContinue,,,
+#marketHostileRaidNeverMindSel,DialogOptionSelected,$option == mktRaidNeverMind,MarketCMD raidNeverMind,,,
+#marketHostileRaidResultSel,DialogOptionSelected,$option == mktRaidResult,MarketCMD raidResult,,,
+#marketHostileRaidPostRaidDefault,PostGroundRaid,,MarketCMD addContinueToRaidResultOption,,,

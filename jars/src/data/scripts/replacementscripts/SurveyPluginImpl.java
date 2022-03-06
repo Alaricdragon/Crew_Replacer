@@ -26,7 +26,9 @@ changed getRequired to change heavy matchenery cost to match lost crew cost (ras
 
  */
 public class SurveyPluginImpl implements SurveyPlugin {
-
+    private String crewJob = "survey_crew";
+    private String supplyJob = "survey_supply";
+    private String heavy_matchnearyJob = "survey_heavy_machinery";
     public static int FLAT_SUPPLIES = 10;
 
     public static int BASE_MACHINERY = 10;
@@ -101,16 +103,17 @@ public class SurveyPluginImpl implements SurveyPlugin {
         if (machinery < MIN_SUPPLIES_OR_MACHINERY) machinery = MIN_SUPPLIES_OR_MACHINERY;
         int crew = (int)Math.round(BASE_CREW * mult);
         int temp = crew;
-        crewReplacer_Job tempJob = crewReplacer_Main.getJob("survey_main");
+        crewReplacer_Job crewJobTemp = crewReplacer_Main.getJob(crewJob);
+        crewReplacer_Job machineryJobTemp = crewReplacer_Main.getJob(heavy_matchnearyJob);
         //if(tempJob != null){
         //tempJob.automaticlyGetAndApplyCrewLost(fleet,crew,0);
         //ArrayList<Float> temps = crew_replacer.automaticlyGetAndApplyCrewLosses("survey",crew,0,fleet);//TEMP
         //crew -= crew_replacer.getCrewPower("survey",fleet);
         //crew -= fleet.getCargo().getCommodityQuantity("AIretrofit_SurveyDrone");//(int)tempJob.getAvailableCrewPower(fleet);
-        crew -= tempJob.getAvailableCrewPower(fleet);
-        if(crew < 0) {
-            crew = 0;
-        }
+        crew -= crewJobTemp.getAvailableCrewPower(fleet);
+        machinery -= machineryJobTemp.getAvailableCrewPower(fleet);
+        crew = Math.max(0,crew);
+        machinery = Math.max(0,machinery);
         result.put(Commodities.CREW,crew);
         result.put(Commodities.HEAVY_MACHINERY, machinery);
 
@@ -126,6 +129,9 @@ public class SurveyPluginImpl implements SurveyPlugin {
         supplies = Math.round((int) supplies / 10f) * 10;
         supplies -= (int) Misc.getFleetwideTotalMod(fleet, Stats.getSurveyCostReductionId(Commodities.SUPPLIES), 0);
         if (supplies < MIN_SUPPLIES_OR_MACHINERY) supplies = MIN_SUPPLIES_OR_MACHINERY;
+        crewReplacer_Job suppliesJobTemp = crewReplacer_Main.getJob(supplyJob);
+        supplies -= suppliesJobTemp.getAvailableCrewPower(fleet);
+        supplies = Math.max(0,supplies);
         result.put(Commodities.SUPPLIES, supplies);
 
         return result;

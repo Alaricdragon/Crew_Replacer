@@ -22,6 +22,10 @@
   read the data at the "Job data that needs to be set and implemented" category of this file and look for items that are done to understand whats implemented so far.
   -for real, this is so not done, but i need to help people with something or other, so i gotta go back to this latter
 
+combatability:
+    not fully compatible with Nexerein.
+        -the raid job will fail to do anything so long as Nexerein is installed. everything else works though.
+        -needs an compatibility patch help.
 # Index for all public functions that a person using this library will need to know.
   crewReplacer_main
     -getJob(String job)
@@ -168,20 +172,25 @@
     job2intask(done/working on/not started/untested)
       - notes on this job in task
 
-  survey(working on)
-    -currently implemented in the survey plugin. this is bad, because the survey plugin only effects the cost of the survey, not what i have. so instead of haveing exstra crew
-      i reduce the cost of the survey. same effect, but kinda confuseing and disorentateing. also cant remove crews like i would like.
-    survey_main(done)
-    survey_supplys(not stated)
-    survey_heavy_machinery(not started)
+  survey(done)
+    -currently implemented in the survey plugin. this is bad, because the survey plugin only effects the cost of the survey, not what i have. so instead of having extra crew
+      i reduce the cost of the survey. same effect, but kinda confusing and disorientating. also cant remove crews like i would like.
+    -admins say that the survey plugin is the only place this can work, as were the crew available is calculated is part of the 'core' of the game, and cannot be changed.
+    survey_crew(done)
+    survey_supply(partlydone)
+        -crew added to the supply_job are not consumed when they should be.
+        -the only way i can make then consumed, is if i make it happen every time someone mouses over a planet. and thats a no go for me thanks
+        -this dose not effect normal supply.
+    survey_heavy_machinery(done)
   salvage(done/untested)
     -DONE in theory. might have a bug or 50, but i simply don't know for sure. i think its working though
     -might need to make names more clear.
     salvage_main(done)
     salvage_Secondary(done)
-  raiding(not started)
+  raiding(done/untested)
+    -DONE in theory. am having some proldoms getting it to work with neux though, and that mod is something i need
+    -raiding_main(done)
     -found something in the MarketCMD thing, that might be were the game checks the player for mirrians, and removes them. will need more data. (look at the rules.csv file or the crew_replacer_MarketCMD.java file for details, got the functions mapped there.)
-    Marines
   crewships(not started)
     crew
     -i know there is code somewhere to check for the crew in ships, but i have no idea were

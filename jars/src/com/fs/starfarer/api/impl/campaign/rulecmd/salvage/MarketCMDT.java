@@ -130,7 +130,7 @@ this will seperate the names
         -applyDebtEffect
  */
 public class MarketCMDT extends MarketCMD{//BaseCommandPlugin {
-    String jobmain = "raiding";//
+    String jobmain = "raiding_main";//
     String crewmain = "";
     /*
     public static enum RaidType {

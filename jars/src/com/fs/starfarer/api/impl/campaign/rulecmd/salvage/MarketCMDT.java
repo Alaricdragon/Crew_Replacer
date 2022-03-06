@@ -1,4 +1,4 @@
-package data.scripts.replacementscripts.Salvage;
+package com.fs.starfarer.api.impl.campaign.rulecmd.salvage;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD;
+import data.scripts.crewReplacer_Job;
+import data.scripts.crewReplacer_Main;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -18,6 +19,7 @@ import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CoreInteractionListener;
 import com.fs.starfarer.api.campaign.FactionAPI;
+import com.fs.starfarer.api.campaign.GroundRaidTargetPickerDelegate;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
@@ -29,6 +31,7 @@ import com.fs.starfarer.api.campaign.ai.CampaignFleetAIAPI.ActionType;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MonthlyReport;
+import com.fs.starfarer.api.campaign.listeners.GroundRaidObjectivesListener.RaidResultData;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.OfficerDataAPI;
@@ -69,6 +72,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.impl.campaign.rulecmd.AddRemoveCommodity;
 import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireAll;
+import com.fs.starfarer.api.impl.campaign.rulecmd.FireBest;
 import com.fs.starfarer.api.impl.campaign.rulecmd.SetStoryOption;
 import com.fs.starfarer.api.impl.campaign.rulecmd.SetStoryOption.BaseOptionStoryPointActionDelegate;
 import com.fs.starfarer.api.impl.campaign.rulecmd.SetStoryOption.StoryOptionParams;
@@ -80,6 +84,13 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI.StatModValueGetter;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Misc.Token;
+/*
+PROLDOM:
+the code is not runing (i think).
+why? it has the same function names as the base functions.
+solution? add a 2 to function names, in this and in the rules.csv.
+this will seperate the names
+ */
 /*
        Everything function thats commeted out in its function is like that because i cant get it to work.
        this has nothing to do with salvage. this has everything to do with raiding, if i recall.
@@ -118,9 +129,10 @@ import com.fs.starfarer.api.util.Misc.Token;
         -checkDebtEffect
         -applyDebtEffect
  */
-public class crew_replacer_MarketCMD extends BaseCommandPlugin {
-    private static String item = "marine";
-    private static String job = "raid";
+public class MarketCMDT extends MarketCMD{//BaseCommandPlugin {
+    String jobmain = "raiding";//
+    String crewmain = "";
+    /*
     public static enum RaidType {
         CUSTOM_ONLY,
         VALUABLE,
@@ -135,10 +147,10 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
     public static enum RaidDangerLevel {
         NONE("None", "None", Misc.getPositiveHighlightColor(), 0f, 60f, 1),
         MINIMAL("Minimal", "Minimal", Misc.getPositiveHighlightColor(), 0.02f, 50f, 1),
-        LOW("Low", "Light", Misc.getPositiveHighlightColor(), 0.05f, 40f, 2),
-        MEDIUM("Medium", "Moderate", Misc.getHighlightColor(), 0.1f, 30f, 3),
-        HIGH("High", "Heavy", Misc.getNegativeHighlightColor(), 0.2f, 20f, 5),
-        EXTREME("Extreme", "Extreme", Misc.getNegativeHighlightColor(), 0.4f, 10f, 7);
+        LOW("Low", "Light", Misc.getPositiveHighlightColor(), 0.04f, 40f, 2),
+        MEDIUM("Medium", "Moderate", Misc.getHighlightColor(), 0.08f, 30f, 3),
+        HIGH("High", "Heavy", Misc.getNegativeHighlightColor(), 0.16f, 20f, 5),
+        EXTREME("Extreme", "Extreme", Misc.getNegativeHighlightColor(), 0.32f, 10f, 7);
 
         private static RaidDangerLevel [] vals = values();
 
@@ -169,7 +181,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         }
     }
 
-    public static class TempData extends MarketCMD.TempData {
+    public static class TempData {
         //public boolean canSurpriseRaid;
         //public boolean isSurpriseRaid;
         public boolean canRaid;
@@ -272,9 +284,10 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
     protected Map<String, MemoryAPI> memoryMap;
     protected FactionAPI faction;
 
-    protected TempData temp = new TempData();
-
-    public crew_replacer_MarketCMD() {
+    protected TempData temp = new TempData();*/
+/*
+    public MarketCMDT() {
+        //DebugFlags.MARKET_HOSTILITIES_DEBUG = false;
     }
 
     protected void clearTemp() {
@@ -295,7 +308,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         }
     }
 
-    public crew_replacer_MarketCMD(SectorEntityToken entity) {
+    public MarketCMDT(SectorEntityToken entity) {
         init(entity);
     }
 
@@ -329,7 +342,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             mem.set(key, temp, 0f);
         }
     }
-
+*/
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Token> params, Map<String, MemoryAPI> memoryMap) {
         this.dialog = dialog;
         this.memoryMap = memoryMap;
@@ -411,7 +424,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 
         return true;
     }
-
+/*
     protected void showDefenses(boolean withText) {
         CampaignFleetAPI primary = getInteractionTargetForFIDPI();
         CampaignFleetAPI station = getStationFleet();
@@ -712,10 +725,10 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             plugin.cleanUpBattle();
         }
 
-    }
+    }*/
 
     public static float getRaidStr(CampaignFleetAPI fleet) {
-        float attackerStr = fleet.getCargo().getMaxPersonnel() * 0.25f;
+        float attackerStr = fleet.getCargo().getMaxPersonnel() * 0.25f;//HERE
         float support = Misc.getFleetwideTotalMod(fleet, Stats.FLEET_GROUND_SUPPORT, 0f);
         attackerStr += Math.min(support, attackerStr);
 
@@ -723,28 +736,31 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         attackerStr = stat.computeEffective(attackerStr);
 
         return attackerStr;
-    }//HERE?
+    }
+    /*
     public static float getDefenderStr(MarketAPI market) {
         StatBonus stat = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
         float defenderStr = (int) Math.round(stat.computeEffective(0f));
         float added = getDefenderIncreaseValue(market);
         defenderStr += added;
         return defenderStr;
-    }
-
+    }*/
+/*
     public static float getRaidEffectiveness(MarketAPI market, CampaignFleetAPI fleet) {
         return getRaidEffectiveness(market, getRaidStr(fleet));
-    }
+    }*/
+    /*
     public static float getRaidEffectiveness(MarketAPI market, float attackerStr) {
         float defenderStr = getDefenderStr(market);
         return attackerStr / Math.max(1f, (attackerStr + defenderStr));
-    }
-
+    }*/
+/*
     public static int getMarinesFor(MarketAPI market, int tokens) {
         float defenderStr = getDefenderStr(market);
         return getMarinesFor((int)defenderStr, tokens);
-    }
-    public static int getMarinesFor(int defenderStrength, int tokens) {
+    }*/
+    /*
+    public static int getMarinesFor(int defenderStrength, int tokens) {//notHERE. this is for the defencer.
 //		mult = as / (as + ds);
 //		tokens = mult / re_per
 //
@@ -759,11 +775,12 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                 (float) defenderStrength / (1f - (float) tokens * RE_PER_MARINE_TOKEN));
 
         return marines;
-    }
+    }*/
+    /*
     public static int getDisruptDaysPerToken(MarketAPI market, Industry industry) {
         DisruptIndustryRaidObjectivePluginImpl obj = new DisruptIndustryRaidObjectivePluginImpl(market, industry);
         return (int) Math.round(obj.getBaseDisruptDuration(1));
-    }
+    }*/
 
 
     protected void raidNonMarket() {
@@ -781,17 +798,16 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 
         dialog.getVisualPanel().showImagePortion("illustrations", "raid_prepare", 640, 400, 0, 0, 480, 300);
 
-        //float marines = playerFleet.getCargo().getMarines();//DONE (get crew power)
-        float marines = 0;//HERE crew_replacer.getCrewPower("raid",playerFleet);
+        float marines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleet);//playerFleet.getCargo().getMarines();//doneHERE
         float support = Misc.getFleetwideTotalMod(playerFleet, Stats.FLEET_GROUND_SUPPORT, 0f);
-        if (support > marines) support = marines;//DONE (compair crew power)
+        if (support > marines) support = marines;
 
         StatBonus attackerBase = new StatBonus();
         StatBonus defenderBase = new StatBonus();
 
         //defenderBase.modifyFlatAlways("base", baseDef, "Base value for a size " + market.getSize() + " colony");
 
-        attackerBase.modifyFlatAlways("core_marines", marines, "Marines on board");//HERE (discribe crew power)
+        attackerBase.modifyFlatAlways("core_marines", marines, "Ground troops on board");//HERE
         attackerBase.modifyFlatAlways("core_support", support, "Fleet capability for ground support");
 
         StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
@@ -905,6 +921,11 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         float opad = 10f;
         float small = 5f;
 
+//		if (true) {
+//			Global.getSector().getCampaignUI().showCoreUITab(CoreUITabId.CARGO);
+//			return;
+//		}
+
         Color h = Misc.getHighlightColor();
 
         temp.nonMarket = false;
@@ -913,17 +934,16 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 //		dialog.getVisualPanel().finishFadeFast();
         dialog.getVisualPanel().showImagePortion("illustrations", "raid_prepare", 640, 400, 0, 0, 480, 300);
 
-        //float marines = playerFleet.getCargo().getMarines();//DONE (get crew power)
-        float marines = 0;//crew_replacer.getCrewPower("raid",playerFleet);//HERE
+        float marines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleet);//playerFleet.getCargo().getMarines();//doneHERE
         float support = Misc.getFleetwideTotalMod(playerFleet, Stats.FLEET_GROUND_SUPPORT, 0f);
-        if (support > marines) support = marines;//DONE (compair to crew power)
+        if (support > marines) support = marines;
 
         StatBonus attackerBase = new StatBonus();
         StatBonus defenderBase = new StatBonus();
 
         //defenderBase.modifyFlatAlways("base", baseDef, "Base value for a size " + market.getSize() + " colony");
 
-        attackerBase.modifyFlatAlways("core_marines", marines, "Marines on board");//HERE (describe crew power)
+        attackerBase.modifyFlatAlways("core_marines", marines, "Ground troops on board");//HERE this looks like its a veribal assinment, as apposed to an displayed text.?
         attackerBase.modifyFlatAlways("core_support", support, "Fleet capability for ground support");
 
         StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
@@ -941,7 +961,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             defender.modifyFlat(increasedDefensesKey, added, "Increased defender preparedness");
         }
 
-        float attackerStr = (int) Math.round(attacker.computeEffective(attackerBase.computeEffective(0f)));
+        float attackerStr = (int) Math.round(attacker.computeEffective(attackerBase.computeEffective(0f)));//notHERE?
         float defenderStr = (int) Math.round(defender.computeEffective(defenderBase.computeEffective(0f)));
 
         temp.attackerStr = attackerStr;
@@ -1075,13 +1095,11 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 //	}
 
     protected void raidValuable() {
-        /*
         temp.raidType = RaidType.VALUABLE;
 
         List<GroundRaidObjectivePlugin> obj = new ArrayList<GroundRaidObjectivePlugin>();
 
         // See: StandardGroundRaidObjectivesCreator; it creates the standard objectives with priority 0 below
-        //final com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD.RaidType useType = !temp.nonMarket ? (MarketCMD.RaidType) temp.raidType : MarketCMD.RaidType.CUSTOM_ONLY;
         final RaidType useType = !temp.nonMarket ? temp.raidType : RaidType.CUSTOM_ONLY;
         //if (temp.nonMarket) useType = RaidType.CUSTOM_ONLY;
         for (int i = 0; i < 10; i++) {
@@ -1095,8 +1113,11 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             return;
         }
 
-
+        final CampaignFleetAPI playerFleettemp = playerFleet;
+        final TempData temptemp = temp;
+        final TextPanelAPI texttemp = text;
         dialog.showGroundRaidTargetPicker("Select raid objectives", "Select", market, obj,
+
                 new GroundRaidTargetPickerDelegate() {
                     public void pickedGroundRaidTargets(List<GroundRaidObjectivePlugin> data) {
                         float value = 0;
@@ -1113,31 +1134,49 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                         if (names.size() > 1) {
                             item = "objectives";
                         }
-
+                        /*doneHERE removed the old display of marines, and added a new one.
                         String isOrAre = "are";
                         String marinesStr = "marines";
-                        if (playerCargo.getMarines() == 1) {//HERE i dont even know if i can keep this. might have to change inter description of things.
+                        if (playerCargo.getMarines() == 1) {
                             isOrAre = "is";
                             marinesStr = "marine";
                         }
-                        //float losses = getProjectedMarineLossesFloat();
+
+                         */
+                        //float losses = getProjectedMarineLossesFloat();//doneHERE change mirine commander to somethingelse? randomly sellect a comander from available crews?
+                        /*
                         LabelAPI label = text.addPara("Your marine commander submits a plan for your approval. Losses during this " +
                                         "operation are projected to be %s. There " + isOrAre + " a total of %s " +
                                         marinesStr + " in your fleet.",
-                                getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),
-                                Misc.getWithDGS(playerCargo.getMarines()));
+                                getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),//doneHERE?
+                                Misc.getWithDGS(playerCargo.getMarines()));//doneHERE
+
+
                         label.setHighlightColors(getMarineLossesColor(data), Misc.getHighlightColor());
-                        text.addPara(Misc.ucFirst(item) + " targeted: " + list + ".", h,
+                         */
+                        /*LabelAPI label = text.addPara("Your marine commander submits a plan for your approval. Losses during this " +
+                                        "operation are projected to be %s. There " + isOrAre + " a total of %s " +
+                                        marinesStr + " in your fleet.",
+                                getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),//doneHERE?
+                                Misc.getWithDGS(playerCargo.getMarines()));*/
+                        LabelAPI label = texttemp.addPara("Your marine commander submits a plan for your approval. Losses during this " +
+                        "operation are projected to be %s. There is a total of %s ground combat ability in your fleet",
+                                getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),
+                                Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));
+                        texttemp.addPara("your total available ground combat force is consisted of: ");
+                        crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp,getMarineLossesColor(data));//doneHERE
+                        texttemp.addPara(Misc.ucFirst(item) + " targeted: " + list + ".", h,
                                 names.toArray(new String[0]));
+
                         if (value > 0) {
-                            text.addPara("The estimated value of the items obtained is projected to be around %s.",
+                            texttemp.addPara("The estimated value of the items obtained is projected to be around %s.",
                                     h, Misc.getDGSCredits(value));
                         }
 
 //				text.addPara("The marines are ready to go, awaiting your final confirmation. There are a total of %s " +
 //						"marines in your fleet.", Misc.getHighlightColor(), Misc.getWithDGS(playerCargo.getMarines()));
-                        text.addPara("The marines are ready to go, awaiting your final confirmation.");
-                        temp.objectives = data;
+                        texttemp.addPara("The combat force are ready to go, awaiting your final confirmation.");//doneHERE
+                        temptemp.objectives = data;
                         addConfirmOptions();
                     }
 
@@ -1178,16 +1217,16 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                     }
 
                     public int getNumMarineTokens() {
-                        return crew_replacer_MarketCMD.this.getNumMarineTokens();
+                        return MarketCMDT.this.getNumMarineTokens();
                     }
 
                     public MutableStat getMarineLossesStat(List<GroundRaidObjectivePlugin> data) {
-                        return crew_replacer_MarketCMD.this.getMarineLossesStat(data);
+                        return MarketCMDT.this.getMarineLossesStat(data);
                     }
 
                     public String getProjectedMarineLosses(List<GroundRaidObjectivePlugin> data) {
                         //return "" + (int) Math.round(getProjectedMarineLossesFloat());
-                        float marines = playerFleet.getCargo().getMarines();//HERE (get crew power)
+                        float marines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp);//float marines = playerFleet.getCargo().getMarines();//doneHERE
                         float losses = getAverageMarineLosses(data);
 
                         float f = losses / Math.max(1f, marines);
@@ -1200,14 +1239,14 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                             }
                         }
                         return RaidDangerLevel.EXTREME.lossesName;
-                    }
+                    }//doneHERE
 
                     public float getAverageMarineLosses(List<GroundRaidObjectivePlugin> data) {
-                        return crew_replacer_MarketCMD.this.getAverageMarineLosses(data);
+                        return MarketCMDT.this.getAverageMarineLosses(data);
                     }
 
                     public Color getMarineLossesColor(List<GroundRaidObjectivePlugin> data) {
-                        float marines = playerFleet.getCargo().getMarines();//HERE (get crew power)
+                        float marines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp);//playerFleet.getCargo().getMarines();//doneHERE
                         float losses = getAverageMarineLosses(data);
 
 
@@ -1223,11 +1262,9 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                         return RaidDangerLevel.EXTREME.color;
                     }
                     public String getRaidEffectiveness() {
-                        return "" + (int)(temp.raidMult * 100f) + "%";
+                        return "" + (int)(temptemp.raidMult * 100f) + "%";
                     }
                 });
-
-         */
     }
 
     protected void addBombardConfirmOptions() {
@@ -1260,7 +1297,6 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
     }
 
     protected void raidDisrupt() {
-        /*
         temp.raidType = RaidType.DISRUPT;
 
         // See: StandardGroundRaidObjectivesCreator; it creates the standard objectives with priority 0 below
@@ -1275,7 +1311,9 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             return;
         }
 
-
+        final CampaignFleetAPI playerFleettemp = playerFleet;
+        final TempData temptemp = temp;
+        final TextPanelAPI texttemp = text;
         dialog.showGroundRaidTargetPicker("Select raid objectives", "Select", market, obj,
                 new GroundRaidTargetPickerDelegate() {
                     public void pickedGroundRaidTargets(List<GroundRaidObjectivePlugin> data) {
@@ -1296,20 +1334,20 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 
                         //float losses = getProjectedMarineLossesFloat();
 
-                        text.addPara("Your marine commander submits a plan for your approval. Losses during this " +
+                        LabelAPI label = texttemp.addPara("Your marine commander submits a plan for your approval. Losses during this " +
                                         "operation are projected to be %s.",
                                 getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase());
-                        text.addPara(Misc.ucFirst(item) + " targeted: " + list + ".", h,
+                        texttemp.addPara(Misc.ucFirst(item) + " targeted: " + list + ".", h,
                                 names.toArray(new String[0]));
 
                         if (value > 0) {
-                            text.addPara("The estimated value of the items obtained is projected to be around %s.",
+                            texttemp.addPara("The estimated value of the items obtained is projected to be around %s.",
                                     h, Misc.getDGSCredits(value));
                         }
-
-                        text.addPara("The marines are ready to go, awaiting your final confirmation. There are a total of %s " +//HERE (Discribeing mirrians)
-                                "marines in your fleet.", Misc.getHighlightColor(), Misc.getWithDGS(playerCargo.getMarines()));//HERE (this might be the thing im looking for! were it shows the item image next to the number of items you have)
-                        temp.objectives = data;
+                        texttemp.addPara("The combat force are ready to go, awaiting your final confirmation. There are a total of %s " +
+                                "ground combat power in your fleet.", Misc.getHighlightColor(), Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));//Misc.getWithDGS(playerCargo.getMarines()));//mabyedoneHERE number of crew for discription? or crew power maybe?
+                        crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp,getMarineLossesColor(data));
+                        temptemp.objectives = data;
                         addConfirmOptions();
                     }
 
@@ -1346,16 +1384,16 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                     }
 
                     public int getNumMarineTokens() {
-                        return crew_replacer_MarketCMD.this.getNumMarineTokens();
+                        return MarketCMDT.this.getNumMarineTokens();
                     }
 
                     public MutableStat getMarineLossesStat(List<GroundRaidObjectivePlugin> data) {
-                        return crew_replacer_MarketCMD.this.getMarineLossesStat(data);
+                        return MarketCMDT.this.getMarineLossesStat(data);
                     }
 
                     public String getProjectedMarineLosses(List<GroundRaidObjectivePlugin> data) {
                         //return "" + (int) Math.round(getProjectedMarineLossesFloat());
-                        float marines = playerFleet.getCargo().getMarines();//HERE(get marreans)
+                        float marines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp);//playerFleet.getCargo().getMarines();//doneHERE
                         float losses = getAverageMarineLosses(data);
 
                         float f = losses / Math.max(1f, marines);
@@ -1371,11 +1409,11 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                     }
 
                     public float getAverageMarineLosses(List<GroundRaidObjectivePlugin> data) {
-                        return crew_replacer_MarketCMD.this.getAverageMarineLosses(data);
+                        return MarketCMDT.this.getAverageMarineLosses(data);
                     }
 
                     public Color getMarineLossesColor(List<GroundRaidObjectivePlugin> data) {
-                        float marines = playerFleet.getCargo().getMarines();//HERE (again get crew power)
+                        float marines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp);//playerFleet.getCargo().getMarines();//doneHERE
                         float losses = getAverageMarineLosses(data);
 
 
@@ -1391,7 +1429,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                         return RaidDangerLevel.EXTREME.color;
                     }
                     public String getRaidEffectiveness() {
-                        return "" + (int)(temp.raidMult * 100f) + "%";
+                        return "" + (int)(temptemp.raidMult * 100f) + "%";
                     }
 
                     public boolean isCustomOnlyMode() {
@@ -1399,7 +1437,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                         return false;
                     }
                 });
-        */
+
 
 //		dialog.showIndustryPicker("Select raid target", "Select", market, targets, new IndustryPickerListener() {
 //			public void pickedIndustry(Industry industry) {
@@ -1410,13 +1448,14 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 //			}
 //		});
     }
-
+/*
     protected float computeBaseDisruptDuration(Industry ind) {
         //float dur = getNumMarineTokens() * Global.getSettings().getFloat("raidDisruptDurationPerMarineToken") - ind.getDisruptedDays();
         float dur = getNumMarineTokens() * ind.getSpec().getDisruptDanger().disruptionDays - ind.getDisruptedDays();
         return (int) dur;
     }
-
+*/
+    /*
     public static int getBombardDestroyThreshold() {
         return Global.getSettings().getInt("bombardSaturationDestroySize");
 
@@ -1551,6 +1590,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         } else {
             if (entity != null) {
                 long seed = Misc.getSalvageSeed(entity);
+                seed /= 321L;
                 seed *= (Global.getSector().getClock().getMonth() + 10);
                 random = new Random(seed);
             } else {
@@ -1569,17 +1609,17 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         if (num < MIN_MARINE_TOKENS) num = MIN_MARINE_TOKENS;
         if (num > MAX_MARINE_TOKENS) num = MAX_MARINE_TOKENS;
         return num;
-    }
-
+    }*/
+/*
     protected MutableStat getMarineLossesStat(List<GroundRaidObjectivePlugin> data) {
         MutableStat stat = new MutableStat(1f);
 
         float total = 0f;
         float assignedTokens = 0f;
         for (GroundRaidObjectivePlugin curr : data) {
-            MarketCMD.RaidDangerLevel danger = curr.getDangerLevel();
-            total += danger.marineLossesMult * (float) curr.getMarinesAssigned();//HERE? (this might be set somewere else will need to look for what calls this function)
-            assignedTokens += curr.getMarinesAssigned();//HERE? (see last here statment)
+            RaidDangerLevel danger = curr.getDangerLevel();
+            total += danger.marineLossesMult * (float) curr.getMarinesAssigned();
+            assignedTokens += curr.getMarinesAssigned();
         }
 
         float danger = total / Math.max(1f, assignedTokens);
@@ -1590,11 +1630,21 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         float reMult = 1f;
         if (temp.raidMult > MIN_RE_TO_REDUCE_MARINE_LOSSES) {
             float extra = (temp.raidMult - MIN_RE_TO_REDUCE_MARINE_LOSSES) / (1f - MIN_RE_TO_REDUCE_MARINE_LOSSES);
+//			extra = (float) Math.sqrt(extra);
+//			extra *= 0.5f;
             extra = MAX_MARINE_LOSS_REDUCTION_MULT + (1f - MAX_MARINE_LOSS_REDUCTION_MULT) * (1f - extra);
             reMult = extra;
         } else if (temp.raidMult < RE_PER_MARINE_TOKEN) {
             float extra = 1f + (RE_PER_MARINE_TOKEN - temp.raidMult) / RE_PER_MARINE_TOKEN;
             reMult = extra;
+        }
+
+        if (market != null && reMult < 1f) {
+            float minMarinesForAssignedTokens = getMarinesFor(market, (int) Math.round(assignedTokens));//notHERE? (dont think so, but someone might want something like this?)
+            float actualMarines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(Global.getSector().getPlayerFleet());;//Global.getSector().getPlayerFleet().getCargo().getMarines();//doneHERE players crewpower
+            if (actualMarines > minMarinesForAssignedTokens && actualMarines > 0) {
+                reMult *= 0.5f + (0.5f * minMarinesForAssignedTokens / actualMarines);
+            }
         }
 
         float reservesMult = 1f;
@@ -1630,7 +1680,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         ListenerUtil.modifyMarineLossesStatPreRaid(market, data, stat);
 
         return stat;
-    }
+    }*/
 
 
 
@@ -1641,11 +1691,11 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             mult = MAX_MARINE_LOSSES;
         }
 
-        //float marines = playerFleet.getCargo().getMarines();//DONE? (get crew power once more!)
-        float marines = 0;//crew_replacer.getCrewPower("raid",playerFleet);//HERE MIGHT CHANGE TO BE SOMETHING ELSE (LIKE FOR EXAMPLE: NUMBER OF CREW, AND NOT CREW POWER)
+        float marines = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleet);//playerFleet.getCargo().getMarines();//doneHERE
         return marines * mult;
     }
 
+    /*
     protected void addMilitaryResponse() {
         if (market == null) return;
 
@@ -1665,7 +1715,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                 Misc.setFlagWithReason(mem, MemFlags.MEMORY_KEY_MAKE_HOSTILE_WHILE_TOFF, "raidAlarm", true, 1f);
             }
         }
-    }
+    }*/
 
     protected void raidConfirm(boolean secret) {
         if (temp.raidType == null) {
@@ -1702,14 +1752,22 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             if (Misc.isPlayerFactionSetUp()) {
                 reason = playerFaction.getDisplayName() + " raid";
             }
-            stabilityPenalty = applyRaidStabiltyPenalty(market, reason, temp.raidMult);
+            float raidMultForStabilityPenalty = temp.raidMult;
+            if (temp.objectives != null) {
+                float assignedTokens = 0f;
+                for (GroundRaidObjectivePlugin curr : temp.objectives) {
+                    assignedTokens += curr.getMarinesAssigned();
+                }
+                raidMultForStabilityPenalty = assignedTokens * 0.1f;
+            }
+
+            stabilityPenalty = applyRaidStabiltyPenalty(market, reason, raidMultForStabilityPenalty);
             Misc.setFlagWithReason(market.getMemoryWithoutUpdate(), MemFlags.RECENTLY_RAIDED,
                     Factions.PLAYER, true, 30f);
             Misc.setRaidedTimestamp(market);
         }
 
-        //int marines = playerFleet.getCargo().getMarines();//DONE (get crew power again)
-        int marines = 0;//(int)crew_replacer.getCrewPower("raid",playerFleet);//HERE
+        int marines = (int)crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleet);//playerFleet.getCargo().getMarines();//doneHERE
         float probOfLosses = 1f;
 
         int losses = 0;
@@ -1736,13 +1794,12 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             text.addPara("Your forces have not suffered any casualties.");
             temp.marinesLost = 0;
         } else {
-            text.addPara("You forces have suffered casualties during the raid.", Misc.getHighlightColor(), "" + losses);//DONE (text for crew lost?)
-            //playerFleet.getCargo().removeMarines(losses);//DONE (remove crew from inventory)
-
-            ArrayList<Float> thing = new ArrayList<Float>();//crew_replacer.automaticlyGetAndApplyCrewLosses("raid",losses,marines,playerFleet);//HERE: gets total number of raid crew as crew used. need to change somehow?
-            temp.marinesLost = losses;
-            //crew_replacer.dislayCrewLosses(thing,text,);
-            AddRemoveCommodity.addCommodityLossText(Commodities.MARINES, losses, text);//HERE (text for crew lost?)
+            text.addPara("You forces have suffered casualties during the raid.", Misc.getHighlightColor(), "" + losses);
+            //playerFleet.getCargo().removeMarines(losses);//doneHERE remove crew inportant
+            crewReplacer_Job tempjob = crewReplacer_Main.getJob(jobmain);
+            tempjob.automaticlyGetDisplayAndApplyCrewLost(playerFleet,(int)tempjob.getAvailableCrewPower(playerFleet),losses,text);
+            temp.marinesLost = losses;//doneHERE?
+            //AddRemoveCommodity.addCommodityLossText(Commodities.MARINES, losses, text);//doneHERE losses display text
         }
 
 
@@ -1829,7 +1886,6 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
     }
 
     public void raidConfirmContinue() {
-        /*
         //Random random = getRandom();
         String contText = null;
         if (temp.raidType == RaidType.VALUABLE || true) {
@@ -1868,7 +1924,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             float assignedTokens = 0f;
             List<Industry> disrupted = new ArrayList<Industry>();
             for (GroundRaidObjectivePlugin curr : temp.objectives) {
-                assignedTokens += curr.getMarinesAssigned();//HERE? (this might already be set in temp objectives)
+                assignedTokens += curr.getMarinesAssigned();
                 if (curr instanceof DisruptIndustryRaidObjectivePluginImpl && curr.getSource() != null) {
                     disrupted.add(curr.getSource());
                 }
@@ -1881,7 +1937,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             data.type = temp.raidType;
             data.raidEffectiveness = temp.raidMult;
             data.xpGained = temp.xpGained;
-            data.marinesTokensInReserve = (int) Math.round(getNumMarineTokens() - assignedTokens);//HERE (might already be set in getNumMarineTokens())
+            data.marinesTokensInReserve = (int) Math.round(getNumMarineTokens() - assignedTokens);
             data.marinesTokens = getNumMarineTokens();
             data.marinesLost = temp.marinesLost;
 
@@ -1900,9 +1956,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         Global.getSoundPlayer().playUISound("ui_raid_finished", 1f, 1f);
 
         FireBest.fire(null, dialog, memoryMap, "PostGroundRaid");
-         */
     }
-
+/*
     protected CargoAPI performRaid(Random random, float raidEffectiveness) {
         CargoAPI result = Global.getFactory().createCargo(true);
 
@@ -1926,9 +1981,9 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         temp.xpGained = xp;
 
         return result;
-    }
+    }*/
 
-
+/*
     protected void raidNeverMind() {
         if (temp.nonMarket) {
             raidNonMarket();
@@ -1936,8 +1991,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             raidMenu();
         }
     }
-
-
+*/
+/*
     protected void raidShowLoot() {
         dialog.getVisualPanel().showLoot("Spoils", temp.raidLoot, false, true, true, new CoreInteractionListener() {
             public void coreUIDismissed() {
@@ -1945,9 +2000,9 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                 finishedRaidOrBombard();
             }
         });
-    }
+    }*/
 
-
+/*
     protected void printStationState() {
         StationState state = getStationState();
         if (state == StationState.REPAIRS || state == StationState.UNDER_CONSTRUCTION) {
@@ -1966,8 +2021,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             }
         }
     }
-
-
+*/
+/*
     protected void engage() {
         final SectorEntityToken entity = dialog.getInteractionTarget();
         final MemoryAPI memory = getEntityMemory(memoryMap);
@@ -2072,7 +2127,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         plugin.init(dialog);
 
     }
-
+*/
+    /*
     protected CampaignFleetAPI getStationFleet() {
         CampaignFleetAPI station = Misc.getStationFleet(market);
         if (station == null) return null;
@@ -2081,7 +2137,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 
         return station;
     }
-
+*/
+    /*
     protected CampaignFleetAPI getInteractionTargetForFIDPI() {
         CampaignFleetAPI primary = getStationFleet();
         if (primary == null) {
@@ -2118,7 +2175,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         REPAIRS
     }
 
-    protected StationState getStationState() {
+    /*protected StationState getStationState() {
         CampaignFleetAPI fleet = Misc.getStationFleet(market);
         boolean destroyed = false;
         if (fleet == null) {
@@ -2144,14 +2201,14 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         if (destroyed) return StationState.REPAIRS;
 
         return StationState.OPERATIONAL;
-    }
+    }*/
 
-
+/*
     public static int applyRaidStabiltyPenalty(MarketAPI target, String desc, float re) {
         int penalty = 0;
-        if (re >= 0.75f) penalty = 3;
-        else if (re >= 0.5f) penalty = 2;
-        else if (re >= 0.25f) penalty = 1;
+        if (re >= 0.79f) penalty = 3;
+        else if (re >= 0.59f) penalty = 2;
+        else if (re >= 0.29f) penalty = 1;
         if (penalty > 0) {
             RecentUnrest.get(target).add(penalty, desc);
         }
@@ -2302,7 +2359,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         options.setShortcut(RAID_GO_BACK, Keyboard.KEY_ESCAPE, false, false, false, true);
     }
 
-
+*/
     protected void addConfirmOptions() {
         options.clearOptions();
 //		if (temp.isSurpriseRaid) {
@@ -2351,7 +2408,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
                             "Are you sure you want to engage in open hostilities?", "Yes", "Never mind");
         }
     }
-
+/*
     public static List<Industry> getTacticalBombardmentTargets(MarketAPI market) {
         int dur = getBombardDisruptDuration();
         List<Industry> targets = new ArrayList<Industry>();
@@ -2666,8 +2723,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
     protected void bombardNeverMind() {
         bombardMenu();
     }
-
-    protected void raidResult() {
+*/
+ /*   protected void raidResult() {
         if (temp.raidLoot != null) {
             if (temp.raidLoot.isEmpty()) {
 //				clearTemp();
@@ -2682,8 +2739,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             //dialog.dismiss();
             finishedRaidOrBombard();
         }
-    }
-
+    }*/
+/*
     protected void bombardResult() {
         //dialog.dismiss();
         finishedRaidOrBombard();
@@ -2754,15 +2811,15 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         if (f < 0.1f) return false;
 
         // and don't reduce crew below a certain minimum
-        int crew = playerFleet.getCargo().getCrew();//HERE (replace with crew type of a 'dedt' job?)(this set of here's sets things if the dedt effect takes places. need to look at)
-        int marines = playerFleet.getCargo().getMarines();//HERE
-        if (crew <= 10 && marines <= 10) return false;//HERE
+        int crew = playerFleet.getCargo().getCrew();
+        int marines = playerFleet.getCargo().getMarines();//notHERE. this is for debt
+        if (crew <= 10 && marines <= 10) return false;
 
         return true;
     }
 
     protected void applyDebtEffect() {
-        //HERE this intier function might need to be changed for my enjoyment
+
         MonthlyReport report = SharedData.getData().getPreviousReport();
         float debt = report.getDebt() + report.getDebt();
         float income = report.getRoot().totalIncome;
@@ -2772,8 +2829,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         if (f > 1) f = 1;
         if (f < 0) f = 0;
 
-        int crew = playerFleet.getCargo().getCrew();//HERE get crew types that can take debt
-        int marines = playerFleet.getCargo().getMarines();//HERE --
+        int crew = playerFleet.getCargo().getCrew();
+        int marines = playerFleet.getCargo().getMarines();//notHERE. this is for debt.
 
         float maxLossFraction = 0.03f + Math.min(f + 0.05f, 0.2f) * (float) Math.random();
         float marineLossFraction = 0.03f + Math.min(f + 0.05f, 0.2f) * (float) Math.random();
@@ -2795,8 +2852,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             AddRemoveCommodity.addCommodityLossText(Commodities.CREW, crewLoss, text);
         }
         if (marineLoss <= marines) {
-            playerFleet.getCargo().removeMarines(marineLoss);
-            AddRemoveCommodity.addCommodityLossText(Commodities.MARINES, marineLoss, text);
+            playerFleet.getCargo().removeMarines(marineLoss);//NOTHERE this is for marines fleeing do to lack of pay.... here.. what the fuc is this? what is removeMarines?
+            AddRemoveCommodity.addCommodityLossText(Commodities.MARINES, marineLoss, text);//NOTHERE. this is for marines fleeing
         }
 
         String key = "$debt_effectTimeout";
@@ -2806,7 +2863,8 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         options.addOption("Continue", DEBT_RESULT_CONTINUE);
     }
 
-
+*/
+    /*
     public void doGenericRaid(FactionAPI faction, float attackerStr) {
         doGenericRaid(faction, attackerStr, 3f);
     }
@@ -3053,6 +3111,9 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
         float contractDur = Global.getSettings().getFloat("officerMercContractDur");
 
         for (OfficerDataAPI od : mercs) {
+            if (debt && od.getPerson().getMemoryWithoutUpdate().contains(key)) {
+                continue;
+            }
             float elapsed = Misc.getMercDaysSinceHired(od.getPerson());
 
             if (elapsed > contractDur || debt) {
@@ -3075,6 +3136,7 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
 
             String key = "$mercs_leaveTimeout";
             Global.getSector().getMemoryWithoutUpdate().set(key, true, 5f + (float) Math.random() * 5f);
+            merc.getMemoryWithoutUpdate().set(key, true, 35f + (float) Math.random() * 5f);
         }
 
     }
@@ -3096,22 +3158,5 @@ public class crew_replacer_MarketCMD extends BaseCommandPlugin {
             Global.getSector().getMemoryWithoutUpdate().set(key, true, 5f + (float) Math.random() * 5f);
         }
     }
-
+*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

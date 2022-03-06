@@ -34,6 +34,7 @@ public class crewReplacer_Job {
     public ArrayList<ArrayList<Integer>> crewPriority;//organized greatest to lowest.
     public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>();
 
+    public Color defalthighlihgt = Color.RED;
     public crewReplacer_Crew getCrew(String crew){
         boolean out = true;
         crewReplacer_Crew output = null;
@@ -249,6 +250,13 @@ public class crewReplacer_Job {
     public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text, Color highlight){
         ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
         ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
+        displayCrewLost(crewLost,text,highlight);
+        applyCrewLost(crewLost,fleet);
+    }
+    public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text){
+        ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
+        ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
+        Color highlight = defalthighlihgt;
         displayCrewLost(crewLost,text,highlight);
         applyCrewLost(crewLost,fleet);
     }

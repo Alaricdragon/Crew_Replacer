@@ -1,5 +1,6 @@
 package data.scripts;
 import com.fs.starfarer.api.BaseModPlugin;
+import data.scripts.crews.marine;
 
 import java.util.ArrayList;
 /*
@@ -92,7 +93,10 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob.addNewCrew("crew",1,10,0,0,true);
         crewReplacer_Main.addNewJob(tempJob);*/
 
-        tempJob = crewReplacer_Main.getJob("combat");
-        tempJob.addNewCrew("marines",1,10/*,0,0,true*/);
+        tempJob = crewReplacer_Main.getJob("raiding");
+        marine tempcrew = new marine();
+        tempcrew.name = "marines";
+        tempJob.addCrew(tempcrew);
+        //tempJob.addNewCrew("marines",1,10/*,0,0,true*/);
     }
 }

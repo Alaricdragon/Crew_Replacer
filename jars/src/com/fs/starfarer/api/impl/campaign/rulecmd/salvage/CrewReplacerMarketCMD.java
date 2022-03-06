@@ -129,7 +129,7 @@ this will seperate the names
         -checkDebtEffect
         -applyDebtEffect
  */
-public class MarketCMDT extends MarketCMD{//BaseCommandPlugin {
+public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
     String jobmain = "raiding_main";//
     String crewmain = "";
     /*
@@ -1217,11 +1217,11 @@ public class MarketCMDT extends MarketCMD{//BaseCommandPlugin {
                     }
 
                     public int getNumMarineTokens() {
-                        return MarketCMDT.this.getNumMarineTokens();
+                        return CrewReplacerMarketCMD.this.getNumMarineTokens();
                     }
 
                     public MutableStat getMarineLossesStat(List<GroundRaidObjectivePlugin> data) {
-                        return MarketCMDT.this.getMarineLossesStat(data);
+                        return CrewReplacerMarketCMD.this.getMarineLossesStat(data);
                     }
 
                     public String getProjectedMarineLosses(List<GroundRaidObjectivePlugin> data) {
@@ -1242,7 +1242,7 @@ public class MarketCMDT extends MarketCMD{//BaseCommandPlugin {
                     }//doneHERE
 
                     public float getAverageMarineLosses(List<GroundRaidObjectivePlugin> data) {
-                        return MarketCMDT.this.getAverageMarineLosses(data);
+                        return CrewReplacerMarketCMD.this.getAverageMarineLosses(data);
                     }
 
                     public Color getMarineLossesColor(List<GroundRaidObjectivePlugin> data) {
@@ -1384,11 +1384,11 @@ public class MarketCMDT extends MarketCMD{//BaseCommandPlugin {
                     }
 
                     public int getNumMarineTokens() {
-                        return MarketCMDT.this.getNumMarineTokens();
+                        return CrewReplacerMarketCMD.this.getNumMarineTokens();
                     }
 
                     public MutableStat getMarineLossesStat(List<GroundRaidObjectivePlugin> data) {
-                        return MarketCMDT.this.getMarineLossesStat(data);
+                        return CrewReplacerMarketCMD.this.getMarineLossesStat(data);
                     }
 
                     public String getProjectedMarineLosses(List<GroundRaidObjectivePlugin> data) {
@@ -1409,7 +1409,7 @@ public class MarketCMDT extends MarketCMD{//BaseCommandPlugin {
                     }
 
                     public float getAverageMarineLosses(List<GroundRaidObjectivePlugin> data) {
-                        return MarketCMDT.this.getAverageMarineLosses(data);
+                        return CrewReplacerMarketCMD.this.getAverageMarineLosses(data);
                     }
 
                     public Color getMarineLossesColor(List<GroundRaidObjectivePlugin> data) {

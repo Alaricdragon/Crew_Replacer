@@ -67,7 +67,7 @@ public class crewReplacer_Crew {
     /*public double getCrewLostPercent(){
         return (Math.random() * (maxLosePercent - minLosePercent)) + minLosePercent;
     }*/
-    public void DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text, Color highlight){
+    public void DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text){
         String[] message = {
                 "",
                 "an",
@@ -82,11 +82,11 @@ public class crewReplacer_Crew {
         if(numberOfItems > 1){
             displayName = name + "s";
             text.appendToLastParagraph(message[0] + "" + numberOfItems + " " + displayName);
-            text.highlightInLastPara(highlight, displayName);
+            //text.highlightInLastPara(highlight, displayName);
         }else if(numberOfItems == 1){
             displayName = name;
             text.appendToLastParagraph(message[1] + " " + displayName);
-            text.highlightInLastPara(highlight, displayName);
+            //text.highlightInLastPara(highlight, displayName);
         }
         //return output;
         // text.appendToLastParagraph(message[1] + " " + displayName);

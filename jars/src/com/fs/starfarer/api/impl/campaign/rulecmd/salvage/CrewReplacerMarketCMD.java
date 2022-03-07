@@ -1164,7 +1164,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
                                 getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),
                                 Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));
                         texttemp.addPara("your total available ground combat force is consisted of: ");
-                        crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp,getMarineLossesColor(data));//doneHERE
+                        crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp);//doneHERE
                         texttemp.addPara(Misc.ucFirst(item) + " targeted: " + list + ".", h,
                                 names.toArray(new String[0]));
 
@@ -1346,7 +1346,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
                         }
                         texttemp.addPara("The combat force are ready to go, awaiting your final confirmation. There are a total of %s " +
                                 "ground combat power in your fleet.", Misc.getHighlightColor(), Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));//Misc.getWithDGS(playerCargo.getMarines()));//mabyedoneHERE number of crew for discription? or crew power maybe?
-                        crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp,getMarineLossesColor(data));
+                        crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp);
                         temptemp.objectives = data;
                         addConfirmOptions();
                     }

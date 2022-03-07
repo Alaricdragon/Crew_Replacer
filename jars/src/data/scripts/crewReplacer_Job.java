@@ -34,7 +34,7 @@ public class crewReplacer_Job {
     public ArrayList<ArrayList<Integer>> crewPriority;//organized greatest to lowest.
     public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>();
 
-    public Color defalthighlihgt = Color.RED;
+    //public Color defalthighlihgt = Color.RED;
     public crewReplacer_Crew getCrew(String crew){
         boolean out = true;
         crewReplacer_Crew output = null;
@@ -247,19 +247,19 @@ public class crewReplacer_Job {
     }
 
 
-    public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text, Color highlight){
-        ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
-        ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
-        displayCrewLost(crewLost,text,highlight);
-        applyCrewLost(crewLost,fleet);
-    }
     public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text){
         ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
         ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
-        Color highlight = defalthighlihgt;
-        displayCrewLost(crewLost,text,highlight);
+        displayCrewLost(crewLost,text);
         applyCrewLost(crewLost,fleet);
     }
+    /*public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text){
+        ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
+        ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
+        //Color highlight = defalthighlihgt;
+        displayCrewLost(crewLost,text);
+        applyCrewLost(crewLost,fleet);
+    }*/
     public ArrayList<Float> automaticlyGetAndApplyCrewLost(CampaignFleetAPI fleet, int crewPowerRequired, float crew_power_to_lose){
         ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
         ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
@@ -291,7 +291,7 @@ public class crewReplacer_Job {
         }
         return output;
     }
-    public void displayCrewLost(ArrayList<Float> crewLost, TextPanelAPI text, Color highlight){
+    public void displayCrewLost(ArrayList<Float> crewLost, TextPanelAPI text){
         //text.appendToLastParagraph(" runing display for:  " + name);//for testing.
         //text.appendToLastParagraph(" sizes: " + crewLost.size() + ", " + Crews.size());
         boolean last = false;
@@ -302,7 +302,7 @@ public class crewReplacer_Job {
             }
             if(crewLost.get(a) != 0){
                 last = true;
-                Crews.get(a).DisplayedCrewNumbers(crewLost.get(a),text,highlight);
+                Crews.get(a).DisplayedCrewNumbers(crewLost.get(a),text);
             }
             /*if(crewLost.get(a) > 1){
                 last = true;
@@ -413,9 +413,9 @@ public class crewReplacer_Job {
         return output;
     }
 
-    public void displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text, Color highlight){
+    public void displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text){
         for(int a = 0; a < Crews.size(); a++){
-            Crews.get(a).DisplayedCrewNumbers(Crews.get(a).getCrewInFleet(fleet),text,highlight);
+            Crews.get(a).DisplayedCrewNumbers(Crews.get(a).getCrewInFleet(fleet),text);
             /*float crew = Crews.get(a).getCrewInFleet(fleet);
             if(crew == 1){
                 text.appendToLastParagraph(message[0] + "" + crew + " " + Crews.get(a).name + "s");

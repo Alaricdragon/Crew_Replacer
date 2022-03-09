@@ -91,7 +91,7 @@ combatability:
         return float
         returns the crew power for all crew in this object combined.
 
-    -automaticallyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text, Color highlight)
+    -automaticallyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text)
         a basic 'do it all' command, for applying and displaying crew losses in a fleet
     -automaticallyGetAndApplyCrewLost(CampaignFleetAPI fleet, int crewPowerRequired, float crew_power_to_lose)
         returns ArrayList<Float>
@@ -109,14 +109,14 @@ combatability:
     -applyCrewLost(ArrayList<Float> crewLost,CampaignFleetAPI fleet)
         removes crew from cargo, based on crewLost data.
         crewLost = this.getCrewLost
-    -displayCrewLost(ArrayList<Float> crewLost, TextPanelAPI text, Color highlight)
-        displays the crew lost in an TextPanelAPI, with the crew names highlighted.
+    -displayCrewLost(ArrayList<Float> crewLost, TextPanelAPI text)
+        displays the crew lost in an TextPanelAPI.
         crewLost = this.getCrewLost
     -GetCrewNames()
         return String[]
         returns an array of every crew that was used.
-    -displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text, Color highlight)
-        displays the available crew in inputed fleet to an TextPanalAPI. crew names are highlighted.
+    -displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text)
+        displays the available crew in inputed fleet to an TextPanalAPI.
 
 
 
@@ -151,8 +151,8 @@ combatability:
         returns the number of crew you want to lose (default: crewLost)
     -removeCrew(CampaignFleetAPI fleet,float CrewToLost)
         removes a number of this crew from this fleet.
-    -DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text, Color highlight)
-        adds to text an display of the number of crew, with the crew name highlighted.
+    -DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text)
+        adds to text an display of the number of crew.
 
 # Things that need to be done to complete this project
   fixes

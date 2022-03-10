@@ -48,9 +48,6 @@ combatability:
   crewReplacer_job
     -public String name;
         the jobs name, and what you ask for if you want this job from crewReplacer_main.
-    -public ArrayList<String> tags;
-        tags do nothing on there own, they are only for a user to read/add/remove whenever they want.
-        is not save presistent. resets every time the game is started.
     -public ArrayList<ArrayList<Integer>> crewPriority;
         although it is public, and you can edit it directly if you wish, i ask that you dont. use organize priority to keep this object functional.
         is the iner arraylist to determon what crew is removed first, and in what conditions.
@@ -73,15 +70,6 @@ combatability:
         returns true if a new crew is added, or false if said crew replaces an old one.
         only replaces a crew if one already exists with the same name.
         the extra inputs lets a user create a crew here if they want, instead of creating a new crew
-
-    -hasTag(String tag)
-        return boolean
-        returns true if this object has a tag with the same name
-    -addTag(String tag)
-        adds a tag with the inputted name
-    -removeTag(String tag)
-        removes the tag (if any) with the inputted name
-
     -organizePriority()
         sorts internal data of the object. must after a crew is added, or has its priority or crewPower changed. runs once on onGameLoad.
     -getAvailableCrew(CampaignFleetAPI fleet)
@@ -128,9 +116,10 @@ combatability:
     -public ArrayList<String> tags;
         for user. dose nothing on its own
     -public float crewPriority = 0;
-        the crewPriority of this crew. make sure to run
+        the crewPriority of this crew. make sure to run crewReplacer_Job.organizePriority() priority after changing.
+        lower priority crew are used in jobs first.
     -public float crewPower = 1;
-        the 'strangth' of each crew in doing its job.
+        the 'strangth' of each crew in doing its job. make sure to run crewReplacer_Job.organizePriority() priority after changing.
 
 
     -hasTag(String tag)

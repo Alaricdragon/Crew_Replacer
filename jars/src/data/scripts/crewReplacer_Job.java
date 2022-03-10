@@ -27,7 +27,6 @@ public class crewReplacer_Job {
         -i dont want to rebuild the crew display 40 times thanks
      */
     public String name;
-    public ArrayList<String> tags;
     //ArrayList<String> crew;
     //ArrayList<Integer> crewID;
     //ArrayList<Float> crewPriority;//this will be organized.
@@ -101,36 +100,6 @@ public class crewReplacer_Job {
         //crew.maxLosePercent = crewMaxLosePercent;
         //crew.maxLosePercent = crewMinLosePercent;
         //crew.NormalLossRules = crewNormalLoseRules;
-    }
-    public boolean hasTag(String tag){
-        boolean output = false;
-        for(int a = 0; a < tags.size(); a++){
-            if(tag.equals(tags.get(a))){
-                output = true;
-                break;
-            }
-        }
-        return output;
-    }
-    public void addTag(String tag){
-        boolean output = false;
-        for(int a = 0; a < tags.size(); a++){
-            if(tag.equals(tags.get(a))){
-                output = true;
-                break;
-            }
-        }
-        if(!output){
-            tags.add(tag);
-        }
-    }
-    public void removeTag(String tag){
-        for(int a = 0; a < tags.size(); a++){
-            if(tag.equals(tags.get(a))){
-                tags.remove(a);
-                break;
-            }
-        }
     }
 
 

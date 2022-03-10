@@ -62,12 +62,11 @@ public class crewReplacer_Main {
             Jobs.add(job);
         }else{
             crewReplacer_Job tempjob = Jobs.get(temp);
-            for(int a = 0; a < job.Crews.size(); a++) {
-                tempjob.addCrew(job.Crews.get(a));
+            Jobs.remove(temp);
+            for(int a = 0; a < tempjob.Crews.size(); a++) {
+                job.addCrew(tempjob.Crews.get(a));
             }
-            for(int a = 0; a < job.tags.size(); a++) {
-                tempjob.addTag(job.tags.get(a));
-            }
+            Jobs.add(job);
         }
         return output;
     }

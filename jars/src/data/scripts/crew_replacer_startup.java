@@ -32,8 +32,8 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob = crewReplacer_Main.getJob("salvage_Secondary");
         tempJob.addNewCrew("heavy_machinery",1,10);
 
-        tempJob = crewReplacer_Main.getJob("fleet");
-        tempJob.addNewCrew("crew",1,10);
+        /*tempJob = crewReplacer_Main.getJob("fleet");
+        tempJob.addNewCrew("crew",1,10);*/
 
         /*tempJob = crewReplacer_Main.getJob("survey_main");
         tempJob.addNewCrew("crew",1,10);*/

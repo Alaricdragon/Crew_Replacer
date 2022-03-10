@@ -1,7 +1,9 @@
 package data.scripts;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.impl.campaign.shared.PlayerTradeProfitabilityData;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -72,15 +74,10 @@ public class crewReplacer_Crew {
                 "",
                 "an",
         };
-        String output;
         String displayName;
-        if(numberOfItems != 0){
-            output =  "" + numberOfItems + " " + name + "s";
-        }else{
-            output = message[1] + " " + name;
-        }
         if(numberOfItems > 1){
-            displayName = name + "s";
+            //list_commodity
+            displayName = Global.getSector().getEconomy().getCommoditySpec(name).getName() + "s";
             text.appendToLastParagraph(message[0] + "" + numberOfItems + " " + displayName);
             //text.highlightInLastPara(highlight, displayName);
         }else if(numberOfItems == 1){

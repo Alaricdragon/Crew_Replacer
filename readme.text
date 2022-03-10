@@ -145,7 +145,7 @@ combatability:
 
 # Things that need to be done to complete this project
   fixes
-    - survey is so broken. helps.
+    - survey is so broken. it only reduces cost. it kinda works because of this. but that might not be the best.
   futures
     -quests that require items might want to have a job assigned to them.
     - the ability to change what items crew/supply/repair ships, if that is possible.
@@ -166,17 +166,17 @@ combatability:
       i reduce the cost of the survey. same effect, but kinda confusing and disorientating. also cant remove crews like i would like.
     -admins say that the survey plugin is the only place this can work, as were the crew available is calculated is part of the 'core' of the game, and cannot be changed.
     survey_crew(done)
-    survey_supply(partlydone)
+    survey_supply(done)
         -crew added to the supply_job are not consumed when they should be.
         -the only way i can make then consumed, is if i make it happen every time someone mouses over a planet. and thats a no go for me thanks
         -this dose not effect normal supply.
     survey_heavy_machinery(done)
-  salvage(done/untested)
+  salvage(done/tested)
     -DONE in theory. might have a bug or 50, but i simply don't know for sure. i think its working though
     -might need to make names more clear.
     salvage_main(done)
     salvage_Secondary(done)
-  raiding(done/untested)
+  raiding(done/tested)
     -DONE in theory. am having some proldoms getting it to work with neux though, and that mod is something i need
     -raiding_main(done)
     -found something in the MarketCMD thing, that might be were the game checks the player for mirrians, and removes them. will need more data. (look at the rules.csv file or the crew_replacer_MarketCMD.java file for details, got the functions mapped there.)

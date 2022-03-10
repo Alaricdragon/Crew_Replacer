@@ -127,8 +127,7 @@ this will seperate the names
         -applyDebtEffect
  */
 public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
-    String jobmain = "raiding_main";//
-    String crewmain = "";
+    String jobmain = "raiding_marines";//
     /*
     public static enum RaidType {
         CUSTOM_ONLY,

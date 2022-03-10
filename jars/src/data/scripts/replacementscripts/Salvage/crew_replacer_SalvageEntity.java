@@ -80,8 +80,8 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
  *
  */
 public class crew_replacer_SalvageEntity extends BaseCommandPlugin {
-    private static String JobName = "salvage_main";//the name of the job in discription here
-    private static String SecondJobName = "salvage_Secondary";
+    private static String JobName = "salvage_crew";//the name of the job in discription here
+    private static String SecondJobName = "salvage_heavyMachinery";
     private static String ItemName = "crew";//every time i look for / remove or add this item, get crew_replacer.getPower(JobName);
     public static float SALVAGE_DETECTION_MOD_FLAT = 1000;
 

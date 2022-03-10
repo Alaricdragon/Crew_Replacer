@@ -28,7 +28,7 @@ changed getRequired to change heavy matchenery cost to match lost crew cost (ras
 public class SurveyPluginImpl implements SurveyPlugin {
     private String crewJob = "survey_crew";
     private String supplyJob = "survey_supply";
-    private String heavy_matchnearyJob = "survey_heavy_machinery";
+    private String heavy_matchnearyJob = "survey_heavyMachinery";
     public static int FLAT_SUPPLIES = 10;
 
     public static int BASE_MACHINERY = 10;

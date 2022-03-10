@@ -174,12 +174,11 @@ combatability:
   salvage(done/tested)
     -DONE in theory. might have a bug or 50, but i simply don't know for sure. i think its working though
     -might need to make names more clear.
-    salvage_main(done)
-    salvage_Secondary(done)
+    salvage_crew(done)
+    salvage_heavyMachinery(done)
   raiding(done/tested)
-    -DONE in theory. am having some proldoms getting it to work with neux though, and that mod is something i need
-    -raiding_main(done)
-    -found something in the MarketCMD thing, that might be were the game checks the player for mirrians, and removes them. will need more data. (look at the rules.csv file or the crew_replacer_MarketCMD.java file for details, got the functions mapped there.)
+    -DONE in theory.
+    -raiding_marines(done)
   crewships(not started)
     crew
     -i know there is code somewhere to check for the crew in ships, but i have no idea were

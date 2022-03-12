@@ -393,7 +393,7 @@ public class crewReplacer_Job {
             }*/
         }
     }
-    static private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<Float> power,float input){
+    private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<Float> power,float input){
         //edited, inproved, and tested. only returns hole numbers now. still in flpat formthough cause im lazzy.
 
         //can missround numbers sometimes, so it ca be not 100% random, but close enuth

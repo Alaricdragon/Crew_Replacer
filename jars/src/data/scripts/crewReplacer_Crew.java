@@ -8,6 +8,8 @@ import com.fs.starfarer.api.impl.campaign.shared.PlayerTradeProfitabilityData;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static com.fs.starfarer.api.util.Misc.getAOrAnFor;
+
 public class crewReplacer_Crew {
     //int ID;
     public String name;//comonidie ID
@@ -70,19 +72,19 @@ public class crewReplacer_Crew {
         return (Math.random() * (maxLosePercent - minLosePercent)) + minLosePercent;
     }*/
     public void DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text){
-        String[] message = {
+        /*String[] message = {
                 "",
                 "an",
-        };
-        String displayName;
+        };*/
+        String displayName = Global.getSector().getEconomy().getCommoditySpec(name).getName();
         if(numberOfItems > 1){
             //list_commodity
-            displayName = Global.getSector().getEconomy().getCommoditySpec(name).getName() + "s";
-            text.appendToLastParagraph(message[0] + "" + numberOfItems + " " + displayName);
+            displayName = displayName + "s";
+            text.appendToLastParagraph(numberOfItems + " " + displayName);
             //text.highlightInLastPara(highlight, displayName);
         }else if(numberOfItems == 1){
-            displayName = name;
-            text.appendToLastParagraph(message[1] + " " + displayName);
+            //displayName = name;
+            text.appendToLastParagraph(getAOrAnFor(displayName) + " " + displayName);
             //text.highlightInLastPara(highlight, displayName);
         }
         //return output;

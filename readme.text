@@ -146,9 +146,15 @@ combatability:
 # Things that need to be done to complete this project
   fixes
     - survey is so broken. it only reduces cost. it kinda works because of this. but that might not be the best.
+    - fix what happens when there are two + crew of the same priority in the same job
+        (right now they are not chocen randomly, and they should be)
+    - fix the fact that the marrine XP bounus is applying to all crew
+        i thought this was OK when i first made this, but there XP never gose down, if you have no marriens.
+        also make an example of how to give ones crew XP.
   futures
     -quests that require items might want to have a job assigned to them.
     - the ability to change what items crew/supply/repair ships, if that is possible.
+    - 3 jobs for founding a new colony
 
 
 # Job data that needs to be set and implemented (only jobs that are in the base game please)

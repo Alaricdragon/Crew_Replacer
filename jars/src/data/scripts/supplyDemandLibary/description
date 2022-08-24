@@ -1,0 +1,16 @@
+this is the supply demand class description. it has nothing to do with the rest of crew replacer:
+objective:
+the supply demand libary lets you compleatly change an markets supply and demand (or just of certen industrys.)
+how it works:
+    set up some supply demand changes, added whatever exseptions or requirements you want to them
+        -(give them all an difrent name, or they will not apply right)
+    set up an supply demand set. add all the supple demand changes to it.
+        -(give this an name you can remember. if it mathces something elses name, it could be overwriten.)
+    (optional) add you supply demand set to supply demand list, for ease of acses.
+    put 'crewReplacer_SupplyDemandLists.getRuleSet("rulename").applyMarket(market,false);' into
+        an markets conditions apply.
+    put 'crewReplacer_SupplyDemandLists.getRuleSet("rulename").applyMarket(market,true);' into
+        an markets conditions unapply
+        -btw, if anyone knows an market condition that is always active, please tell me, so i dont need to do this every time...
+
+    enjoy having markets with vastly different supply and demand changes.

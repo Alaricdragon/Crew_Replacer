@@ -1,0 +1,14 @@
+
+remove all listiners.
+(done)finish supplyDemandLibary (see folder for info)
+(done)test supplyDemandLibary. (running supply demand library from crew replacer is an no-go. ill have to run it from an market condition, and that would make this mod unsafe to remove after install.)
+
+create an new 'crew cost' custom job.
+-an idea, or proldom i have, is with crew cost. as it is now, players must make new code to beable to apply crew cost to there crew.,
+ however, it should be simple to create an job in crewReplacer to do that. dont know if anyone will use it, but they dont have to if they dont want to.
+ *Needs:
+ -to beable to apply crew cost at the start of the momth, week, day, or always.
+    -when applying the code over time, it should be able to know how mush cost an crew used, by calculating the advradge crew
+     in your fleet of this type over that time.
+    -should be able to apply any item as costs for the crew. for example, credits, food, supply, mettle, other crew, exstra.
+    -should beagle to apply an by product to the crew cost? might be very easy if i allow crew to have negative cost.

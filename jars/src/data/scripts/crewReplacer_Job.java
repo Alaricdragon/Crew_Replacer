@@ -14,17 +14,14 @@ import java.util.ArrayList;
 public class crewReplacer_Job {
     /*
         requirements:
-        a new java file for this class
-        conections in crew_replacer
-
-        way to display and apply crew lost
+        (done)way to display and apply crew lost
         -when doing a job
-            -for example: the crew lost salvage modul only trigers if any crew were lost. might want to triggger always for min loss percent factors.
+            -for example: the crew lost salvage module only triggers if any crew were lost. might want to trigger always for min loss percent factors.
         -when applying other loss factors.
         -both
 
-        way to display crew available
-        -i dont want to rebuild the crew display 40 times thanks
+        (done?)way to display crew available
+        -i don't want to rebuild the crew display 40 times thanks
      */
     public String name;
     //ArrayList<String> crew;
@@ -117,6 +114,7 @@ public class crewReplacer_Job {
             float priority = Crews.get(a).crewPriority;
             min = 0;
             max = crewPriority.size();
+            done = false;
             while(max != min){
                 look = (min + max) / 2;
                 temp = crewPriority.get((int)look);
@@ -131,49 +129,14 @@ public class crewReplacer_Job {
                     max = (int)look;
                 }else{
                     //System.out.println(a + " added to " + (int) look + " by 5");
-                    //if this crew priority matches anuther, organize them by crew power. (hence why this loop is here)
-                    int max1 = temp.size();
-                    int min1 = 0;
-                    int look1 = (max1 + min1) / 2;;//(max1 + min1) / 2;
-                    float power2 = Crews.get(a).crewPower;
-                    float power1 = (max1 + min1) / 2;
-                    //System.out.println("    max size: " + max1);
-                    while(max1 != min1){
-                        power1 = Crews.get(temp.get(look1)).crewPower;
-                        if(power1 > power2){
-                            int last1 = min1;
-                            min1 = look1;
-                            if(min1 == last1){
-                                min1++;
-                            }
-                            //System.out.println("    min changed to " + min1);
-                        }else if(power1 < power2){
-                            max1 = look1;
-                            //System.out.println("    max changed to " + max1);
-                        }else{
-                            break;
-                        }
-                        look1 = (max1 + min1) / 2;
-                    }
-                    boolean addtemp = true;
-                    //System.out.println("    looking: " + look1);
-                    if(look1 == temp.size()){
-                        if(power2 < power1){
-                            addtemp = false;
-                            temp.add(a);
-                            //System.out.println("" + a + " power: " + power2 + " added to end of loop: ");
-                        }
-
-                    }
-                    if(addtemp) {
-                        //System.out.println("" + a + " power: " + power2 + " set to: " + look1);
-                        temp.add(look1, a);
-                    }
+                    temp = crewPriority.get((int)look);
+                    temp.add(a);
                     crewPriority.set((int)look,temp);
+                    done = true;
                     break;
                 }
             }
-            if(max <= min){
+            if(!done){
                 temp = new ArrayList<Integer>();
                 temp.add(a);
                 if(max == crewPriority.size()){
@@ -293,6 +256,52 @@ public class crewReplacer_Job {
 
     }
     public ArrayList<Float> getCrewForJob(CampaignFleetAPI fleet, float crewPowerRequired){
+        /*
+            this is my changed getCrewForJob. it is compleat and somewhat tested..
+            it worked in 3 repeating stages (starting from the second for loop):
+            1: it gets the available crew in this priority.
+            2: it sees if the crew power in this prioirity is more then what is required
+            3a:it is more then required, in this case it randomly choses the required crew
+            3b:it is less or equal to what is required. in this case, it adds available crew on this priority to the output.
+         */
+        ArrayList<Float> output = new ArrayList<Float>();
+        for(int a = 0; a < Crews.size(); a++){
+            output.add((float)0);//set output.size to the same length of crews, and make all values zero.
+        }
+        ArrayList<Integer> tempArray = new ArrayList<Integer>();
+        for(int a = 0; a < crewPriority.size() && crewPowerRequired > 0; a++){
+            //sets availbe crew power of this priority to output
+            tempArray = crewPriority.get(a);
+            ArrayList<Float> crewTemp = new ArrayList<Float>();
+            float power = 0;
+            //1
+            for(int b = 0; b < tempArray.size(); b++) {
+                int index = tempArray.get(b);
+                crewTemp.add(Crews.get(index).getCrewInFleet(fleet));
+                power += Crews.get(index).getCrewPowerInFleet(fleet);
+            }
+            //2
+            if (power > crewPowerRequired){
+                //3a
+                ArrayList<Float> powerTemp = new ArrayList<Float>();
+                for(int b = 0; b < tempArray.size(); b++) {
+                    int index = tempArray.get(b);
+                    powerTemp.add(Crews.get(index).crewPower);
+                }
+                crewTemp = getRandomNumberList(crewTemp,powerTemp,crewPowerRequired);
+                crewPowerRequired = 0;
+            }
+            //3b
+            crewPowerRequired -= power;
+            for(int b = 0; b < tempArray.size(); b++){
+                int index = tempArray.get(b);
+                output.set(index,crewTemp.get(index));
+            }
+        }
+        //already have all other items in array set to zero, so this ends here.
+        return output;
+    }
+    /*public ArrayList<Float> getCrewForJobold(CampaignFleetAPI fleet, float crewPowerRequired){
         ArrayList<Float> output = new ArrayList<Float>();
         for(int a = 0; a < Crews.size(); a++){
             output.add((float)0);//set output.size to the same length of crews, and make all values zero.
@@ -328,7 +337,6 @@ public class crewReplacer_Job {
                 crewPowerRequired-= output.get(temp) * Crews.get(temp).crewPower;
             }
             if(crewOverflow && crewPowerRequired > 0){
-                //System.out.println("    runing reverce code");
                 for(int b = tempArray.size() - 1; b >= 0 && crewPowerRequired > 0; b--){
                     //System.out.println("    " + b + " runing: ");
                     temp = tempArray.get(b);
@@ -340,32 +348,6 @@ public class crewReplacer_Job {
                     crewPowerRequired -= outcrew * Crews.get(temp).crewPower;
                 }
             }
-            /*if(crewPowerRequired < 0) {
-                //marks overflow
-                //undews the added crewPower, so it can be redone.
-                tempArray2 = new ArrayList<Float>();
-                ArrayList<Float> tempArray1 = new ArrayList<Float>();
-                for(int b = 0; b < tempArray.size(); b++){
-                    temp = tempArray.get(b);
-                    float temp1 = Crews.get(temp).getCrewPowerInFleet(fleet);
-                    output.set(temp,(float)0);
-                    crewPowerRequired+= temp1;
-                    tempArray1.add(Crews.get(temp).getCrewInFleet(fleet));
-                    tempArray2.add(Crews.get(a).crewPower);
-                    //tempArray2.add(Crews.get(temp).crewPower);
-                }
-                //get the crew that will be working from this priority randomly.
-                tempArray1 = getRandomNumberList(tempArray1,tempArray2, crewPowerRequired);
-                //adds the newly selected crew to output
-                for(int b = 0; b < tempArray.size(); b++) {
-                    temp = tempArray.get(b);
-                    //getRandomNumberList dose not understand crewpower yet, get power, inseted of crew, then devide by powe after.
-                    //the causes crew with higher power to be used less? more? less i think. need to look into this. and fix it sometime.
-                    output.set(temp,tempArray1.get(b) / Crews.get(temp).crewPower);
-                }
-                //ends the loop
-                break;
-            }else */
             if(crewPowerRequired <= 0) {
                 //everythings done break;
                 break;
@@ -373,7 +355,8 @@ public class crewReplacer_Job {
         }
         //already have all other items in array set to zero, so this ends here.
         return output;
-    }
+    }*/
+
     public String[] GetCrewNames(){
         String[] output = new String[Crews.size()];
         for(int a = 0; a < Crews.size(); a++){

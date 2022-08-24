@@ -80,7 +80,7 @@ public class crewReplacer_Crew {
         if(numberOfItems > 1){
             //list_commodity
             displayName = displayName + "s";
-            text.appendToLastParagraph(numberOfItems + " " + displayName);
+            text.appendToLastParagraph((int)numberOfItems + " " + displayName);
             //text.highlightInLastPara(highlight, displayName);
         }else if(numberOfItems == 1){
             //displayName = name;

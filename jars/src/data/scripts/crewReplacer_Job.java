@@ -295,7 +295,7 @@ public class crewReplacer_Job {
             crewPowerRequired -= power;
             for(int b = 0; b < tempArray.size(); b++){
                 int index = tempArray.get(b);
-                output.set(index,crewTemp.get(index));
+                output.set(index,crewTemp.get(b));
             }
         }
         //already have all other items in array set to zero, so this ends here.

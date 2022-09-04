@@ -3,7 +3,11 @@ package data.scripts;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.impl.campaign.shared.PlayerTradeProfitabilityData;
+import com.fs.starfarer.api.ui.LabelAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.Misc;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -76,7 +80,19 @@ public class crewReplacer_Crew {
                 "",
                 "an",
         };*/
-        String displayName = Global.getSector().getEconomy().getCommoditySpec(name).getName();
+        // new tooltip-based display
+        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        String displayName = spec.getName();
+
+        TooltipMakerAPI tt = text.beginTooltip();
+        TooltipMakerAPI iwt = tt.beginImageWithText(spec.getIconName(), 24);
+        String numberStr = (int)numberOfItems + "";
+        LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
+        tt.addImageWithText(0);
+        text.addTooltip();
+
+        // old style text display
+        /*
         if(numberOfItems > 1){
             //list_commodity
             displayName = displayName + "s";
@@ -87,13 +103,9 @@ public class crewReplacer_Crew {
             text.appendToLastParagraph(getAOrAnFor(displayName) + " " + displayName);
             //text.highlightInLastPara(highlight, displayName);
         }
+        */
         //return output;
         // text.appendToLastParagraph(message[1] + " " + displayName);
         //                text.highlightInLastPara(highlight, displayName);
     }
-
-
-
-
-
 }

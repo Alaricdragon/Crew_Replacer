@@ -1254,14 +1254,14 @@ public class crew_replacer_SalvageEntity extends BaseCommandPlugin {
 
     private void DisplayLosses(int crewLost,int machineryLost,ArrayList<Float> crewLosses,ArrayList<Float> secondaryJobLosses,Color highlight){
         if(crewLost != 0 || machineryLost != 0) {
-            text.addParagraph("An accident during the operation has resulted in the loss of ");
+            text.addParagraph("An accident during the operation has resulted in the loss of: ");
         }
         //if(crewLost >= 0){
-            text.addParagraph("");
+            //text.addParagraph("");
             crewReplacer_Main.getJob(JobName).displayCrewLost(crewLosses,text);
         //}
         //if(machineryLost >= 0){
-            text.addParagraph("");
+            //text.addParagraph("");
             crewReplacer_Main.getJob(SecondJobName).displayCrewLost(secondaryJobLosses,text);
         //}
         /*if (crewLost <= 0) {

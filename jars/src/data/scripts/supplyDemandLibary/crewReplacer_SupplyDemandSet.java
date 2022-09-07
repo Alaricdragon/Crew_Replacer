@@ -91,10 +91,12 @@ public class crewReplacer_SupplyDemandSet {
             }
         }else{
             for (Industry industry : market.getIndustries()) {
+                int a = 0;
                 for (data.scripts.supplyDemandLibary.crewReplacer_SupplyDemandChange i : list) {
-                    String ID = i.name;
+                    String ID = a + "_" + name + "_" + i.name;
                     i.undo(industry, ID);
                     i.undoExtraData(industry, ID);
+                    a++;
                 }
             }
         }

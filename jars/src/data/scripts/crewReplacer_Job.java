@@ -100,7 +100,7 @@ public class crewReplacer_Job {
     }
 
 
-    void organizePriority(){
+    public void organizePriority(){
         crewPriority = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> temp = new ArrayList<Integer>();
         temp.add(0);

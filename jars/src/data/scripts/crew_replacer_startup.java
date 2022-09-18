@@ -30,6 +30,8 @@ public class crew_replacer_startup extends BaseModPlugin {
 
         tempJob = crewReplacer_Main.getJob("raiding_marines");
         marine tempcrew = new marine();
+        tempcrew.crewPower = 1;
+        tempcrew.crewPriority = 10;
         tempcrew.name = "marines";
         tempJob.addCrew(tempcrew);
         //supplyDemandChangeInit();

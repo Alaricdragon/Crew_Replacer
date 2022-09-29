@@ -1,0 +1,4 @@
+start of log:
+V??
+    -fixes:
+        fixed supplyDemandChange crashing the game because of bad code when supply change was ran.

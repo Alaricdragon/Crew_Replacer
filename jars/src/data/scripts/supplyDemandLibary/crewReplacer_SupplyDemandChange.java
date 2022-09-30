@@ -71,7 +71,7 @@ public class crewReplacer_SupplyDemandChange {
                     //industry.supply(ID,out.get(a),(int)5,"thing");
                     if(supply){
                         //industry.supply(ID,out.get(a),(int)temp,industry.getCurrentName());
-                        industry.getSupply(in.get(b)).getQuantity().modifyFlat(ID,temp);
+                        industry.getSupply(out.get(b)).getQuantity().modifyFlat(ID,temp);
                         //industry.getSupply(out.get(b)).getQuantity().modifyFlat(ID,temp);//temp + 5);
                     }else{
                         //industry.(ID,out.get(a),temp,"thing");

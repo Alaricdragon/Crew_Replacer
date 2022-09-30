@@ -1,4 +1,3 @@
-start of log:
-V??
+V1.3.4
     -fixes:
         fixed supplyDemandChange crashing the game because of bad code when supply change was ran.

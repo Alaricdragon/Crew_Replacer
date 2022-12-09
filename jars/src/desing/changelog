@@ -1,0 +1,8 @@
+V0.4
+    -new jobs:
+        task: steel a starship mission
+            job name: Mission_hijack_marines
+            replaces: marines
+V0.3.4
+    -fixes:
+        fixed supplyDemandChange crashing the game because of bad code when supply change was ran.

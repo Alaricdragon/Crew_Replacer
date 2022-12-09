@@ -1,0 +1,29 @@
+this is the replacement to all raiding jobs in use.
+status:
+    functional. missing features
+
+notes:
+    deploys 100% of forces always.
+    nex has this integrated. i must inform them of any changes made so they can also change this job.
+
+job name: replaced commodity
+    raiding_marines:    marines
+
+
+issues:
+    1) XP for marines is not given right. it should be given based on battle difficulty * %of force that is marines, but its not right now.
+    2) deployment. right now it is assumed, that you are deploying 100% of youe forces, even though that is not the way the game works.
+solutions:
+    1) add a new static variable to crewReplacerMarketCMD. it will record for every battle:
+        1) battle difficulty
+        2) number of deployed crew power
+      then in marines crew class, run the code:
+        marrineXP += (_[0] * (crewPowerUsed / _[1]));
+      NOTE: other crew can also get this XP if they want to.
+    2) find out were the game tracks deployment, and set it up so i only deploy the % of forces i actually deploy in combat.
+
+
+location of rules and scripts:
+    base game:
+
+    crew Replacer:

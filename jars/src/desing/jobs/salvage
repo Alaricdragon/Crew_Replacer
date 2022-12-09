@@ -1,0 +1,24 @@
+this is the replacement to all salvage jobs in use.
+
+status:
+    excellent
+
+notes:
+    this job replaces everything for -all- salvaging. this is from starships, to debris, to stations, to exploring ruins, everything.
+
+job name: replaced commodity
+    salvage_crew:           crew
+    salvage_heavyMachinery: heavy_machinery
+
+
+issues:
+    this works as intended. only one issue: cant separate salvaging from debris, to starships, to exploring ruins
+
+solutions:
+    unknown. look into it at some point.
+
+
+location of rules and scripts:
+    base game:
+
+    crew Replacer:

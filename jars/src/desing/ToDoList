@@ -1,10 +1,11 @@
 
-remove all listiners.
-(done)finish supplyDemandLibary (see folder for info)
-(done)test supplyDemandLibary. (running supply demand library from crew replacer is an no-go. ill have to run it from an market condition, and that would make this mod unsafe to remove after install.)
+remove all listeners.
+
+add all not yet added jobs from vanilla starsector into this mod.
+
 
 create an new 'crew cost' custom job.
--an idea, or proldom i have, is with crew cost. as it is now, players must make new code to beable to apply crew cost to there crew.,
+-an idea, or issue i have, is with crew cost. as it is now, players must make new code to be able to apply crew cost to there crew.,
  however, it should be simple to create an job in crewReplacer to do that. dont know if anyone will use it, but they dont have to if they dont want to.
  *Needs:
  -to beable to apply crew cost at the start of the momth, week, day, or always.

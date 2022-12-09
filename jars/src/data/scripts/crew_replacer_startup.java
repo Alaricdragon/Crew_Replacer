@@ -35,5 +35,19 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempcrew.name = "marines";
         tempJob.addCrew(tempcrew);
         //supplyDemandChangeInit();
+
+
+        tempJob = crewReplacer_Main.getJob("Mission_hijack_marines");
+        tempJob.addNewCrew("marines",1,10);
+        tempJob.addNewCrew("crew",1,10);
+
+
+
+        tempJob = crewReplacer_Main.getJob("repairHyperRelayMetals");
+        tempJob.addNewCrew("metals",1,10);
+        tempJob = crewReplacer_Main.getJob("repairHyperRelayRare_metals");
+        tempJob.addNewCrew("rare_metals",1,10);
+        tempJob = crewReplacer_Main.getJob("repairHyperRelayCrew");
+        tempJob.addNewCrew("crew",1,10);
     }
 }

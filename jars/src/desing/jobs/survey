@@ -1,0 +1,25 @@
+this is the replacement to all survey jobs in use. for when you survey a world.
+
+status:
+    patchwork. barely functional.
+
+job name: replaced commodity
+    survey_crew:            crew
+    survey_supply:          supply
+    survey_heavyMachinery:  heavy_machinery
+
+
+issues:
+    1) its impossible to have code ran when you press the survey button (as far as i know)
+    2) things added with crew replacer -cannot- be consumed, even when they should be
+        -supply's are consumed as normal
+    3) instead of counting towards the number of items you have, crew replacer instead reduces the cost of surveys
+
+solutions:
+    there are none. unless i find were the number used and the numbers you have are calculated.
+
+
+location of rules and scripts:
+    base game:
+
+    crew Replacer:

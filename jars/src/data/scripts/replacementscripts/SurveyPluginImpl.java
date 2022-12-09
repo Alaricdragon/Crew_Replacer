@@ -227,6 +227,7 @@ public class SurveyPluginImpl implements SurveyPlugin {
         result.put(Commodities.CREW, 1000);
         result.put(Commodities.HEAVY_MACHINERY, 100);
         result.put(Commodities.SUPPLIES, 200);
+        //result.put(Commodities.METALS, 200);
 
         return result;
     }

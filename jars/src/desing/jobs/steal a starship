@@ -1,0 +1,25 @@
+this is the replacement to all 'steal a starship' jobs in use.
+status:
+    functional
+
+notes:
+    put random data on jobs here
+
+job name: replaced commodity
+    Mission_hijack_marines:     marines
+
+
+issues:
+    1) lack of feedback: there is no feedback on what crew are used for this job
+    2) there is no way to have code ran when the job is ran
+
+solutions:
+    1) change and add some text to the mission to say what is being deployed.
+    2) find out were the mission is 'confirmed' and run code there that shows what was deployed
+
+
+location of rules and scripts:
+    base game:
+        -marine check at: HijackNotEnoughMarines in: rules.csv
+
+    crew Replacer:

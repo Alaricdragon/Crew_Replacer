@@ -25,3 +25,14 @@ marketHostileRaidConfirmSel,DialogOptionSelected,$option == mktRaidConfirm,CrewR
 #marketHostileRaidNeverMindSel,DialogOptionSelected,$option == mktRaidNeverMind,CrewReplacerMarketCMD raidNeverMind,,,
 #marketHostileRaidResultSel,DialogOptionSelected,$option == mktRaidResult,CrewReplacerMarketCMD raidResult,,,
 #marketHostileRaidPostRaidDefault,PostGroundRaid,,CrewReplacerMarketCMD addContinueToRaidResultOption,,,
+,,,,,,
+#mission:hijack. marrien cheack,,,,,,
+HijackNotEnoughMarines,HijackNotEnoughMarines,crewReplacer_HijackNotEnoughMarines $hijack_marines,SetEnabled hijack_op1 false,You don't have sufficient marines to carry out this operation.,,
+,,,,,,
+,,,,,,
+#repair conal hyper tap,,,,,,
+cTapCheckCanAfford,CTapCheckCanAfford,crewReplacer_cTapCheckCanAfford $metalsReq $tpReq $crewReq,$canAfford = true 0,,,
+cTapRepairSel,DialogOptionSelected,$option == cTap_repair,"crewReplacer_cTapRepairSel $metalsReq $tpReq
+$usable = true
+$beingRepaired = true 5
+FireBest CTapRepairInitiatedText",,100:defaultLeave:Leave,

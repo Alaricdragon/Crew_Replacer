@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class crewReplacer_cTapCheckCanAfford extends BaseCommandPlugin {
-    String metalsJob = "repairHyperRelayMetals";
-    String rare_metalsJob = "repairHyperRelayRare_metals";
-    String crewsJob = "repairHyperRelayCrew";
+    String metalsJob = "CoronalHyperShunt_repair_Metals";
+    String rare_metalsJob = "CoronalHyperShunt_repair_RareMetals";
+    String crewsJob = "CoronalHyperShunt_repair_Crew";
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
         float available0 = crewReplacer_Main.getJob(metalsJob).getAvailableCrewPower(Global.getSector().getPlayerFleet());
         int req0 = params.get(0).getInt(memoryMap);
@@ -25,6 +25,6 @@ public class crewReplacer_cTapCheckCanAfford extends BaseCommandPlugin {
         int req2 = params.get(2).getInt(memoryMap);
         //int[] a = {};
         //a[available]=1;
-        return available0 < req0 && available1 < req1 && available2 < req2;
+        return available0 >= req0 && available1 >= req1 && available2 >= req2;
     }
 }

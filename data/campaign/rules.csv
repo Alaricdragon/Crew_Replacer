@@ -36,3 +36,10 @@ cTapRepairSel,DialogOptionSelected,$option == cTap_repair,"crewReplacer_cTapRepa
 $usable = true
 $beingRepaired = true 5
 FireBest CTapRepairInitiatedText",,100:defaultLeave:Leave,
+cTap_infoText,BeginSalvage,"$customType == coronal_tap score:1000
+!$usable","$crewReq = 1000 0
+$metalsReq = 20000 0
+$tpReq = 5000 0
+ShowResCost crew $crewReq metals $metalsReq true rare_metals $tpReq true","Salvage crews board the structure at key points and soon reports come in of extensive wear and damage. It is difficult to assess the entire structure in detail, but it is clear that it is not operable in its current state.
+
+However, as with most mega-scale Domain technology from the late pre-Collapse era, the $nameInText features fantastic self-repair capabilities which requires only sufficient resources to be made available.",0:cTap_continue:Continue,

@@ -1,8 +1,17 @@
 V0.4
     -new jobs:
-        task: steel a starship mission
-            job name: Mission_hijack_marines
-            replaces: marines
+        task: steal a starship mission
+            job name:                               replaces
+            Mission_hijack_marines:                 marines
+        task: repair Coronal HyperShunt
+            job name:                               replaces
+            CoronalHyperShunt_repair_Metals:        metals
+            CoronalHyperShunt_repair_RareMetals:    rare_metals
+            CoronalHyperShunt_repair_Crew:          crew
+    -issues:
+        steal a starship mission has no feedback on what crews can do a mission. will be fixed later
+        repair Coronal HyperShunt's fancy looking display that shows what is available/required dose not respect crew replacer yet. will be fixed in a week or so
+
 V0.3.4
     -fixes:
         fixed supplyDemandChange crashing the game because of bad code when supply change was ran.

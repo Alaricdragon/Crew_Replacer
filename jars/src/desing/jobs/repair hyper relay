@@ -1,25 +1,24 @@
-this is the replacement to all _____ jobs in use.
+this is the replacement to all repair hyper relay jobs in use.
 status:
-    status: finished completely untested
-    might cause crashes. might not work. i simply don't know at all. i hope it works though...
+    status: almost done
 
 notes:
-    put random data on jobs here
     $tpReq in base rules is rare_metals. what was it before being rare?
 
 job name: replaced commodity
     job name:           commodity replaced name
-    repairHyperRelayMetals:         metals
-    repairHyperRelayRare_metals:    rare_metals
-    repairHyperRelayCrew:           crew
+    CoronalHyperShunt_repair_Metals:        metals
+    CoronalHyperShunt_repair_RareMetals:    rare_metals
+    CoronalHyperShunt_repair_Crew:          crew
 
-
+CoronalHyperShunt
 
 issues:
-    unknown. this is untested.
+    display is 100% broken. dose not display available crew. sadness
 
 solutions:
-    unknown. this must be tested
+    need to move it to my own function, as the function its using is not good for this type of thing
+        -it cant get a number other then the type of commodity its trying to display.
 
 
 location of rules and scripts:
@@ -27,6 +26,8 @@ location of rules and scripts:
         rules: cTapDisableRepair -> cTapRepairSel
         check for required resources: rules: cTapCheckCanAfford
         remove resource:              rules: cTapRepairSel
+        how mush resource i have:      rules: cTap_infoText
     crew Replacer:
         check for required resources: rules: cTapCheckCanAfford
         remove resource:              rules: cTapRepairSel
+        how mush resource i have:      rules: cTap_infoText

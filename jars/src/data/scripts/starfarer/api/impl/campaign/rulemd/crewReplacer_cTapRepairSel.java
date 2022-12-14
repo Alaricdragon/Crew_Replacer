@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 public class crewReplacer_cTapRepairSel extends BaseCommandPlugin {
-    String metalsJob = "repairHyperRelayMetals";
-    String rare_metalsJob = "repairHyperRelayRare_metals";
+    String metalsJob = "CoronalHyperShunt_repair_Metals";
+    String rare_metalsJob = "CoronalHyperShunt_repair_RareMetals";
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
         int req0 = params.get(0).getInt(memoryMap);
         crewReplacer_Main.getJob(metalsJob).automaticlyGetDisplayAndApplyCrewLost(Global.getSector().getPlayerFleet(),req0,req0,dialog.getTextPanel());

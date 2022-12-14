@@ -43,11 +43,15 @@ public class crew_replacer_startup extends BaseModPlugin {
 
 
 
-        tempJob = crewReplacer_Main.getJob("repairHyperRelayMetals");
+        tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Metals");
         tempJob.addNewCrew("metals",1,10);
-        tempJob = crewReplacer_Main.getJob("repairHyperRelayRare_metals");
+        tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_RareMetals");
         tempJob.addNewCrew("rare_metals",1,10);
-        tempJob = crewReplacer_Main.getJob("repairHyperRelayCrew");
+        tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Crew");
         tempJob.addNewCrew("crew",1,10);
+
+        /*
+        tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Crew");
+        tempJob.addNewCrew("supplies",1,10);*/
     }
 }

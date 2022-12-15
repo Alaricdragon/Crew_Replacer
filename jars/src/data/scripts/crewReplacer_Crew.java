@@ -8,6 +8,7 @@ import com.fs.starfarer.api.impl.campaign.shared.PlayerTradeProfitabilityData;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -81,17 +82,18 @@ public class crewReplacer_Crew {
                 "an",
         };*/
         // new tooltip-based display
-        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-        String displayName = spec.getName();
+        try {
+            CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+            String displayName = spec.getName();
 
-        TooltipMakerAPI tt = text.beginTooltip();
-        TooltipMakerAPI iwt = tt.beginImageWithText(spec.getIconName(), 24);
-        String numberStr = (int)numberOfItems + "";
-        LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
-        tt.addImageWithText(0);
-        text.addTooltip();
+            TooltipMakerAPI tt = text.beginTooltip();
+            TooltipMakerAPI iwt = tt.beginImageWithText(spec.getIconName(), 24);
+            String numberStr = (int) numberOfItems + "";
+            LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
+            tt.addImageWithText(0);
+            text.addTooltip();
 
-        // old style text display
+            // old style text display
         /*
         if(numberOfItems > 1){
             //list_commodity
@@ -104,8 +106,15 @@ public class crewReplacer_Crew {
             //text.highlightInLastPara(highlight, displayName);
         }
         */
-        //return output;
-        // text.appendToLastParagraph(message[1] + " " + displayName);
-        //                text.highlightInLastPara(highlight, displayName);
+            //return output;
+            // text.appendToLastParagraph(message[1] + " " + displayName);
+            //                text.highlightInLastPara(highlight, displayName);
+        }catch (Exception e){
+            loging("crew replacer attempting to display crew of name " + name + " and failed");
+        }
+    }
+    private void loging(String output){
+        final Logger LOG = Global.getLogger(this.getClass());
+        LOG.info(output);
     }
 }

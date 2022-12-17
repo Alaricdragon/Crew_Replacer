@@ -1,3 +1,19 @@
+v0.4.1
+    save compatible with V0.4+(i think)
+    polish
+        -made the 'repair Coronal Hyper Shunt' jobs display respect crew replacer.
+    improvements
+        -added a way to use Starsector's fancy display rules thing with crew replacer jobs.
+
+    crewReplacer crew:
+        added 2 more functions:
+        -getDisplayName()
+        -getCrewIcon()
+        for use when you want to have a crew that is not a commodity, and dont want to rebuild the inter display to do it,
+        you can now simply override both functions, and everything will work
+
+    debugging:
+        started on a debugger. not finished yet
 V0.4
     -new jobs:
         task: steal a starship mission

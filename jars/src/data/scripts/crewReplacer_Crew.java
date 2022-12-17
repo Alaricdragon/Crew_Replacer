@@ -83,11 +83,11 @@ public class crewReplacer_Crew {
         };*/
         // new tooltip-based display
         try {
-            CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-            String displayName = spec.getName();
+            //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+            String displayName = getDisplayName();
 
             TooltipMakerAPI tt = text.beginTooltip();
-            TooltipMakerAPI iwt = tt.beginImageWithText(spec.getIconName(), 24);
+            TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(), 24);
             String numberStr = (int) numberOfItems + "";
             LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
             tt.addImageWithText(0);
@@ -110,11 +110,16 @@ public class crewReplacer_Crew {
             // text.appendToLastParagraph(message[1] + " " + displayName);
             //                text.highlightInLastPara(highlight, displayName);
         }catch (Exception e){
-            loging("crew replacer attempting to display crew of name " + name + " and failed");
+            crew_replacer_startup.loging("crew replacer attempting to display crew of name " + name + " and failed",this,true);
         }
     }
-    private void loging(String output){
-        final Logger LOG = Global.getLogger(this.getClass());
-        LOG.info(output);
+    public String getDisplayName(){
+        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        return spec.getName();
     }
+    public String getCrewIcon(){
+        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        return spec.getIconName();
+    }
+
 }

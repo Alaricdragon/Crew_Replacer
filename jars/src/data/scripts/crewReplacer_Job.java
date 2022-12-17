@@ -3,11 +3,6 @@ package data.scripts;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.ResourceCostPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
-import com.fs.starfarer.api.ui.Alignment;
-import com.fs.starfarer.campaign.fleet.CampaignFleet;
-import com.fs.starfarer.ui.S;
-import org.lwjgl.Sys;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -32,16 +27,20 @@ public class crewReplacer_Job {
 
     //public Color defalthighlihgt = Color.RED;
     public crewReplacer_Crew getCrew(String crew){
+        crew_replacer_startup.loging("running getCrew for job: " + name,this);
+
         boolean out = true;
         crewReplacer_Crew output = null;
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
+                crew_replacer_startup.loging("  crew found. returning crew named: " + crew,this);
                 output = Crews.get(a);
                 out = false;
                 break;
             }
         }
         if(out){
+            crew_replacer_startup.loging("  crew not found. creating a new crew named: " + crew,this);
             output = new crewReplacer_Crew();
             output.name = crew;
             Crews.add(output);
@@ -52,6 +51,7 @@ public class crewReplacer_Job {
         boolean output = false;
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
+                crew_replacer_startup.loging("  crew found. removing crew named: " + Crews.get(a).name,this);
                 Crews.remove(a);
                 organizePriority();//for now. will have to change later?
                 output = true;
@@ -64,12 +64,14 @@ public class crewReplacer_Job {
         boolean output = true;
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew.name)){
+                crew_replacer_startup.loging("  crew found. merging crews named: " + Crews.get(a).name,this);
                 output = false;
                 mergeCrew(Crews.get(a),crew.crewPower,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
                 break;
             }
         }
         if(output){
+            crew_replacer_startup.loging("  crew not found. creating new crew named: " + crew,this);
             Crews.add(crew);
         }
         return output;
@@ -79,12 +81,15 @@ public class crewReplacer_Job {
         crewReplacer_Crew temp = new crewReplacer_Crew();
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
+                crew_replacer_startup.loging("  crew found. preparing merge for crew new named: " + Crews.get(a).name,this);
                 output = false;
                 temp = Crews.get(a);
                 break;
             }
         }
         if(output){
+            crew_replacer_startup.loging("  no crew found. adding crew to job named: " + crew,this);
+
             temp.name = crew;
             Crews.add(temp);
         }

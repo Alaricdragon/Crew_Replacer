@@ -1,6 +1,8 @@
 package data.scripts;
 import com.fs.starfarer.api.BaseModPlugin;
+import com.fs.starfarer.api.Global;
 import data.scripts.crews.marine;
+import org.apache.log4j.Logger;
 
 /*
  */
@@ -53,5 +55,20 @@ public class crew_replacer_startup extends BaseModPlugin {
         /*
         tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Crew");
         tempJob.addNewCrew("supplies",1,10);*/
+    }
+    static final boolean logsActive = Global.getSettings().getBoolean("crewReplacerDisplayLogs");
+    public static void loging(String output,Object displayClass,boolean displayOverride){
+        trueloging(output,displayClass,displayOverride);
+    }
+    public static void loging(String output,Object displayClass) {
+        trueloging(output,displayClass,logsActive);
+    }
+    private static void trueloging(String output,Object displayClass,boolean go){
+        if(!go){
+            return;
+        }
+        //crew_replacer_startup a = new crew_replacer_startup();
+        final Logger LOG = Global.getLogger(displayClass.getClass());
+        LOG.info(output);
     }
 }

@@ -8,8 +8,9 @@ import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.CrewReplacerLog;
 import data.scripts.crewReplacer_Main;
-import data.scripts.crew_replacer_startup;
+import data.scripts.CrewReplacerLog;
 
 import java.awt.*;
 import java.util.*;
@@ -26,7 +27,7 @@ public class CrewReplacer_showResCost extends BaseCommandPlugin {
     }
     @Override
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
-        crew_replacer_startup.loging("running: crewReplacer_showResCost",this);
+        CrewReplacerLog.loging("running: crewReplacer_showResCost",this);
         List<CrewReplacer_showResCost.ResData> data = new ArrayList<CrewReplacer_showResCost.ResData>();
         int step = 0;
         /*
@@ -51,27 +52,27 @@ public class CrewReplacer_showResCost extends BaseCommandPlugin {
             Misc.Token t = params.get(i);//for each prarm, get parm.
             if(i == params.size() - 1) {
                 widthOverride = t.getFloat(memoryMap);
-                crew_replacer_startup.loging("  widthOverride: " + widthOverride,this);
+                CrewReplacerLog.loging("  widthOverride: " + widthOverride,this);
             }
 
             //step 1
-            crew_replacer_startup.loging("  step: " + i,this);
+            CrewReplacerLog.loging("  step: " + i,this);
             CrewReplacer_showResCost.ResData curr = new CrewReplacer_showResCost.ResData();
             curr.displayID = t.getString(memoryMap);
-            crew_replacer_startup.loging("      display: " + t.getString(memoryMap),this);
+            CrewReplacerLog.loging("      display: " + t.getString(memoryMap),this);
             i++;
             t = params.get(i);
             curr.jobID = t.getString(memoryMap);
-            crew_replacer_startup.loging("      job: " + t.getString(memoryMap),this);
+            CrewReplacerLog.loging("      job: " + t.getString(memoryMap),this);
             i++;
             t = params.get(i);
             curr.qty = (int) t.getFloat(memoryMap);
-            crew_replacer_startup.loging("      qut: " + t.getFloat(memoryMap),this);
+            CrewReplacerLog.loging("      qut: " + t.getFloat(memoryMap),this);
             if (params.size() > i + 1) {
                 t = params.get(i + 1);
                 if (t.isBoolean(memoryMap)) {
                     curr.consumed = t.getBoolean(memoryMap);
-                    crew_replacer_startup.loging("      consumed override: " + t.getBoolean(memoryMap),this);
+                    CrewReplacerLog.loging("      consumed override: " + t.getBoolean(memoryMap),this);
                     i++;
                 }
             }

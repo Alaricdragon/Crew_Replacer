@@ -71,7 +71,7 @@ public class crewReplacer_Crew {
         //return tempcrew;
     }
     public float getCrewPowerInFleet(CampaignFleetAPI fleet){
-        return getCrewInFleet(fleet) * crewPower;
+        return getCrewInFleet(fleet) * getCrewPower();
     }
     /*public double getCrewLostPercent(){
         return (Math.random() * (maxLosePercent - minLosePercent)) + minLosePercent;
@@ -82,18 +82,17 @@ public class crewReplacer_Crew {
                 "an",
         };*/
         // new tooltip-based display
-        try {
-            //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-            String displayName = getDisplayName();
+        //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        String displayName = getDisplayName();
 
-            TooltipMakerAPI tt = text.beginTooltip();
-            TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(), 24);
-            String numberStr = (int) numberOfItems + "";
-            LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
-            tt.addImageWithText(0);
-            text.addTooltip();
+        TooltipMakerAPI tt = text.beginTooltip();
+        TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(), 24);
+        String numberStr = (int) numberOfItems + "";
+        LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
+        tt.addImageWithText(0);
+        text.addTooltip();
 
-            // old style text display
+        // old style text display
         /*
         if(numberOfItems > 1){
             //list_commodity
@@ -109,9 +108,6 @@ public class crewReplacer_Crew {
             //return output;
             // text.appendToLastParagraph(message[1] + " " + displayName);
             //                text.highlightInLastPara(highlight, displayName);
-        }catch (Exception e){
-            crew_replacer_startup.loging("crew replacer attempting to display crew of name " + name + " and failed",this,true);
-        }
     }
     public String getDisplayName(){
         CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
@@ -120,6 +116,9 @@ public class crewReplacer_Crew {
     public String getCrewIcon(){
         CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
         return spec.getIconName();
+    }
+    public float getCrewPower(){
+        return crewPower;
     }
 
 }

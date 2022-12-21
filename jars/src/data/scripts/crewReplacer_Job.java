@@ -3,11 +3,6 @@ package data.scripts;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.ResourceCostPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
-import com.fs.starfarer.api.ui.Alignment;
-import com.fs.starfarer.campaign.fleet.CampaignFleet;
-import com.fs.starfarer.ui.S;
-import org.lwjgl.Sys;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -32,66 +27,88 @@ public class crewReplacer_Job {
 
     //public Color defalthighlihgt = Color.RED;
     public crewReplacer_Crew getCrew(String crew){
+        CrewReplacerLog.loging(getIntoJobLog() + "running getCrew",this);
+        CrewReplacerLog.push();
         boolean out = true;
         crewReplacer_Crew output = null;
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
+                CrewReplacerLog.loging("crew found. returning crew named: " + crew,this);
                 output = Crews.get(a);
                 out = false;
                 break;
             }
         }
         if(out){
+            CrewReplacerLog.loging("crew not found. creating a new crew named: " + crew,this);
             output = new crewReplacer_Crew();
             output.name = crew;
             Crews.add(output);
         }
+        CrewReplacerLog.pop();
         return output;
     }
     public boolean removeCrew(String crew){
-        boolean output = false;
+        CrewReplacerLog.loging(getIntoJobLog() + "running Remove",this);
+        CrewReplacerLog.push();
+        //boolean output = false;
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
+                CrewReplacerLog.loging("crew found. removing crew named: " + Crews.get(a).name,this);
                 Crews.remove(a);
                 organizePriority();//for now. will have to change later?
-                output = true;
-                break;
+                CrewReplacerLog.pop();
+                return true;
             }
         }
-        return output;
+        CrewReplacerLog.loging("no crew found. cannot remove crew named: " + crew,this);
+        CrewReplacerLog.pop();
+        return false;
     }
     public boolean addCrew(crewReplacer_Crew crew){
+        CrewReplacerLog.loging(getIntoJobLog() + "running Add Crew",this);
+        CrewReplacerLog.push();
         boolean output = true;
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew.name)){
+                CrewReplacerLog.loging("crew found. merging crews named: " + Crews.get(a).name,this);
                 output = false;
                 mergeCrew(Crews.get(a),crew.crewPower,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
                 break;
             }
         }
         if(output){
+            CrewReplacerLog.loging("crew not found. creating new crew named: " + crew,this);
             Crews.add(crew);
         }
+        CrewReplacerLog.pop();
         return output;
     }
     public boolean addNewCrew(String crew,float crewPower,float crewPriority/*,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules*/){
         boolean output = true;
         crewReplacer_Crew temp = new crewReplacer_Crew();
+        CrewReplacerLog.loging(getIntoJobLog() + "trying to add new crew named: " + crew + " wtih a power & priority of: " + crewPower + " & " + crewPriority,this);
+        CrewReplacerLog.push();
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
+                CrewReplacerLog.loging("crew found. preparing merge for crew new named: " + Crews.get(a).name,this);
                 output = false;
                 temp = Crews.get(a);
                 break;
             }
         }
         if(output){
+            CrewReplacerLog.loging("no crew found. adding crew named: " + crew,this);
+
             temp.name = crew;
             Crews.add(temp);
         }
         mergeCrew(temp,crewPower,crewPriority/*,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules*/);
+        CrewReplacerLog.pop();
         return output;
     }
     private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority/*,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules*/){
+        CrewReplacerLog.loging(getIntoJobLog() + "running Merge Crew... setting stats to name: " + crew.name + ", power: " + crewPower + ", priority: " + crewPriority,this);
         crew.crewPower = crewPower;
         crew.crewPriority = crewPriority;
         //crew.maxLosePercent = crewMaxLosePercent;
@@ -101,6 +118,8 @@ public class crewReplacer_Job {
 
 
     public void organizePriority(){
+        CrewReplacerLog.loging(getIntoJobLog() + "running Organizing Priority",this);
+        CrewReplacerLog.push();
         crewPriority = new ArrayList<ArrayList<Integer>>();
         ArrayList<Integer> temp = new ArrayList<Integer>();
         temp.add(0);
@@ -160,30 +179,55 @@ public class crewReplacer_Job {
                 }
             }
         }
+        CrewReplacerLog.pop();
     }
     public float getAvailableCrewPower(CampaignFleetAPI fleet){
+        CrewReplacerLog.loging(getIntoJobLog(fleet) + "running Getting Available Crew Power",this);
+        CrewReplacerLog.push();
         float output = 0;
-        float number_of_crew;
+        float temp;
         for(int a = 0; a < Crews.size(); a++){
-            output += Crews.get(a).getCrewPowerInFleet(fleet);
+            try {
+                CrewReplacerLog.loging("getting crew named: " + Crews.get(a).name, this);
+                temp = Crews.get(a).getCrewPowerInFleet(fleet);
+                CrewReplacerLog.loging("adding " + temp + " crew power", this);
+                output += temp;
+            }catch (Exception e){
+                CrewReplacerLog.loging("ERROR! failed to get crew power in fleet!!! exception type: " + e,this,true);
+            }
             //output += (50);//462(50)//512(0)
         }
+        CrewReplacerLog.pop();
         return output;
     }
     public float[] getAvailableCrew(CampaignFleetAPI fleet){
+        CrewReplacerLog.loging(getIntoJobLog(fleet) + "running Get Available Crew",this);
+        CrewReplacerLog.push();
         float[] output = new float[Crews.size()];
+        float temp = 0;
         for(int a = 0; a < Crews.size(); a++){
-            output[a] = Crews.get(a).getCrewInFleet(fleet);
+            try {
+                CrewReplacerLog.loging("getting crew named: " + Crews.get(a).name,this);
+                temp = Crews.get(a).getCrewInFleet(fleet);
+                CrewReplacerLog.loging("got " + temp + " crew",this);
+                output[a] = temp;
+            }catch (Exception e){
+                CrewReplacerLog.loging("ERROR! failed to get crew numbers in fleet!!! exception type: " + e,this,true);
+            }
         }
+        CrewReplacerLog.pop();
         return output;
     }
 
 
     public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text){
+        CrewReplacerLog.loging(getIntoJobLog(fleet) + "running Automatically Get Display And Apply Crew Lost...",this);
+        CrewReplacerLog.push();
         ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
         ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
         displayCrewLost(crewLost,text);
         applyCrewLost(crewLost,fleet);
+        CrewReplacerLog.pop();
     }
     /*public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text){
         ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
@@ -193,13 +237,18 @@ public class crewReplacer_Job {
         applyCrewLost(crewLost,fleet);
     }*/
     public ArrayList<Float> automaticlyGetAndApplyCrewLost(CampaignFleetAPI fleet, int crewPowerRequired, float crew_power_to_lose){
+        CrewReplacerLog.loging(getIntoJobLog(fleet) + "running Automaticly Get And Apply Crew Lost...",this);
+        CrewReplacerLog.push();
         ArrayList<Float> crewUsed = getCrewForJob(fleet,crewPowerRequired);
         ArrayList<Float> crewLost = getCrewLost(crewUsed,crew_power_to_lose);
         //displayCrewLost(crewLost,text,highlight);
         applyCrewLost(crewLost,fleet);
+        CrewReplacerLog.pop();
         return crewLost;
     }
     public ArrayList<Float> getCrewLost(ArrayList<Float> crewUsed, float crew_power_to_lose){
+        CrewReplacerLog.loging(getIntoJobLog() + "running getCrewLost...",this);
+        CrewReplacerLog.push();
         //crewUsed is an array of floats, each one equal to the amound of crew used on a given ID.
         //gets the number of crew lost, based on crew power. chocen randomly from an array of crew.
         //priority of crew dose not matter here. this is the crew lost in this task, form the crew that worked it.
@@ -211,19 +260,38 @@ public class crewReplacer_Job {
         }*/
         ArrayList<Float> temp2 = new ArrayList<Float>();
         for(int a = 0; a < Crews.size(); a++){
-            temp2.add(Crews.get(a).crewPower);
+            try {
+                CrewReplacerLog.loging("getting crew power for crew named: " + Crews.get(a).name,this);
+                float temp = Crews.get(a).getCrewPower();
+                CrewReplacerLog.loging("got " + temp + " power",this);
+                temp2.add(temp);
+            }catch (Exception e){
+                CrewReplacerLog.loging("ERROR!!! failed to get crew power for crew with function getCrewPower(). getting variable instead. Exception type: " + e,this,true);
+                temp2.add(Crews.get(a).crewPower);
+            }
         }
         output = getRandomNumberList(crewUsed,temp2,crew_power_to_lose);
         float temp;
         for(int a = 0; a < output.size(); a++){
-            output.set(a,Crews.get(a).getCrewToLose(crewUsed.get(a),output.get(a)));//new system, to allow more contol.
+            try {
+                CrewReplacerLog.loging("getting crew lost for new named: " + Crews.get(a).name,this);
+                float temp1 = Crews.get(a).getCrewToLose(crewUsed.get(a), output.get(a));
+                CrewReplacerLog.loging("got " + temp1 + " crew lost",this);
+                output.set(a, temp1);//new system, to allow more contol.
+            }catch (Exception e){
+                CrewReplacerLog.loging("ERROR!!! failed to get crew lost. setting crew lost to zero for temp data... exception type: " + e,this,true);
+                output.set(a,0f);
+            }
             //temp = (float) Crews.get(a).getCrewLostPercent();
             //1,15,0 == 15//1,15,30 == 0
             //output.set(a,output.get(a) + (temp * Math.max(crewUsed.get(a) - output.get(a),0)));
         }
+        CrewReplacerLog.pop();
         return output;
     }
     public void displayCrewLost(ArrayList<Float> crewLost, TextPanelAPI text){
+        CrewReplacerLog.loging(getIntoJobLog() + "running Display Crew Lost...",this);
+        CrewReplacerLog.push();
         //text.appendToLastParagraph(" runing display for:  " + name);//for testing.
         //text.appendToLastParagraph(" sizes: " + crewLost.size() + ", " + Crews.size());
         boolean last = false;
@@ -234,7 +302,12 @@ public class crewReplacer_Job {
             }
             if(crewLost.get(a) != 0){
                 last = true;
-                Crews.get(a).DisplayedCrewNumbers(crewLost.get(a),text);
+                try {
+                    CrewReplacerLog.loging("running DisplayCrewNumbers for crew named " + Crews.get(a).name,this);
+                    Crews.get(a).DisplayedCrewNumbers(crewLost.get(a), text);
+                }catch (Exception e){
+                    CrewReplacerLog.loging("ERROR!!! failed to display crew numbers. Exception type: " + e,this,true);
+                }
             }
             /*if(crewLost.get(a) > 1){
                 last = true;
@@ -245,17 +318,27 @@ public class crewReplacer_Job {
                 text.appendToLastParagraph(message[1] + " " + displayName);
                 text.highlightInLastPara(highlight, displayName);
             }*/
+            CrewReplacerLog.pop();
         }
     }
     public void applyCrewLost(ArrayList<Float> crewLost,CampaignFleetAPI fleet){
+        CrewReplacerLog.loging(getIntoJobLog(fleet) + "running Apply Crew Lost",this);
+        CrewReplacerLog.push();
         for(int a = 0; a < Crews.size(); a++) {
-            Crews.get(a).removeCrew(fleet,crewLost.get(a));
+            try {
+                CrewReplacerLog.loging("removing crew for crew named: " + Crews.get(a).name,this);
+                Crews.get(a).removeCrew(fleet, crewLost.get(a));
+            }catch (Exception e){
+                CrewReplacerLog.loging("ERROR!!! failed to remove crew. Exception type: " + e,this,true);
+            }
             //String ComonadyName = Crews.get(a).name;
             //fleet.getCargo().removeCommodity(ComonadyName, crewLost.get(a));
         }
-
+        CrewReplacerLog.pop();
     }
     public ArrayList<Float> getCrewForJob(CampaignFleetAPI fleet, float crewPowerRequired){
+        CrewReplacerLog.loging(getIntoJobLog(fleet) + "running Get Crew For Job...",this);
+        CrewReplacerLog.push();
         /*
             this is my changed getCrewForJob. it is compleat and somewhat tested..
             it worked in 3 repeating stages (starting from the second for loop):
@@ -276,17 +359,38 @@ public class crewReplacer_Job {
             float power = 0;
             //1
             for(int b = 0; b < tempArray.size(); b++) {
-                int index = tempArray.get(b);
-                crewTemp.add(Crews.get(index).getCrewInFleet(fleet));
-                power += Crews.get(index).getCrewPowerInFleet(fleet);
+                try {
+                    int index = tempArray.get(b);
+                    CrewReplacerLog.loging("fining avialbe crew and power for crew named " + Crews.get(index).name,this);
+                    CrewReplacerLog.push();
+                    float temp = Crews.get(index).getCrewInFleet(fleet);
+                    CrewReplacerLog.loging("crew in fleet: " + temp,this);
+                    crewTemp.add(temp);
+                    CrewReplacerLog.loging("crew power in fleet: " + temp,this);
+                    temp = Crews.get(index).getCrewPowerInFleet(fleet);
+                    power += temp;
+                    CrewReplacerLog.pop();
+                }catch (Exception e){
+                    CrewReplacerLog.pop();
+                    CrewReplacerLog.loging("ERROR!!! could not get crewInFleet,orCrewPowerInFleet. setting available crew and power to zero for this function. Exception type: " + e,this,true);
+                    crewTemp.add(0f);
+                }
             }
             //2
             if (power > crewPowerRequired){
                 //3a
                 ArrayList<Float> powerTemp = new ArrayList<Float>();
                 for(int b = 0; b < tempArray.size(); b++) {
-                    int index = tempArray.get(b);
-                    powerTemp.add(Crews.get(index).crewPower);
+                    try {
+                        int index = tempArray.get(b);
+                        CrewReplacerLog.loging("getting crew power for crew named: " + Crews.get(index).name,this);
+                        float temp = Crews.get(index).getCrewPower();
+                        CrewReplacerLog.loging("crew power: " + temp,this);
+                        powerTemp.add(temp);
+                    }catch (Exception e){
+                        CrewReplacerLog.loging("ERROR!!! failed to get crew power. setting power to zero for this function Exception type " + e,this,true);
+                        powerTemp.add(0f);
+                    }
                 }
                 crewTemp = getRandomNumberList(crewTemp,powerTemp,crewPowerRequired);
                 crewPowerRequired = 0;
@@ -299,6 +403,7 @@ public class crewReplacer_Job {
             }
         }
         //already have all other items in array set to zero, so this ends here.
+        CrewReplacerLog.pop();
         return output;
     }
     /*public ArrayList<Float> getCrewForJobold(CampaignFleetAPI fleet, float crewPowerRequired){
@@ -358,16 +463,44 @@ public class crewReplacer_Job {
     }*/
 
     public String[] GetCrewNames(){
+        CrewReplacerLog.loging(getIntoJobLog() + "running Get Crew Names",this);
+        CrewReplacerLog.push();
         String[] output = new String[Crews.size()];
         for(int a = 0; a < Crews.size(); a++){
+            CrewReplacerLog.loging("getting crew named: " + name,this);
             output[a] = Crews.get(a).name;
         }
+        CrewReplacerLog.pop();
+        return output;
+    }
+    public String[] getCrewDisplayNames(){
+        CrewReplacerLog.loging("running Get Crew Display Names",this);
+        CrewReplacerLog.push();
+        String[] output = new String[Crews.size()];
+        for(int a = 0; a < Crews.size(); a++){
+            try {
+                CrewReplacerLog.loging("getting display name for crew named: " + Crews.get(a).name,this);
+                String temp = Crews.get(a).getDisplayName();
+                CrewReplacerLog.loging("got name " + temp,this);
+                output[a] = temp;
+            }catch (Exception e){
+                CrewReplacerLog.loging("ERROR!!! failed to get display name. Exception type "+ e,this,true);
+            }
+        }
+        CrewReplacerLog.pop();
         return output;
     }
 
     public void displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text){
+        CrewReplacerLog.loging(getIntoJobLog(fleet) + "running Display Crew Available",this);
+        CrewReplacerLog.push();
         for(int a = 0; a < Crews.size(); a++){
-            Crews.get(a).DisplayedCrewNumbers(Crews.get(a).getCrewInFleet(fleet),text);
+            try {
+                CrewReplacerLog.loging("displaying crew numbers for crew named: " + Crews.get(a).name,this);
+                Crews.get(a).DisplayedCrewNumbers(Crews.get(a).getCrewInFleet(fleet), text);
+            }catch (Exception e){
+                CrewReplacerLog.loging("ERROR!!! failed to display crew numbers. Exception type: " + e,this,true);
+            }
             /*float crew = Crews.get(a).getCrewInFleet(fleet);
             if(crew == 1){
                 text.appendToLastParagraph(message[0] + "" + crew + " " + Crews.get(a).name + "s");
@@ -375,8 +508,11 @@ public class crewReplacer_Job {
                 text.appendToLastParagraph(message[1] + "" + crew + " " + Crews.get(a).name);
             }*/
         }
+        CrewReplacerLog.pop();
     }
     private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<Float> power,float input){
+        CrewReplacerLog.loging(getIntoJobLog() + "getting random number list...",this);
+        CrewReplacerLog.push();
         //edited, inproved, and tested. only returns hole numbers now. still in flpat formthough cause im lazzy.
 
         //can missround numbers sometimes, so it ca be not 100% random, but close enuth
@@ -413,6 +549,7 @@ public class crewReplacer_Job {
             for(int a = 0; a < maxCrew.size(); a++){
                 output.add(maxCrew.get(a));
             }
+            CrewReplacerLog.pop();
             return output;
         }
         //get random numbers for every max number. set to zero if there is nothing for said max number (also remember total of all the random numbers)
@@ -474,6 +611,18 @@ public class crewReplacer_Job {
                 output.set(a,output.get(a) + temp.get(a));
             }
         }*/
+        CrewReplacerLog.pop();
         return output;
+    }
+
+    private String getIntoJobLog(){
+        return "in job named '" + name + "' ";
+    }
+    private String getIntoJobLog(CampaignFleetAPI fleet){
+        try {
+            return getIntoJobLog() + "in fleet named '" + fleet.getName() + "' ";
+        }catch (Exception e){
+            return getIntoJobLog() + "in fleet named " + "'ERROR!!!'" + " ";
+        }
     }
 }

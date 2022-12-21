@@ -8,6 +8,7 @@ import com.fs.starfarer.api.impl.campaign.shared.PlayerTradeProfitabilityData;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class crewReplacer_Crew {
         //return tempcrew;
     }
     public float getCrewPowerInFleet(CampaignFleetAPI fleet){
-        return getCrewInFleet(fleet) * crewPower;
+        return getCrewInFleet(fleet) * getCrewPower();
     }
     /*public double getCrewLostPercent(){
         return (Math.random() * (maxLosePercent - minLosePercent)) + minLosePercent;
@@ -81,12 +82,12 @@ public class crewReplacer_Crew {
                 "an",
         };*/
         // new tooltip-based display
-        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-        String displayName = spec.getName();
+        //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        String displayName = getDisplayName();
 
         TooltipMakerAPI tt = text.beginTooltip();
-        TooltipMakerAPI iwt = tt.beginImageWithText(spec.getIconName(), 24);
-        String numberStr = (int)numberOfItems + "";
+        TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(), 24);
+        String numberStr = (int) numberOfItems + "";
         LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
         tt.addImageWithText(0);
         text.addTooltip();
@@ -104,8 +105,20 @@ public class crewReplacer_Crew {
             //text.highlightInLastPara(highlight, displayName);
         }
         */
-        //return output;
-        // text.appendToLastParagraph(message[1] + " " + displayName);
-        //                text.highlightInLastPara(highlight, displayName);
+            //return output;
+            // text.appendToLastParagraph(message[1] + " " + displayName);
+            //                text.highlightInLastPara(highlight, displayName);
     }
+    public String getDisplayName(){
+        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        return spec.getName();
+    }
+    public String getCrewIcon(){
+        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        return spec.getIconName();
+    }
+    public float getCrewPower(){
+        return crewPower;
+    }
+
 }

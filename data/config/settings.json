@@ -6,6 +6,6 @@
 		"data.scripts.replacementscripts.Salvage",
 		"data.scripts.starfarer.api.impl.campaign.rulemd",
 	],
-
+	"crewReplacerDisplayLogs": true,
 }
 

@@ -2,18 +2,14 @@ package data.scripts;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
+import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-import com.fs.starfarer.api.impl.campaign.shared.PlayerTradeProfitabilityData;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import org.apache.log4j.Logger;
 
-import java.awt.*;
 import java.util.ArrayList;
-
-import static com.fs.starfarer.api.util.Misc.getAOrAnFor;
 
 public class crewReplacer_Crew {
     //int ID;
@@ -60,27 +56,21 @@ public class crewReplacer_Crew {
             }
         }
     }
-    public float getCrewToLose(float crewUsed,float crewLost){
+    public float getCrewToLose(float crewUsed,float crewLost){//,CargoAPI cargo){
         return crewLost;
     }
-    public void removeCrew(CampaignFleetAPI fleet,float CrewToLost){
-        fleet.getCargo().removeCommodity(name, CrewToLost);
+    public void removeCrew(CargoAPI cargo,float CrewToLost){
+        cargo.removeCommodity(name, CrewToLost);
     }
-    public float getCrewInFleet(CampaignFleetAPI fleet){
-        return fleet.getCargo().getCommodityQuantity(name);
+    public float getCrewInCargo(CargoAPI cargo){
+        return cargo.getCommodityQuantity(name);
         //return tempcrew;
     }
-    public float getCrewPowerInFleet(CampaignFleetAPI fleet){
-        return getCrewInFleet(fleet) * getCrewPower();
+    public float getCrewPowerInCargo(CargoAPI cargo){
+        return getCrewInCargo(cargo) * getCrewPower();
     }
-    /*public double getCrewLostPercent(){
-        return (Math.random() * (maxLosePercent - minLosePercent)) + minLosePercent;
-    }*/
-    public void DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text){
-        /*String[] message = {
-                "",
-                "an",
-        };*/
+
+    public void DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text){//,CargoAPI cargo){
         // new tooltip-based display
         //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
         String displayName = getDisplayName();
@@ -91,34 +81,31 @@ public class crewReplacer_Crew {
         LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
         tt.addImageWithText(0);
         text.addTooltip();
-
-        // old style text display
-        /*
-        if(numberOfItems > 1){
-            //list_commodity
-            displayName = displayName + "s";
-            text.appendToLastParagraph((int)numberOfItems + " " + displayName);
-            //text.highlightInLastPara(highlight, displayName);
-        }else if(numberOfItems == 1){
-            //displayName = name;
-            text.appendToLastParagraph(getAOrAnFor(displayName) + " " + displayName);
-            //text.highlightInLastPara(highlight, displayName);
-        }
-        */
-            //return output;
-            // text.appendToLastParagraph(message[1] + " " + displayName);
-            //                text.highlightInLastPara(highlight, displayName);
     }
-    public String getDisplayName(){
+    public String getDisplayName(){//CargoAPI cargo){
         CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
         return spec.getName();
     }
-    public String getCrewIcon(){
+    public String getCrewIcon(){//CargoAPI cargo){
         CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
         return spec.getIconName();
     }
-    public float getCrewPower(){
+    public float getCrewPower(){//CargoAPI cargo){
         return crewPower;
+    }
+
+
+    /*old fleet get functions, here for backwards compatibility.*/
+    public void removeCrew(CampaignFleetAPI fleet,float CrewToLost){
+        removeCrew(fleet.getCargo(),CrewToLost);
+        //fleet.getCargo().removeCommodity(name, CrewToLost);
+    }
+    public float getCrewInFleet(CampaignFleetAPI fleet){
+        return getCrewInCargo(fleet.getCargo());//fleet.getCargo().getCommodityQuantity(name);
+        //return tempcrew;
+    }
+    public float getCrewPowerInFleet(CampaignFleetAPI fleet){
+        return getCrewPowerInCargo(fleet.getCargo());//getCrewInFleet(fleet) * getCrewPower();
     }
 
 }

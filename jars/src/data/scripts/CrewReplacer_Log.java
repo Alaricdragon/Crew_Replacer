@@ -3,7 +3,7 @@ package data.scripts;
 import com.fs.starfarer.api.Global;
 import org.apache.log4j.Logger;
 
-public class CrewReplacerLog {
+public class CrewReplacer_Log {
     static final private boolean logsActive = Global.getSettings().getBoolean("crewReplacerDisplayLogs");
     public static int depth = 0;
     private static final char space = ' ';

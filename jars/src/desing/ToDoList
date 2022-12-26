@@ -1,20 +1,7 @@
-add in logs all over the mod.
-    to add logs to:
-        crewReplacer_crew
-        crewReplacer_Job
-
-    already added logs to:
-        crewReplacer_Main
-        crewReplacer_showResCost
-
-    IDEA:
-        add a function to add a "   " to the display. this will let me indent easier, especially when things loop
-        todo:
-            1: add a new class for logs.
-            2: add 2 new functions, push and pop, to remove/add new indents.
-            3: store indent status. increase / decrease indents at will. set max indents to a number
-
-
+add a 'defence' stat to all crew.
+at this time, crew does not have a way to change how many crew are destroyed in a job when they loes things.
+this will add a simple way to do that.
+and will help with other things
 
 add all not yet added jobs from vanilla starsector into this mod.
 

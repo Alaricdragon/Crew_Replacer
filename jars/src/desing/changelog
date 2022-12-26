@@ -1,3 +1,29 @@
+v0.4.2:
+    fixes:
+        fixed a bug that caused the player to lose 2X the marines from rading.
+    changes:
+        changed the name of CrewReplacerLog to CrewReplacer_Log to match the rest of my code.
+    the following functions were added. they are now considered the primary form of said functions
+        crewReplacer_Job:
+            getAvailableCrewPower(CargoAPI cargo)
+            getAvailableCrew(CargoAPI cargo)
+            automaticlyGetDisplayAndApplyCrewLost(CargoAPI cargo,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text)
+            automaticlyGetAndApplyCrewLost(CargoAPI cargo, int crewPowerRequired, float crew_power_to_lose)
+            applyCrewLost(ArrayList<Float> crewLost,CargoAPI cargo)
+            getCrewForJob(CargoAPI cargo, float crewPowerRequired)
+            displayCrewAvailable(CargoAPI cargo,TextPanelAPI text)
+
+        crewReplacer_Crew: the following function were added
+            removeCrew(CargoAPI cargo,float CrewToLost)
+            getCrewInFleet(CampaignFleetAPI fleet)
+            getCrewPowerInFleet(CampaignFleetAPI fleet)
+
+        the reason said functions were added, is because i realized that making a moder input a fleet just to get cargo is a pointless.
+        the old functions (that are the same, just they get CampaignFleetAPI instead of CargoAPI) will remain. they will simply run the new functions from them, so no change to your code is required, unless you are overwriting parts of a crewReplacer_Job, or a crewReplacer_Crew
+
+    prep work:
+        started to prepare my code for a rework of large parts of the raid plugging, to fix many issues
+        started to prepare my code for more improvements and customization to crewReplacer_Job and crewReplacer_Crew
 v0.4.1
     save compatible with V0.4+
     polish

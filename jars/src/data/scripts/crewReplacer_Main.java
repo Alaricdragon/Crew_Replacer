@@ -11,14 +11,14 @@ public class crewReplacer_Main {
         boolean temp = true;
         for(int a = 0; a < Jobs.size(); a++){
             if(Jobs.get(a).name.equals(job)){//
-                CrewReplacerLog.loging("getJob found matching job name. getting job named: " + job,new crewReplacer_Main());
+                CrewReplacer_Log.loging("getJob found matching job name. getting job named: " + job,new crewReplacer_Main());
                 output = Jobs.get(a);
                 temp = false;
                 break;
             }
         }
         if(temp){//output == null){
-            CrewReplacerLog.loging("getJob job not formed yet. creating new job named: " + job,new crewReplacer_Main());
+            CrewReplacer_Log.loging("getJob job not formed yet. creating new job named: " + job,new crewReplacer_Main());
             output = addJob(job);
         }
         return output;
@@ -27,13 +27,13 @@ public class crewReplacer_Main {
         boolean output = false;
         for(int a = 0; a < Jobs.size(); a++){
             if(Jobs.get(a).name.equals(job)){
-                CrewReplacerLog.loging("removeJob sucsesfull. removeing job " + job,new crewReplacer_Main());
+                CrewReplacer_Log.loging("removeJob sucsesfull. removeing job " + job,new crewReplacer_Main());
                 Jobs.remove(a);
                 output = true;
                 break;
             }
         }
-        CrewReplacerLog.loging("remove job failed. no job name: " + job, new crewReplacer_Main());
+        CrewReplacer_Log.loging("remove job failed. no job name: " + job, new crewReplacer_Main());
         return output;
     }
     /*static public boolean addNewJob(String job){
@@ -60,13 +60,13 @@ public class crewReplacer_Main {
             }
         }
         if(output){
-            CrewReplacerLog.loging("addOrMergeJob didnt find any job by the name: " + job + ". creating new job.",new crewReplacer_Main());
+            CrewReplacer_Log.loging("addOrMergeJob didnt find any job by the name: " + job + ". creating new job.",new crewReplacer_Main());
             /*if(job.name.equals("")){
                 throw new ClassCastException("jobs must have names!");
             }*/
             Jobs.add(job);
         }else{
-            CrewReplacerLog.loging("addOrMergeJob found a matching job named: " + job + ". moveing data to new class...", new crewReplacer_Main());
+            CrewReplacer_Log.loging("addOrMergeJob found a matching job named: " + job + ". moveing data to new class...", new crewReplacer_Main());
             crewReplacer_Job tempjob = Jobs.get(temp);
             Jobs.remove(temp);
             for(int a = 0; a < tempjob.Crews.size(); a++) {
@@ -78,13 +78,13 @@ public class crewReplacer_Main {
     }
 
     static public void organizePriority(){
-        CrewReplacerLog.loging("organizeing Prioirty...", new crewReplacer_Main());
-        CrewReplacerLog.push();
+        CrewReplacer_Log.loging("organizeing Prioirty...", new crewReplacer_Main());
+        CrewReplacer_Log.push();
         for(int a = 0; a < Jobs.size(); a++){
-            CrewReplacerLog.loging("organizeing job named: " + Jobs.get(a).name,new crewReplacer_Main());
+            CrewReplacer_Log.loging("organizeing job named: " + Jobs.get(a).name,new crewReplacer_Main());
             Jobs.get(a).organizePriority();
         }
-        CrewReplacerLog.pop();
+        CrewReplacer_Log.pop();
     }
     static private crewReplacer_Job addJob(String name){
         crewReplacer_Job temp = new crewReplacer_Job();

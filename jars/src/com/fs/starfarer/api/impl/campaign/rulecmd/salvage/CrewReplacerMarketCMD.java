@@ -763,10 +763,17 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
                                         marinesStr + " in your fleet.",
                                 getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),//doneHERE?
                                 Misc.getWithDGS(playerCargo.getMarines()));*/
+                        /*
                         LabelAPI label = texttemp.addPara("Your marine commander submits a plan for your approval. Losses during this " +
                         "operation are projected to be %s. There is a total of %s ground combat ability in your fleet",
                                 getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),
-                                Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));
+                                Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));*/
+                        float combat = crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp);
+                        float support = Misc.getFleetwideTotalMod(playerFleettemp, Stats.FLEET_GROUND_SUPPORT, 0f);
+                        LabelAPI label = texttemp.addPara("Your marine commander submits a plan for your approval. Losses during this " +
+                                        "operation are projected to be %s. There is a effective strength of %s ground troop power available in your fleet",
+                                getMarineLossesColor(data), getProjectedMarineLosses(data).toLowerCase(),
+                                Float.toString(combat));//,Float.toString(support));
                         texttemp.addPara("your total available ground combat force is consisted of: ");
                         crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp);//doneHERE
                         texttemp.addPara(Misc.ucFirst(item) + " targeted: " + list + ".", h,
@@ -970,7 +977,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
                                     h, Misc.getDGSCredits(value));
                         }
                         texttemp.addPara("The combat force are ready to go, awaiting your final confirmation. There are a total of %s " +
-                                "ground combat power in your fleet.", Misc.getHighlightColor(), Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));//Misc.getWithDGS(playerCargo.getMarines()));//mabyedoneHERE number of crew for discription? or crew power maybe?
+                                "ground troop power in your fleet.", Misc.getHighlightColor(), Float.toString(crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleettemp)));//Misc.getWithDGS(playerCargo.getMarines()));//mabyedoneHERE number of crew for discription? or crew power maybe?
                         crewReplacer_Main.getJob(jobmain).displayCrewAvailable(playerFleettemp,texttemp);
                         temptemp.objectives = data;
                         addConfirmOptions();
@@ -1136,7 +1143,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         float maxTokens;
         if (this.market != null && reMult < 1.0F) {
             reservesMult = (float)getMarinesFor(this.market, Math.round(assignedTokens));
-            maxTokens = (float)Global.getSector().getPlayerFleet().getCargo().getMarines();
+            maxTokens = (float)crewReplacer_Main.getJob(jobmain).getAvailableCrewPower(playerFleet.getCargo());//Global.getSector().getPlayerFleet().getCargo().getMarines();//HERE
             if (maxTokens > reservesMult && maxTokens > 0.0F) {
                 reMult *= 0.5F + 0.5F * reservesMult / maxTokens;
             }

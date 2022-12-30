@@ -1258,11 +1258,11 @@ public class crew_replacer_SalvageEntity extends BaseCommandPlugin {
         }
         //if(crewLost >= 0){
             //text.addParagraph("");
-            crewReplacer_Main.getJob(JobName).displayCrewLost(crewLosses,text);
+            crewReplacer_Main.getJob(JobName).displayCrewLost(playerFleet.getCargo(),crewLosses,text);
         //}
         //if(machineryLost >= 0){
             //text.addParagraph("");
-            crewReplacer_Main.getJob(SecondJobName).displayCrewLost(secondaryJobLosses,text);
+            crewReplacer_Main.getJob(SecondJobName).displayCrewLost(playerFleet.getCargo(),secondaryJobLosses,text);
         //}
         /*if (crewLost <= 0) {
             text.appendToLastParagraph("" + machineryLost + " heavy machinery.");

@@ -56,7 +56,7 @@ public class crewReplacer_Crew {
             }
         }
     }
-    public float getCrewToLose(float crewUsed,float crewLost){//,CargoAPI cargo){
+    public float getCrewToLose(CargoAPI cargo,float crewUsed,float crewLost){//,CargoAPI cargo){
         return crewLost;
     }
     public void removeCrew(CargoAPI cargo,float CrewToLost){
@@ -67,30 +67,30 @@ public class crewReplacer_Crew {
         //return tempcrew;
     }
     public float getCrewPowerInCargo(CargoAPI cargo){
-        return getCrewInCargo(cargo) * getCrewPower();
+        return getCrewInCargo(cargo) * getCrewPower(cargo);
     }
 
-    public void DisplayedCrewNumbers(float numberOfItems, TextPanelAPI text){//,CargoAPI cargo){
+    public void DisplayedCrewNumbers(CargoAPI cargo,float numberOfItems, TextPanelAPI text){//,CargoAPI cargo){
         // new tooltip-based display
         //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-        String displayName = getDisplayName();
+        String displayName = getDisplayName(cargo);
 
         TooltipMakerAPI tt = text.beginTooltip();
-        TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(), 24);
+        TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(cargo), 24);
         String numberStr = (int) numberOfItems + "";
         LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
         tt.addImageWithText(0);
         text.addTooltip();
     }
-    public String getDisplayName(){//CargoAPI cargo){
+    public String getDisplayName(CargoAPI cargo){//CargoAPI cargo){
         CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
         return spec.getName();
     }
-    public String getCrewIcon(){//CargoAPI cargo){
+    public String getCrewIcon(CargoAPI cargo){//CargoAPI cargo){
         CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
         return spec.getIconName();
     }
-    public float getCrewPower(){//CargoAPI cargo){
+    public float getCrewPower(CargoAPI cargo){//CargoAPI cargo){
         return crewPower;
     }
 

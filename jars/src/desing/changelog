@@ -1,3 +1,26 @@
+v0.4.3:
+    save compatible with V0.4+
+    fixes:
+        fixed a missing crewReplacerRefrence on line 1139 in CrewReplacerMarketCMD.getMarineLossesStat(List<GroundRaidObjectivePlugin> data), that was getting marrines instead of crew
+    changes:
+        changed how marines are removed from a fleet. should change nothing.
+        changed two lines of dialog in the raid plugin, to hopefully avoid confusion between ground troops and ground support ability.
+    changed the following functions:
+        crewReplacer_Crew:
+            DisplayedCrewNumbers(float,TextPanelAPI) -> DisplayedCrewNumbers(CargoAPI,float,TextPanelAPI)
+            getDisplayName()                         -> getDisplayName(CargoAPI)
+            getCrewIcon()                            -> getCrewIcon(CargoAPI)
+            getCrewPower()                           -> getCrewPower(CargoAPI)
+        crewReplacer_Job:
+            getCrewLost(ArrayList<Float>,float)             -> getCrewLost(CargoAPI,ArrayList<Float>, float)
+            getCrewDisplayNames()                           -> getCrewDisplayNames(CargoAPI cargo)
+            displayCrewLost(ArrayList<Float>, TextPanelAPI) -> displayCrewLost(CargoAPI,ArrayList<Float>, TextPanelAPI)
+        reasoning:
+            it was difficult before to have more dynamic custom stats and names for crew.
+            routing cargo through everything in crewReplacer_Crew (and by requirements, some things in crewReplacer_Job),
+            a user will be able to get anything from fleet to faction to other things in cargo, allowing more interesting crew options.
+        NOTICE: anybody that uses any of the changed functions should look into updating there code, as it is now outdated. sorry.
+    more prep work on the raiding plugin. its confusing.
 v0.4.2:
     save compatible with V0.4+
     fixes:

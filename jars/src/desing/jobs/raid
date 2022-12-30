@@ -8,12 +8,18 @@ notes:
 job name: replaced commodity
     raiding_marines:    marines
 
-
+exstra data:
+    regarding marrine XP, possible canteens for were / when that is calculated
+        -playerFleet.getCommanderStats().getMarineEffectivnessMult()
+    line 1246: were i get and apply crew losses.
 issues:
     1) XP for marines is not given right. it should be given based on battle difficulty * %of force that is marines, but its not right now.
     2) deployment. right now it is assumed, that you are deploying 100% of youe forces, even though that is not the way the game works.
-    3) fails to add ground support modifiers to combat, even though it says it does
+    3) fails to add ground support modifiers to combat, even though it says it does?
+        -cant find any evidence that this is true
+        -the -display- for available ground crew does not display ground combat power on the conform page? maybe that is it?
     4) fails to adjust marries losses based on amount of available ground support
+        -updated code.
 solutions:
     1) add a new static variable to crewReplacerMarketCMD. it will record for every battle:
         1) battle difficulty

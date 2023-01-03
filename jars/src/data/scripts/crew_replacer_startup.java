@@ -1,6 +1,7 @@
 package data.scripts;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
+import com.thoughtworks.xstream.XStream;
 import data.scripts.crews.marine;
 import org.apache.log4j.Logger;
 
@@ -17,7 +18,11 @@ public class crew_replacer_startup extends BaseModPlugin {
         crewReplacer_Main.organizePriority();
         super.onGameLoad(newGame);
     }
-    private static void startup2(){
+    @Override
+    public void configureXStream(XStream x) {
+
+    }
+        private static void startup2(){
         crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
         tempJob.addNewCrew("crew",1,10);
 

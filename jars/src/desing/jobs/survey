@@ -8,7 +8,21 @@ job name: replaced commodity
     survey_supply:          supply
     survey_heavyMachinery:  heavy_machinery
 
-
+notes:
+    possible leads on the survey plugin
+        -OpenCoreTab. both survey and found a colony use this. no clue how it works. mapping now...
+            -function i think im looking for extends InteractionDialogAPI
+            -found function name useing logs: named o0Oo.
+                -scaned located: com.fs.starfarer.ui.newui.o0Oo
+                -issues: failed to locate o0Oo. cant find it anywhere. might need a java decompiler
+                -found location: in starsector-core (starfarer_obf.jar):
+                    -com.fs.starfarer.campain.ui
+                    -com.fs.starfarer.combat.ai.system
+                    -com.fs.starfarer.coreui
+                    -com.fs.starfarer.ui.impl
+                    -com.fs.starfarer.ui.newui
+                        -THIS IS INVISABLE WHY CANT I SEE IT!!!
+                -data info:
 issues:
     1) its impossible to have code ran when you press the survey button (as far as i know)
     2) things added with crew replacer -cannot- be consumed, even when they should be
@@ -21,5 +35,8 @@ solutions:
 
 location of rules and scripts:
     base game:
-
+        rule: surveyAddOptionPerform
+        rule: surveyOptionPerformSurvey
     crew Replacer:
+        rule: surveyAddOptionPerform
+        rule: surveyOptionPerformSurvey

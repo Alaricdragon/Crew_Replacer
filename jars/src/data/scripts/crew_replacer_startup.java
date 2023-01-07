@@ -1,9 +1,15 @@
 package data.scripts;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
+import com.fs.starfarer.api.campaign.listeners.*;
+import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.thoughtworks.xstream.XStream;
 import data.scripts.crews.marine;
+import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /*
  */
@@ -16,13 +22,15 @@ public class crew_replacer_startup extends BaseModPlugin {
     @Override
     public void onGameLoad(boolean newGame) {
         crewReplacer_Main.organizePriority();
+        replacePlayerFleetPersonnelTracker();
         super.onGameLoad(newGame);
     }
     @Override
     public void configureXStream(XStream x) {
-
+        super.configureXStream(x);
+        x.alias("CrewReplacerPlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
     }
-        private static void startup2(){
+    private void startup2(){
         crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
         tempJob.addNewCrew("crew",1,10);
 
@@ -60,5 +68,137 @@ public class crew_replacer_startup extends BaseModPlugin {
         /*
         tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Crew");
         tempJob.addNewCrew("supplies",1,10);*/
+    }
+
+    private void replacePlayerFleetPersonnelTracker(){
+        CrewReplacer_Log.loging("removing the PlayerFleetPersonnelTracker so i can replace it with my own...",this);
+        CrewReplacer_Log.push();
+        //Global.getSector().getGenericPlugins().
+        /*List<GenericPluginManagerAPI.GenericPlugin> a = Global.getSector().getGenericPlugins().getPluginsOfClass(PlayerFleetPersonnelTracker.class);
+        for(GenericPluginManagerAPI.GenericPlugin b:a) {
+            CrewReplacer_Log.loging("removing plugin: " + b.getClass().getCanonicalName(),this);
+            Global.getSector().getGenericPlugins().removePlugin(b);
+        }
+        Global.getSector().getGenericPlugins().addPlugin(new CrewReplacer_PlayerFleetPersonnelTracker());
+        CrewReplacer_Log.loging("removing PlayerFleetPersonnelTracker from listner: ",this);
+        Global.getSector().getListenerManager().removeListener(PlayerFleetPersonnelTracker.class);
+        Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
+        */
+
+        int count = 0;
+        CrewReplacer_Log.loging("trying to remove generic trackers. removing",this);
+        CrewReplacer_Log.push();
+        List<GenericPluginManagerAPI.GenericPlugin> a = Global.getSector().getGenericPlugins().getPluginsOfClass(PlayerFleetPersonnelTracker.class);
+        for(GenericPluginManagerAPI.GenericPlugin b:a) {
+            CrewReplacer_Log.loging("removing plugin: " + b.getClass().getCanonicalName(),this);
+            Global.getSector().getGenericPlugins().removePlugin(b);
+            count++;
+        }
+        CrewReplacer_Log.loging("removed a total of " + count + " plugging. should be one",this);
+        CrewReplacer_Log.pop();
+
+
+        List<GroundRaidObjectivesListener> RaidListiner = Global.getSector().getListenerManager().getListeners(GroundRaidObjectivesListener.class);
+        String removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
+        count = 0;
+        CrewReplacer_Log.loging("removing trakers of removing class: GroundRaidObjectivesListener..",this);
+        CrewReplacer_Log.push();
+        for(GroundRaidObjectivesListener b:RaidListiner){
+            if(b.getClass().getCanonicalName().equals(removeName)){
+                RaidListiner.remove(removeName);
+                count++;
+                CrewReplacer_Log.loging("removed a tracker of the name: " + b.getClass().getCanonicalName(),this);
+            }
+        }
+        CrewReplacer_Log.loging("removed a total of " + count + " trackers. should be one?",this);
+
+
+        List<CommodityTooltipModifier> CommodityTooltipModifier = Global.getSector().getListenerManager().getListeners(com.fs.starfarer.api.campaign.listeners.CommodityTooltipModifier.class);
+        //String removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
+        count = 0;
+        CrewReplacer_Log.loging("removing trakers of removing class: CommodityTooltipModifier..",this);
+        CrewReplacer_Log.push();
+        for(CommodityTooltipModifier b:CommodityTooltipModifier){
+            if(b.getClass().getCanonicalName().equals(removeName)){
+                CommodityTooltipModifier.remove(removeName);
+                count++;
+                CrewReplacer_Log.loging("removed a tracker of the name: " + b.getClass().getCanonicalName(),this);
+            }
+        }
+        CrewReplacer_Log.loging("removed a total of " + count + " trackers. should be one?",this);
+        //CrewReplacer_Log.loging("adding replacement traker...",this);
+        CrewReplacer_Log.pop();
+
+
+        List<CommodityIconProvider> CommodityIconProvider = Global.getSector().getListenerManager().getListeners(CommodityIconProvider.class);
+        //String removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
+        count = 0;
+        CrewReplacer_Log.loging("removing trakers of removing class: CommodityIconProvider..",this);
+        CrewReplacer_Log.push();
+        for(CommodityIconProvider b:CommodityIconProvider){
+            if(b.getClass().getCanonicalName().equals(removeName)){
+                CommodityIconProvider.remove(removeName);
+                count++;
+                CrewReplacer_Log.loging("removed a tracker of the name: " + b.getClass().getCanonicalName(),this);
+            }
+        }
+        CrewReplacer_Log.loging("removed a total of " + count + " trackers. should be one?",this);
+        //CrewReplacer_Log.loging("adding replacement traker...",this);
+        CrewReplacer_Log.pop();
+
+
+        List<CargoScreenListener> CargoScreenListener = Global.getSector().getListenerManager().getListeners(com.fs.starfarer.api.campaign.listeners.CargoScreenListener.class);
+        //String removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
+        count = 0;
+        CrewReplacer_Log.loging("removing trakers of removing class: CargoScreenListener..",this);
+        CrewReplacer_Log.push();
+        for(CargoScreenListener b:CargoScreenListener){
+            if(b.getClass().getCanonicalName().equals(removeName)){
+                CargoScreenListener.remove(removeName);
+                count++;
+                CrewReplacer_Log.loging("removed a tracker of the name: " + b.getClass().getCanonicalName(),this);
+            }
+        }
+        CrewReplacer_Log.loging("removed a total of " + count + " trackers. should be one?",this);
+        //CrewReplacer_Log.loging("adding replacement traker...",this);
+        CrewReplacer_Log.pop();
+
+
+
+        List<ColonyInteractionListener> ColonyInteractionListener = Global.getSector().getListenerManager().getListeners(com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener.class);
+        //String removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
+        count = 0;
+        CrewReplacer_Log.loging("removing trakers of removing class: ColonyInteractionListener..",this);
+        CrewReplacer_Log.push();
+        for(ColonyInteractionListener b:ColonyInteractionListener){
+            if(b.getClass().getCanonicalName().equals(removeName)){
+                ColonyInteractionListener.remove(removeName);
+                count++;
+                CrewReplacer_Log.loging("removed a tracker of the name: " + b.getClass().getCanonicalName(),this);
+            }
+        }
+        CrewReplacer_Log.loging("removed a total of " + count + " trackers. should be one?",this);
+        //CrewReplacer_Log.loging("adding replacement traker...",this);
+        CrewReplacer_Log.pop();
+
+
+
+        List<PlayerFleetPersonnelTracker> temp = Global.getSector().getListenerManager().getListeners(PlayerFleetPersonnelTracker.class);
+        removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
+        count = 0;
+        CrewReplacer_Log.loging("removing trakers of removing class: PlayerFleetPersonnelTracker..",this);
+        CrewReplacer_Log.push();
+        for(PlayerFleetPersonnelTracker b:temp){
+            if(b.getClass().getCanonicalName().equals(removeName)){
+                temp.remove(removeName);
+                count++;
+                CrewReplacer_Log.loging("removed a tracker of the name: " + b.getClass().getCanonicalName(),this);
+            }
+        }
+        CrewReplacer_Log.loging("removed a total of " + count + " trackers. should be one?",this);
+
+
+        //Global.getSector().getGenericPlugins().addPlugin(new CrewReplacer_PlayerFleetPersonnelTracker());
+        //Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
     }
 }

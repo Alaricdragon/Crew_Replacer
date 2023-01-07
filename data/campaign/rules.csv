@@ -45,6 +45,6 @@ CrewReplacer_showResCost ""crew"" ""CoronalHyperShunt_repair_Crew"" $crewReq ""m
 However, as with most mega-scale Domain technology from the late pre-Collapse era, the $nameInText features fantastic self-repair capabilities which requires only sufficient resources to be made available.",0:cTap_continue:Continue,
 ,,,,,,
 #survey testing data,,,,,,
-surveyAddOptionPerform,PopulateOptions,"$market.isPlanetConditionMarketOnly
+#surveyAddOptionPerform,PopulateOptions,"$market.isPlanetConditionMarketOnly
 !$market.isSurveyed",,,0:surveyPerform:Perform a survey,
-surveyOptionPerformSurvey,DialogOptionSelected,$option == surveyPerform,CrewReplacer_OpenCoreTab CARGO OPEN,Your $shipOrFleet enters low orbit around $entityName.,,
+#surveyOptionPerformSurvey,DialogOptionSelected,$option == surveyPerform,CrewReplacer_OpenCoreTab CARGO OPEN,Your $shipOrFleet enters low orbit around $entityName.,,

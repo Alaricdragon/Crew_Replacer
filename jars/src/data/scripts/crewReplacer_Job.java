@@ -403,7 +403,10 @@ public class crewReplacer_Job {
         for(int a = 0; a < Crews.size(); a++){
             try {
                 CrewReplacer_Log.loging("displaying crew numbers for crew named: " + Crews.get(a).name,this);
-                Crews.get(a).DisplayedCrewNumbers(cargo,Crews.get(a).getCrewInCargo(cargo), text);
+                float crewInCargo = Crews.get(a).getCrewInCargo(cargo);
+                if(crewInCargo != 0) {
+                    Crews.get(a).DisplayedCrewNumbers(cargo, crewInCargo, text);
+                }
             }catch (Exception e){
                 CrewReplacer_Log.loging("ERROR!!! failed to display crew numbers. Exception type: " + e,this,true);
             }

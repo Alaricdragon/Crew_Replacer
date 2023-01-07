@@ -11,10 +11,10 @@ job name: replaced commodity
 CURRENT OBJECTIVE:
 i found a listener that does everything i want effortlessly. at long fucking last.
 here is what im going to do:
-    1) remove the current marrine listiner, and subsatood it with my own.
+    1)(DONE! (not save compatible)) remove the current marrine listiner, and subsatood it with my own.
         -com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker -> reportRaidObjectivesAchieved(RaidResultData data, InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap)
-    2) add a system in crewReplacer_Job and crewReplacer_Crew to transfer all the relevant data over to crew, so i can get some sweet sweet XP for my units
-    3) remove my current implementation of removeing crew. it is now -outdated-.
+    2)(not started) add a system in crewReplacer_Job and crewReplacer_Crew to transfer all the relevant data over to crew, so i can get some sweet sweet XP for my units
+    3)(not started) remove my current implementation of removeing crew. it is now -outdated-.
 
 exstra data:
     regarding marrine XP, possible canteens for were / when that is calculated

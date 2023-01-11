@@ -21,8 +21,41 @@ public class crewReplacer_Job {
     public String name;
     public ArrayList<ArrayList<Integer>> crewPriority;//organized greatest to lowest.
     public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>();
-
+    public Object ExtraData = null;
     //public Color defalthighlihgt = Color.RED;
+    public void applyExtraDataToCrew(){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running applyExtraDataToCrew",this);
+        CrewReplacer_Log.push();
+        applyExtraDataToCrew(ExtraData);
+        CrewReplacer_Log.pop();
+    }
+    public void applyExtraDataToCrew(Object newData){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running applyExtraDataToCrew",this);
+        CrewReplacer_Log.push();
+        for(crewReplacer_Crew a: Crews){
+            a.setExtraData(newData);
+        }
+        CrewReplacer_Log.pop();
+    }
+    public void applyExtraDataToCrewAndJob(Object newData){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running applyExtraDataToCrewAndJob",this);
+        CrewReplacer_Log.push();
+        ExtraData = newData;
+        applyExtraDataToCrew(newData);
+        CrewReplacer_Log.pop();
+    }
+    public void resetExtraDataToCrewsAndJob(){
+        ExtraData = null;
+        resetExtraDataToCrews();
+    }
+    public void resetExtraDataToCrews(){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running resetExtraDataToCrews",this);
+        CrewReplacer_Log.push();
+        for(crewReplacer_Crew a: Crews){
+            a.resetExtraData();
+        }
+        CrewReplacer_Log.pop();
+    }
     public crewReplacer_Crew getCrew(String crew){
         CrewReplacer_Log.loging(getIntoJobLog() + "running getCrew",this);
         CrewReplacer_Log.push();

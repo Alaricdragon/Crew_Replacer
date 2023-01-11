@@ -1262,7 +1262,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
             text.addPara("You forces have suffered casualties during the raid.", Misc.getHighlightColor(), "" + losses);
             //playerFleet.getCargo().removeMarines(losses);//doneHERE remove crew inportant
             crewReplacer_Job tempjob = crewReplacer_Main.getJob(jobmain);
-            tempjob.automaticlyGetDisplayAndApplyCrewLost(playerFleet,(int)tempjob.getAvailableCrewPower(playerFleet),losses,text);//HERE. I require the number of actual deployed crew here...
+            //tempjob.automaticlyGetDisplayAndApplyCrewLost(playerFleet,(int)tempjob.getAvailableCrewPower(playerFleet),losses,text);//HERE. I require the number of actual deployed crew here...
             temp.marinesLost = losses;//doneHERE?
             //AddRemoveCommodity.addCommodityLossText(Commodities.MARINES, losses, text);//doneHERE losses display text
         }

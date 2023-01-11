@@ -23,8 +23,13 @@ public class crewReplacer_Crew {
     /*public float maxLosePercent = 0;
     public float minLosePercent = 0;
     public boolean NormalLossRules = true;*/
-
-
+    public Object ExtraData;
+    public void resetExtraData(){
+        ExtraData = null;
+    }
+    public void setExtraData(Object newData){
+        ExtraData = newData;
+    }
 
     public boolean hasTag(String tag){
         boolean output = false;

@@ -22,13 +22,16 @@ public class crew_replacer_startup extends BaseModPlugin {
     @Override
     public void onGameLoad(boolean newGame) {
         crewReplacer_Main.organizePriority();
-        replacePlayerFleetPersonnelTracker();
+        //replacePlayerFleetPersonnelTracker();
+        //replacePlayerFleetPersonnelTracker2();
+        addListinger();
         super.onGameLoad(newGame);
     }
     @Override
     public void configureXStream(XStream x) {
         super.configureXStream(x);
-        x.alias("CrewReplacerPlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
+        //x.alias("CrewReplacerPlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
+        //x.alias("PlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
     }
     private void startup2(){
         crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
@@ -69,7 +72,9 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Crew");
         tempJob.addNewCrew("supplies",1,10);*/
     }
-
+    private void addListiner(){
+        //(GroundRaidObjectivesListener)CrewReplacer_PlayerFleetPersonnelTracker;
+    }
     private void replacePlayerFleetPersonnelTracker(){
         CrewReplacer_Log.loging("removing the PlayerFleetPersonnelTracker so i can replace it with my own...",this);
         CrewReplacer_Log.push();
@@ -96,7 +101,6 @@ public class crew_replacer_startup extends BaseModPlugin {
         }
         CrewReplacer_Log.loging("removed a total of " + count + " plugging. should be one",this);
         CrewReplacer_Log.pop();
-
 
         List<GroundRaidObjectivesListener> RaidListiner = Global.getSector().getListenerManager().getListeners(GroundRaidObjectivesListener.class);
         String removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
@@ -199,6 +203,30 @@ public class crew_replacer_startup extends BaseModPlugin {
 
 
         //Global.getSector().getGenericPlugins().addPlugin(new CrewReplacer_PlayerFleetPersonnelTracker());
-        //Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
+        Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
+    }
+    private void replacePlayerFleetPersonnelTracker2(){
+        CrewReplacer_Log.loging("removing the PlayerFleetPersonnelTracker so i can replace it with my own...",this);
+        CrewReplacer_Log.push();
+        //PlayerFleetPersonnelTracker.getInstance()
+        List<GroundRaidObjectivesListener> list = Global.getSector().getListenerManager().getListeners(GroundRaidObjectivesListener.class);
+        int b = 0;
+        for(int a = 0; a < list.size(); a++){
+            if(list.get(a).getClass().getCanonicalName().equals(PlayerFleetPersonnelTracker.getInstance().getClass().getCanonicalName())){
+                Global.getSector().getListenerManager().removeListener(list.get(a));
+                CrewReplacer_Log.loging("removed: " + list.get(a).getClass().getCanonicalName(),this);
+                b++;
+            }
+        }
+        Global.getSector().getGenericPlugins().removePlugin(Global.getSector().getGenericPlugins().getPluginsOfClass(PlayerFleetPersonnelTracker.class).get(0));
+        CrewReplacer_Log.loging("removed " + b + " listiners. should be 1.",this);
+        Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
+
+        List<PlayerFleetPersonnelTracker> list3 = Global.getSector().getListenerManager().getListeners(PlayerFleetPersonnelTracker.class);
+        CrewReplacer_Log.loging(list3.size()  + "listener remaining. should be not zero? ",this);
+        CrewReplacer_Log.pop();
+    }
+    private void addListinger(){
+        Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
     }
 }

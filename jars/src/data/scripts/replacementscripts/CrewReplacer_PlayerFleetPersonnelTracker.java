@@ -27,6 +27,7 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
         //PlayerFleetPersonnelTracker
         CrewReplacer_Log.loging("runing raid Objective listinger. removing crew and adding XP...",this);
         CrewReplacer_Log.push();
+            XPNeutralizer( data,  dialog,memoryMap);
             crewReplacer_Job job = crewReplacer_Main.getJob(jobName);
             job.applyExtraDataToCrewAndJob(data);
             CargoAPI playerCargo = Global.getSector().getPlayerFleet().getCargo();//10, 5. =: 10 - 5 = 5. 5 / 10 = 0.5
@@ -38,7 +39,6 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
             job.automaticlyGetDisplayAndApplyCrewLost(playerCargo,crewPowerUsed,data.marinesLost,dialog.getTextPanel());
             job.resetExtraDataToCrewsAndJob();
             CrewReplacer_Log.loging("removing XP added by the base game to marines...",this);
-            XPNeutralizer( data,  dialog,memoryMap);
         CrewReplacer_Log.pop();
         /*function would be easterly difficult to remove or add*/
         //data.
@@ -59,7 +59,7 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
 		xpGain *= total;
 		xpGain *= thing.XP_PER_RAID_MULT;
 		if (xpGain < 0) xpGain = 0;
-		xpGain*=-1;
+		xpGain*=-1;//this is were XP gets neutralized.
         thing.getMarineData().addXP(xpGain);
 
         thing.update();

@@ -411,8 +411,12 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         attackerBase.modifyFlatAlways("core_marines", marines, "Ground troops on board");//HERE
         attackerBase.modifyFlatAlways("core_support", support, "Fleet capability for ground support");
 
-        StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
+        StatBonus attackerTemp = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = new StatBonus();
+
+        StatBonus attacker = attackerTemp.createCopy();
+        attacker.unmodifyPercent("core_marines");//remove globally bonus that marine XP provides.
+
         if (market != null && difficulty <= 0) defender = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
 
         defender.modifyFlat("difficulty", difficulty, "Expected resistance");
@@ -549,9 +553,11 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         attackerBase.modifyFlatAlways("core_marines", marines, "Ground troops on board");//HERE this looks like its a veribal assinment, as apposed to an displayed text.?
         attackerBase.modifyFlatAlways("core_support", support, "Fleet capability for ground support");
 
-        StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
+        StatBonus attackerTemp = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
 
+        StatBonus attacker = attackerTemp.createCopy();
+        attacker.unmodifyPercent("core_marines");//remove globally bonus that marine XP provides.
         String surpriseKey = "core_surprise";
 //		if (temp.isSurpriseRaid) {
 //			//defender.modifyMult(surpriseKey, 0.1f, "Surprise raid");
@@ -563,7 +569,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         if (added > 0) {
             defender.modifyFlat(increasedDefensesKey, added, "Increased defender preparedness");
         }
-
+        tempdebug(attackerTemp);
+        tempdebug(attackerBase);
         float attackerStr = (int) Math.round(attacker.computeEffective(attackerBase.computeEffective(0f)));//notHERE?
         float defenderStr = (int) Math.round(defender.computeEffective(defenderBase.computeEffective(0f)));
 
@@ -1478,4 +1485,33 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         CrewReplacer_Log.pop();
     }/**/
 
+    private void tempdebug(StatBonus temp){
+        if(!logsActive){return;}
+        CrewReplacer_Log.loging("HERE: statThing: = " + temp,this,logsActive);
+        CrewReplacer_Log.loging("flat",this,logsActive);
+        tempdebug2(temp.getFlatBonuses(),logsActive);
+        CrewReplacer_Log.loging("multi",this,logsActive);
+        tempdebug2(temp.getMultBonuses(),logsActive);
+        CrewReplacer_Log.loging("percent",this,logsActive);
+        tempdebug2(temp.getPercentBonuses(),logsActive);
+
+        CrewReplacer_Log.loging("caluclated effectiveness (with a base of 1): " + temp.computeEffective(1),this,logsActive);
+    }
+    private void tempdebug2(HashMap<String, StatMod> a,boolean display){
+        CrewReplacer_Log.loging("   size of: " + a.keySet().size(),this,display);
+        for(int b = 0; b < a.keySet().toArray().length; b++){
+            try {
+                CrewReplacer_Log.loging("       " + a.keySet().toArray()[b], this, display);
+                CrewReplacer_Log.loging("       " + a.get(a.keySet().toArray()[b]).getSource(), display, true);
+                CrewReplacer_Log.loging("       " + a.get(a.keySet().toArray()[b]).getValue(), display, true);
+                CrewReplacer_Log.loging("       " + a.get(a.keySet().toArray()[b]).getDesc(), display, true);
+                CrewReplacer_Log.loging("       " , this, true);
+
+            }catch (Exception E){
+                CrewReplacer_Log.loging("       error: failed to get data. ",this,display);
+            }
+
+
+        }
+    }
 }

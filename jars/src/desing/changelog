@@ -4,8 +4,10 @@ v0.5:
     background work:
         raids and marines:
             replaces the old way marrines XP gain was calculated in starsector, replacing it with my own.
-        started to do battle with the survey code. its moking me.
-    fixes: made it so crewReplacer_Job.displayCrewAvailable() does not display crew available if you have none.
+        started to do battle with the survey code. its making ghost sounds at me.
+    fixes:
+        made it so crewReplacer_Job.displayCrewAvailable() does not display crew available if you have none of said type of crew.
+        made it so marine XP only effects marines.
     new:
         added 5 new function to crewReplacer_Job:
             applyExtraDataToCrew();
@@ -21,6 +23,8 @@ v0.5:
         explanation:
             sometimes, one wants to send / process some random data to crews or jobs. this was hard before, but now its simple.
             this is currently used in the raid plugin for marines to get XP. will be explained farther when i update the documentation
+    marine in raiding:
+        made it so the marine displays its XP on it, instead of on the intier ground combat force.
 v0.4.3:
     save compatible with V0.4+
     fixes:

@@ -15,9 +15,13 @@ here is what im going to do:
         -com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker -> reportRaidObjectivesAchieved(RaidResultData data, InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap)
     2)(done) add a system in crewReplacer_Job and crewReplacer_Crew to transfer all the relevant data over to crew, so i can get some sweet sweet XP for my units
     3)(done) remove my current implementation of removing crew in this job. it is now -outdated-.
-    4) actually add XP to marines as i use them.
-    5) and that's -hopefully- finished.
-
+    4)(done) actually add XP to marines as i use them.
+    5)(done?) remove the global crew power bonus marine XP gives ground troops.
+        -was from playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD). removed now? need to test
+    6) remove the global crew loss bonus marine XP gives ground troops.
+        -playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);?
+    7) re-add the attack bonus to marines, complete with a display.
+    8) re-add the marine loss bonus, no display needed? i don't know.
 exstra data:
     regarding marrine XP, possible canteens for were / when that is calculated
         -com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker

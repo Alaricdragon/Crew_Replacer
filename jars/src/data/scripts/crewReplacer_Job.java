@@ -327,7 +327,7 @@ public class crewReplacer_Job {
                 last = true;
                 try {
                     CrewReplacer_Log.loging("running DisplayCrewNumbers for crew named " + Crews.get(a).name,this);
-                    Crews.get(a).DisplayedCrewNumbers(cargo,crewLost.get(a), text);
+                    Crews.get(a).displayCrewLost(cargo,crewLost.get(a), text);
                 }catch (Exception e){
                     CrewReplacer_Log.loging("ERROR!!! failed to display crew numbers. Exception type: " + e,this,true);
                 }
@@ -438,7 +438,7 @@ public class crewReplacer_Job {
                 CrewReplacer_Log.loging("displaying crew numbers for crew named: " + Crews.get(a).name,this);
                 float crewInCargo = Crews.get(a).getCrewInCargo(cargo);
                 if(crewInCargo != 0) {
-                    Crews.get(a).DisplayedCrewNumbers(cargo, crewInCargo, text);
+                    Crews.get(a).displayCrewAvailable(cargo, crewInCargo, text);
                 }
             }catch (Exception e){
                 CrewReplacer_Log.loging("ERROR!!! failed to display crew numbers. Exception type: " + e,this,true);

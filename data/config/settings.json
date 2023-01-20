@@ -9,6 +9,6 @@
 	#for the genral function of crew replacer. errors are displayed regardless.
 	"crewReplacerDisplayLogs": true,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
-	"crewReplacerDisplayRaidLogs": false,
+	"crewReplacerDisplayRaidLogs": true,
 }
 

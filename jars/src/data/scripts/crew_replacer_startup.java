@@ -5,7 +5,7 @@ import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
 import com.fs.starfarer.api.campaign.listeners.*;
 import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.thoughtworks.xstream.XStream;
-import data.scripts.crews.marine;
+import data.scripts.crews.CrewReplacer_CrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import org.apache.log4j.Logger;
 
@@ -47,7 +47,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob.addNewCrew("crew",1,10);*/
 
         tempJob = crewReplacer_Main.getJob("raiding_marines");
-        marine tempcrew = new marine();
+        CrewReplacer_CrewType_marine tempcrew = new CrewReplacer_CrewType_marine();
         tempcrew.crewPower = 1;
         tempcrew.crewPriority = 10;
         tempcrew.name = "marines";

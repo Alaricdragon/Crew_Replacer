@@ -75,18 +75,6 @@ public class crewReplacer_Crew {
         return getCrewInCargo(cargo) * getCrewPower(cargo);
     }
 
-    public void DisplayedCrewNumbers(CargoAPI cargo,float numberOfItems, TextPanelAPI text){//,CargoAPI cargo){
-        // new tooltip-based display
-        //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-        String displayName = getDisplayName(cargo);
-
-        TooltipMakerAPI tt = text.beginTooltip();
-        TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(cargo), 24);
-        String numberStr = (int) numberOfItems + "";
-        LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
-        tt.addImageWithText(0);
-        text.addTooltip();
-    }
     public String getDisplayName(CargoAPI cargo){//CargoAPI cargo){
         CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
         return spec.getName();
@@ -99,7 +87,25 @@ public class crewReplacer_Crew {
         return crewPower;
     }
 
+    public void displayCrewAvailable(CargoAPI cargo, float numberOfItems, TextPanelAPI text){
+        DisplayedCrewNumbers(cargo,numberOfItems,text);
+    }
+    public void displayCrewLost(CargoAPI cargo,float numberOfItems, TextPanelAPI text){
+        DisplayedCrewNumbers(cargo,numberOfItems,text);
+    }
+    /*a function that is never used directly. used for genral display*/
+    public void DisplayedCrewNumbers(CargoAPI cargo,float numberOfItems, TextPanelAPI text){//,CargoAPI cargo){
+        // new tooltip-based display
+        //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        String displayName = getDisplayName(cargo);
 
+        TooltipMakerAPI tt = text.beginTooltip();
+        TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(cargo), 24);
+        String numberStr = (int) numberOfItems + "";
+        LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
+        tt.addImageWithText(0);
+        text.addTooltip();
+    }
     /*old fleet get functions, here for backwards compatibility.*/
     public void removeCrew(CampaignFleetAPI fleet,float CrewToLost){
         removeCrew(fleet.getCargo(),CrewToLost);

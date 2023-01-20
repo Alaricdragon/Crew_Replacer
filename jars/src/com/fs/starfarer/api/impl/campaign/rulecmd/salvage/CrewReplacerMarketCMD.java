@@ -414,8 +414,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         StatBonus attackerTemp = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = new StatBonus();
 
-        StatBonus attacker = attackerTemp.createCopy();
-        attacker.unmodifyPercent("core_marines");//remove globally bonus that marine XP provides.
+        StatBonus attacker = cutMarrineXPToNewStatbounus(attackerTemp);//attackerTemp.createCopy();
+        //attacker.unmodifyPercent("marineXP");//"core_marines");//remove globally bonus that marine XP provides.
 
         if (market != null && difficulty <= 0) defender = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
 
@@ -481,7 +481,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         defender.unmodifyFlat(increasedDefensesKey);
         defender.unmodifyMult(surpriseKey);
-        attacker.unmodifyMult(surpriseKey);
+        attackerTemp.unmodifyMult(surpriseKey);//HERE. this was attaker. so i turned it back to attacker temp
 
         text.addTooltip();
 
@@ -514,7 +514,10 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         options.addOption("Go back", RAID_GO_BACK);
         options.setShortcut(RAID_GO_BACK, Keyboard.KEY_ESCAPE, false, false, false, true);
+
+        repairStatBounus(attacker,attackerTemp);//HERE. trying to repair my modifiers. this might work?
         CrewReplacer_Log.pop();
+        //attackerTemp = attacker.;
     }
 
 
@@ -556,8 +559,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         StatBonus attackerTemp = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
 
-        StatBonus attacker = attackerTemp.createCopy();
-        attacker.unmodifyPercent("core_marines");//remove globally bonus that marine XP provides.
+        StatBonus attacker = cutMarrineXPToNewStatbounus(attackerTemp);//attackerTemp.createCopy();
+        //attacker.unmodifyPercent("marineXP");//"core_marines");//remove globally bonus that marine XP provides.
         String surpriseKey = "core_surprise";
 //		if (temp.isSurpriseRaid) {
 //			//defender.modifyMult(surpriseKey, 0.1f, "Surprise raid");
@@ -571,6 +574,9 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         }
         tempdebug(attackerTemp);
         tempdebug(attackerBase);
+        tempdebug(attacker);
+        //tempdebug(attacker);
+        //tempdebug(attacker);
         float attackerStr = (int) Math.round(attacker.computeEffective(attackerBase.computeEffective(0f)));//notHERE?
         float defenderStr = (int) Math.round(defender.computeEffective(defenderBase.computeEffective(0f)));
 
@@ -619,7 +625,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         defender.unmodifyFlat(increasedDefensesKey);
         defender.unmodifyMult(surpriseKey);
-        attacker.unmodifyMult(surpriseKey);
+        attackerTemp.unmodifyMult(surpriseKey);//HERE. this was attacker. so i turned to back to attacker temp
 
         text.addTooltip();
 
@@ -699,7 +705,12 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         options.addOption("Go back", RAID_GO_BACK);
         options.setShortcut(RAID_GO_BACK, Keyboard.KEY_ESCAPE, false, false, false, true);
+        repairStatBounus(attacker,attackerTemp);//HERE were im trying to fix the thing. god this is patchwork.
         CrewReplacer_Log.pop();
+        //CrewReplacer_Log.loging("HERE, FINAL Test Thing. temp -> base -> blank",this);
+        //tempdebug(attackerTemp);
+        //tempdebug(attackerBase);
+        //tempdebug(attacker);
     }
 //this is something i need
     protected void raidValuable() {
@@ -1484,7 +1495,35 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         }
         CrewReplacer_Log.pop();
     }/**/
-
+    static final private String[] removeStatBounuses = {
+            "marineXP"
+    };
+    private StatBonus cutMarrineXPToNewStatbounus(StatBonus input){
+        StatBonus other = new StatBonus();
+        //percent mods
+        HashMap<String, StatMod> a = input.getPercentBonuses();
+        for(Object b : a.keySet().toArray()){
+            if(!a.get(b).getSource().equals(removeStatBounuses[0])) {
+                other.modifyPercent(a.get(b).getSource(), a.get(b).getValue(), a.get(b).getDesc());
+            }
+        }
+        //multi mods
+        a = input.getMultBonuses();
+        for(Object b : a.keySet().toArray()){
+            other.modifyMult(a.get(b).getSource(), a.get(b).getValue(), a.get(b).getDesc());
+        }
+        //flat mods
+        a = input.getFlatBonuses();
+        for(Object b : a.keySet().toArray()){
+            other.modifyFlat(a.get(b).getSource(), a.get(b).getValue(), a.get(b).getDesc());
+        }
+        //other.unmodifyPercent(removeStatBounuses[0]);
+        return other;
+    }
+    private void repairStatBounus(StatBonus changeStat,StatBonus orgin){
+        StatMod a = orgin.getPercentBonus(removeStatBounuses[0]);
+        //changeStat.modifyPercent(a.getSource(),a.getValue(),a.getDesc());
+    }
     private void tempdebug(StatBonus temp){
         if(!logsActive){return;}
         CrewReplacer_Log.loging("HERE: statThing: = " + temp,this,logsActive);

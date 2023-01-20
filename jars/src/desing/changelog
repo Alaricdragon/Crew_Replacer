@@ -15,16 +15,23 @@ v0.5:
             applyExtraDataToCrewAndJob(Object newData);
             resetExtraDataToCrews();
             resetExtraDataToCrewsAndJob();
-        added 2 new function to crewReplacer_Crew:
+        added 4 new function to crewReplacer_Crew:
             resetExtraData();
             setExtraData(Object newData);
+
+            displayCrewAvailable(CargoAPI cargo, float numberOfItems, TextPanelAPI text)
+            displayCrewLost(CargoAPI cargo, float numberOfItems, TextPanelAPI text)
         added a new variable to both crewReplacer_Crew and crewReplacer_Job:
             public Object ExtraData;
         explanation:
             sometimes, one wants to send / process some random data to crews or jobs. this was hard before, but now its simple.
             this is currently used in the raid plugin for marines to get XP. will be explained farther when i update the documentation
+        explanation 2:
+            displayCrewNumbers was a effective way to display crew, but it needed to be split into two for modability sake. something i forgot to do earlier.
     marine in raiding:
         made it so the marine displays its XP on it, instead of on the intier ground combat force.
+    file names:
+        changed the 'crew' and 'marine' files to 'CrewReplacer_CrewType_crew' and 'CrewReplacer_CrewType_marine' resepctively
 v0.4.3:
     save compatible with V0.4+
     fixes:

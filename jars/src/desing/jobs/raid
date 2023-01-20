@@ -18,6 +18,8 @@ here is what im going to do:
     4)(done) actually add XP to marines as i use them.
     5)(done?) remove the global crew power bonus marine XP gives ground troops.
         -was from playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD). removed now? need to test
+        -HERE testing stated. issues: currently, after my first opping the marrine raid screan with ariens with XP, it will permently remove the marrine XP modifier from the game.
+            i dont know why, but this is a bug i cant let stand.
     6) remove the global crew loss bonus marine XP gives ground troops.
         -playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);?
     7) re-add the attack bonus to marines, complete with a display.

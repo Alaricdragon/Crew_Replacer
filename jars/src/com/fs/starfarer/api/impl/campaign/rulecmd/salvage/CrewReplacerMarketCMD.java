@@ -411,10 +411,10 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         attackerBase.modifyFlatAlways("core_marines", marines, "Ground troops on board");//HERE
         attackerBase.modifyFlatAlways("core_support", support, "Fleet capability for ground support");
 
-        StatBonus attackerTemp = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
+        StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = new StatBonus();
 
-        StatBonus attacker = cutMarrineXPToNewStatbounus(attackerTemp);//attackerTemp.createCopy();
+        StatBonus attackerTemp = cutMarrineXPToNewStatbounus(attacker);//attackerTemp.createCopy();
         //attacker.unmodifyPercent("marineXP");//"core_marines");//remove globally bonus that marine XP provides.
 
         if (market != null && difficulty <= 0) defender = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
@@ -434,7 +434,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
             defender.modifyFlat(increasedDefensesKey, added, "Increased defender preparedness");
         }
 
-        float attackerStr = (int) Math.round(attacker.computeEffective(attackerBase.computeEffective(0f)));
+        float attackerStr = (int) Math.round(attackerTemp.computeEffective(attackerBase.computeEffective(0f)));
         float defenderStr = (int) Math.round(defender.computeEffective(defenderBase.computeEffective(0f)));
 
         temp.attackerStr = attackerStr;
@@ -468,8 +468,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         sep = 3f;
         info.addPara("Raid strength: %s", initPad, h, "" + (int)attackerStr);
         info.addStatModGrid(width, 50, opad, small, attackerBase, true, statPrinter(false));
-        if (!attacker.isUnmodified()) {
-            info.addStatModGrid(width, 50, opad, sep, attacker, true, statPrinter(true));
+        if (!attackerTemp.isUnmodified()) {
+            info.addStatModGrid(width, 50, opad, sep, attackerTemp, true, statPrinter(true));
         }
 
 
@@ -481,7 +481,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         defender.unmodifyFlat(increasedDefensesKey);
         defender.unmodifyMult(surpriseKey);
-        attackerTemp.unmodifyMult(surpriseKey);//HERE. this was attaker. so i turned it back to attacker temp
+        attacker.unmodifyMult(surpriseKey);//HERE. this was attaker. so i turned it back to attacker temp
 
         text.addTooltip();
 
@@ -515,7 +515,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         options.addOption("Go back", RAID_GO_BACK);
         options.setShortcut(RAID_GO_BACK, Keyboard.KEY_ESCAPE, false, false, false, true);
 
-        repairStatBounus(attacker,attackerTemp);//HERE. trying to repair my modifiers. this might work?
+        //repairStatBounus(attacker,attackerTemp);//HERE. trying to repair my modifiers. this might work?
         CrewReplacer_Log.pop();
         //attackerTemp = attacker.;
     }
@@ -556,10 +556,10 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         attackerBase.modifyFlatAlways("core_marines", marines, "Ground troops on board");//HERE this looks like its a veribal assinment, as apposed to an displayed text.?
         attackerBase.modifyFlatAlways("core_support", support, "Fleet capability for ground support");
 
-        StatBonus attackerTemp = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
+        StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
 
-        StatBonus attacker = cutMarrineXPToNewStatbounus(attackerTemp);//attackerTemp.createCopy();
+        StatBonus attackerTemp = cutMarrineXPToNewStatbounus(attacker);//attackerTemp.createCopy();
         //attacker.unmodifyPercent("marineXP");//"core_marines");//remove globally bonus that marine XP provides.
         String surpriseKey = "core_surprise";
 //		if (temp.isSurpriseRaid) {
@@ -577,7 +577,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         tempdebug(attacker);
         //tempdebug(attacker);
         //tempdebug(attacker);
-        float attackerStr = (int) Math.round(attacker.computeEffective(attackerBase.computeEffective(0f)));//notHERE?
+        float attackerStr = (int) Math.round(attackerTemp.computeEffective(attackerBase.computeEffective(0f)));//notHERE?
         float defenderStr = (int) Math.round(defender.computeEffective(defenderBase.computeEffective(0f)));
 
         temp.attackerStr = attackerStr;
@@ -612,8 +612,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         sep = 3f;
         info.addPara("Raid strength: %s", initPad, h, "" + (int)attackerStr);
         info.addStatModGrid(width, 50, opad, small, attackerBase, true, statPrinter(false));
-        if (!attacker.isUnmodified()) {
-            info.addStatModGrid(width, 50, opad, sep, attacker, true, statPrinter(true));
+        if (!attackerTemp.isUnmodified()) {
+            info.addStatModGrid(width, 50, opad, sep, attackerTemp, true, statPrinter(true));
         }
 
 
@@ -625,7 +625,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         defender.unmodifyFlat(increasedDefensesKey);
         defender.unmodifyMult(surpriseKey);
-        attackerTemp.unmodifyMult(surpriseKey);//HERE. this was attacker. so i turned to back to attacker temp
+        attacker.unmodifyMult(surpriseKey);//HERE. this was attacker. so i turned to back to attacker temp
 
         text.addTooltip();
 
@@ -705,7 +705,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         options.addOption("Go back", RAID_GO_BACK);
         options.setShortcut(RAID_GO_BACK, Keyboard.KEY_ESCAPE, false, false, false, true);
-        repairStatBounus(attacker,attackerTemp);//HERE were im trying to fix the thing. god this is patchwork.
+        //repairStatBounus(attacker,attackerTemp);//HERE were im trying to fix the thing. god this is patchwork.
         CrewReplacer_Log.pop();
         //CrewReplacer_Log.loging("HERE, FINAL Test Thing. temp -> base -> blank",this);
         //tempdebug(attackerTemp);
@@ -1522,7 +1522,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
     }
     private void repairStatBounus(StatBonus changeStat,StatBonus orgin){
         StatMod a = orgin.getPercentBonus(removeStatBounuses[0]);
-        //changeStat.modifyPercent(a.getSource(),a.getValue(),a.getDesc());
+        //changeStat.modifyPercent(a.getSource(),a.getValue());//,a.getDesc());
     }
     private void tempdebug(StatBonus temp){
         if(!logsActive){return;}

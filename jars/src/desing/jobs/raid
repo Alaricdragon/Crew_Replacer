@@ -16,10 +16,11 @@ here is what im going to do:
     2)(done) add a system in crewReplacer_Job and crewReplacer_Crew to transfer all the relevant data over to crew, so i can get some sweet sweet XP for my units
     3)(done) remove my current implementation of removing crew in this job. it is now -outdated-.
     4)(done) actually add XP to marines as i use them.
-    5)(done?) remove the global crew power bonus marine XP gives ground troops.
+    5)(done) remove the global crew power bonus marine XP gives ground troops.
         -was from playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD). removed now? need to test
         -HERE testing stated. issues: currently, after my first opping the marrine raid screan with ariens with XP, it will permently remove the marrine XP modifier from the game.
             i dont know why, but this is a bug i cant let stand.
+            -fixed it. was a issue with the marine class.
     6) remove the global crew loss bonus marine XP gives ground troops.
         -playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);?
     7) re-add the attack bonus to marines, complete with a display.
@@ -45,6 +46,51 @@ issues:
         -the -display- for available ground crew does not display ground combat power on the conform page? maybe that is it?
     4) fails to adjust marries losses based on amount of available ground support
         -updated code.
+    5) issue were marrines with XP could cause -issues-
+        -fixed. was because of a power *= power multi in code, slowly raising power to infinity and braking things.
+    6) possable crash when the code tries to run raid non market
+        -nex develuper said his mod might be overrideing this function.
+        -nex develuper said it might have something to do with me failing to get the relevant data to my mod
+        -logs:
+        649288 [Thread-3] WARN  com.fs.starfarer.campaign.rules.oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  - Problem with command of class com.fs.starfarer.api.impl.campaign.rulecmd.salvage.Nex_MarketCMD: null
+        java.lang.NullPointerException
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD.raidConfirmContinue(MarketCMD.java:1830)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD.execute(MarketCMD.java:349)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.salvage.Nex_MarketCMD.execute(Nex_MarketCMD.java:166)
+        	at com.fs.starfarer.campaign.rules.oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.execute(Unknown Source)
+        	at com.fs.starfarer.campaign.rules.Object.runScript(Unknown Source)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.FireBest.applyRule(FireBest.java:106)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.FireBest.execute(FireBest.java:51)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.FireBest.fire(FireBest.java:57)
+        	at com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl.fireBest(RuleBasedInteractionDialogPluginImpl.java:177)
+        	at com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl.optionSelected(RuleBasedInteractionDialogPluginImpl.java:210)
+        	at com.fs.starfarer.ui.newui.o0Oo$1.super(Unknown Source)
+        	at com.fs.starfarer.ui.newui.B.actionPerformed(Unknown Source)
+        	at com.fs.starfarer.ui.OoO0.buttonPressed(Unknown Source)
+        	at com.fs.starfarer.ui.oooO.Ò00000(Unknown Source)
+        	at com.fs.starfarer.ui.oooO.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.OoO0.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.v.dispatchEventsToChildren(Unknown Source)
+        	at com.fs.starfarer.ui.v.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.newui.B.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.v.dispatchEventsToChildren(Unknown Source)
+        	at com.fs.starfarer.ui.v.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.N.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.newui.o0Oo.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.v.dispatchEventsToChildren(Unknown Source)
+        	at com.fs.starfarer.ui.v.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.campaign.CampaignState.processInput(Unknown Source)
+        	at com.fs.starfarer.BaseGameState.traverse(Unknown Source)
+        	at com.fs.state.AppDriver.begin(Unknown Source)
+        	at com.fs.starfarer.combat.CombatMain.main(Unknown Source)
+        	at com.fs.starfarer.StarfarerLauncher.o00000(Unknown Source)
+        	at com.fs.starfarer.StarfarerLauncher$1.run(Unknown Source)
+        	at java.lang.Thread.run(Thread.java:748)
+
 solutions:
     1) add a new static variable to crewReplacerMarketCMD. it will record for every battle:
         1) battle difficulty

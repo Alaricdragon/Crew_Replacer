@@ -27,18 +27,20 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
         //PlayerFleetPersonnelTracker
         CrewReplacer_Log.loging("runing raid Objective listinger. removing crew and adding XP...",this);
         CrewReplacer_Log.push();
+            CrewReplacer_Log.loging("removing XP added by the base game to marines...",this);
+
             XPNeutralizer( data,  dialog,memoryMap);
             crewReplacer_Job job = crewReplacer_Main.getJob(jobName);
-            job.applyExtraDataToCrewAndJob(data);
             CargoAPI playerCargo = Global.getSector().getPlayerFleet().getCargo();//10, 5. =: 10 - 5 = 5. 5 / 10 = 0.5
             int crewPowerUsed = (int) (job.getAvailableCrewPower(playerCargo) * ((data.marinesTokens - data.marinesTokensInReserve)/ data.marinesTokens));
+            Object[] a = {data,crewPowerUsed};
+            job.applyExtraDataToCrewAndJob(a);
             CrewReplacer_Log.loging("scanning: marinesTokens: " + data.marinesTokens,this);//total number of tokens
             CrewReplacer_Log.loging("scanning: marinesTokensInReserve: " + data.marinesTokensInReserve,this);//tokens not used (when equal to marines tokens, no marrines used. zero, all marines used. a / b = used percent.)
             CrewReplacer_Log.loging("scanning: marinesLost: " + data.marinesLost,this);//crew power to lose.
             CrewReplacer_Log.loging("using " + crewPowerUsed + " out of a possible " + job.getAvailableCrewPower(playerCargo),this);
             job.automaticlyGetDisplayAndApplyCrewLost(playerCargo,crewPowerUsed,data.marinesLost,dialog.getTextPanel());
             job.resetExtraDataToCrewsAndJob();
-            CrewReplacer_Log.loging("removing XP added by the base game to marines...",this);
         CrewReplacer_Log.pop();
         /*function would be easterly difficult to remove or add*/
         //data.
@@ -46,6 +48,9 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
     }
     /**/
     public void XPNeutralizer(RaidResultData data, InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap) {
+        CrewReplacer_Log.push();
+        CrewReplacer_Log.loging(PlayerFleetPersonnelTracker.getInstance().toString(),this);
+
         //remove the XP gained from the PlayerFleetPersonnelTracker class. so i can add it somewere else.
 		PlayerFleetPersonnelTracker thing = PlayerFleetPersonnelTracker.getInstance();
         CampaignFleetAPI fleet = Global.getSector().getPlayerFleet();
@@ -59,10 +64,11 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
 		xpGain *= total;
 		xpGain *= thing.XP_PER_RAID_MULT;
 		if (xpGain < 0) xpGain = 0;
-		xpGain*=-1;//this is were XP gets neutralized.
-        thing.getMarineData().addXP(xpGain);
-
+		//xpGain*=-1;//this is were XP gets neutralized.
+        thing.getMarineData().removeXP(xpGain);
         thing.update();
+        CrewReplacer_Log.loging(PlayerFleetPersonnelTracker.getInstance().toString(),this);
+        CrewReplacer_Log.pop();
 	}/**/
     /*
     private void countShouldBeGoneRaidListiners(){

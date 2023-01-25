@@ -15,8 +15,14 @@ import data.scripts.crewReplacer_Crew;
 
 public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea if this is needed at all =(
     @Override
+    public float getCrewPowerInCargo(CargoAPI cargo){
+        float temp = super.getCrewPowerInCargo(cargo);
+        CrewReplacer_Log.loging("get crew power in cargo",this);
+        return temp;
+    }
+    @Override
     public float getCrewToLose(CargoAPI cargo,float crewUsed,float crewLost){//,CargoAPI cargo){
-        addMarineXP(cargo,crewUsed);
+        addMarineXP(cargo,crewUsed,crewLost);
         return crewLost;
     }
     @Override
@@ -25,22 +31,26 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
     }
     @Override
     public float getCrewPower(CargoAPI cargo){
-        return crewPower *= getXPPowerMulti(cargo);//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel();
+        CrewReplacer_Log.loging("infinity crew power? " + (crewPower * getXPPowerMulti(cargo)),this);
+        return crewPower * getXPPowerMulti(cargo);//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel();
         //return crewPower * Global.getSector().getPlayerFleet().getCommanderStats().getMarineEffectivnessMult().;
     }
-    private void addMarineXP(CargoAPI cargo,float CrewUsed){
+    private void addMarineXP(CargoAPI cargo,float CrewUsed,float CrewLost){
         try{
-            GroundRaidObjectivesListener.RaidResultData data = (GroundRaidObjectivesListener.RaidResultData) ExtraData;
-            float ratio = CrewUsed / data.marinesLost;
+            Object[] ObjectTemp = (Object[])ExtraData;
+            GroundRaidObjectivesListener.RaidResultData data = (GroundRaidObjectivesListener.RaidResultData) ObjectTemp[0];
+            float ratio = (int)ObjectTemp[1] / CrewUsed;
             PlayerFleetPersonnelTracker thing = PlayerFleetPersonnelTracker.getInstance();
             float marines = cargo.getMarines();
 
-            float total = marines + data.marinesLost;
+            float total = marines + CrewLost;//data.marinesLost;
             float xpGain = 1f - data.raidEffectiveness;
             xpGain *= total;
             xpGain *= thing.XP_PER_RAID_MULT;
             if (xpGain < 0) xpGain = 0;
+            CrewReplacer_Log.loging("getting XP as: " + ratio * 100 + "% of " + xpGain,this);
             xpGain *= ratio;//this reduces the XP gained down to the amount of XP you should earn, based on how many marines were in your fleet? hopefully?
+            CrewReplacer_Log.loging("got " + xpGain + " XP",this);
             thing.getMarineData().addXP(xpGain);
 
             thing.update();

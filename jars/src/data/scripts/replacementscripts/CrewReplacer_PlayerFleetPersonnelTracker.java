@@ -32,12 +32,15 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
             XPNeutralizer( data,  dialog,memoryMap);
             crewReplacer_Job job = crewReplacer_Main.getJob(jobName);
             CargoAPI playerCargo = Global.getSector().getPlayerFleet().getCargo();//10, 5. =: 10 - 5 = 5. 5 / 10 = 0.5
-            int crewPowerUsed = (int) (job.getAvailableCrewPower(playerCargo) * ((data.marinesTokens - data.marinesTokensInReserve)/ data.marinesTokens));
+            int crewPowerUsed = (int) (job.getAvailableCrewPower(playerCargo) * (((float)data.marinesTokens - (float)data.marinesTokensInReserve)/ data.marinesTokens));
             Object[] a = {data,crewPowerUsed};
             job.applyExtraDataToCrewAndJob(a);
+            CrewReplacer_Log.loging("scanning: used crew power: "+crewPowerUsed,this);
             CrewReplacer_Log.loging("scanning: marinesTokens: " + data.marinesTokens,this);//total number of tokens
             CrewReplacer_Log.loging("scanning: marinesTokensInReserve: " + data.marinesTokensInReserve,this);//tokens not used (when equal to marines tokens, no marrines used. zero, all marines used. a / b = used percent.)
             CrewReplacer_Log.loging("scanning: marinesLost: " + data.marinesLost,this);//crew power to lose.
+            CrewReplacer_Log.loging("scanning: XP gained: " + data.xpGained,this);//crew power to lose.
+            CrewReplacer_Log.loging("scanning: raidEffectiveness" + data.raidEffectiveness,this);
             CrewReplacer_Log.loging("using " + crewPowerUsed + " out of a possible " + job.getAvailableCrewPower(playerCargo),this);
             job.automaticlyGetDisplayAndApplyCrewLost(playerCargo,crewPowerUsed,data.marinesLost,dialog.getTextPanel());
             job.resetExtraDataToCrewsAndJob();
@@ -48,8 +51,16 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
     }
     /**/
     public void XPNeutralizer(RaidResultData data, InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap) {
+        /*
+        * objective is to reverse XP loss and XP gain from that other listiner.
+        * data i have: current status of marrin XP gain.
+        * how many marnes were lossed, and how mush XP was gained.
+        * and the process the data went through before being added / remove. i just need to revere the data from this.
+        * Notes:
+        * removeXP does NOTHING. why do i use it? i shouldent.
+        * looking at this, i should be able to use math to reverse the data using the data i have.. but not today i dont think*/
         CrewReplacer_Log.push();
-        CrewReplacer_Log.loging(PlayerFleetPersonnelTracker.getInstance().toString(),this);
+        CrewReplacer_Log.loging("playerFleetXP: " + PlayerFleetPersonnelTracker.getInstance().getMarineData().savedXP + "",this);
 
         //remove the XP gained from the PlayerFleetPersonnelTracker class. so i can add it somewere else.
 		PlayerFleetPersonnelTracker thing = PlayerFleetPersonnelTracker.getInstance();
@@ -58,6 +69,7 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
 		float marines = cargo.getMarines();
 
         //thing.getMarineData().remove(data.marinesLost, true);
+        //thing.getMarineData().add(data.marinesLost);//???
 
 		float total = marines + data.marinesLost;
 		float xpGain = 1f - data.raidEffectiveness;
@@ -67,38 +79,26 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
 		//xpGain*=-1;//this is were XP gets neutralized.
         thing.getMarineData().removeXP(xpGain);
         thing.update();
-        CrewReplacer_Log.loging(PlayerFleetPersonnelTracker.getInstance().toString(),this);
+        CrewReplacer_Log.loging("playerFleetXP: " + PlayerFleetPersonnelTracker.getInstance().getMarineData().savedXP + "",this);
+        CrewReplacer_Log.loging("removedXP: " + xpGain,this);
         CrewReplacer_Log.pop();
 	}/**/
-    /*
-    private void countShouldBeGoneRaidListiners(){
-        int count = 0;
-        if(Global.getSector().getGenericPlugins().hasPlugin(PlayerFleetPersonnelTracker.class)){
-            CrewReplacer_Log.loging("found pluggin of removed class. counting number of errors...",this);
-            CrewReplacer_Log.push();
-            List<GenericPluginManagerAPI.GenericPlugin> a = Global.getSector().getGenericPlugins().getPluginsOfClass(PlayerFleetPersonnelTracker.class);
-            for(GenericPluginManagerAPI.GenericPlugin b:a) {
-                CrewReplacer_Log.loging("counting plugin...: " + b.getClass().getCanonicalName(),this);
-                count++;
-            }
-            CrewReplacer_Log.loging("removed a total of " + count + " plugging. should be zero",this);
-            CrewReplacer_Log.pop();
+    public void NRemove(int remove, boolean removeXP) {
+        PlayerFleetPersonnelTracker a1 = PlayerFleetPersonnelTracker.getInstance();
+        //PlayerFleetPersonnelTracker a2 = new PlayerFleetPersonnelTracker();
+        //a2.getMarineData().num = a1.getMarineData().num;
+        //a2.getMarineData().xp = a1.getMarineData().xp;
+        //a2.getMarineData().remove(remove,removeXP);
+
+
+        if (!a1.KEEP_XP_DURING_TRANSFERS) removeXP = true;
+
+        if (remove > a1.getMarineData().num) remove = (int) a1.getMarineData().num;
+        if (removeXP) a1.getMarineData().xp *= (a1.getMarineData().num - remove) / Math.max(1f, a1.getMarineData().num);
+        //num -= remove;
+        if (removeXP) {
+            float maxXP = a1.getMarineData().num;
+            a1.getMarineData().xp = Math.min(a1.getMarineData().xp, maxXP);
         }
-
-
-
-        List<GroundRaidObjectivesListener> RaidListiner = Global.getSector().getListenerManager().getListeners(GroundRaidObjectivesListener.class);
-        String removeName = PlayerFleetPersonnelTracker.class.getCanonicalName();
-        count = 0;
-        CrewReplacer_Log.loging("counting trackers of removing class..",this);
-        CrewReplacer_Log.push();
-        for(GroundRaidObjectivesListener b:RaidListiner){
-            if(b.getClass().getCanonicalName().equals(removeName)){
-                count++;
-                CrewReplacer_Log.loging("removed a tracker of the name: " + b.getClass().getCanonicalName(),this);
-            }
-        }
-        CrewReplacer_Log.loging("removed a total of " + count + " trackers. should be none.",this);
-        CrewReplacer_Log.pop();
-    }*/
+    }
 }

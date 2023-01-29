@@ -23,7 +23,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
     @Override
     public float getCrewToLose(CargoAPI cargo,float crewUsed,float crewLost){//,CargoAPI cargo){
         addMarineXP(cargo,crewUsed,crewLost);
-        return crewLost;
+        return super.getCrewToLose(cargo,crewUsed,crewLost);
     }
     @Override
     public void removeCrew(CargoAPI cargo, float CrewToLost){
@@ -36,10 +36,14 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
         //return crewPower * Global.getSector().getPlayerFleet().getCommanderStats().getMarineEffectivnessMult().;
     }
     private void addMarineXP(CargoAPI cargo,float CrewUsed,float CrewLost){
+        if(CrewUsed == 0){
+            CrewReplacer_Log.loging("no marrines used. exiting XP gain code...",this);
+            return;
+        }
         try{
             Object[] ObjectTemp = (Object[])ExtraData;
             GroundRaidObjectivesListener.RaidResultData data = (GroundRaidObjectivesListener.RaidResultData) ObjectTemp[0];
-            float ratio = (int)ObjectTemp[1] / CrewUsed;
+            float ratio = CrewUsed / (int)ObjectTemp[1];
             PlayerFleetPersonnelTracker thing = PlayerFleetPersonnelTracker.getInstance();
             float marines = cargo.getMarines();
 

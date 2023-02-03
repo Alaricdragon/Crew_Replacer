@@ -6,6 +6,7 @@ import java.util.*;
 import data.scripts.CrewReplacer_Log;
 import data.scripts.crewReplacer_Job;
 import data.scripts.crewReplacer_Main;
+import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -414,6 +415,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = new StatBonus();
 
+        CrewReplacer_PlayerFleetPersonnelTracker.saveMarineData();
+
         StatBonus attackerTemp = cutMarrineXPToNewStatbounus(attacker);//attackerTemp.createCopy();
         //attacker.unmodifyPercent("marineXP");//"core_marines");//remove globally bonus that marine XP provides.
 
@@ -558,6 +561,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         StatBonus attacker = playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
         StatBonus defender = market.getStats().getDynamic().getMod(Stats.GROUND_DEFENSES_MOD);
+
+        CrewReplacer_PlayerFleetPersonnelTracker.saveMarineData();
 
         StatBonus attackerTemp = cutMarrineXPToNewStatbounus(attacker);//attackerTemp.createCopy();
         //attacker.unmodifyPercent("marineXP");//"core_marines");//remove globally bonus that marine XP provides.
@@ -1117,7 +1122,8 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
     protected float getAverageMarineLosses(List<GroundRaidObjectivePlugin> data) {
         CrewReplacer_Log.loging("running function: getAverageMarineLosses",this,logsActive);
         CrewReplacer_Log.push();
-        MutableStat stat = getMarineLossesStat(data);
+        MutableStat stat = getMarineLossesStat(data);//HEREHERE
+        //tempdebug(stat.);
         float mult = stat.getModifiedValue();
         if (mult > MAX_MARINE_LOSSES) {
             mult = MAX_MARINE_LOSSES;
@@ -1191,7 +1197,19 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         }
 
         stat.modifyMult("prep", 1.0F + prep, "Increased defender preparedness");
-        stat.applyMods(this.playerFleet.getStats().getDynamic().getStat("ground_attack_casualties_mult"));
+        MutableStat a = this.playerFleet.getStats().getDynamic().getStat("ground_attack_casualties_mult");
+        CrewReplacer_Log.loging("getting loss modifiers",this,logsActive);
+        CrewReplacer_Log.push();
+        CrewReplacer_Log.loging("getting full list...",this,logsActive);
+        CrewReplacer_Log.push();
+        tempdebug(a);
+        CrewReplacer_Log.pop();
+        a = cutMarrineXpToNewMutableStat(a);
+        CrewReplacer_Log.loging("getting cut list...",this,logsActive);
+        tempdebug(a);
+        CrewReplacer_Log.pop();
+        CrewReplacer_Log.pop();
+        stat.applyMods(a);
         ListenerUtil.modifyMarineLossesStatPreRaid(this.market, data, stat);
         CrewReplacer_Log.pop();
         return stat;
@@ -1278,7 +1296,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
             temp.marinesLost = 0;
         } else {
             text.addPara("You forces have suffered casualties during the raid.", Misc.getHighlightColor(), "" + losses);
-            //playerFleet.getCargo().removeMarines(losses);//doneHERE remove crew inportant
+            //playerFleet.getCargo().removeMarines(losses);//doneHERE remove crew important
             crewReplacer_Job tempjob = crewReplacer_Main.getJob(jobmain);
             //tempjob.automaticlyGetDisplayAndApplyCrewLost(playerFleet,(int)tempjob.getAvailableCrewPower(playerFleet),losses,text);//HERE. I require the number of actual deployed crew here...
             temp.marinesLost = losses;//doneHERE?
@@ -1496,6 +1514,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         CrewReplacer_Log.pop();
     }/**/
     static final private String[] removeStatBounuses = {
+            "marineXP",
             "marineXP"
     };
     private StatBonus cutMarrineXPToNewStatbounus(StatBonus input){
@@ -1520,6 +1539,11 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         //other.unmodifyPercent(removeStatBounuses[0]);
         return other;
     }
+    private MutableStat cutMarrineXpToNewMutableStat(MutableStat input){
+        MutableStat output = input.createCopy();
+        output.unmodify(removeStatBounuses[1]);
+        return output;
+    }
     private void repairStatBounus(StatBonus changeStat,StatBonus orgin){
         StatMod a = orgin.getPercentBonus(removeStatBounuses[0]);
         //changeStat.modifyPercent(a.getSource(),a.getValue());//,a.getDesc());
@@ -1536,6 +1560,19 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         CrewReplacer_Log.loging("caluclated effectiveness (with a base of 1): " + temp.computeEffective(1),this,logsActive);
     }
+    private void tempdebug(MutableStat temp){
+        if(!logsActive){return;}
+        CrewReplacer_Log.loging("HERE: statThing: = " + temp,this,logsActive);
+        CrewReplacer_Log.loging("flat",this,logsActive);
+        tempdebug2(temp.getFlatMods(),logsActive);
+        CrewReplacer_Log.loging("multi",this,logsActive);
+        tempdebug2(temp.getMultMods(),logsActive);
+        CrewReplacer_Log.loging("percent",this,logsActive);
+        tempdebug2(temp.getPercentMods(),logsActive);
+
+        CrewReplacer_Log.loging("caluclated effectiveness (with a base of 1): " + temp.getModifiedValue(),this,logsActive);
+    }
+
     private void tempdebug2(HashMap<String, StatMod> a,boolean display){
         CrewReplacer_Log.loging("   size of: " + a.keySet().size(),this,display);
         for(int b = 0; b < a.keySet().toArray().length; b++){

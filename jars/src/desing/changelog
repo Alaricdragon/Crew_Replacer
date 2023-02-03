@@ -3,11 +3,12 @@ v0.5:
     might be save compatible, now. will do some tests.
     background work:
         raids and marines:
-            replaces the old way marrines XP gain was calculated in starsector, replacing it with my own.
+            raid plugin things. see fixes
         started to do battle with the survey code. its making ghost sounds at me.
     fixes:
         made it so crewReplacer_Job.displayCrewAvailable() does not display crew available if you have none of said type of crew.
         made it so marine XP only effects marines.
+        changed the way marines are removed again. hopefully it works this time.
     new:
         added 5 new function to crewReplacer_Job:
             applyExtraDataToCrew();

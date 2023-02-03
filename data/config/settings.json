@@ -10,5 +10,8 @@
 	"crewReplacerDisplayLogs": true,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
 	"crewReplacerDisplayRaidLogs": true,
+
+	#logs for costom crew types, becuas there are quite a lot fo them.
+	"CrewReplacerDisplayMarineLogs": true,
 }
 

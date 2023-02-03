@@ -17,14 +17,19 @@ here is what im going to do:
     3)(done) remove my current implementation of removing crew in this job. it is now -outdated-.
     4)(done) actually add XP to marines as i use them.
     5)(done) remove the global crew power bonus marine XP gives ground troops.
-        -was from playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD). removed now? need to test
-        -HERE testing stated. issues: currently, after my first opping the marrine raid screan with ariens with XP, it will permently remove the marrine XP modifier from the game.
-            i dont know why, but this is a bug i cant let stand.
-            -fixed it. was a issue with the marine class.
-    6) remove the global crew loss bonus marine XP gives ground troops.
+        -was from playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD). removed successfully
+    6) (DONE)remove the global crew loss bonus marine XP gives ground troops.
         -playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);?
         -getMarineLossesStat(List<GroundRaidObjectivePlugin> data)?
             -ListenerUtil.modifyMarineLossesStatPreRaid(market, data, stat);?? implied listener for this??
+        -MutableStat stat = getMarineLossesStat(data); in getMarineLossesStat(List<GroundRaidObjectivePlugin> data)
+        -HERE stat.applyMods(this.playerFleet.getStats().getDynamic().getStat("ground_attack_casualties_mult"));
+            -this seems to be the one. the mod i need to remove is called:
+                marineXP
+            -and the related data on what its bonuses is can be found at:
+                update(boolean withIntegrationFromCurrentLocation, boolean keepXP, CargoStackAPI stack) in PlayerFleetPersonnelTracker.
+                its a random line near the bottom fo the function
+            -Note: the stat 'ground_attack_casualties_mult' is the same as 'Stats.PLANETARY_OPERATIONS_CASUALTIES_MULT'
     7) re-add the attack bonus to marines, complete with a display.
     8) re-add the marine loss bonus, no display needed? i don't know.
 exstra data:
@@ -51,10 +56,11 @@ issues:
     5)(DONE) issue were marrines with XP could cause -issues-
         -fixed. was because of a power *= power multi in code, slowly raising power to infinity and braking things.
     5.a(WORKING ON) fix all marine issues. especially with XP gain and lose.
-        -issues are as follows: removing XP loss seems possibly impossible.
-        -currently, when XP is tried to get removed, NOTHING HAPPENS! AAAAAAAAAAAAAAA
-        -if possable, removeing the PlayerFleetPersonnelTraker from the base game would be best, but for now its not possable.
-        -if i do remove it though, i will need to addmy self some 'remove marrines' code to my marrines crew remove crew thing.
+        -(fixed)issues are as follows: removing XP loss seems possibly impossible.
+        -(fixed)currently, when XP is tried to get removed, NOTHING HAPPENS! AAAAAAAAAAAAAAA
+        -(no longer required)if possable, removeing the PlayerFleetPersonnelTraker from the base game would be best, but for now its not possable.
+        -(no longer required)if i do remove it though, i will need to addmy self some 'remove marrines' code to my marrines crew remove crew thing.
+        -(HERE) when marines have XP and they fight, they loes some XP because the amount of available crew power isa  float, but the loss number is always rounded down to a int.
     6) possable crash when the code tries to run raid non market
         -nex develuper said his mod might be overrideing this function.
         -nex develuper said it might have something to do with me failing to get the relevant data to my mod

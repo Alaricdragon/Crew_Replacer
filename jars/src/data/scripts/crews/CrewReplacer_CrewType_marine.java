@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.listeners.GroundRaidObjectivesListener;
+import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.ui.LabelAPI;
@@ -14,6 +15,9 @@ import data.scripts.CrewReplacer_Log;
 import data.scripts.crewReplacer_Crew;
 
 public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea if this is needed at all =(
+    private static final boolean logsActive = Global.getSettings().getBoolean("CrewReplacerDisplayMarineLogs");
+    private float[] XPGainData = new float[]{0f,0f};
+    private float MarinesLossMultiTemp= 1;
     @Override
     public float getCrewPowerInCargo(CargoAPI cargo){
         float temp = super.getCrewPowerInCargo(cargo);
@@ -22,20 +26,25 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
     }
     @Override
     public float getCrewToLose(CargoAPI cargo,float crewUsed,float crewLost){//,CargoAPI cargo){
-        addMarineXP(cargo,crewUsed,crewLost);
-        return super.getCrewToLose(cargo,crewUsed,crewLost);
+        XPGainData[0] = crewUsed;
+        XPGainData[1] = crewLost;
+        return super.getCrewToLose(cargo,crewUsed,crewLost) * getXPDefenceMulti(cargo);
     }
     @Override
     public void removeCrew(CargoAPI cargo, float CrewToLost){
-        cargo.removeMarines((int) CrewToLost);
+        cargo.removeCommodity(name, CrewToLost);
+        PlayerFleetPersonnelTracker.getInstance().getMarineData().remove((int) CrewToLost,true);
+        MarinesLossMultiTemp = getXPDefenceMulti(cargo);
+        addMarineXP(cargo);
     }
     @Override
     public float getCrewPower(CargoAPI cargo){
-        CrewReplacer_Log.loging("infinity crew power? " + (crewPower * getXPPowerMulti(cargo)),this);
-        return crewPower * getXPPowerMulti(cargo);//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel();
-        //return crewPower * Global.getSector().getPlayerFleet().getCommanderStats().getMarineEffectivnessMult().;
+        return crewPower * getXPPowerMulti(cargo);
     }
-    private void addMarineXP(CargoAPI cargo,float CrewUsed,float CrewLost){
+    private void addMarineXP(CargoAPI cargo){
+        float CrewUsed = XPGainData[0];
+        float CrewLost = XPGainData[1];
+
         if(CrewUsed == 0){
             CrewReplacer_Log.loging("no marrines used. exiting XP gain code...",this);
             return;
@@ -58,6 +67,8 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
             thing.getMarineData().addXP(xpGain);
 
             thing.update();
+
+            CrewReplacer_Log.loging("after calculations, you have " + PlayerFleetPersonnelTracker.getInstance().getMarineData().xp + "xp",this);
         }catch (Exception E){
             CrewReplacer_Log.loging("ERROR: failed to add XP to marines",this,true);
         }
@@ -84,7 +95,23 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
     }
     @Override
     public void displayCrewLost(CargoAPI cargo,float numberOfItems, TextPanelAPI text){
-        DisplayedCrewNumbers(cargo,numberOfItems,text);
+        String displayName = getDisplayName(cargo);
+
+        TooltipMakerAPI tt = text.beginTooltip();
+        TooltipMakerAPI iwt = tt.beginImageWithText(getCrewIcon(cargo), 24);
+        String numberStr = (int) numberOfItems + "";
+        LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
+        //cargo.getFleetData().getFleet().getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD).getMultBonus()
+        float xpTemp = (int)(100 * (1 - MarinesLossMultiTemp));//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel());
+        if(xpTemp != 0 || true) {
+            String temp = "%";
+            String XP = xpTemp+"";// + "%";
+            XP+=temp;
+            iwt.addPara("   - %s losses from marine XP", 0, Misc.getHighlightColor(), XP);
+        }
+        tt.addImageWithText(0);
+
+        text.addTooltip();
     }
     private float getXPPowerMulti(CargoAPI cargo){
         //cargo.getFleetData().getFleet()
@@ -94,9 +121,14 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
         return a;
     }
     private float getXPDefenceMulti(CargoAPI cargo){
-        float a = 1 + PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel();
-        //a = Global.getSector().getPlayerFleet().getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD).getMultBonus("core_marines").value;
-        CrewReplacer_Log.loging("getting marine XP defence bonus:" + a,this);
-        return a;
+        try {
+            MutableStat.StatMod b = Global.getSector().getPlayerFleet().getStats().getDynamic().getStat("ground_attack_casualties_mult").getMultStatMod("marineXP");
+            float a = 1 * b.getValue();
+            CrewReplacer_Log.loging("getting marine XP defence bonus:" + a, this);
+            return a;
+        }catch (Exception e){
+            CrewReplacer_Log.loging("failed to get marrine bonus. setting to defalt value", this);
+            return 1;
+        }
     }
 }

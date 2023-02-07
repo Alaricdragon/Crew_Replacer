@@ -9,6 +9,7 @@ v0.5:
         made it so crewReplacer_Job.displayCrewAvailable() does not display crew available if you have none of said type of crew.
         made it so marine XP only effects marines.
         changed the way marines are removed again. hopefully it works this time.
+        made it so raids can comprehend the fact that you did not deploy every force you had
     new:
         added 5 new function to crewReplacer_Job:
             applyExtraDataToCrew();
@@ -30,7 +31,7 @@ v0.5:
         explanation 2:
             displayCrewNumbers was a effective way to display crew, but it needed to be split into two for modability sake. something i forgot to do earlier.
     marine in raiding:
-        made it so the marine displays its XP on it, instead of on the intier ground combat force.
+        made it so the marine displays its XP and related bonuses on it, instead of on the inter ground combat force.
     file names:
         changed the 'crew' and 'marine' files to 'CrewReplacer_CrewType_crew' and 'CrewReplacer_CrewType_marine' resepctively
 v0.4.3:

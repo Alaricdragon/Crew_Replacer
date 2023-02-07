@@ -23,28 +23,20 @@ here is what im going to do:
         -getMarineLossesStat(List<GroundRaidObjectivePlugin> data)?
             -ListenerUtil.modifyMarineLossesStatPreRaid(market, data, stat);?? implied listener for this??
         -MutableStat stat = getMarineLossesStat(data); in getMarineLossesStat(List<GroundRaidObjectivePlugin> data)
-        -HERE stat.applyMods(this.playerFleet.getStats().getDynamic().getStat("ground_attack_casualties_mult"));
+        -stat.applyMods(this.playerFleet.getStats().getDynamic().getStat("ground_attack_casualties_mult"));
             -this seems to be the one. the mod i need to remove is called:
                 marineXP
             -and the related data on what its bonuses is can be found at:
                 update(boolean withIntegrationFromCurrentLocation, boolean keepXP, CargoStackAPI stack) in PlayerFleetPersonnelTracker.
                 its a random line near the bottom fo the function
             -Note: the stat 'ground_attack_casualties_mult' is the same as 'Stats.PLANETARY_OPERATIONS_CASUALTIES_MULT'
-    7) re-add the attack bonus to marines, complete with a display.
-    8) re-add the marine loss bonus, no display needed? i don't know.
+    7)(DONE) re-add the attack bonus to marines, complete with a display.
+    8)(DONE) re-add the marine loss bonus, no display needed? i don't know.
 exstra data:
-    regarding marrine XP, possible canteens for were / when that is calculated
-        -com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker
-            -according to alex, the magnificent, this is were this is calculated, and gotten.
-            -reportRaidObjectivesAchieved(RaidResultData data, InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap)
-                -for marine XP gain from data.
-                -found in CrewReplacerMarketCMD line 1410.
-                -see CURRENT OBJECTIVE for what im going to do.
-            -doExtraConfirmActions()?
-    line 1246: were i get and apply crew losses.
-        -outdated. i now do so from the CrewReplacer_PlayerFleetPersonnelTracker.
+    marrine XP is set at: CrewReplacer_CrewType_marine
+    CrewReplacer_PlayerFleetPersonnelTracker: were i get and apply crew losses.
 issues:
-    1) XP for marines is not given right. it should be given based on battle difficulty * %of force that is marines, but its not right now.
+    1)(DONE. (requires testing)) XP for marines is not given right. it should be given based on battle difficulty * %of force that is marines, but its not right now.
         -all XP additions have been removed. will add them soon.
     2)(DONE) deployment. right now it is assumed, that you are deploying 100% of youe forces, even though that is not the way the game works.
         -tested fix. in the CrewReplacer_PlayerFleetPersonnelTracker
@@ -60,7 +52,9 @@ issues:
         -(fixed)currently, when XP is tried to get removed, NOTHING HAPPENS! AAAAAAAAAAAAAAA
         -(no longer required)if possable, removeing the PlayerFleetPersonnelTraker from the base game would be best, but for now its not possable.
         -(no longer required)if i do remove it though, i will need to addmy self some 'remove marrines' code to my marrines crew remove crew thing.
-        -(HERE) when marines have XP and they fight, they loes some XP because the amount of available crew power isa  float, but the loss number is always rounded down to a int.
+        -(fixed) when marines have XP and they fight, they loes some XP because the amount of available crew power isa  float, but the loss number is always rounded down to a int.
+
+        -marines bonus seem to on action, disappear. this is frustrating for all sorts of reasons.
     6) possable crash when the code tries to run raid non market
         -nex develuper said his mod might be overrideing this function.
         -nex develuper said it might have something to do with me failing to get the relevant data to my mod

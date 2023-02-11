@@ -14,15 +14,22 @@ import com.fs.starfarer.api.util.Misc;
 import data.scripts.CrewReplacer_Log;
 import data.scripts.crewReplacer_Crew;
 
-public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea if this is needed at all =(
+public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
+    /*Notes:
+    * why is this so complecated?
+    * because the marketCMD (were the raid plugin is) and 'PlayerFleetPersonnelTracker' (were the XP calculations were)
+    * basicly handled all of the things. here. like XP gathering, or the power bonus to marines when you raid.
+    * so i moved all that here, resalting in this mess.
+    * there is aslo a little of it in 'CrewReplacer_PlayerFleetPersonnelTracker' that removes the XP gain from  raiding, so i can handle it better here.*/
     private static final boolean logsActive = Global.getSettings().getBoolean("CrewReplacerDisplayMarineLogs");
     private float[] XPGainData = new float[]{0f,0f};
     private float MarinesLossMultiTemp= 1;
+/*
     @Override
     public float getCrewPowerInCargo(CargoAPI cargo){
         float temp = super.getCrewPowerInCargo(cargo);
         return temp;
-    }
+    }*/
     @Override
     public float getCrewToLose(CargoAPI cargo,float crewUsed,float crewLost){//,CargoAPI cargo){
         XPGainData[0] = crewUsed;
@@ -48,7 +55,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
         if(CrewUsed == 0){
             PlayerFleetPersonnelTracker thing = PlayerFleetPersonnelTracker.getInstance();
             thing.update();
-            CrewReplacer_Log.loging("no marrines used. exiting XP gain code...",this);
+            CrewReplacer_Log.loging("no marrines used. exiting XP gain code...",this,logsActive);
             return;
         }
         try{
@@ -63,14 +70,14 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
             xpGain *= total;
             xpGain *= thing.XP_PER_RAID_MULT;
             if (xpGain < 0) xpGain = 0;
-            CrewReplacer_Log.loging("getting XP as: " + ratio * 100 + "% of " + xpGain,this);
+            CrewReplacer_Log.loging("getting XP as: " + ratio * 100 + "% of " + xpGain,this,logsActive);
             xpGain *= ratio;//this reduces the XP gained down to the amount of XP you should earn, based on how many marines were in your fleet? hopefully?
-            CrewReplacer_Log.loging("got " + xpGain + " XP",this);
+            CrewReplacer_Log.loging("got " + xpGain + " XP",this,logsActive);
             thing.getMarineData().addXP(xpGain);
 
             thing.update();
 
-            CrewReplacer_Log.loging("after calculations, you have " + PlayerFleetPersonnelTracker.getInstance().getMarineData().xp + "xp",this);
+            CrewReplacer_Log.loging("after calculations, you have " + PlayerFleetPersonnelTracker.getInstance().getMarineData().xp + "xp",this,logsActive);
         }catch (Exception E){
             CrewReplacer_Log.loging("ERROR: failed to add XP to marines",this,true);
         }
@@ -111,7 +118,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
             String XP = xpTemp+"";// + "%";
             XP+=temp;
             iwt.addPara("   - %s losses from marine XP", 0, Misc.getHighlightColor(),XP);
-            CrewReplacer_Log.loging("loss multi that was saved is: " + MarinesLossMultiTemp,this);
+            CrewReplacer_Log.loging("loss multi that was saved is: " + MarinesLossMultiTemp,this,logsActive);
         }
         tt.addImageWithText(0);
 
@@ -120,10 +127,10 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
     private float getXPPowerMulti(CargoAPI cargo){
         try {
             float a = 1 + (Global.getSector().getPlayerFleet().getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD).getPercentBonus("marineXP").getValue() / 100);
-            CrewReplacer_Log.loging("getting marine XP power bonus:" + a, this);
+            CrewReplacer_Log.loging("getting marine XP power bonus:" + a, this,logsActive);
             return a;
         }catch (Exception E){
-            CrewReplacer_Log.loging("failed to get marine XP power bonus. setting to default value", this);
+            CrewReplacer_Log.loging("failed to get marine XP power bonus. setting to default value", this,logsActive);
             return 1;
         }
     }
@@ -131,10 +138,10 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {//no idea i
         try {
             MutableStat.StatMod b = Global.getSector().getPlayerFleet().getStats().getDynamic().getStat("ground_attack_casualties_mult").getMultStatMod("marineXP");
             float a = b.getValue();
-            CrewReplacer_Log.loging("getting marine XP defence bonus:" + a, this);
+            CrewReplacer_Log.loging("getting marine XP defence bonus:" + a, this,logsActive);
             return a;
         }catch (Exception e){
-            CrewReplacer_Log.loging("failed to get marine defence bonus. setting to default value", this);
+            CrewReplacer_Log.loging("failed to get marine defence bonus. setting to default value", this,logsActive);
             return 1;
         }
     }

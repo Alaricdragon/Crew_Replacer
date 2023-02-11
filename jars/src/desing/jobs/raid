@@ -47,14 +47,14 @@ issues:
         -updated code.
     5)(DONE) issue were marrines with XP could cause -issues-
         -fixed. was because of a power *= power multi in code, slowly raising power to infinity and braking things.
-    5.a(WORKING ON) fix all marine issues. especially with XP gain and lose.
+    5.a(DONE) fix all marine issues. especially with XP gain and lose.
         -(fixed)issues are as follows: removing XP loss seems possibly impossible.
         -(fixed)currently, when XP is tried to get removed, NOTHING HAPPENS! AAAAAAAAAAAAAAA
         -(no longer required)if possable, removeing the PlayerFleetPersonnelTraker from the base game would be best, but for now its not possable.
         -(no longer required)if i do remove it though, i will need to addmy self some 'remove marrines' code to my marrines crew remove crew thing.
         -(fixed) when marines have XP and they fight, they loes some XP because the amount of available crew power isa  float, but the loss number is always rounded down to a int.
 
-        -marines bonus seem to on action, disappear. this is frustrating for all sorts of reasons.
+        -(patchwork fix)marines bonus seem to on action, disappear. this is frustrating for all sorts of reasons.
     6) possable crash when the code tries to run raid non market
         -nex develuper said his mod might be overrideing this function.
         -nex develuper said it might have something to do with me failing to get the relevant data to my mod

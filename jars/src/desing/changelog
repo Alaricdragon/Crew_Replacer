@@ -1,6 +1,5 @@
 v0.5:
-    Not save compatible with any older version
-    might be save compatible, now. will do some tests.
+    should be save compatible with V0.4+.
     background work:
         raids and marines:
             raid plugin things. see fixes
@@ -10,6 +9,9 @@ v0.5:
         made it so marine XP only effects marines.
         changed the way marines are removed again. hopefully it works this time.
         made it so raids can comprehend the fact that you did not deploy every force you had
+
+        enabled 'marketHostileRaidConfirmContSel', 'marketHostileRaidResultSel' in my rules.csv maybe fixing a crash on raid non market
+        -NOTE: its possable this fix failed. if someone notices the game giving a null point exception when you raid objectives somehow, plz tell meplz tell me.
     new:
         added 5 new function to crewReplacer_Job:
             applyExtraDataToCrew();

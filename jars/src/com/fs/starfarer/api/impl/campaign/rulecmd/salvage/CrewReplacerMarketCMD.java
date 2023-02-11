@@ -84,15 +84,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI.StatModValueGetter;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Misc.Token;
 /*
-PROLDOM:
-the code is not runing (i think).
-why? it has the same function names as the base functions.
-solution? add a 2 to function names, in this and in the rules.csv.
-this will seperate the names
- */
-/*
-       Everything function thats commeted out in its function is like that because i cant get it to work.
-       this has nothing to do with salvage. this has everything to do with raiding, if i recall.
+       Everything function thats commeted out in its function is like that because it is not required for this
+       this has nothing to do with salvage. this has everything to do with raiding, if i recall. why is it organized here?
  */
 /*
     found in rules.scv:
@@ -129,7 +122,7 @@ this will seperate the names
         -applyDebtEffect
  */
 public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
-    static private boolean logsActive = true;
+    static private boolean logsActive = Global.getSettings().getBoolean("crewReplacerDisplayRaidLogs");
     static private String jobmain = "raiding_marines";//
     /*
     public static enum RaidType {

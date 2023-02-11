@@ -56,6 +56,7 @@ public class crewReplacer_Job {
         }
         CrewReplacer_Log.pop();
     }
+
     public crewReplacer_Crew getCrew(String crew){
         CrewReplacer_Log.loging(getIntoJobLog() + "running getCrew",this);
         CrewReplacer_Log.push();

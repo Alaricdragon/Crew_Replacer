@@ -21,9 +21,9 @@ marketHostileRaidNonMarket,DialogOptionSelected,$option == mktRaidNonMarket,Crew
 marketHostileRaidValuableSel,DialogOptionSelected,$option == mktRaidValuable,CrewReplacerMarketCMD raidValuable,,,
 marketHostileRaidDisruptSel,DialogOptionSelected,$option == mktRaidDisrupt,CrewReplacerMarketCMD raidDisrupt,,,
 marketHostileRaidConfirmSel,DialogOptionSelected,$option == mktRaidConfirm,CrewReplacerMarketCMD raidConfirm,,,
-#marketHostileRaidConfirmContSel,DialogOptionSelected,$option == mktRaidConfirmContinue,CrewReplacerMarketCMD raidConfirmContinue,,,
+marketHostileRaidConfirmContSel,DialogOptionSelected,$option == mktRaidConfirmContinue,CrewReplacerMarketCMD raidConfirmContinue,,,
 #marketHostileRaidNeverMindSel,DialogOptionSelected,$option == mktRaidNeverMind,CrewReplacerMarketCMD raidNeverMind,,,
-#marketHostileRaidResultSel,DialogOptionSelected,$option == mktRaidResult,CrewReplacerMarketCMD raidResult,,,
+marketHostileRaidResultSel,DialogOptionSelected,$option == mktRaidResult,CrewReplacerMarketCMD raidResult,,,
 #marketHostileRaidPostRaidDefault,PostGroundRaid,,CrewReplacerMarketCMD addContinueToRaidResultOption,,,
 ,,,,,,
 #mission:hijack. marrien cheack,,,,,,
@@ -43,3 +43,9 @@ $tpReq = 5000 0
 CrewReplacer_showResCost ""crew"" ""CoronalHyperShunt_repair_Crew"" $crewReq ""metals"" ""CoronalHyperShunt_repair_Metals"" $metalsReq true ""rare_metals"" ""CoronalHyperShunt_repair_RareMetals"" $tpReq true","Salvage crews board the structure at key points and soon reports come in of extensive wear and damage. It is difficult to assess the entire structure in detail, but it is clear that it is not operable in its current state.
 
 However, as with most mega-scale Domain technology from the late pre-Collapse era, the $nameInText features fantastic self-repair capabilities which requires only sufficient resources to be made available.",0:cTap_continue:Continue,
+,,,,,,
+#survey testing data,,,,,,
+#surveyAddOptionPerform,PopulateOptions,"$market.isPlanetConditionMarketOnly
+!$market.isSurveyed",,,0:surveyPerform:Perform a survey,
+#surveyOptionPerformSurvey,DialogOptionSelected,$option == surveyPerform,CrewReplacer_OpenCoreTab CARGO OPEN,Your $shipOrFleet enters low orbit around $entityName.,,
+,,,,,,

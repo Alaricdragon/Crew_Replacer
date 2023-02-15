@@ -1,3 +1,55 @@
+v0.5:
+    should be save compatible with V0.4+.
+    background work:
+        raids and marines:
+            raid plugin things. see fixes
+        started to do battle with the survey code. its making ghost sounds at me.
+    fixes:
+        made it so crewReplacer_Job.displayCrewAvailable() does not display crew available if you have none of said type of crew.
+        made it so marine XP only effects marines.
+        changed the way marines are removed again. hopefully it works this time.
+        made it so raids can comprehend the fact that you did not deploy every force you had
+
+        enabled 'marketHostileRaidConfirmContSel', 'marketHostileRaidResultSel' in my rules.csv maybe fixing a crash on raid non market
+        -NOTE: its possable this fix failed. if someone notices the game giving a null point exception when you raid objectives somehow, plz tell meplz tell me.
+    new:
+        added 6 new function to crewReplacer_Job:
+            applyExtraDataToCrew();
+            applyExtraDataToCrew(Object newData);
+            applyExtraDataToCrewAndJob(Object newData);
+            resetExtraDataToCrews();
+            resetExtraDataToCrewsAndJob();
+
+            public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority)
+        added 5 new function to crewReplacer_Crew:
+            resetExtraData();
+            setExtraData(Object newData);
+
+            displayCrewAvailable(CargoAPI cargo, float numberOfItems, TextPanelAPI text)
+            displayCrewLost(CargoAPI cargo, float numberOfItems, TextPanelAPI text)
+
+            public float getCrewDefence(CargoAPI cargo)
+        added a new variable to both crewReplacer_Crew and crewReplacer_Job:
+            public Object ExtraData;
+
+        added a new variable to crewReplacer_Crew:
+            public float crewDefence = 1;
+        explanation:
+            sometimes, one wants to send / process some random data to crews or jobs. this was hard before, but now its simple.
+            this is currently used in the raid plugin for marines to get XP. will be explained farther when i update the documentation
+        explanation 2:
+            displayCrewNumbers was a effective way to display crew, but it needed to be split into two for modability sake. something i forgot to do earlier.
+        explanation 3:
+            i find myself wanting to have differences between crew ability to do a job, and how many losses they receive and the weight of said losses. this is the best way i think.
+    changes:
+        marine in raiding:
+            made it so the marine displays its XP and related bonuses on it, instead of on the inter ground combat force.
+        file names:
+            changed the 'crew' and 'marine' files to 'CrewReplacer_CrewType_crew' and 'CrewReplacer_CrewType_marine' resepctively
+        job data handling:
+            made it so crew use there defence when handling crew losses, not there power. should be no difference so long as power and defence are the same
+        other:
+            made 'static ArrayList<crewReplacer_Job> Jobs' in 'crewReplacer_Main' 'private'
 v0.4.3:
     save compatible with V0.4+
     fixes:

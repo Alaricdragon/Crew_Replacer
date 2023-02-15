@@ -1,0 +1,25 @@
+a few things to note:
+anytime you want accuses to a crewReplacer_job, please do so from crewReplacer_Main.
+
+crewReplacer_job should generally not have there functions overwritten, unless you wanna do something extremely strange.
+you can do so, but I advice only doing so when you want to change how a crewReplacer_job behaves, not when you want to
+do something strange with a crewReplacer_crew.
+
+crewReplacer_Crew should have any function you want overwritten. every single function in said class is designed with that in mind.
+to that end, despite that its made for turning commodities into crew, crews can be modified to be anything,
+provided you overwrite the right functions.
+
+additional, crewReplacer_Crew should be added to jobs in onApplicationLoad(). if they are added after onApplicationLoad() is
+ran, then you need to run crewReplacer_Main.organizePriority() or crewReplacer_Job.organizePriority()
+
+if you are looking to do something simpler, like turn a commodity into a crew with non dynamic stats (like normal crew in game)
+1) find the crewReplacer_job you want the crew to have, and call it with crewReplacer_Main.getJob("jobname");
+2) run the function addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority) from the crewReplacer_job.
+    -crew = the commodity ID you want this crew to represent. this changes its image, name, what is removed when crew is
+     lost, and what item is looked for when trying to find out how many of this crew you have.
+    -crewPower = the strength of your crew. this is how good they are at the job you have given them. default is 1.
+    -crewDefence = the defence of your crew. this is how good your crew is at surviving situations. default is 1.
+    -crewPriority = the priority of your crew. when a crewReplacer_Job requests crew, it will request the ones with the best priority first. default is 10.
+3) repeat 1 and 2 for every job you want your crew to be able to preform.
+-) example of adding a crew to a job.:
+    crewReplacer_Main.getJob("salvage_heavyMachinery").addNewCrew("heavy_machinery",1,1,10);

@@ -1,3 +1,18 @@
+regarding the raid job:
+    -need to look into the crew loss reduction from marine XP and only apply it to marines
+        -see playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);, as thats were the bounus from marrins power from xp was calculated
+    -(might require a defense stat added to crews for marrines to still benefit)
+    -add a way to get XP for marines. Somewhere were i can calculate marrine XP gain based on marines used in combat
+    -add a way to have separate displays for displaying available crew, and displaying losses.
+
+
+
+
+regarding survey job:
+    im trying to find the position were the code is ran for this job, so i can mimic it. it does not exist in the place it should though.
+    im going to try and get myself a new copy of starsector core next time i try to fight with this.
+    i have a path in. my victory is now possible.
+
 add a 'defence' stat to all crew.
 at this time, crew does not have a way to change how many crew are destroyed in a job when they loes things.
 this will add a simple way to do that.

@@ -3,31 +3,109 @@ status:
     partly broken. missing features
 
 notes:
-    nex has this integrated. i must inform them of any changes made so they can also change this job.
+    nex has this integrated. i might need to inform them of any changes made so they can also change this job, depending on context
 
 job name: replaced commodity
     raiding_marines:    marines
 
+CURRENT OBJECTIVE:
+i found a listener that does everything i want effortlessly. at long fucking last.
+here is what im going to do:
+    1)(DONE! (not save compatible)) remove the current marrine listiner, and subsatood it with my own.
+        -com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker -> reportRaidObjectivesAchieved(RaidResultData data, InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap)
+    2)(done) add a system in crewReplacer_Job and crewReplacer_Crew to transfer all the relevant data over to crew, so i can get some sweet sweet XP for my units
+    3)(done) remove my current implementation of removing crew in this job. it is now -outdated-.
+    4)(done) actually add XP to marines as i use them.
+    5)(done) remove the global crew power bonus marine XP gives ground troops.
+        -was from playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD). removed successfully
+    6) (DONE)remove the global crew loss bonus marine XP gives ground troops.
+        -playerFleet.getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);?
+        -getMarineLossesStat(List<GroundRaidObjectivePlugin> data)?
+            -ListenerUtil.modifyMarineLossesStatPreRaid(market, data, stat);?? implied listener for this??
+        -MutableStat stat = getMarineLossesStat(data); in getMarineLossesStat(List<GroundRaidObjectivePlugin> data)
+        -stat.applyMods(this.playerFleet.getStats().getDynamic().getStat("ground_attack_casualties_mult"));
+            -this seems to be the one. the mod i need to remove is called:
+                marineXP
+            -and the related data on what its bonuses is can be found at:
+                update(boolean withIntegrationFromCurrentLocation, boolean keepXP, CargoStackAPI stack) in PlayerFleetPersonnelTracker.
+                its a random line near the bottom fo the function
+            -Note: the stat 'ground_attack_casualties_mult' is the same as 'Stats.PLANETARY_OPERATIONS_CASUALTIES_MULT'
+    7)(DONE) re-add the attack bonus to marines, complete with a display.
+    8)(DONE) re-add the marine loss bonus, no display needed? i don't know.
 exstra data:
-    regarding marrine XP, possible canteens for were / when that is calculated
-        -playerFleet.getCommanderStats().getMarineEffectivnessMult()
-    line 1246: were i get and apply crew losses.
+    marrine XP is set at: CrewReplacer_CrewType_marine
+    CrewReplacer_PlayerFleetPersonnelTracker: were i get and apply crew losses.
 issues:
-    1) XP for marines is not given right. it should be given based on battle difficulty * %of force that is marines, but its not right now.
-    2) deployment. right now it is assumed, that you are deploying 100% of youe forces, even though that is not the way the game works.
-    3) fails to add ground support modifiers to combat, even though it says it does?
+    1)(DONE. (requires testing)) XP for marines is not given right. it should be given based on battle difficulty * %of force that is marines, but its not right now.
+        -all XP additions have been removed. will add them soon.
+    2)(DONE) deployment. right now it is assumed, that you are deploying 100% of youe forces, even though that is not the way the game works.
+        -tested fix. in the CrewReplacer_PlayerFleetPersonnelTracker
+    3)(no evidence) fails to add ground support modifiers to combat, even though it says it does?
         -cant find any evidence that this is true
         -the -display- for available ground crew does not display ground combat power on the conform page? maybe that is it?
-    4) fails to adjust marries losses based on amount of available ground support
+    4)(DONE) fails to adjust marries losses based on amount of available ground support
         -updated code.
+    5)(DONE) issue were marrines with XP could cause -issues-
+        -fixed. was because of a power *= power multi in code, slowly raising power to infinity and braking things.
+    5.a(DONE) fix all marine issues. especially with XP gain and lose.
+        -(fixed)issues are as follows: removing XP loss seems possibly impossible.
+        -(fixed)currently, when XP is tried to get removed, NOTHING HAPPENS! AAAAAAAAAAAAAAA
+        -(no longer required)if possable, removeing the PlayerFleetPersonnelTraker from the base game would be best, but for now its not possable.
+        -(no longer required)if i do remove it though, i will need to addmy self some 'remove marrines' code to my marrines crew remove crew thing.
+        -(fixed) when marines have XP and they fight, they loes some XP because the amount of available crew power isa  float, but the loss number is always rounded down to a int.
+
+        -(patchwork fix)marines bonus seem to on action, disappear. this is frustrating for all sorts of reasons.
+    6) possable crash when the code tries to run raid non market
+        -nex develuper said his mod might be overrideing this function.
+        -nex develuper said it might have something to do with me failing to get the relevant data to my mod
+        -logs:
+        649288 [Thread-3] WARN  com.fs.starfarer.campaign.rules.oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  - Problem with command of class com.fs.starfarer.api.impl.campaign.rulecmd.salvage.Nex_MarketCMD: null
+        java.lang.NullPointerException
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD.raidConfirmContinue(MarketCMD.java:1830)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD.execute(MarketCMD.java:349)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.salvage.Nex_MarketCMD.execute(Nex_MarketCMD.java:166)
+        	at com.fs.starfarer.campaign.rules.oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.execute(Unknown Source)
+        	at com.fs.starfarer.campaign.rules.Object.runScript(Unknown Source)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.FireBest.applyRule(FireBest.java:106)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.FireBest.execute(FireBest.java:51)
+        	at com.fs.starfarer.api.impl.campaign.rulecmd.FireBest.fire(FireBest.java:57)
+        	at com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl.fireBest(RuleBasedInteractionDialogPluginImpl.java:177)
+        	at com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl.optionSelected(RuleBasedInteractionDialogPluginImpl.java:210)
+        	at com.fs.starfarer.ui.newui.o0Oo$1.super(Unknown Source)
+        	at com.fs.starfarer.ui.newui.B.actionPerformed(Unknown Source)
+        	at com.fs.starfarer.ui.OoO0.buttonPressed(Unknown Source)
+        	at com.fs.starfarer.ui.oooO.Ò00000(Unknown Source)
+        	at com.fs.starfarer.ui.oooO.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.OoO0.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.v.dispatchEventsToChildren(Unknown Source)
+        	at com.fs.starfarer.ui.v.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.newui.B.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.v.dispatchEventsToChildren(Unknown Source)
+        	at com.fs.starfarer.ui.v.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.N.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.newui.o0Oo.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.ui.v.dispatchEventsToChildren(Unknown Source)
+        	at com.fs.starfarer.ui.v.processInputImpl(Unknown Source)
+        	at com.fs.starfarer.ui.Q.processInput(Unknown Source)
+        	at com.fs.starfarer.campaign.CampaignState.processInput(Unknown Source)
+        	at com.fs.starfarer.BaseGameState.traverse(Unknown Source)
+        	at com.fs.state.AppDriver.begin(Unknown Source)
+        	at com.fs.starfarer.combat.CombatMain.main(Unknown Source)
+        	at com.fs.starfarer.StarfarerLauncher.o00000(Unknown Source)
+        	at com.fs.starfarer.StarfarerLauncher$1.run(Unknown Source)
+        	at java.lang.Thread.run(Thread.java:748)
+
 solutions:
-    1) add a new static variable to crewReplacerMarketCMD. it will record for every battle:
+    1)(DONE. added code in CrewReplacer_PlayerFleetPersonnelTracker)add a new static variable to crewReplacerMarketCMD. it will record for every battle:
         1) battle difficulty
         2) number of deployed crew power
       then in marines crew class, run the code:
         marrineXP += (_[0] * (crewPowerUsed / _[1]));
       NOTE: other crew can also get this XP if they want to.
-    2) find out were the game tracks deployment, and set it up so i only deploy the % of forces i actually deploy in combat.
+    2)(DONE. there is a listener for this. works nicely.) find out were the game tracks deployment, and set it up so i only deploy the % of forces i actually deploy in combat.
 
 
 location of rules and scripts:

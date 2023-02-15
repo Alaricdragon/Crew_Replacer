@@ -12,19 +12,20 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.ArrayList;
 
 public class crewReplacer_Crew {
-    //int ID;
     public String name;//comonidie ID
     public ArrayList<String> tags;//for user
 
-    //public float tempcrew = 2;
-    public float crewPriority = 0;
-    public float crewPower = 1;
+    public float crewPriority = 0;//order crew is used in. lower numbers first i think?
+    public float crewPower = 1;//crew power. for calculation how mush a crew is worth.
+    public float crewDefence = 1;//crew defence. for calculation how mush a crew is worth.
 
-    /*public float maxLosePercent = 0;
-    public float minLosePercent = 0;
-    public boolean NormalLossRules = true;*/
-
-
+    public Object ExtraData;
+    public void resetExtraData(){
+        ExtraData = null;
+    }
+    public void setExtraData(Object newData){
+        ExtraData = newData;
+    }
 
     public boolean hasTag(String tag){
         boolean output = false;
@@ -70,6 +71,28 @@ public class crewReplacer_Crew {
         return getCrewInCargo(cargo) * getCrewPower(cargo);
     }
 
+    public String getDisplayName(CargoAPI cargo){//CargoAPI cargo){
+        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        return spec.getName();
+    }
+    public String getCrewIcon(CargoAPI cargo){//CargoAPI cargo){
+        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
+        return spec.getIconName();
+    }
+    public float getCrewPower(CargoAPI cargo){//CargoAPI cargo){
+        return crewPower;
+    }
+    public float getCrewDefence(CargoAPI cargo){
+        return crewDefence;
+    }
+
+    public void displayCrewAvailable(CargoAPI cargo, float numberOfItems, TextPanelAPI text){
+        DisplayedCrewNumbers(cargo,numberOfItems,text);
+    }
+    public void displayCrewLost(CargoAPI cargo,float numberOfItems, TextPanelAPI text){
+        DisplayedCrewNumbers(cargo,numberOfItems,text);
+    }
+    /*a function that is never used directly. used for genral display*/
     public void DisplayedCrewNumbers(CargoAPI cargo,float numberOfItems, TextPanelAPI text){//,CargoAPI cargo){
         // new tooltip-based display
         //CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
@@ -82,19 +105,6 @@ public class crewReplacer_Crew {
         tt.addImageWithText(0);
         text.addTooltip();
     }
-    public String getDisplayName(CargoAPI cargo){//CargoAPI cargo){
-        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-        return spec.getName();
-    }
-    public String getCrewIcon(CargoAPI cargo){//CargoAPI cargo){
-        CommoditySpecAPI spec = Global.getSector().getEconomy().getCommoditySpec(name);
-        return spec.getIconName();
-    }
-    public float getCrewPower(CargoAPI cargo){//CargoAPI cargo){
-        return crewPower;
-    }
-
-
     /*old fleet get functions, here for backwards compatibility.*/
     public void removeCrew(CampaignFleetAPI fleet,float CrewToLost){
         removeCrew(fleet.getCargo(),CrewToLost);

@@ -3,7 +3,7 @@ package data.scripts;
 import java.util.ArrayList;
 
 public class crewReplacer_Main {
-    static ArrayList<crewReplacer_Job> Jobs = new ArrayList<>();
+    static private ArrayList<crewReplacer_Job> Jobs = new ArrayList<>();
     //ArrayList<crewReplacer_Crew> Crews = new ArrayList<>();
 
     static public crewReplacer_Job getJob(String job){

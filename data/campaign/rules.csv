@@ -48,3 +48,4 @@ However, as with most mega-scale Domain technology from the late pre-Collapse er
 #surveyAddOptionPerform,PopulateOptions,"$market.isPlanetConditionMarketOnly
 !$market.isSurveyed",,,0:surveyPerform:Perform a survey,
 #surveyOptionPerformSurvey,DialogOptionSelected,$option == surveyPerform,CrewReplacer_OpenCoreTab CARGO OPEN,Your $shipOrFleet enters low orbit around $entityName.,,
+,,,,,,

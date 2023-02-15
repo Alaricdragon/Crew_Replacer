@@ -114,6 +114,7 @@ public class CrewReplacer_PlayerFleetPersonnelTracker /*/extends PlayerFleetPers
         CrewReplacer_Log.loging("marrineXP: " + PlayerFleetPersonnelTracker.getInstance().getMarineData().xp + "",this,logsActive);
         CrewReplacer_Log.loging("marineNum: " + PlayerFleetPersonnelTracker.getInstance().getMarineData().num + "",this,logsActive);
         CrewReplacer_Log.pop();
+        PlayerFleetPersonnelTracker.getInstance().update();
     }
     public static void saveMarineData(){
         PlayerFleetPersonnelTracker.PersonnelData a = PlayerFleetPersonnelTracker.getInstance().getMarineData();

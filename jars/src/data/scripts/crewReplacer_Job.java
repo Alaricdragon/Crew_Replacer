@@ -104,7 +104,7 @@ public class crewReplacer_Job {
             if(Crews.get(a).name.equals(crew.name)){
                 CrewReplacer_Log.loging("crew found. merging crews named: " + Crews.get(a).name,this);
                 output = false;
-                mergeCrew(Crews.get(a),crew.crewPower,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
+                mergeCrew(Crews.get(a),crew.crewPower,crew.crewDefence,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
                 break;
             }
         }
@@ -115,7 +115,10 @@ public class crewReplacer_Job {
         CrewReplacer_Log.pop();
         return output;
     }
-    public boolean addNewCrew(String crew,float crewPower,float crewPriority/*,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules*/){
+    public boolean addNewCrew(String crew,float crewPower,float crewPriority){
+        return addNewCrew(crew,crewPower,crewPower,crewPriority);
+    }
+    public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority){
         boolean output = true;
         crewReplacer_Crew temp = new crewReplacer_Crew();
         CrewReplacer_Log.loging(getIntoJobLog() + "trying to add new crew named: " + crew + " wtih a power & priority of: " + crewPower + " & " + crewPriority,this);
@@ -134,11 +137,11 @@ public class crewReplacer_Job {
             temp.name = crew;
             Crews.add(temp);
         }
-        mergeCrew(temp,crewPower,crewPriority/*,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules*/);
+        mergeCrew(temp,crewPower,crewDefence,crewPriority/*,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules*/);
         CrewReplacer_Log.pop();
         return output;
     }
-    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority/*,float crewMaxLosePercent,float crewMinLosePercent,boolean crewNormalLoseRules*/){
+    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority){
         CrewReplacer_Log.loging(getIntoJobLog() + "running Merge Crew... setting stats to name: " + crew.name + ", power: " + crewPower + ", priority: " + crewPriority,this);
         crew.crewPower = crewPower;
         crew.crewPriority = crewPriority;
@@ -286,8 +289,8 @@ public class crewReplacer_Job {
         for(int a = 0; a < Crews.size(); a++){
             try {
                 CrewReplacer_Log.loging("getting crew power for crew named: " + Crews.get(a).name,this);
-                float temp = Crews.get(a).getCrewPower(cargo);//cargo);
-                CrewReplacer_Log.loging("got " + temp + " power",this);
+                float temp = Crews.get(a).getCrewDefence(cargo);//cargo);
+                CrewReplacer_Log.loging("got " + temp + " defencive strength",this);
                 temp2.add(temp);
             }catch (Exception e){
                 CrewReplacer_Log.loging("ERROR!!! failed to get crew power for crew with function getCrewPower(). getting variable instead. Exception type: " + e,this,true);

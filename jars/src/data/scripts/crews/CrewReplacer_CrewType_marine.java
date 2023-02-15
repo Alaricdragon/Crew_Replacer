@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.listeners.GroundRaidObjectivesListener;
 import com.fs.starfarer.api.combat.MutableStat;
+import com.fs.starfarer.api.combat.StatBonus;
 import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.ui.LabelAPI;
@@ -23,6 +24,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
     * there is aslo a little of it in 'CrewReplacer_PlayerFleetPersonnelTracker' that removes the XP gain from  raiding, so i can handle it better here.*/
     private static final boolean logsActive = Global.getSettings().getBoolean("CrewReplacerDisplayMarineLogs");
     private float[] XPGainData = new float[]{0f,0f};
+    private float ratio = 0;
     private float MarinesLossMultiTemp= 1;
 /*
     @Override
@@ -31,12 +33,26 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
         return temp;
     }*/
     @Override
+    public float getCrewDefence(CargoAPI cargo){
+        PlayerFleetPersonnelTracker.getInstance().update();//this is here to handle a error that happens sometimes, the data removed in marketCMD will not be readded as it should be.
+        MarinesLossMultiTemp = getXPDefenceMulti(cargo);
+        return crewDefence * MarinesLossMultiTemp;
+    }
+    @Override
     public float getCrewToLose(CargoAPI cargo,float crewUsed,float crewLost){//,CargoAPI cargo){
         XPGainData[0] = crewUsed;
         XPGainData[1] = crewLost;
-        PlayerFleetPersonnelTracker.getInstance().update();//this is here to handle a error that happens sometimes, the data removed in marketCMD will not be readded as it should be.
-        MarinesLossMultiTemp = getXPDefenceMulti(cargo);
-        return super.getCrewToLose(cargo,crewUsed,crewLost) * MarinesLossMultiTemp;//getXPDefenceMulti(cargo);
+        //197 available power.
+        //179 available crew.
+        //crew power used: 209?!?!?
+        Object[] ObjectTemp = (Object[])ExtraData;
+
+        StatBonus attackerTemp = Global.getSector().getPlayerFleet().getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD);
+        float temp = (int) Math.floor(attackerTemp.computeEffective(crewUsed));
+        CrewReplacer_Log.loging("HERE:" + temp,this,true);
+        ratio = (float)Math.floor(temp) / (int)ObjectTemp[1];
+
+        return super.getCrewToLose(cargo,crewUsed,crewLost);
     }
     @Override
     public void removeCrew(CargoAPI cargo, float CrewToLost){
@@ -61,7 +77,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
         try{
             Object[] ObjectTemp = (Object[])ExtraData;
             GroundRaidObjectivesListener.RaidResultData data = (GroundRaidObjectivesListener.RaidResultData) ObjectTemp[0];
-            float ratio = (float)Math.floor(CrewUsed * getXPPowerMulti(cargo)) / (int)ObjectTemp[1];
+
             PlayerFleetPersonnelTracker thing = PlayerFleetPersonnelTracker.getInstance();
             float marines = cargo.getMarines();
 
@@ -128,6 +144,8 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
         try {
             float a = 1 + (Global.getSector().getPlayerFleet().getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD).getPercentBonus("marineXP").getValue() / 100);
             CrewReplacer_Log.loging("getting marine XP power bonus:" + a, this,logsActive);
+            CrewReplacer_Log.loging("getting marine XP:" + PlayerFleetPersonnelTracker.getInstance().getMarineData().xp, this,logsActive);
+
             return a;
         }catch (Exception E){
             CrewReplacer_Log.loging("failed to get marine XP power bonus. setting to default value", this,logsActive);

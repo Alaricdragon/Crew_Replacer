@@ -12,14 +12,12 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.ArrayList;
 
 public class crewReplacer_Crew {
-    //int ID;
     public String name;//comonidie ID
     public ArrayList<String> tags;//for user
 
-    //public float tempcrew = 2;
-    public float crewPriority = 0;
-    public float crewPower = 1;
-
+    public float crewPriority = 0;//order crew is used in. lower numbers first i think?
+    public float crewPower = 1;//crew power. for calculation how mush a crew is worth.
+    public float crewDefence = 1;//crew defence. for calculation how mush a crew is worth.
     /*public float maxLosePercent = 0;
     public float minLosePercent = 0;
     public boolean NormalLossRules = true;*/
@@ -85,6 +83,9 @@ public class crewReplacer_Crew {
     }
     public float getCrewPower(CargoAPI cargo){//CargoAPI cargo){
         return crewPower;
+    }
+    public float getCrewDefence(CargoAPI cargo){
+        return crewDefence;
     }
 
     public void displayCrewAvailable(CargoAPI cargo, float numberOfItems, TextPanelAPI text){

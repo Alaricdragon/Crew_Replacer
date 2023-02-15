@@ -5,13 +5,13 @@ you should not try to use functions other then 'addCrew', 'addNewCrew', or 'remo
 2) want to override parts of a crew replacerJob, to completely change its functionality.
 
 
-    public String name;                                                             the internal ID of this job. each job mush have its own ID.
-    public ArrayList<ArrayList<Integer>> crewPriority;                              the internal organization of crew available to this job. organized greatest to lowest.
-    public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>(); every crew avalable to this job.
-    public Object ExtraData = null;                                                 extra data. only a few jobs need extra data. see the ExtraData functions to learn more about them
+public String name;                                                             the internal ID of this job. each job mush have its own ID.
+public ArrayList<ArrayList<Integer>> crewPriority;                              the internal organization of crew available to this job. organized greatest to lowest.
+public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>(); every crew avalable to this job.
+public Object ExtraData = null;                                                 extra data. only a few jobs need extra data. see the ExtraData functions to learn more about them
 
 
-    Crews and there functions:
+Crews and there functions:
     crews are the data the crewReplacer_Job is built to manage. no two crews
     can have the same name. if you try to add a crew and there already exists
     a crew with the same name, the old crew will have its stats override.
@@ -19,67 +19,73 @@ you should not try to use functions other then 'addCrew', 'addNewCrew', or 'remo
     crew is trying to represent (unless the crew does not represent a
     commodity. see crewReplacer_Crew for information on that)
 
-    public crewReplacer_Crew getCrew(String crew)                                   returns a crew with a name matching the inputted String. if no crew is found, it creates one.
-    public boolean removeCrew(String crew)                                          returns true if a crew was removed. false otherwise. tries to remove a crew from memory with the inputted name
-    public boolean addCrew(crewReplacer_Crew crew)                                  returns true if no crew was found. false otherwise. tries to add the inputted crew to memory. if a crew with the same name already exists, runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority)
-    public boolean addNewCrew(String crew,float crewPower,float crewPriority)       returns true if no crew was found. false otherwise. tries to create a crew with the inputted stats. always runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority)
-    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority) takes a inputted crew (old crew) and sets its power and priority to the inputted stats
+public crewReplacer_Crew getCrew(String crew)                                       returns a crew with a name matching the inputted String. if no crew is found, it creates one.
+public boolean removeCrew(String crew)                                              returns true if a crew was removed. false otherwise. tries to remove a crew from memory with the inputted name
+public boolean addCrew(crewReplacer_Crew crew)                                      returns true if no crew was found. false otherwise. tries to add the inputted crew to memory. if a crew with the same name already exists, runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority)
+public boolean addNewCrew(String crew,float crewPower,float crewPriority)           returns true if no crew was found. false otherwise. tries to create a crew with the inputted stats. always runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority)
+private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority)   takes a inputted crew (old crew) and sets its power and priority to the inputted stats
 
 
-    ExtraData and its function:
+ExtraData and its function:
     ExtraData can be whatever you want it to be. it only reason is for
     a user to add all sorts of strange data to a jobs crew, for whatever
     reason.
-    uses: in the 'raiding_marines' job. it give all relevent raid data to
+    uses: in the 'raiding_marines' job. it give all relevant raid data to
     crews.
 
-    public void applyExtraDataToCrew()                                              runs applyExtraDataToCrew(ExtraData)
-    public void applyExtraDataToCrew(Object newData)                                runs setExtraData(newData) on every crew. (apply the inputted extra data to every crew in its memory)
-    public void applyExtraDataToCrewAndJob(Object newData)                          apply the extra data to itself. runs 'applyExtraDataToCrew(Object newData)'
-    public void resetExtraDataToCrewsAndJob()                                       sets the ExtraData = null; runs  'resetExtraDataToCrews()'
-    public void resetExtraDataToCrews()                                             runs resetExtraData() on every crew. (sets the extra data of every crew in memory to null.)
+public void applyExtraDataToCrew()                                              runs applyExtraDataToCrew(ExtraData)
+public void applyExtraDataToCrew(Object newData)                                runs setExtraData(newData) on every crew. (apply the inputted extra data to every crew in its memory)
+public void applyExtraDataToCrewAndJob(Object newData)                          apply the extra data to itself. runs 'applyExtraDataToCrew(Object newData)'
+public void resetExtraDataToCrewsAndJob()                                       sets the ExtraData = null; runs  'resetExtraDataToCrews()'
+public void resetExtraDataToCrews()                                             runs resetExtraData() on every crew. (sets the extra data of every crew in memory to null.)
+
+public String[] GetCrewNames()                                                                              returns every crews name.
+public String[] getCrewDisplayNames(CargoAPI cargo)                                                         runs getDisplayName(cargo) on every crew. returns a array of the results
+
+All In One Methods:
+    all in one methods are here for ease of use. mostly they are for creating more jobs, to handle lots of strange things
+    use them as mush as you want and need to.
+
+public void automaticlyGetDisplayAndApplyCrewLost(CargoAPI cargo,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text)
+    -runs getCrewForJob(cargo,crewPowerRequired), getCrewLost(cargo,crewUsed,crew_power_to_lose), displayCrewLost(cargo,crewLost,text), applyCrewLost(crewLost,cargo)
+    -basically, its a all in one method of handling and displaying crew lost.
+
+public ArrayList<Float> automaticlyGetAndApplyCrewLost(CargoAPI cargo, int crewPowerRequired, float crew_power_to_lose)
+    -runs getCrewForJob(cargo,crewPowerRequired), getCrewLost(cargo,crewUsed,crew_power_to_lose), applyCrewLost(crewLost,cargo)
+    -basically its an all in one method of handling crew loss. returns getCrewLost(cargo,crewUsed,crew_power_to_lose)
 
 
-    public void organizePriority()                                                  organized the priority of all crew in this job. is ran on game load. if you edit a crews priority or add a new crew after that, runs this code to avoid issues.
+data processing functions:
+    the functions here are for data processing. all in one methods tend to be cleaner to use,
+    but feel free to use the methods listed here for new jobs at will.
 
-    public float getAvailableCrewPower(CargoAPI cargo)                              runs getCrewPowerInCargo(cargo) on every crew. adds the results together. (gets the total crew power in cargo.)
-    public float[] getAvailableCrew(CargoAPI cargo)                                 runs getCrewInCargo(cargo) on every crew. saves the results. (gets the number of each crew type in cargo)
+public ArrayList<Float> getCrewLost(CargoAPI cargo,ArrayList<Float> crewUsed, float crew_power_to_lose)     runs getCrewPower(cargo); on all crew. runs getRandomNumberList(crewUsed,CrewPowerList,crew_power_to_lose). runs getCrewToLose(cargo,crewUsed.get(a), output.get(a)) on all crew.
+                                                                                                            returns an array holding all crew lost ata.
+public void displayCrewLost(CargoAPI cargo,ArrayList<Float> crewLost, TextPanelAPI text)                    runs displayCrewLost(cargo,crewLost.get(a), text); on all crew.
+public void applyCrewLost(ArrayList<Float> crewLost,CargoAPI cargo)                                         runs removeCrew(cargo, crewLost.get(a)); on all crew.
+public ArrayList<Float> getCrewForJob(CargoAPI cargo, float crewPowerRequired)                              runs getCrewInCargo(cargo), getCrewPowerInCargo(cargo) on every crew priority untill the amount of crew power is >= crewPowerRequired. if the power is < crewPowerRequired, runs getRandomNumberList on the least wanted crew to see who is not used in this job
+public void displayCrewAvailable(CargoAPI cargo,TextPanelAPI text)                                          runs getCrewInCargo != 0 -> displayCrewAvailable(cargo, crewInCargo, text) on every crew.
 
+public void organizePriority()                                                                              organized the priority of all crew in this job. is ran on game load. if you edit a crews priority or add a new crew after that, runs this code to avoid issues.
 
-    All In One Methods:
-        all in one methods are here for ease of use. use them ass mush as you want and need to.
-
-    public void automaticlyGetDisplayAndApplyCrewLost(CargoAPI cargo,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text)
-        -runs getCrewForJob(cargo,crewPowerRequired), getCrewLost(cargo,crewUsed,crew_power_to_lose), displayCrewLost(cargo,crewLost,text), applyCrewLost(crewLost,cargo)
-        -basically, its a all in one method of handling and displaying crew lost.
-
-    public ArrayList<Float> automaticlyGetAndApplyCrewLost(CargoAPI cargo, int crewPowerRequired, float crew_power_to_lose)
-        -runs getCrewForJob(cargo,crewPowerRequired), getCrewLost(cargo,crewUsed,crew_power_to_lose), applyCrewLost(crewLost,cargo)
-        -basically its an all in one method of handling crew loss. returns getCrewLost(cargo,crewUsed,crew_power_to_lose)
-
-    public ArrayList<Float> getCrewLost(CargoAPI cargo,ArrayList<Float> crewUsed, float crew_power_to_lose)     runs getCrewPower(cargo); on all crew. runs getRandomNumberList(crewUsed,CrewPowerList,crew_power_to_lose). runs getCrewToLose(cargo,crewUsed.get(a), output.get(a)) on all crew.
-                                                                                                                returns an array holding all crew lost ata.
-    public void displayCrewLost(CargoAPI cargo,ArrayList<Float> crewLost, TextPanelAPI text)                    runs displayCrewLost(cargo,crewLost.get(a), text); on all crew.
-    public void applyCrewLost(ArrayList<Float> crewLost,CargoAPI cargo)                                         runs removeCrew(cargo, crewLost.get(a)); on all crew.
-    public ArrayList<Float> getCrewForJob(CargoAPI cargo, float crewPowerRequired)                              runs getCrewInCargo(cargo), getCrewPowerInCargo(cargo) on every crew priority untill the amount of crew power is >= crewPowerRequired. if the power is < crewPowerRequired, runs getRandomNumberList on the least wanted crew to see who is not used in this job
-    public void displayCrewAvailable(CargoAPI cargo,TextPanelAPI text)                                          runs getCrewInCargo != 0 -> displayCrewAvailable(cargo, crewInCargo, text) on every crew.
-
-    public String[] GetCrewNames()                                                                              returns every crews name.
-    public String[] getCrewDisplayNames(CargoAPI cargo)                                                         runs getDisplayName(cargo) on every crew. returns a array of the results
-
-    private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<Float> power,float input)   gets a set of random numbers, as though drawing strays, up to the tonit were the power available from the drawn crew is >= input
-
-    private String getIntoJobLog()                                                                             a private function for logs. runs every time a function without a inputed cargo or fleet value runs.
-    private String getIntoJobLog(CampaignFleetAPI fleet)                                                       a private function for logs. runs every time a function with a fleet value is ran
-    private String getIntoJobLog(CargoAPI cargo)                                                               a private function for logs. runs every time a function with a cargo value is ran
+public float getAvailableCrewPower(CargoAPI cargo)                                                          runs getCrewPowerInCargo(cargo) on every crew. adds the results together. (gets the total crew power in cargo.)
+public float[] getAvailableCrew(CargoAPI cargo)                                                             runs getCrewInCargo(cargo) on every crew. saves the results. (gets the number of each crew type in cargo)
 
 
-    NOTE: all functions past this point work, however they are considered obsolete, and will not be updated, and will someday be removed. do not use them.
+private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<Float> power,float input)  gets a set of random numbers, as though drawing strays, up to the tonit were the power available from the drawn crew is >= input
 
-    public float getAvailableCrewPower(CampaignFleetAPI fleet)
-    public float[] getAvailableCrew(CampaignFleetAPI fleet)
-    public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text)
-    public ArrayList<Float> automaticlyGetAndApplyCrewLost(CampaignFleetAPI fleet, int crewPowerRequired, float crew_power_to_lose)
-    public void applyCrewLost(ArrayList<Float> crewLost,CampaignFleetAPI fleet)
-    public ArrayList<Float> getCrewForJob(CampaignFleetAPI fleet, float crewPowerRequired)
-    public void displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text)
+private String getIntoJobLog()                                                                             a private function for logs. runs every time a function without a inputed cargo or fleet value runs.
+private String getIntoJobLog(CampaignFleetAPI fleet)                                                       a private function for logs. runs every time a function with a fleet value is ran
+private String getIntoJobLog(CargoAPI cargo)                                                               a private function for logs. runs every time a function with a cargo value is ran
+
+
+NOTE: all functions past this point work, however they are considered obsolete,
+      and will not be updated, and will someday be removed. do not use them.
+
+public float getAvailableCrewPower(CampaignFleetAPI fleet)
+public float[] getAvailableCrew(CampaignFleetAPI fleet)
+public void automaticlyGetDisplayAndApplyCrewLost(CampaignFleetAPI fleet,int crewPowerRequired, float crew_power_to_lose,TextPanelAPI text)
+public ArrayList<Float> automaticlyGetAndApplyCrewLost(CampaignFleetAPI fleet, int crewPowerRequired, float crew_power_to_lose)
+public void applyCrewLost(ArrayList<Float> crewLost,CampaignFleetAPI fleet)
+public ArrayList<Float> getCrewForJob(CampaignFleetAPI fleet, float crewPowerRequired)
+public void displayCrewAvailable(CampaignFleetAPI fleet,TextPanelAPI text)

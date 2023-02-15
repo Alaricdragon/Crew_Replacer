@@ -18,9 +18,7 @@ public class crewReplacer_Crew {
     public float crewPriority = 0;//order crew is used in. lower numbers first i think?
     public float crewPower = 1;//crew power. for calculation how mush a crew is worth.
     public float crewDefence = 1;//crew defence. for calculation how mush a crew is worth.
-    /*public float maxLosePercent = 0;
-    public float minLosePercent = 0;
-    public boolean NormalLossRules = true;*/
+
     public Object ExtraData;
     public void resetExtraData(){
         ExtraData = null;

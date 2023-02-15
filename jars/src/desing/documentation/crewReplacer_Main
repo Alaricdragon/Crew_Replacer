@@ -1,0 +1,8 @@
+static private ArrayList<crewReplacer_Job> Jobs
+
+
+static public crewReplacer_Job getJob(String job)
+static public boolean removeJob(String job)
+static public boolean addOrMergeJob(crewReplacer_Job job)
+static public void organizePriority()
+static private crewReplacer_Job addJob(String name)

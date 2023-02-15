@@ -48,6 +48,8 @@ v0.5:
             changed the 'crew' and 'marine' files to 'CrewReplacer_CrewType_crew' and 'CrewReplacer_CrewType_marine' resepctively
         job data handling:
             made it so crew use there defence when handling crew losses, not there power. should be no difference so long as power and defence are the same
+        other:
+            made 'static ArrayList<crewReplacer_Job> Jobs' in 'crewReplacer_Main' 'private'
 v0.4.3:
     save compatible with V0.4+
     fixes:

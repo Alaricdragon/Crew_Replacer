@@ -1,0 +1,37 @@
+public String name;                     required for a crew to function. the name is normally the commodity ID this crew represents.
+public ArrayList<String> tags;          for user use. has no connections to anything, but they can be used and accused by other players.
+
+public float crewPriority = 0;          the priority of a crew the lower this is, the early your crew will be selected to do a job.
+public float crewPower = 1;             the power of your crew. this is how mush your crew is worth for things like required crew calculations.
+public float crewDefence = 1;           the defence of your crew. this is how powerful your crew is when calculating crew losses. should be the same as power, normally.
+
+public Object ExtraData;                some jobs will send extra data to there crews at different times. this is saved here when it is sent.
+
+
+public void resetExtraData()                sets ExtraData to null.
+public void setExtraData(Object newData)    sets ExtraData to input.
+
+public boolean hasTag(String tag)           returns true if tag is in tags. false otherwize.
+public void AddTag(String tag)              adds a tag to tags. does nothing if the tag is already in tags.
+public void RemoveTag(String tag)           removes a tag from tags. does nothing if the tag is not found.
+
+public float getCrewToLose(CargoAPI cargo,float crewUsed,float crewLost)    returns how many of this crew a job is going to try to remove. inputs the number of crew of this type the job used, and number of crew of this type the job thinks this crew should lose.
+public void removeCrew(CargoAPI cargo,float CrewToLost)                     removes a number of this crew from cargo.
+public float getCrewInCargo(CargoAPI cargo)                                 returns the number of this crew in cargo
+public float getCrewPowerInCargo(CargoAPI cargo)                            returns the total power of this crew in cargo.
+
+public String getDisplayName(CargoAPI cargo)                                returns the name of this crew. default is commodity name with of ID of this.name
+public String getCrewIcon(CargoAPI cargo)                                   returns the name of icon you want to be displayed to represent this crew. default is commodity spec icon
+public float getCrewPower(CargoAPI cargo)                                   returns the power of a single one of this crew. default value is this.crewPower
+public float getCrewDefence(CargoAPI cargo)                                 returns the defence of a single one of this crew. default value is this.crewDefence
+
+public void displayCrewAvailable(CargoAPI cargo, float numberOfItems, TextPanelAPI text)        runs displayCrewNumbers. only triggers when a job wants to display crew in cargo
+public void displayCrewLost(CargoAPI cargo,float numberOfItems, TextPanelAPI text)              runs displayCrewNumbers. only triggers when a job wants to display crew lost
+public void DisplayedCrewNumbers(CargoAPI cargo,float numberOfItems, TextPanelAPI text)         displays the total number of crew in cargo, alongside there icons.
+
+
+all functions past this ponit are OUTDATED and should never be used.
+
+public void removeCrew(CampaignFleetAPI fleet,float CrewToLost)
+public float getCrewInFleet(CampaignFleetAPI fleet)
+public float getCrewPowerInFleet(CampaignFleetAPI fleet)

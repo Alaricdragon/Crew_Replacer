@@ -36,19 +36,6 @@ public class crewReplacer_Main {
         CrewReplacer_Log.loging("remove job failed. no job name: " + job, new crewReplacer_Main());
         return output;
     }
-    /*static public boolean addNewJob(String job){
-        boolean output = true;
-        for(int a = 0; a < Jobs.size(); a++){
-            if(Jobs.get(a).name.equals(job)){
-                output = false;
-                break;
-            }
-        }
-        if(output){
-            addJob(job);
-        }
-        return output;
-    }*/
     static public boolean addOrMergeJob(crewReplacer_Job job){
         boolean output = true;
         int temp = 0;

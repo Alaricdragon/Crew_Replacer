@@ -1,6 +1,6 @@
 this is the replacement to all repair hyper relay jobs in use.
 status:
-    status: almost done
+    status: done
 
 notes:
     $tpReq in base rules is rare_metals. what was it before being rare?
@@ -11,14 +11,12 @@ job name: replaced commodity
     CoronalHyperShunt_repair_RareMetals:    rare_metals
     CoronalHyperShunt_repair_Crew:          crew
 
-CoronalHyperShunt
+extra data:
+    none.
 
 issues:
-    display is 100% broken. dose not display available crew. sadness
 
 solutions:
-    need to move it to my own function, as the function its using is not good for this type of thing
-        -it cant get a number other then the type of commodity its trying to display.
 
 
 location of rules and scripts:

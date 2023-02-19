@@ -1,0 +1,23 @@
+this is the replacement to all raiding jobs in use.
+status:
+    complete
+
+notes:
+    nex has this integrated. i might need to inform them of any changes made so they can also change this job, depending on context
+
+job name: replaced commodity
+    raiding_marines:    marines
+
+extra data:
+    extra data is set when you click on the conform raid button.
+    it is set to crew just before the crewReplacer_Job function:
+        job.automaticallyGetDisplayAndApplyCrewLost
+
+issues:
+    no known issues
+
+location of rules and scripts:
+    base game:
+        rules.CSV:
+
+    crew Replacer:

@@ -1,0 +1,26 @@
+this is the replacement to all invasion jobs in use.
+status: functional
+
+notes:
+    this job is adding and maintained by another mod maker:
+        https://fractalsoftworks.com/forum/index.php?topic=9175.0
+
+job name: replaced commodity
+    job name:                       commodity replaced name
+    nex_groundBattle_marines:       marines
+    nex_groundBattle_heavyarms:     hand_weapons
+    nex_groundBattle_tankCrew:      (i never looked at this, but i think its the crew's that are able to be combined with nex_groundBattle_heavyarms to become heavy units)
+
+extra data:
+    none?
+
+
+issues:
+
+
+possible solutions:
+
+
+location of rules and scripts:
+    nexerlin mod folder somewhere.
+    try the Nex_MarketCMD class.

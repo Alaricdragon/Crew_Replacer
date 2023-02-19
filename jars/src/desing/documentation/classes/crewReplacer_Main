@@ -1,0 +1,7 @@
+static private ArrayList<crewReplacer_Job> Jobs                 the array of every single job in memory.
+
+static public crewReplacer_Job getJob(String job)               returns the crewReplacer_Job with the name of the inputted string. if no such crewReplacer_Job exists, creates a new crewReplacer_Job with the inputted name
+static public boolean removeJob(String job)                     removes the crewReplacer_Job with the name of the inputted string. returns true if a job was removed. false otherwise
+static public boolean addOrMergeJob(crewReplacer_Job job)       returns true if a crewReplacer_Job with the same name as the inputed job is not found. if a same named crewReplacer_Job is found, removes it from memory, adding all its crewReplacer_Crew to the inputted job, then adds the inputed job to memory.
+static public void organizePriority()                           runs crewReplacer_Job.organizePriority() for all jobs. runs on game load.
+static private crewReplacer_Job addJob(String name)             creates a crewReplacer_Job with the given name and adds it to Jobs. returns the new crewReplacer_Job

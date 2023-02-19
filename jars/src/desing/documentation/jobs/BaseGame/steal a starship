@@ -8,6 +8,8 @@ notes:
 job name: replaced commodity
     Mission_hijack_marines:     marines
 
+extra data:
+    none.
 
 issues:
     1) lack of feedback: there is no feedback on what crew are used for this job
@@ -23,3 +25,4 @@ location of rules and scripts:
         -marine check at: HijackNotEnoughMarines in: rules.csv
 
     crew Replacer:
+        -marine check at: HijackNotEnoughMarines in: rules.csv

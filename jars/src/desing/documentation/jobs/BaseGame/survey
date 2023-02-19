@@ -9,6 +9,7 @@ job name: replaced commodity
     survey_heavyMachinery:  heavy_machinery
 
 notes:
+    (this is personal notes for me. hopefully i can repair this almost broken job at some ponit.)
     possible leads on the survey plugin
         -OpenCoreTab. both survey and found a colony use this. no clue how it works. mapping now...
             -function i think im looking for extends InteractionDialogAPI
@@ -23,6 +24,8 @@ notes:
                     -com.fs.starfarer.ui.newui
                         -THIS IS INVISABLE WHY CANT I SEE IT!!!
                 -data info:
+extra data:
+    none.
 issues:
     1) its impossible to have code ran when you press the survey button (as far as i know)
     2) things added with crew replacer -cannot- be consumed, even when they should be

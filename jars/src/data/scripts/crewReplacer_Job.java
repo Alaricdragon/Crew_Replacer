@@ -142,8 +142,9 @@ public class crewReplacer_Job {
         return output;
     }
     private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority){
-        CrewReplacer_Log.loging(getIntoJobLog() + "running Merge Crew... setting stats to name: " + crew.name + ", power: " + crewPower + ", priority: " + crewPriority,this);
+        CrewReplacer_Log.loging(getIntoJobLog() + "running Merge Crew... setting stats to name: " + crew.name + ", power: " + crewPower + ", defence: " + crewDefence + ", priority: " + crewPriority,this);
         crew.crewPower = crewPower;
+        crew.crewDefence = crewDefence;
         crew.crewPriority = crewPriority;
         //crew.maxLosePercent = crewMaxLosePercent;
         //crew.maxLosePercent = crewMinLosePercent;

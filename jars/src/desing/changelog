@@ -2,6 +2,8 @@ v0.5.1:
     save compatible with V0.5+
     documentation:
         finished the main part of the documentation for now.
+    fixes:
+        fixed crew defence not being set right on initialization.
 v0.5:
     should be save compatible with V0.4+.
     background work:

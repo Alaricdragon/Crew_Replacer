@@ -1,3 +1,11 @@
+v0.6 (not yet released):
+    changes:
+        disabled most console logs be default
+v0.5.2 (internal update):
+    new (internal):
+        built a system to make it at least not hell to add in compatibility patches to crew replacer.
+    prep work (iternal):
+        made preparations to add nomadic survival stuff to crew replacer. all that's left is the integration
 v0.5.1:
     save compatible with V0.5+
     documentation:

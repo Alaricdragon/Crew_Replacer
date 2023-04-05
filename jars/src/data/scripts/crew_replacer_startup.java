@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
 import com.fs.starfarer.api.campaign.listeners.*;
 import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.thoughtworks.xstream.XStream;
+import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
 import data.scripts.crews.CrewReplacer_CrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import org.apache.log4j.Logger;
@@ -17,6 +18,7 @@ public class crew_replacer_startup extends BaseModPlugin {
     @Override
     public void onApplicationLoad() {
         startup2();
+        CrewReplacer_InitCombatabilityPatches.onApplicationLoad();
     }
 
     @Override
@@ -26,6 +28,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         //replacePlayerFleetPersonnelTracker2();
         addListinger();
         super.onGameLoad(newGame);
+        CrewReplacer_InitCombatabilityPatches.onGameLoad(newGame);
     }
     @Override
     public void configureXStream(XStream x) {

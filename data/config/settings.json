@@ -7,11 +7,11 @@
 		"data.scripts.starfarer.api.impl.campaign.rulemd",
 	],
 	#for the genral function of crew replacer. errors are displayed regardless.
-	"crewReplacerDisplayLogs": true,
+	"crewReplacerDisplayLogs": false,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
-	"crewReplacerDisplayRaidLogs": true,
+	"crewReplacerDisplayRaidLogs": false,
 
 	#logs for costom crew types, becuas there are quite a lot fo them.
-	"CrewReplacerDisplayMarineLogs": true,
+	"CrewReplacerDisplayMarineLogs": false,
 }
 

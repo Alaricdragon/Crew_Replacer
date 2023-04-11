@@ -1,7 +1,13 @@
 static private ArrayList<crewReplacer_Job> Jobs                 the array of every single job in memory.
+static private ArrayList<crewReplacer_crewSet> CrewSets         the array of every single crewSet in memory.
 
 static public crewReplacer_Job getJob(String job)               returns the crewReplacer_Job with the name of the inputted string. if no such crewReplacer_Job exists, creates a new crewReplacer_Job with the inputted name
 static public boolean removeJob(String job)                     removes the crewReplacer_Job with the name of the inputted string. returns true if a job was removed. false otherwise
 static public boolean addOrMergeJob(crewReplacer_Job job)       returns true if a crewReplacer_Job with the same name as the inputed job is not found. if a same named crewReplacer_Job is found, removes it from memory, adding all its crewReplacer_Crew to the inputted job, then adds the inputed job to memory.
 static public void organizePriority()                           runs crewReplacer_Job.organizePriority() for all jobs. runs on game load.
 static private crewReplacer_Job addJob(String name)             creates a crewReplacer_Job with the given name and adds it to Jobs. returns the new crewReplacer_Job
+
+static public crewReplacer_crewSet getCrewSet(String crewSet)           return the crewReplacer_crewSet with the name of the inputed string. if no such crewReplacer_crewSet exisits, creates a new one with the inputted name
+static public boolean removeCrewSet(String crewSet)                     removes the crewReplacer_crewSet with the name of the inputted string. returns true if a crewSet was removed. false otherwise
+static public boolean addOrMergeCrewSet(crewReplacer_crewSet crewSet)   returns true if a crewReplacer_crewSet with the same name as the inputed crewSet is not found. if a same named crewReplacer_crewSet is found, removes it from memory, adding all its crewReplacer_Crew to the inputted crewSet, then adds the inputed crewSet to memory.
+static private crewReplacer_Job addCrewSet(String name)                 creates a crewReplacer_crewSet with the given name and adds it to crewSets. returns the new crewReplacer_crewSet

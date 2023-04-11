@@ -3,13 +3,13 @@ this is the replacement to all survey jobs in use. for when you survey a world.
 status:
     patchwork. barely functional.
 
-job name: replaced commodity
+job name:                   replaced commodity
     survey_crew:            crew
     survey_supply:          supply
     survey_heavyMachinery:  heavy_machinery
 
 notes:
-    (this is personal notes for me. hopefully i can repair this almost broken job at some ponit.)
+    (this is personal notes for me. hopefully i can repair this almost broken job at some point.)
     possible leads on the survey plugin
         -OpenCoreTab. both survey and found a colony use this. no clue how it works. mapping now...
             -function i think im looking for extends InteractionDialogAPI

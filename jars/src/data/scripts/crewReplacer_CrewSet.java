@@ -2,11 +2,11 @@ package data.scripts;
 
 import java.util.ArrayList;
 
-public class crewReplacer_crewSet {
+public class crewReplacer_CrewSet {
     public String name;
     public ArrayList<crewReplacer_Crew> Crews = new ArrayList<>();
     public ArrayList<String> CrewSets = new ArrayList<>();
-    public crewReplacer_crewSet(){
+    public crewReplacer_CrewSet(){
 
     }
     public crewReplacer_Crew getCrew(String crew){

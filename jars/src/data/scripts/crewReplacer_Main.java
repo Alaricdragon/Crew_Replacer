@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class crewReplacer_Main {
     static private ArrayList<crewReplacer_Job> Jobs = new ArrayList<>();
-    static private ArrayList<crewReplacer_crewSet> CrewSets = new ArrayList<>();
+    static private ArrayList<crewReplacer_CrewSet> CrewSets = new ArrayList<>();
     //ArrayList<crewReplacer_Crew> Crews = new ArrayList<>();
 
     static public crewReplacer_Job getJob(String job){
@@ -89,8 +89,8 @@ public class crewReplacer_Main {
     }
 
 
-    static public crewReplacer_crewSet getCrewSet(String crewSet){
-        crewReplacer_crewSet output = null;
+    static public crewReplacer_CrewSet getCrewSet(String crewSet){
+        crewReplacer_CrewSet output = null;
         boolean temp = true;
         for(int a = 0; a < CrewSets.size(); a++){
             if(CrewSets.get(a).name.equals(crewSet)){//
@@ -119,7 +119,7 @@ public class crewReplacer_Main {
         CrewReplacer_Log.loging("remove crewSet failed. no crewSet name: " + crewSet, new crewReplacer_Main());
         return output;
     }
-    static public boolean addOrMergeCrewSet(crewReplacer_crewSet crewSet){
+    static public boolean addOrMergeCrewSet(crewReplacer_CrewSet crewSet){
         boolean output = true;
         int temp = 0;
         for(int a = 0; a < CrewSets.size(); a++){
@@ -137,7 +137,7 @@ public class crewReplacer_Main {
             CrewSets.add(crewSet);
         }else{
             CrewReplacer_Log.loging("addOrMergeCrewSet found a matching crewSet named: " + crewSet + ". moveing data to new class...", new crewReplacer_Main());
-            crewReplacer_crewSet tempcrew = CrewSets.get(temp);
+            crewReplacer_CrewSet tempcrew = CrewSets.get(temp);
             CrewSets.remove(temp);
             for(int a = 0; a < tempcrew.Crews.size(); a++) {
                 crewSet.addCrew(tempcrew.Crews.get(a));
@@ -146,8 +146,8 @@ public class crewReplacer_Main {
         }
         return output;
     }
-    static private crewReplacer_crewSet addCrewSet(String name){
-        crewReplacer_crewSet temp = new crewReplacer_crewSet();
+    static private crewReplacer_CrewSet addCrewSet(String name){
+        crewReplacer_CrewSet temp = new crewReplacer_CrewSet();
         //temp.ID = Jobs.get(Jobs.size() - 1).ID + 1;
         //although it pains me, i will let people add jobs that have no names. they will have to have there own way to accses said job though.
         /*if(name.equals("")){

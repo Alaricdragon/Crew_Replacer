@@ -205,7 +205,7 @@ public class crewReplacer_Job {
         for (String a : CrewSets){
             CrewReplacer_Log.loging("getting crew set: " + CrewSets,this);
             CrewReplacer_Log.push();
-            crewReplacer_crewSet jobSet = crewReplacer_Main.getCrewSet(a);
+            crewReplacer_CrewSet jobSet = crewReplacer_Main.getCrewSet(a);
             for(crewReplacer_Crew crew : jobSet.Crews){
                 CrewReplacer_Log.loging("trying to add a new crew '" + crew.name + "'...",this);
                 if(!hasCrew(crew.name)){

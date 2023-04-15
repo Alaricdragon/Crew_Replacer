@@ -1,0 +1,7 @@
+ok, so this is slightly diffrent from the others, because normadicSurvival has a LOT of diffrent jobs.
+so as a solution: every commodity normadic survival uses has its own crew set. the crew set named as:
+normadicSurvival_COMMODITYID
+were commodityID the is ID of a commodity that this crew set is set to replace.
+this means that -all- instances of 'planetary operations' in wish nomadic survival using a commodity for something are covered.
+in addition to this, all normadicSurvival crew sets attempt to get crew from the basic crew replacer crew sets. so adding a crew to the crew set named 'metals' will make that commodity be treated as a metal as far as normadic survival is concerned.
+if you are even confused about what the name of a job or crew set is, crewReplacer will output the names whenever a 'planetary operation' is done.

@@ -1,0 +1,8 @@
+name:supplies
+
+replaced commodity:supplies
+
+implemented jobs:
+    survey_supply
+
+known implemented jobs modded:

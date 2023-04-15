@@ -13,5 +13,8 @@
 
 	#logs for costom crew types, becuas there are quite a lot fo them.
 	"CrewReplacerDisplayMarineLogs": false,
+
+	#logs for combatability code that interacts with other mods.
+	"crewReplacerDisplay_normadicSurvival_logs": true,
 }
 

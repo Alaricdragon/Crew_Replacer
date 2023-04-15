@@ -1,0 +1,9 @@
+name: marines
+
+replaced commodity: marines
+
+implemented jobs:
+    Mission_hijack_marines
+    raiding_marines
+
+known implemented jobs modded:

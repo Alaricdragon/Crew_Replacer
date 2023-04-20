@@ -1,0 +1,8 @@
+name: metals
+
+replaced commodity: metals
+
+implemented jobs:
+    CoronalHyperShunt_repair_Metals
+
+known implemented jobs modded:

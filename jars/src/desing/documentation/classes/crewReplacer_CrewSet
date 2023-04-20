@@ -1,0 +1,16 @@
+public String name;                                                                                     the name of the crew set. each crewsets cannot share names between each other.
+public ArrayList<crewReplacer_Crew> Crews;                                                              the array of crews assigned to this crewset
+public ArrayList<String> CrewSets;                                                                      a array containing all the names of all the crewsets that this crewset exstended. in effect, it will take all the crew from each inputted crewset and add it to its own output. will prefer to output crews stored in this crew set over extended ones.
+
+public boolean hasCrew(String crew)                                                                     return true if a crew with the inputted name exists in this crewset. false otherwise
+public crewReplacer_Crew getCrew(String crew)                                                           returns a crew with a name matching the inputted String. if no crew is found, it creates one.
+public boolean removeCrew(String crew)                                                                  returns true if a crew was removed. false otherwise. tries to remove a crew from memory with the inputted name
+public boolean addCrew(crewReplacer_Crew crew)                                                          returns true if no crew was found. false otherwise. tries to add the inputted crew to memory. if a crew with the same name already exists, runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority)
+public boolean addNewCrew(String crew,float crewPower,float crewPriority)                               runs addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority) with a crew defence equal to the inputer crewPower
+public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority)             returns true if no crew was found. false otherwise. tries to create a crew with the inputted stats. always runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)
+private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)     takes a inputted crew (old crew) and sets its power and priority to the inputted stats
+public boolean addCrewSet(String jobSet)                                                                adds a crew set to this crewset with the inputted name. returns true if a new crew set was added successfully.
+public boolean removeCrewSet(String jobSet)                                                             removed a crew set in this crewset with the inputted name. returns true if the crew set existed to be removed.
+public ArrayList<crewReplacer_Crew> getAllLinkedCrews()
+
+private String getIntoCrewSetLog()                                                                      a private function for logs. runs on every function in crewReplacer_crewSet.

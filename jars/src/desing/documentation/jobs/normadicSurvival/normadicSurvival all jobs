@@ -1,0 +1,11 @@
+ok, so this is slightly diffrent from the others, because normadicSurvival has a LOT of diffrent jobs.
+so as a solution: every job in normadic survival is generated as needed. the names of the jobs are as follows:
+normadicSurvival_OPERATIONNAME_COMMODITYID
+if you are ever confused about the exsact job name a given normadic survival planetary operation uses, the job name is outputed whenever a planetary operation is ran
+all normadic survival jobs also link to a crewSet. view crewSets/nomadicSurvival for details.
+
+NOTICE:
+    it should be noted that all jobs that you want to be in nomadic survival should extend
+    'CrewReplacer_normadicSurvival_crew' class.
+    although you are free to ignore this, nothing bad will happen per say. but a few numbers determining how mush value you lost will be slightly off.
+    also it might have a negative impact on balance. who knows? i don't. the crater of nomadic survival however, requested such a thing, and im alright with delivering.

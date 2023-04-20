@@ -1,9 +1,12 @@
 a few things to note:
-anytime you want accuses to a crewReplacer_job, please do so from crewReplacer_Main.
+anytime you want accuses to a crewReplacer_job, or crewReplacer_crewSet please do so from crewReplacer_Main.
 
 crewReplacer_job should generally not have there functions overwritten, unless you wanna do something extremely strange.
 you can do so, but I advice only doing so when you want to change how a crewReplacer_job behaves, not when you want to
 do something strange with a crewReplacer_crew.
+
+crewReplacer_crewSet has no functions, and only exists as a way to add crew across a large range of jobs easily. for example,
+NOTE: i need to finish this class before i write down how to edit and change it. if you see this message, i forgot to rewrite this small part of the documentation. dm me or something plz.
 
 crewReplacer_Crew should have any function you want overwritten. every single function in said class is designed with that in mind.
 to that end, despite that its made for turning commodities into crew, crews can be modified to be anything,

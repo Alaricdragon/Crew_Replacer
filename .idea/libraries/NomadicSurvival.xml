@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="NomadicSurvival">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Nomadic Survival/jars/NomadicSurvival.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

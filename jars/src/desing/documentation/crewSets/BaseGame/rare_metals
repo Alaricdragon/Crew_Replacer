@@ -1,0 +1,7 @@
+name:rare_metals
+
+replaced commodity:rare_metals
+
+implemented jobs:
+    CoronalHyperShunt_repair_RareMetals
+known implemented jobs modded:

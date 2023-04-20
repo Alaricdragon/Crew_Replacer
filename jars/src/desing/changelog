@@ -1,3 +1,34 @@
+v0.6:
+    mod combatability:
+        now fully compatible with normadicSurvival. feel free to mod in new crews for the -many- jobs available.
+    changes:
+        disabled most console logs be default
+    new:
+        added a bunch of new crew sets for all already created jobs. will improve on that latter.
+
+        new functions:
+            crewReplacer_Job:
+                boolean hasCrew(String crew)
+
+                boolean addCrewSet(String jobSet)
+                boolean removeCrewSet(String jobSet)
+                void applyCrewSets()
+            crewReplacer_Main:
+                crewReplacer_crewSet getCrewSet(String crewSet)
+                boolean removeCrewSet(String crewSet)
+                boolean addOrMergeCrewSet(crewReplacer_crewSet crewSet)
+        new classes:
+            crewReplacer_crewSet.
+                -a 'crew set' represents a set of crews, that are all replaceing the same commodity in the base game.
+                example: the commodity 'crew' is used in salvaging, surveying, and repairing hyper realys.
+                adding a Crew to the crew set 'crew' would add that Crew to all jobs that replaced the commodity 'crew'.
+    fixes:
+        fixed a bug that might have been letting 'crew' steel starships? opps?
+v0.5.2 (internal update):
+    new (internal):
+        built a system to make it at least not hell to add in compatibility patches to crew replacer.
+    prep work (iternal):
+        made preparations to add nomadic survival stuff to crew replacer. all that's left is the integration
 v0.5.1:
     save compatible with V0.5+
     documentation:

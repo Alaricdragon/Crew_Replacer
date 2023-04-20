@@ -6,7 +6,7 @@ status:
 notes:
     this job replaces everything for -all- salvaging. this is from starships, to debris, to stations, to exploring ruins, everything.
 
-job name: replaced commodity
+job name:                   replaced commodity
     salvage_crew:           crew
     salvage_heavyMachinery: heavy_machinery
 

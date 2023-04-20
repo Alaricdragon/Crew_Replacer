@@ -6,7 +6,7 @@ notes:
     $tpReq in base rules is rare_metals. what was it before being rare?
 
 job name: replaced commodity
-    job name:           commodity replaced name
+    job name:                               commodity replaced name
     CoronalHyperShunt_repair_Metals:        metals
     CoronalHyperShunt_repair_RareMetals:    rare_metals
     CoronalHyperShunt_repair_Crew:          crew

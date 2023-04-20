@@ -1,0 +1,10 @@
+name: crew
+
+replaced commodity: crew
+
+implemented jobs:
+    salvage_crew
+    CoronalHyperShunt_repair_Crew
+    survey_crew
+
+known implemented jobs modded:

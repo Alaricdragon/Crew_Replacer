@@ -5,9 +5,9 @@ import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
 import com.fs.starfarer.api.campaign.listeners.*;
 import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.thoughtworks.xstream.XStream;
+import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
 import data.scripts.crews.CrewReplacer_CrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ public class crew_replacer_startup extends BaseModPlugin {
     @Override
     public void onApplicationLoad() {
         startup2();
+        CrewReplacer_InitCombatabilityPatches.onApplicationLoad();
     }
 
     @Override
@@ -26,6 +27,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         //replacePlayerFleetPersonnelTracker2();
         addListinger();
         super.onGameLoad(newGame);
+        CrewReplacer_InitCombatabilityPatches.onGameLoad(newGame);
     }
     @Override
     public void configureXStream(XStream x) {
@@ -33,18 +35,29 @@ public class crew_replacer_startup extends BaseModPlugin {
         //x.alias("CrewReplacerPlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
         //x.alias("PlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
     }
-    private void startup2(){
+    private void startup2() {
+        this.addDefaultCrew();
+    }
+    private void addDefaultCrew(){
+        String jobSet_crew = "crew";
+        String jobSet_supplies = "supplies";
+        String jobSet_heavy_machinery = "heavy_machinery";
+        String jobSet_marines = "marines";
+        String jobSet_metals = "metals";
+        String jobSet_rare_metals = "rare_metals";
+
         crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
         tempJob.addNewCrew("crew",1,10);
+        tempJob.addCrewSet(jobSet_crew);
 
         tempJob = crewReplacer_Main.getJob("salvage_heavyMachinery");
         tempJob.addNewCrew("heavy_machinery",1,10);
-
-        /*tempJob = crewReplacer_Main.getJob("fleet");
-        tempJob.addNewCrew("crew",1,10);*/
+        tempJob.addCrewSet(jobSet_heavy_machinery);
 
         /*tempJob = crewReplacer_Main.getJob("survey_crew");
-        tempJob.addNewCrew("crew",1,10);*/
+        tempJob.addNewCrew("crew",1,10);
+        tempJob.addCrewSet(jobSet_crew);*/
+
 
         tempJob = crewReplacer_Main.getJob("raiding_marines");
         CrewReplacer_CrewType_marine tempcrew = new CrewReplacer_CrewType_marine();
@@ -52,25 +65,41 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempcrew.crewPriority = 10;
         tempcrew.name = "marines";
         tempJob.addCrew(tempcrew);
+        tempJob.addCrewSet(jobSet_marines);
         //supplyDemandChangeInit();
 
 
         tempJob = crewReplacer_Main.getJob("Mission_hijack_marines");
         tempJob.addNewCrew("marines",1,10);
-        tempJob.addNewCrew("crew",1,10);
+        //tempJob.addNewCrew("crew",1,10);
+        tempJob.addCrewSet(jobSet_marines);
 
 
 
         tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Metals");
         tempJob.addNewCrew("metals",1,10);
+        tempJob.addCrewSet(jobSet_metals);
+
         tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_RareMetals");
         tempJob.addNewCrew("rare_metals",1,10);
+        tempJob.addCrewSet(jobSet_rare_metals);
+
         tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Crew");
         tempJob.addNewCrew("crew",1,10);
+        tempJob.addCrewSet(jobSet_crew);
 
-        /*
-        tempJob = crewReplacer_Main.getJob("CoronalHyperShunt_repair_Crew");
-        tempJob.addNewCrew("supplies",1,10);*/
+
+        tempJob = crewReplacer_Main.getJob("survey_crew");
+        tempJob.addCrewSet(jobSet_crew);
+        tempJob = crewReplacer_Main.getJob("survey_supply");
+        tempJob.addCrewSet(jobSet_supplies);
+        tempJob = crewReplacer_Main.getJob("survey_heavyMachinery");
+        tempJob.addCrewSet(jobSet_heavy_machinery);
+
+    }
+    private void addDefaultCrewSets(){
+        //crewReplacer_CrewSet set = crewReplacer_Main.getCrewSet(jobSet_crew);
+        //crewReplacer_Job job = crewReplacer_Main.getJob()
     }
     private void addListiner(){
         //(GroundRaidObjectivesListener)CrewReplacer_PlayerFleetPersonnelTracker;

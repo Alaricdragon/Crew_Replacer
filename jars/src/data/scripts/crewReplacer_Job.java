@@ -22,7 +22,10 @@ public class crewReplacer_Job {
     public ArrayList<ArrayList<Integer>> crewPriority;//organized greatest to lowest.
     public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>();
     public Object ExtraData = null;
+    public ArrayList<String> CrewSets = new ArrayList<>();
     //public Color defalthighlihgt = Color.RED;
+
+
     public void applyExtraDataToCrew(){
         CrewReplacer_Log.loging(getIntoJobLog() + "running applyExtraDataToCrew",this);
         CrewReplacer_Log.push();
@@ -57,6 +60,21 @@ public class crewReplacer_Job {
         CrewReplacer_Log.pop();
     }
 
+
+    public boolean hasCrew(String crew){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running hasCrew",this);
+        CrewReplacer_Log.push();
+        for(int a = 0; a < Crews.size(); a++){
+            if(Crews.get(a).name.equals(crew)){
+                CrewReplacer_Log.loging("found crew with name: " + crew,this);
+                CrewReplacer_Log.pop();
+                return true;
+            }
+        }
+        CrewReplacer_Log.loging("no crew found with the name: " + crew,this);
+        CrewReplacer_Log.pop();
+        return false;
+    }
     public crewReplacer_Crew getCrew(String crew){
         CrewReplacer_Log.loging(getIntoJobLog() + "running getCrew",this);
         CrewReplacer_Log.push();
@@ -151,6 +169,56 @@ public class crewReplacer_Job {
         //crew.NormalLossRules = crewNormalLoseRules;
     }
 
+    public boolean addCrewSet(String CrewSet){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running addCrewSet",this);
+        CrewReplacer_Log.push();
+        for(String a : CrewSets){
+            if(a.equals(CrewSet)){
+                CrewReplacer_Log.loging("CrewSet '" + CrewSet + "' already in CrewSets. cannot add the same crew set twice",this);
+                CrewReplacer_Log.pop();
+                return false;
+            }
+        }
+        CrewReplacer_Log.loging("adding CrewSet '" + CrewSet + "' to CrewSets",this);
+        CrewSets.add(CrewSet);
+        CrewReplacer_Log.pop();
+        return true;
+    }
+    public boolean removeCrewSet(String CrewSet){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running removeCrewSet",this);
+        CrewReplacer_Log.push();
+        for(String a : CrewSets){
+            if(a.equals(CrewSet)){
+                CrewReplacer_Log.loging("CrewSet '" + CrewSet + "' found in crewSets. removing.",this);
+                CrewReplacer_Log.pop();
+                return true;
+            }
+        }
+        CrewReplacer_Log.loging("failed to find a CrewSet named '" + CrewSet + "' in CrewSets.",this);
+        CrewSets.add(CrewSet);
+        CrewReplacer_Log.pop();
+        return false;
+    }
+    public void applyCrewSets(){
+        CrewReplacer_Log.loging(getIntoJobLog() + "running applyCrewSets",this);
+        CrewReplacer_Log.push();
+        for (String a : CrewSets){
+            CrewReplacer_Log.loging("getting crew set: " + CrewSets,this);
+            CrewReplacer_Log.push();
+            crewReplacer_CrewSet jobSet = crewReplacer_Main.getCrewSet(a);
+            for(crewReplacer_Crew crew : jobSet.Crews){
+                CrewReplacer_Log.loging("trying to add a new crew '" + crew.name + "'...",this);
+                if(!hasCrew(crew.name)){
+                    CrewReplacer_Log.loging("no crew found. adding crew.",this);
+                    addCrew(crew);
+                }else{
+                    CrewReplacer_Log.loging("crew already exists. crewSets cannot override crew data. skipping adding crew.",this);
+                }
+            }
+            CrewReplacer_Log.pop();
+        }
+        CrewReplacer_Log.pop();
+    }
 
     public void organizePriority(){
         CrewReplacer_Log.loging(getIntoJobLog() + "running Organizing Priority",this);

@@ -1,0 +1,9 @@
+name: heavy_machinery
+
+replaced commodity:heavy_machinery
+
+implemented jobs:
+   salvage_heavyMachinery
+   survey_heavyMachinery
+
+known implemented jobs modded:

@@ -13,6 +13,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.ConditionGenDataSpec;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.DerelictThemeGenerator;
 import com.fs.starfarer.api.plugins.SurveyPlugin;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.CrewReplacer_Log;
 import data.scripts.crewReplacer_Job;
 import data.scripts.crewReplacer_Main;
 //import data.scripts.crew_replacer;
@@ -150,7 +151,7 @@ public class SurveyPluginImpl implements SurveyPlugin {
             }
         }
         xp *= getXPMult().getModifiedValue();
-
+        CrewReplacer_Log.loging("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. how many times did this run!?!?!?!?!?!?!?!?!?!?!?!?!",this,true);
         return (long) xp;
     }
 
@@ -231,7 +232,6 @@ public class SurveyPluginImpl implements SurveyPlugin {
 
         return result;
     }
-
 }
 
 

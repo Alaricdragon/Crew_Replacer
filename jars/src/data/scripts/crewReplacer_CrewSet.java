@@ -9,6 +9,21 @@ public class crewReplacer_CrewSet {
     public crewReplacer_CrewSet(){
 
     }
+
+    public boolean hasCrew(String crew){
+        CrewReplacer_Log.loging(getIntoCrewSetLog() + "running hasCrew",this);
+        CrewReplacer_Log.push();
+        for(int a = 0; a < Crews.size(); a++){
+            if(Crews.get(a).name.equals(crew)){
+                CrewReplacer_Log.loging("found crew with name: " + crew,this);
+                CrewReplacer_Log.pop();
+                return true;
+            }
+        }
+        CrewReplacer_Log.loging("no crew found with the name: " + crew,this);
+        CrewReplacer_Log.pop();
+        return false;
+    }
     public crewReplacer_Crew getCrew(String crew){
         CrewReplacer_Log.loging(getIntoCrewSetLog() + "running getCrew",this);
         CrewReplacer_Log.push();

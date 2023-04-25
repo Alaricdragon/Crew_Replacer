@@ -1,7 +1,13 @@
+v0.6.2(not released):
+    save compatible with V0.5+
+    mod compatibility:
+        fixed, -tested- and re-enabled the compatibility with nomadic survival. although it should do nothing on its own.
+        better not break this time.
+        arg.
 v0.6.1:
     save compatible with V0.5+
     IMPORTANT:
-        if you downloaded the V0.6 that was available, download this instead. at least if you use normadic suvival. i thought it worked but i found a bug sorry.
+        if you downloaded the V0.6 that was available, download this instead. at least if you use normadic suvival. i thought it worked but i found GAME BREAKING bug sorry 5 mins after i posted sorry =(
 v0.6:
     save compatible with V0.5+
     mod combatability:

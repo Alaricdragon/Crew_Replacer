@@ -3,6 +3,7 @@ package data.scripts.combatabilityPatches.normadicSurvivalPatches;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
+import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.impl.campaign.rulecmd.AddRemoveCommodity;
 import data.scripts.CrewReplacer_Log;
 import data.scripts.crewReplacer_Job;
@@ -24,7 +25,7 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
     protected static ArrayList<String> createdJobs = new ArrayList<>();
     public static boolean logs = Global.getSettings().getBoolean("crewReplacerDisplay_normadicSurvival_logs");
     protected crewReplacer_Job getAndSetJob(String commodityId){
-        String jobName = normadicSurvivalJobName + commodityId + this.intel.getType().getId();
+        String jobName = normadicSurvivalJobName + this.intel.getType().getId() + "_" + commodityId;
         String crewSetName = normadicSurvivalCrewSetName + commodityId;
         CrewReplacer_Log.loging("trying to get or set a job in normadicsurvival, with the job and crewSet named: " + jobName + ", " + crewSetName + ": ",this,logs);
         CrewReplacer_Log.push();
@@ -39,9 +40,9 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             }
         }
         CrewReplacer_Log.loging("job is not prepared. getting new job...",this,logs);
-        crewReplacer_Job job = crewReplacer_Main.getJob(normadicSurvivalJobName);
+        crewReplacer_Job job = crewReplacer_Main.getJob(jobName);
 
-        CrewReplacer_Log.loging("adding crew,crewset,and exstra data to job...",this,logs);
+        CrewReplacer_Log.loging("adding crew,crewset,and extra data to job...",this,logs);
         job.addNewCrew(commodityId,1,10);//does not use custom crew because it always returns 1 power and defence anyways
         job.addCrewSet(crewSetName);
         crewReplacer_Main.getCrewSet(crewSetName).addCrewSet(crewReplacer_crewSet + commodityId);
@@ -51,15 +52,23 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
         CrewReplacer_Log.loging("organizing jobs priority....",this,logs);
         job.organizePriority();
 
+        CrewReplacer_Log.loging("displaying crew in job at first time job setup...",this,logs);
+        String temp = "";
+        for(String a : job.getCrewDisplayNames(Global.getSector().getPlayerFleet().getCargo())){
+            temp += a + ", ";
+        }
+        CrewReplacer_Log.loging(temp,this,logs);
+
         CrewReplacer_Log.loging("remembering prepared job....",this,logs);
         CrewReplacer_Log.pop();
-        createdJobs.add(normadicSurvivalJobName);
+        createdJobs.add(jobName);
         return job;
     }
+
     @Override
     protected void removeCommodity(CargoAPI cargo, String commodityId, int amountLost) {
         //this.intel
-        CrewReplacer_Log.loging("running function ''...",this,logs);
+        CrewReplacer_Log.loging("running function 'removeCommodity'...",this,logs);
         CrewReplacer_Log.push();
         crewReplacer_Job job = getAndSetJob(commodityId);
         job.automaticlyGetDisplayAndApplyCrewLost(cargo,amountLost,amountLost,this.text);
@@ -70,20 +79,20 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
     }
     @Override
     protected float getAvailableCommodityAmount(CargoAPI cargo, String commodity) {
-        CrewReplacer_Log.loging("running function ''...",this,logs);
+        CrewReplacer_Log.loging("running function 'getAvailableCommodityAmount'...",this,logs);
         CrewReplacer_Log.push();
         crewReplacer_Job job = getAndSetJob(commodity);
         int out = (int) job.getAvailableCrewPower(cargo);
         CrewReplacer_Log.pop();
         return out;
     }
-    /*
+/*
     @Override
     protected float getCargoSpace(CommoditySpecAPI spec) {
         CrewReplacer_Log.loging("'get space'",this,true);
-        return spec.getCargoSpace();
-    }
-
+        return super.getCargoSpace(spec);//spec.getCargoSpace();
+    }*/
+    /*
     @Override
     protected float getCrewSpace(CommoditySpecAPI spec) {
         CrewReplacer_Log.loging("'get crew space'",this,true);

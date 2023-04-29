@@ -105,6 +105,15 @@ public class crewReplacer_Crew {
         tt.addImageWithText(0);
         text.addTooltip();
     }
+    public float getCargoPerItem(CargoAPI cargo){
+        return Global.getSector().getEconomy().getCommoditySpec(this.name).getCargoSpace();
+    }
+    public float getCargoUse(CargoAPI cargo,float amountOfCrew){
+        return getCargoPerItem(cargo) * amountOfCrew;
+    }
+    public float getCargoUse(CargoAPI cargo){
+        return getCargoPerItem(cargo) * this.getCrewInCargo(cargo);
+    }
     /*old fleet get functions, here for backwards compatibility.*/
     public void removeCrew(CampaignFleetAPI fleet,float CrewToLost){
         removeCrew(fleet.getCargo(),CrewToLost);

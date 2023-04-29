@@ -538,7 +538,7 @@ public class crewReplacer_Job {
         return output;
     }
     public String[] getCrewDisplayNames(CargoAPI cargo){
-        CrewReplacer_Log.loging("running Get Crew Display Names",this);
+        CrewReplacer_Log.loging(getIntoJobLog(cargo) + "running Get Crew Display Names",this);
         CrewReplacer_Log.push();
         String[] output = new String[Crews.size()];
         for(int a = 0; a < Crews.size(); a++){
@@ -549,6 +549,57 @@ public class crewReplacer_Job {
                 output[a] = temp;
             }catch (Exception e){
                 CrewReplacer_Log.loging("ERROR!!! failed to get display name. Exception type "+ e,this,true);
+            }
+        }
+        CrewReplacer_Log.pop();
+        return output;
+    }
+
+    public float getCargoSpaceUsed(CargoAPI cargo){
+        CrewReplacer_Log.loging(getIntoJobLog(cargo) + "running get Cargo Space Used",this);
+        CrewReplacer_Log.push();
+        float output = 0;
+        for(crewReplacer_Crew Crew : this.Crews) {
+            try {
+                CrewReplacer_Log.loging("getting cargo use for crew named: " + Crew.name,this);
+                float temp = Crew.getCargoUse(cargo);
+                CrewReplacer_Log.loging("cargo use for crew is: " + temp,this);
+                output += temp;
+            }catch (Exception e){
+                CrewReplacer_Log.loging("ERROR: failed to get cargo uss. Exception type " + e,this,true);
+            }
+        }
+        CrewReplacer_Log.pop();
+        return output;
+    }
+    public float[] getCargoSpaceRange(CargoAPI cargo,float power,boolean includeDefence){
+        CrewReplacer_Log.loging(getIntoJobLog(cargo) + "running get Cargo Space Range",this);
+        CrewReplacer_Log.push();
+        float[] output = new float[2];
+        //ArrayList<Float> CrewUsed = this.getAvailableCrew(CargoAPI cargo);
+        //this.crewPriority;//NOTE: first crew i use is prioity 0. then it goes up from there.
+        for(ArrayList<Integer> priority : this.crewPriority){
+            CrewReplacer_Log.loging("getting crew powers and spaces from a priority...",this);
+            CrewReplacer_Log.push();
+            ArrayList<Float> cargoSpaces = new ArrayList<Float>();
+            ArrayList<Float> powers = new ArrayList<Float>();
+            /*so here what i need to do for each cargo set:
+            * 1) determin the max numger of items i can get. max this number at power / Crew.getPower()
+            * 2) determin the cargo of off the max number of items i can get (for each item)
+            * 3) for each item, cargoSpace / power is the amount of cargo per power.
+            * 4.a) run though if power of this set >= power, add all cargo spaces to largest and smallest output and power -= power of this set.
+            * 4.b) if power of this set < power, get the total number of power required, and find the largest and smallest possable combonations of cargo that use all the power.
+            *   -how though?
+            *   1) organize items in cargo pew power. from least to greatest.
+            *   2) move first up, then down the array, getting the amount of power required until >= power, then lower the amount of that crew until its <= that power*/
+            for(int ID : priority){
+                try {
+                    //if () {
+
+                    //}
+                }catch (Exception e){
+
+                }
             }
         }
         CrewReplacer_Log.pop();

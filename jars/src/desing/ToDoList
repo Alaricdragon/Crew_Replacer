@@ -1,3 +1,31 @@
+regarding normadicSurvival compatibility:
+everything works, but one thing and one thing alone:
+    the ability to calculate the max number of batches, and the ability to calculate how mush cargo im going to use this batch.
+    slightly difficult. it turns out.
+    like very difficult.
+    so here my plan so far:
+    (WORKING ON NOW)create a new crewReplacer_job. this job will:
+        NOTE: no longer createing a new crew repalcer job. there is litterly no reason to not have this function on the main crewReplacer_job
+        have a new function called float getCargoSpace(int power);
+            -this function will get the used cargo space at maximum for the amount of used crew i have.
+            -will use CrewReplacer_normadicSurvival_crew.getCargoSpace for this task.
+            -if a given crew is not a instance of this class, it will use a backup to try and get the amount of available power.
+            -NOTE: to avoid issues with inharantance, give the option in crewReplacer_crewset to abstain from adding a given crew to this crewSet.
+    upgrade CrewReplacer_normadicSurvival_crew:
+        NOTE: no longer adding this to CrewReplacer_normadicSurvival_crew. im not going up apply this stright to the main crew file. so anyone can use it.
+        have a new function called float getCargoSpace(int number_of_crew);
+            -this will return the amount of cargo space this mush crew has.
+
+    this will make it easyer to get the amount of crew for each job.
+    now part 2:
+    in CheckCapacity limit:
+        i can run some code to try and get the real capacity limit. it will be more costly, but its better then being inaccurate to the extreme.
+
+    in recalculateBatchLimit:
+        every time i move the slidererereerjanjdaksdaksdsaadada.... wait.
+        if i can succsesfully use CheckCapacityLimit to get the max amount of items,
+
+
 regarding survey job:
     POSSIBLE SOLUTION:
     1) get getConsumed() and getRequired()

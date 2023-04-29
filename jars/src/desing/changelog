@@ -4,6 +4,16 @@ v0.6.2(not released):
         fixed, -tested- and re-enabled the compatibility with nomadic survival. although it should do nothing on its own.
         better not break this time.
         arg.
+    fixes:
+        fixed a missing log in crewReplacer_Job.getCrewDisplayNames(CargoAPI)
+    new functions: (NOTE add this to documentation).
+        crewReplacer_crew:
+            getCargoUse(CargoAPI cargo,float amountOfCrew)
+            getCargoUse(CargoAPI cargo)
+            getCargoPerItem(CargoAPI cargo)
+        crewReplacer_job:
+            getCargoSpaceUsed(CargoAPI cargo)
+            getCargoSpaceRange(CargoAPI cargo,float power,boolean includeDefence)
 v0.6.1:
     save compatible with V0.5+
     IMPORTANT:

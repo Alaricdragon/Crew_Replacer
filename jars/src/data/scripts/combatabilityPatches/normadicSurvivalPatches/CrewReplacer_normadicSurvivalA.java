@@ -103,4 +103,65 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
         CrewReplacer_Log.loging("'get fuel space'",this,true);
         return spec.isFuel() ? 1.0F : 0.0F;
     }*/
+    protected boolean checkCapacityLimit(float perBatch, float capacity) {
+        if (capacity <= 0.0F)
+            return false;
+        if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
+            //this.intel.getInputs().
+            float limit = capacity / perBatch;//HERE. This is what i need to change.
+            this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
+            return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
+        }
+        return false;
+    }
+
+    protected void recalculateBatchLimit() {
+        this.maxCapacityReduction = 0;
+        float crewPerBatch = 0.0F, cargoPerBatch = 0.0F, fuelPerBatch = 0.0F;
+        CommoditySpecAPI out = this.type.getOutput();
+        CargoAPI inputCargo = getCargo(false);
+        this.maxBatches = 50;
+        this.maxBatchesPlayerCanAfford = this.maxBatches;
+        this.maxBatchesPlayerCanStore = this.maxBatches;
+        this.maxBatchesAvailableInAbundance = this.maxBatches;
+        cargoPerBatch += (!out.isFuel() && !out.isPersonnel()) ? (out.getCargoSpace() * this.type.getOutputCountPerBatch()) : 0.0F;
+        fuelPerBatch += out.isFuel() ? this.type.getOutputCountPerBatch() : 0.0F;
+        crewPerBatch += out.isPersonnel() ? this.type.getOutputCountPerBatch() : 0.0F;
+        for (OperationIntel.Input input : this.intel.getInputs()) {
+            double perBatch = input.getCountPerBatch(this.useAbundance);
+            int limit = (perBatch > 0.0D) ? (int)Math.floor(getAvailableCommodityAmount(inputCargo, input.getCommodityID()) / perBatch) : Integer.MAX_VALUE;
+            cargoPerBatch = (float)(cargoPerBatch - getCargoSpace(input.getCommodity()) * perBatch);
+            fuelPerBatch = (float)(fuelPerBatch - getFuelSpace(input.getCommodity()) * perBatch);
+            crewPerBatch = (float)(crewPerBatch - getCrewSpace(input.getCommodity()) * perBatch);
+            if (this.maxBatchesPlayerCanAfford > limit)
+                this.maxBatchesPlayerCanAfford = limit;
+        }
+        if (this.useAbundance)
+            this.maxBatchesAvailableInAbundance = this.intel.getCurrentAbundanceBatches();
+        if (!this.outputToColony) {
+            CargoAPI outputCargo = getCargo(true);
+            if (checkCapacityLimit(cargoPerBatch, outputCargo.getSpaceLeft()))
+                this.maxCapacityReduction = 1;
+            if (checkCapacityLimit(crewPerBatch, outputCargo.getFreeCrewSpace()))
+                this.maxCapacityReduction = 1;
+            if (checkCapacityLimit(fuelPerBatch, outputCargo.getFreeFuelSpace()))
+                this.maxCapacityReduction = 1;
+        }
+        if (this.maxBatches > this.maxBatchesPlayerCanAfford)
+            this.maxBatches = this.maxBatchesPlayerCanAfford;
+        if (this.maxBatches > this.maxBatchesPlayerCanStore)
+            this.maxBatches = this.maxBatchesPlayerCanStore;
+        if (this.maxBatches > this.maxBatchesAvailableInAbundance)
+            this.maxBatches = this.maxBatchesAvailableInAbundance;
+        if (this.selectedBatches <= 0) {
+            if (this.maxBatches == 1) {
+                this.selectedBatches = 1;
+            } else if (this.maxBatches > 1) {
+                this.selectedBatches = shouldDefaultToMax() ? Math.max(1, this.maxBatches - this.maxCapacityReduction) : 1;
+            }
+        } else {
+            this.selectedBatches = Math.min(this.selectedBatches, this.maxBatches);
+        }
+    }
+
 }

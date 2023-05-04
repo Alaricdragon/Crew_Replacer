@@ -1,4 +1,12 @@
 regarding normadicSurvival compatibility:
+DOING RIGHT THIS VERY SECOND:
+    working on CrewReplacer_normadicSurvivalA
+        1)checkCapacityLimitGetMaxNumber
+            this function is only partly built. see notes on its construction.
+        2)checkCapacityLimitCargo, checkCapacityLimitCrew, checkCapacityLimitFuel
+            the functions here are not yet ready. a lot of code in them needs to be removed and replaced for a lot of reasons.
+
+
 everything works, but one thing and one thing alone:
     the ability to calculate the max number of batches, and the ability to calculate how mush cargo im going to use this batch.
     slightly difficult. it turns out.
@@ -42,14 +50,17 @@ regarding survey job:
     im going to try and get myself a new copy of starsector core next time i try to fight with this.
     i have a path in. my victory is now possible.
 
-add a 'defence' stat to all crew.
-at this time, crew does not have a way to change how many crew are destroyed in a job when they loes things.
-this will add a simple way to do that.
-and will help with other things
-
-remake the documentation, so people can use it again. it is outdated
 
 add all not yet added jobs from vanilla starsector into this mod.
+
+Bugs:
+    in getCargoSpaceRange in crewReplacer_Job:
+        1) this set of code can cause issues with other sets of code, causeing a miscalculation were i think i need less cargo then i acsualy need at low amounts.
+           cant just remove Math.min, because then it can get claim to use mush more cargo then it actually does.
+            if(includeDefence){
+                float tempbT =  tempb / Crew.getCrewDefence(cargo);
+                tempb = Math.min(tempb,tempbT);
+            }
 
 
 create an new 'crew cost' custom job.

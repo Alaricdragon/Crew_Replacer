@@ -103,8 +103,10 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
         CrewReplacer_Log.loging("'get fuel space'",this,true);
         return spec.isFuel() ? 1.0F : 0.0F;
     }*/
+    protected int CCLType = 0;
+    @Override
     protected boolean checkCapacityLimit(float perBatch, float capacity) {
-        if (capacity <= 0.0F)
+        /*if (capacity <= 0.0F)
             return false;
         if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
             //this.intel.getInputs().
@@ -112,10 +114,80 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
             return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
         }
+        return false;*/
+        CCLType++;
+        switch (CCLType){
+            case 1:
+                return checkCapacityLimitCargo(perBatch, capacity);
+            case 2:
+                return checkCapacityLimitCrew(perBatch, capacity);
+            case 3:
+                return checkCapacityLimitFuel(perBatch, capacity);
+            default:
+                return super.checkCapacityLimit(perBatch, capacity);
+        }
+    }
+    protected float checkCapacityLimitGetMaxNumber(float capacity,String cargoType){
+        CrewReplacer_Log.loging("running function 'checkCapacityLimitGetMaxNumber'...",this,logs);
+        CrewReplacer_Log.push();
+        /*what does this do and what do i need to do?
+        * what this does is gets the amount of cargo space that's going to be used from a given cargo type, at the maximum number of capacity.
+        * so what i need to do:
+        * 1) get each crewReplacer_Job from inputs.
+        * 2) get the amount of power of each job per batch.
+        * 3) calculated how many batches i can hold. how? im going to first run crewReplacer_jog.getCargoSpaceRange() on each job
+        *   -this.intel.getInputs().get(0).getCountPerBatch(false) * number of batches that i can afford right now;
+        * 4) add the outputed values together to get total cargo use.
+        *   -keep in mind, it outputs bouth the min possable cargo value, and the max possible cargo value.
+        * 5) lower until the cargo use is below the required amount of cargo use.*/
+        //this.intel.getInputs().get(0).getCountPerBatch(false);//? false or true is unknown.
+        ArrayList<crewReplacer_Job> Jobs = new ArrayList<>();
+        ArrayList<Integer> items = new ArrayList<>();
+        for(OperationIntel.Input input : this.intel.getInputs()){
+            Jobs.add(getAndSetJob(input.getCommodityID()));
+            items.add(input.getCountPerBatch(false));
+        }
+        CrewReplacer_Log.pop();
+        return 0;
+    }
+    protected boolean checkCapacityLimitCargo(float perBatch, float capacity) {
+        if (capacity <= 0.0F)
+            return false;
+        if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
+            //this.intel.getInputs().
+            float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_CARGO);//capacity / perBatch;//HERE. This is what i need to change.
+            this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
+            return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
+        }
         return false;
     }
-
+    protected boolean checkCapacityLimitFuel(float perBatch, float capacity) {
+        if (capacity <= 0.0F)
+            return false;
+        if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
+            //this.intel.getInputs().
+            float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_FUEL);//HERE. This is what i need to change.
+            this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
+            return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
+        }
+        return false;
+    }
+    protected boolean checkCapacityLimitCrew(float perBatch, float capacity) {
+        if (capacity <= 0.0F)
+            return false;
+        if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
+            //this.intel.getInputs().
+            float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_CREW);//HERE. This is what i need to change.
+            this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
+            return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
+        }
+        return false;
+    }
+    @Override
     protected void recalculateBatchLimit() {
+        this.CCLType = 0;
+        super.recalculateBatchLimit();
+        /*
         this.maxCapacityReduction = 0;
         float crewPerBatch = 0.0F, cargoPerBatch = 0.0F, fuelPerBatch = 0.0F;
         CommoditySpecAPI out = this.type.getOutput();
@@ -161,7 +233,7 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             }
         } else {
             this.selectedBatches = Math.min(this.selectedBatches, this.maxBatches);
-        }
+        }*/
     }
 
 }

@@ -8,12 +8,20 @@ v0.6.2(not released):
         fixed a missing log in crewReplacer_Job.getCrewDisplayNames(CargoAPI)
     new functions: (NOTE add this to documentation).
         crewReplacer_crew:
-            getCargoUse(CargoAPI cargo,float amountOfCrew)
-            getCargoUse(CargoAPI cargo)
-            getCargoPerItem(CargoAPI cargo)
+            getCargoSpaceUse(CargoAPI cargo,float amountOfCrew)
+            getCargoSpaceUse(CargoAPI cargo)
+            getCargoSpacePerItem(CargoAPI cargo)
+            getFuelSpacePerItem(CargoAPI cargo)
+            getFuelSpaceUse(CargoAPI cargo,float amountOfCrew)
+            getFuelSpaceUse(CargoAPI cargo)
+            getCrewSpacePerItem(CargoAPI cargo)
+            getCrewSpaceUse(CargoAPI cargo,float amountOfCrew)
+            getCrewSpaceUse(CargoAPI cargo)
         crewReplacer_job:
-            getCargoSpaceUsed(CargoAPI cargo)
-            getCargoSpaceRange(CargoAPI cargo,float power,boolean includeDefence)
+            getCargoSpaceUsed(CargoAPI cargo,String cargoType)
+            getCargoSpaceRange(CargoAPI cargo,float power,boolean includeDefence,String cargoType)
+    background:
+        added a better way to organize arrays.
 v0.6.1:
     save compatible with V0.5+
     IMPORTANT:

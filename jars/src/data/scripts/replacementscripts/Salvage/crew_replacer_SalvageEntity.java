@@ -79,7 +79,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
  * NotifyEvent $eventHandle <params>
  *
  */
-public class crew_replacer_SalvageEntity extends BaseCommandPlugin {
+public class crew_replacer_SalvageEntity extends BaseCommandPlugin {//SalvageEntity {
     private static String JobName = "salvage_crew";//the name of the job in discription here
     private static String SecondJobName = "salvage_heavyMachinery";
     private static String ItemName = "crew";//every time i look for / remove or add this item, get crew_replacer.getPower(JobName);

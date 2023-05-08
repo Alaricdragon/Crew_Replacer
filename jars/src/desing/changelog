@@ -1,9 +1,7 @@
-v0.6.2(not released):
-    save compatible with V0.5+
+v0.6.2:
+    updated to 0.96a
     mod compatibility:
-        fixed, -tested- and re-enabled the compatibility with nomadic survival. although it should do nothing on its own.
-        better not break this time.
-        arg.
+        still not done
     fixes:
         fixed a missing log in crewReplacer_Job.getCrewDisplayNames(CargoAPI)
     new functions: (NOTE add this to documentation).
@@ -21,7 +19,7 @@ v0.6.2(not released):
             getCargoSpaceUsed(CargoAPI cargo,String cargoType)
             getCargoSpaceRange(CargoAPI cargo,float power,boolean includeDefence,String cargoType)
     background:
-        added a better way to organize arrays.
+        added a better way to organize arrays. that's untested, because i needed to update this....
 v0.6.1:
     save compatible with V0.5+
     IMPORTANT:

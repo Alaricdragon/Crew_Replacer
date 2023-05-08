@@ -1,3 +1,13 @@
+update to version 96:
+required itesm to make sure they are the same:
+    (no change)survey
+    (changes. should be find...?)marketCMD (raiding)
+    (no change in rules)repair hyper relay
+    (no change)salvage
+    (no change)hack marines
+
+
+
 regarding normadicSurvival compatibility:
 DOING RIGHT THIS VERY SECOND:
     working on CrewReplacer_normadicSurvivalA
@@ -32,6 +42,12 @@ everything works, but one thing and one thing alone:
     in recalculateBatchLimit:
         every time i move the slidererereerjanjdaksdaksdsaadada.... wait.
         if i can succsesfully use CheckCapacityLimit to get the max amount of items,
+
+issue found that needs to be fixed:
+    1) the way i overwrite functions. i need to (when possable) find a way to use .super() in every one, for version combatability reasons.
+        even if that means i need to undo changes sometimes, it might still be extremely useful..
+        (examples were i should have done that: marketCMD, salvageCMD survey pluging exstra....)
+
 
 
 regarding survey job:

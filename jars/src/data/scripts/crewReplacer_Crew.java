@@ -105,6 +105,42 @@ public class crewReplacer_Crew {
         tt.addImageWithText(0);
         text.addTooltip();
     }
+
+    public float getCargoSpacePerItem(CargoAPI cargo){
+        return Global.getSector().getEconomy().getCommoditySpec(this.name).getCargoSpace();
+    }
+    public float getCargoSpaceUse(CargoAPI cargo, float amountOfCrew){
+        return getCargoSpacePerItem(cargo) * amountOfCrew;
+    }
+    public float getCargoSpaceUse(CargoAPI cargo){
+        return getCargoSpacePerItem(cargo) * this.getCrewInCargo(cargo);
+    }
+
+    public float getFuelSpacePerItem(CargoAPI cargo){
+        if(Global.getSector().getEconomy().getCommoditySpec(this.name).isFuel()) return 1;
+        return 0;
+    }
+    public float getFuelSpaceUse(CargoAPI cargo, float amountOfCrew){
+        return getFuelSpacePerItem(cargo) * amountOfCrew;
+    }
+    public float getFuelSpaceUse(CargoAPI cargo){
+        return getFuelSpacePerItem(cargo) * this.getCrewInCargo(cargo);
+    }
+
+    public float getCrewSpacePerItem(CargoAPI cargo){
+        if(Global.getSector().getEconomy().getCommoditySpec(this.name).isPersonnel()) return 1;
+        return 0;
+    }
+    public float getCrewSpaceUse(CargoAPI cargo, float amountOfCrew){
+        return getCrewSpacePerItem(cargo) * amountOfCrew;
+    }
+    public float getCrewSpaceUse(CargoAPI cargo){
+        return getCrewSpacePerItem(cargo) * this.getCrewInCargo(cargo);
+    }
+
+
+
+
     /*old fleet get functions, here for backwards compatibility.*/
     public void removeCrew(CampaignFleetAPI fleet,float CrewToLost){
         removeCrew(fleet.getCargo(),CrewToLost);

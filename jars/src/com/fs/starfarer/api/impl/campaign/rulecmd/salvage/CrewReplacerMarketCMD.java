@@ -278,6 +278,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
     protected TempData temp = new TempData();*/
     //execute might not be needed at all.
+    /*
     @Override
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Token> params, Map<String, MemoryAPI> memoryMap) {
         CrewReplacer_Log.loging("running part of the raid plugin",this,logsActive);
@@ -364,7 +365,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
         CrewReplacer_Log.pop();
         CrewReplacer_Log.pop();
         return true;
-    }
+    }*/
     //never used. why do i have this here?
     /*public static float getRaidStr(CampaignFleetAPI fleet) {
         float attackerStr = fleet.getCargo().getMaxPersonnel() * 0.25f;//HERE//for real what the hell is this?

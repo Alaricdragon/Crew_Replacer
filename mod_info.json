@@ -1,10 +1,10 @@
 {
 	"id":"aaacrew_replacer", # internal id
 	"name":"Crew Replacer", # displayed to the player
-	"author":"Alricdragon",
-	"version":"0.6.1",
-	"description":"library for making new crew",
-	"gameVersion":"0.95a-RC15",
+	"author":"Alaricdragon",
+	"version":"0.6.2",
+	"description":"library for making new crew. and stuff",
+	"gameVersion":"0.96a-RC8",
 	"jars":["jars/crew_replacer.jar"],
 	"modPlugin":"data.scripts.crew_replacer_startup",
 }

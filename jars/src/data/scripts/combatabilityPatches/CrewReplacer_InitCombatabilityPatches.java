@@ -12,9 +12,9 @@ public class CrewReplacer_InitCombatabilityPatches {
            new CrewReplacer_normadicSurvival_init(),
     };
     public static void onApplicationLoad() {
-        for(int a = 0; a < modNames.length; a++){
-            if(Global.getSettings().getModManager().isModEnabled(modNames[a])) {
-                CrewReplacer_Log.loging("Crew Replacer is attempting to add a compatibility patch for the mod '" + modNames[a] + "' ...",CrewReplacer_InitCombatabilityPatches.class,true);
+        for(int a = 0; a < modNames.length; a++) {
+            if (Global.getSettings().getModManager().isModEnabled(modNames[a])) {
+                CrewReplacer_Log.loging("Crew Replacer is attempting to add a compatibility patch for the mod '" + modNames[a] + "' ...", CrewReplacer_InitCombatabilityPatches.class, true);
                 patches[a].apply();
             }
         }

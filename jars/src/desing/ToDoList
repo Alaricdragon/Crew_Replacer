@@ -1,10 +1,12 @@
 regarding normadicSurvival compatibility:
 DOING RIGHT THIS VERY SECOND:
+    working on crewReplacer_Job
+        1) getCargoSpaceRange -line 645+
+            -current don't get the range of cargo use with any of the following lines. i need to re write them to do so.
+            -in fact, what i have is so broken, i consider it to be non functional.
     working on CrewReplacer_normadicSurvivalA
         1)checkCapacityLimitGetMaxNumber
             this function is only partly built. see notes on its construction.
-        2)checkCapacityLimitCargo, checkCapacityLimitCrew, checkCapacityLimitFuel
-            the functions here are not yet ready. a lot of code in them needs to be removed and replaced for a lot of reasons.
 
 
 everything works, but one thing and one thing alone:

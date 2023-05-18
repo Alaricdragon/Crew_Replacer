@@ -97,7 +97,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob.addCrewSet(jobSet_heavy_machinery);
 
 
-        crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("cat",1,10);
+        //crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("cat",1,10);
         crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("crew",1,11);
 
     }

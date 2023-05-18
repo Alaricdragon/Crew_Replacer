@@ -63,7 +63,7 @@ public class CrewReplacer_organizeArrayCode {
         }
         //console.log("ERROR in addAItemToSortedArray. no item added...");
     };
-    public static Object[] sortArray(ArrayList<Float>inArray,ArrayList<Float>valueArray){
+    public static ArrayList<ArrayList<Float>> sortArray(ArrayList<Float>inArray,ArrayList<Float>valueArray){
         /* input is:
         array = array im organizing.
         valueArray = a array of all the values of each item from inArray
@@ -84,6 +84,11 @@ public class CrewReplacer_organizeArrayCode {
             //console.log(newArray.length + " items in newArray");
         }
         //console.log("outputed values: " + newValueArray);
-        return new Object[]{newArray,newValueArray};
+        ArrayList<ArrayList<Float>> output = new ArrayList<>();
+        CrewReplacer_Log.loging("output: " + newArray.toString(),new CrewReplacer_organizeArrayCode().getClass(),true);
+        CrewReplacer_Log.loging("value: " + valueArray.toString(),new CrewReplacer_organizeArrayCode().getClass(),true);
+        output.add(newArray);
+        output.add(newValueArray);
+        return output;//new Object[]{newArray,newValueArray};
     }
 }

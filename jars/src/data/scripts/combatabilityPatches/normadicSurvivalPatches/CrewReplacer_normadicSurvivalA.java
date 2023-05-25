@@ -108,6 +108,7 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
     protected int CCLType = 0;
     @Override
     protected boolean checkCapacityLimit(float perBatch, float capacity) {
+        //if(true) return super.checkCapacityLimit(perBatch,capacity);
         /*if (capacity <= 0.0F)
             return false;
         if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
@@ -184,12 +185,12 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             for(int a = 0; a < Jobs.size(); a++){
                 crewReplacer_Job job = Jobs.get(a);
                 addedCargo = -job.getCargoSpaceRange(this.getCargo(false),batches * items.get(a),true,cargoType)[0];
-                CrewReplacer_Log.loging("min cargo space freed is: "+addedCargo,logs);
+                CrewReplacer_Log.loging("min cargo space freed is: "+addedCargo,this,logs);
             }
             addedCargo += (addedPerBatch * batches);
             CrewReplacer_Log.loging("with cargo added is: "+addedCargo,this,logs);
-            if(addedCargo <= capacity){
-                CrewReplacer_Log.loging("we have enuth cargo space. completing loop with "+batches+" batches",this,logs);
+            if(addedCargo <= capacity || addedCargo <= 0){
+                CrewReplacer_Log.loging("we have enuth cargo space / we are gaining/same cargo space from operation. completing loop with "+batches+" batches",this,logs);
                 CrewReplacer_Log.pop();
                 break;
             }
@@ -207,8 +208,8 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             }
             addedCargo += (addedPerBatch * minBatches);
             CrewReplacer_Log.loging("with cargo added is: "+addedCargo,this,logs);
-            if(addedCargo <= capacity){
-                CrewReplacer_Log.loging("we have enuth cargo space. completing loop with "+minBatches+" batches",this,logs);
+            if(addedCargo <= capacity || addedCargo <= 0){
+                CrewReplacer_Log.loging("we have enuth cargo space / we are gaining/same cargo space from operation. completing loop with "+minBatches+" batches",this,logs);
                 CrewReplacer_Log.pop();
                 break;
             }
@@ -225,7 +226,7 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
         CrewReplacer_Log.push();
         float[] temp = checkCapacityLimitGetMaxNumber(capacity,type);
         float limit = temp[0];//capacity / perBatch;//HERE. This is what i need to change.
-        this.CrewReplacer_minBatchesPlayerCanStore = (int)Math.max(Math.ceil(temp[1]),this.CrewReplacer_minBatchesPlayerCanStore);
+        //this.CrewReplacer_minBatchesPlayerCanStore = (int)Math.max(Math.ceil(temp[1]),this.CrewReplacer_minBatchesPlayerCanStore);
         this.maxBatchesPlayerCanStore = (int)Math.min(Math.ceil(limit),this.maxBatchesPlayerCanStore);
         if (capacity <= 0.0F) {
             CrewReplacer_Log.loging("running end 01",this,logs);

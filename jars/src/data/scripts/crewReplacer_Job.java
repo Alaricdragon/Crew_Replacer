@@ -613,13 +613,13 @@ public class crewReplacer_Job {
                     float tempa = 0;
                     switch (cargoType) {
                         case CARGO_CARGO:
-                            tempa = Crew.getCargoSpacePerItem(cargo);
+                            tempa = Crew.getCargoSpaceUse(cargo);
                             break;
                         case CARGO_FUEL:
-                            tempa = Crew.getFuelSpacePerItem(cargo);
+                            tempa = Crew.getFuelSpaceUse(cargo);
                             break;
                         case CARGO_CREW:
-                            tempa = Crew.getCrewSpacePerItem(cargo);
+                            tempa = Crew.getCrewSpaceUse(cargo);
                             break;
                     }
                     CrewReplacer_Log.loging("getting a base cargo space of: " +tempa,this);
@@ -628,12 +628,10 @@ public class crewReplacer_Job {
                         tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
                     }
                     CrewReplacer_Log.loging("getting a final cargo space of: "+tempa,this);
-                    float tempb = Crew.getCrewPower(cargo);
-                    powers.add(tempb);
-                    cargoSpaces.add(tempa);
+                    float tempb = Crew.getCrewPowerInCargo(cargo);
                     powerTemp+= tempb;
                     cargoTemp+= tempa;
-                    CrewReplacer_Log.loging("got total single item power and single item cargo use as " + tempb + ", " + tempa,this);
+                    CrewReplacer_Log.loging("got total in cargo item power and in cargo item cargo use as " + tempb + ", " + tempa,this);
                 }catch (Exception e){
                     CrewReplacer_Log.loging("failed to get power and cargo use for crew named " + this.Crews.get(ID).name + ". setting power and cargo to zero for this crew.",this);
                     powers.add(0f);
@@ -645,47 +643,94 @@ public class crewReplacer_Job {
             /* current data status:
             * powers = the power per item of a given crew.
             * cargoSpaces = the cargospace per item of a given crew (possibly including defence of said crew.)*/
-            if(true){
-                ArrayList<Float> cargoPerPower = new ArrayList<>();
+
+            if(power < powerTemp){
                 ArrayList<Float> IDTemp = new ArrayList<>();
                 for(int a = 0; a < priority.size(); a++) {
-                    cargoPerPower.add(cargoSpaces.get(a) / powers.get(a));
                     IDTemp.add((float)priority.get(a));
                 }
-                ArrayList<Float> sorted = CrewReplacer_organizeArrayCode.sortArray(IDTemp,cargoPerPower).get(0);
+                ArrayList<Float> sortedID = CrewReplacer_organizeArrayCode.sortArray(IDTemp,cargoSpaces).get(0);
                 powerTemp = power;
                 cargoTemp = 0;
-                for(int a = 0; a < sorted.size(); a++){//what?
-                    int ID = (int)(float)sorted.get(a);
-                    if(powers.get(ID) >= powerTemp){//c=10,p=1 (10), 40 / c = 10. //c=0.5,p=1(1). 40 / 1 = 40 (<- slight issue there, but i see not easy fix. ill add it to bugs and fix latter.)
-                        cargoTemp += (powerTemp / cargoPerPower.get(ID));
-                        CrewReplacer_Log.pop();
+                for(int a = 0; a < sortedID.size(); a++){
+                    int id = (int)(float)sortedID.get(a);
+                    float crewPowerTemp = Crews.get(id).getCrewPower(cargo);
+                    if(crewPowerTemp < powerTemp){
+                        float tempa=0;
+                        float tempb = powerTemp / crewPowerTemp;
+                        float tempc = Crews.get(id).getCrewInCargo(cargo) * tempb;
+                        switch (cargoType) {
+                            case CARGO_CARGO:
+                                tempa = Crews.get(id).getCargoSpaceUse(cargo,tempc);
+                                break;
+                            case CARGO_FUEL:
+                                tempa = Crews.get(id).getFuelSpaceUse(cargo,tempc);
+                                break;
+                            case CARGO_CREW:
+                                tempa = Crews.get(id).getCrewSpaceUse(cargo,tempc);
+                                break;
+                        }
+                        if(includeDefence){
+                            float tempbT =  tempa / Crews.get(id).getCrewDefence(cargo);
+                            tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
+                        }
+                        cargoTemp += tempa;
                         break;
                     }
-                    powerTemp -= powers.get(ID);
+                    powerTemp -= Crews.get(id).getCrewPowerInCargo(cargo);
+                    cargoTemp += Crews.get(id).getCargoSpaceUse(cargo);
                 }
                 output[0] += cargoTemp;
+                CrewReplacer_Log.loging("CARGO TEMP: "+cargoTemp,this,true);
                 powerTemp = power;
                 cargoTemp = 0;
-                for(int a = sorted.size() - 1; a >= 0; a--){//what what?
-                    int ID = (int)(float)sorted.get(a);
-                    if(powers.get(ID) >= powerTemp){//c=10,p=1 (10), 40 / c = 10. //c=0.5,p=1(1). 40 / 1 = 40 (<- slight issue there, but i see not easy fix. ill add it to bugs and fix latter.)
-                        cargoTemp += (powerTemp / cargoPerPower.get(ID));
+                for(int a = sortedID.size() - 1; a >= 0; a--){
+                    int id = (int)(float)sortedID.get(a);
+                    float crewPowerTemp = Crews.get(id).getCrewPower(cargo);
+                    if(crewPowerTemp < powerTemp){
+                        float tempa=0;
+                        float tempb = powerTemp / crewPowerTemp;
+                        float tempc = Crews.get(id).getCrewInCargo(cargo) * tempb;
+                        switch (cargoType) {
+                            case CARGO_CARGO:
+                                tempa = Crews.get(id).getCargoSpaceUse(cargo,tempc);
+                                break;
+                            case CARGO_FUEL:
+                                tempa = Crews.get(id).getFuelSpaceUse(cargo,tempc);
+                                break;
+                            case CARGO_CREW:
+                                tempa = Crews.get(id).getCrewSpaceUse(cargo,tempc);
+                                break;
+                        }
+                        if(includeDefence){
+                            float tempbT =  tempa / Crews.get(id).getCrewDefence(cargo);
+                            tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
+                        }
+                        cargoTemp += tempa;
                         break;
                     }
-                    powerTemp -= powers.get(ID);
+                    powerTemp -= Crews.get(id).getCrewPowerInCargo(cargo);
+                    float tempa = Crews.get(id).getCargoSpaceUse(cargo);
+                    if(includeDefence){
+                        float tempbT =  tempa / Crews.get(id).getCrewDefence(cargo);
+                        tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
+                    }
+                    cargoTemp += tempa;
                 }
                 output[1] += cargoTemp;
+                CrewReplacer_Log.loging("CARGO TEMP: "+cargoTemp,this,true);
                 CrewReplacer_Log.pop();
                 CrewReplacer_Log.pop();
                 return output;
             }
-
-
             output[0] += cargoTemp;
             output[1] += cargoTemp;
             power -= powerTemp;
             CrewReplacer_Log.pop();
+            if(power == 0){
+                CrewReplacer_Log.pop();
+                return output;
+            }
         }
         CrewReplacer_Log.pop();
         return output;

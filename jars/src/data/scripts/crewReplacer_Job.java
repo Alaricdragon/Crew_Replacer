@@ -593,7 +593,7 @@ public class crewReplacer_Job {
         for(ArrayList<Integer> priority : this.crewPriority){
             CrewReplacer_Log.loging("getting crew powers and spaces from a priority...",this);
             CrewReplacer_Log.push();
-            ArrayList<Float> cargoSpaces = new ArrayList<Float>();
+            ArrayList<Float> cargoSpaces = new ArrayList<Float>();//cargo space per power.
             ArrayList<Float> powers = new ArrayList<Float>();
             /*so here what i need to do for each cargo set:
             * 1) determin the max numger of items i can get. max this number at power / Crew.getPower()
@@ -611,26 +611,47 @@ public class crewReplacer_Job {
                 try {
                     CrewReplacer_Log.loging("getting power and cargo for crew named " + Crew.name,this);
                     float tempa = 0;
+                    float tempc = 0;
+                    float tempd;
                     switch (cargoType) {
                         case CARGO_CARGO:
                             tempa = Crew.getCargoSpaceUse(cargo);
+                            tempc = Crew.getCrewPower(cargo);
+                            tempd = Crew.getCargoSpacePerItem(cargo);
+                            if(tempd != 0) {
+                                tempc /= tempd;
+                            }
                             break;
                         case CARGO_FUEL:
                             tempa = Crew.getFuelSpaceUse(cargo);
+                            tempc = Crew.getCrewPower(cargo);
+                            tempd = Crew.getFuelSpacePerItem(cargo);
+                            if(tempd != 0) {
+                                tempc /= tempd;
+                            }
                             break;
                         case CARGO_CREW:
                             tempa = Crew.getCrewSpaceUse(cargo);
+                            tempc = Crew.getCrewPower(cargo);
+                            tempd = Crew.getFuelSpacePerItem(cargo);
+                            if(tempd != 0) {
+                                tempc /= tempd;
+                            }
                             break;
-                    }
+                    }//power / cargo
                     CrewReplacer_Log.loging("getting a base cargo space of: " +tempa,this);
                     if(includeDefence){
-                        float tempbT =  tempa / Crew.getCrewDefence(cargo);
+                        float tempDefence = Crew.getCrewDefence(cargo);
+                        float tempbT =  tempa / tempDefence;
+                        float tempcT = tempc / tempDefence;
                         tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
+                        tempc = Math.min(tempc,tempcT);
                     }
                     CrewReplacer_Log.loging("getting a final cargo space of: "+tempa,this);
                     float tempb = Crew.getCrewPowerInCargo(cargo);
                     powerTemp+= tempb;
                     cargoTemp+= tempa;
+                    cargoSpaces.add(tempc);
                     CrewReplacer_Log.loging("got total in cargo item power and in cargo item cargo use as " + tempb + ", " + tempa,this);
                 }catch (Exception e){
                     CrewReplacer_Log.loging("failed to get power and cargo use for crew named " + this.Crews.get(ID).name + ". setting power and cargo to zero for this crew.",this);
@@ -654,10 +675,11 @@ public class crewReplacer_Job {
                 cargoTemp = 0;
                 for(int a = 0; a < sortedID.size(); a++){
                     int id = (int)(float)sortedID.get(a);
-                    float crewPowerTemp = Crews.get(id).getCrewPower(cargo);
-                    if(crewPowerTemp < powerTemp){
+                    float crewPowerTemp = Crews.get(id).getCrewPowerInCargo(cargo);
+                    if(crewPowerTemp > powerTemp){
+                        CrewReplacer_Log.loging("running secondary system with values of: "+crewPowerTemp+","+powerTemp,this);
                         float tempa=0;
-                        float tempb = powerTemp / crewPowerTemp;
+                        float tempb = powerTemp / crewPowerTemp;//500 req pow / 750 have power = 0.75
                         float tempc = Crews.get(id).getCrewInCargo(cargo) * tempb;
                         switch (cargoType) {
                             case CARGO_CARGO:
@@ -674,11 +696,14 @@ public class crewReplacer_Job {
                             float tempbT =  tempa / Crews.get(id).getCrewDefence(cargo);
                             tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
                         }
+                        CrewReplacer_Log.loging("cargo space used, crew % used, crew used,   "+tempa+", "+tempb+", "+tempc,this);
                         cargoTemp += tempa;
                         break;
                     }
-                    powerTemp -= Crews.get(id).getCrewPowerInCargo(cargo);
-                    cargoTemp += Crews.get(id).getCargoSpaceUse(cargo);
+                    float[] temps = {Crews.get(id).getCrewPowerInCargo(cargo),Crews.get(id).getCargoSpaceUse(cargo)};
+                    CrewReplacer_Log.loging("power gained, cargo gained: "+temps[0]+", "+temps[1],this);
+                    powerTemp -= temps[0];
+                    cargoTemp += temps[1];
                 }
                 output[0] += cargoTemp;
                 CrewReplacer_Log.loging("CARGO TEMP: "+cargoTemp,this,true);
@@ -686,7 +711,7 @@ public class crewReplacer_Job {
                 cargoTemp = 0;
                 for(int a = sortedID.size() - 1; a >= 0; a--){
                     int id = (int)(float)sortedID.get(a);
-                    float crewPowerTemp = Crews.get(id).getCrewPower(cargo);
+                    float crewPowerTemp = Crews.get(id).getCrewPowerInCargo(cargo);
                     if(crewPowerTemp < powerTemp){
                         float tempa=0;
                         float tempb = powerTemp / crewPowerTemp;
@@ -721,14 +746,16 @@ public class crewReplacer_Job {
                 CrewReplacer_Log.loging("CARGO TEMP: "+cargoTemp,this,true);
                 CrewReplacer_Log.pop();
                 CrewReplacer_Log.pop();
+                CrewReplacer_Log.loging("returnin output as: {"+output[0]+","+output[1]+"}",this);
                 return output;
             }
             output[0] += cargoTemp;
             output[1] += cargoTemp;
             power -= powerTemp;
             CrewReplacer_Log.pop();
-            if(power == 0){
+            if(power <= 0){
                 CrewReplacer_Log.pop();
+                CrewReplacer_Log.loging("returnin output as: {"+output[0]+","+output[1]+"}",this);
                 return output;
             }
         }

@@ -182,9 +182,10 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
         while(batches > 0){
             CrewReplacer_Log.loging("getting number of cargo freed / used for " + batches + " batches...",this,logs);
             CrewReplacer_Log.push();
+            addedCargo = 0;
             for(int a = 0; a < Jobs.size(); a++){
                 crewReplacer_Job job = Jobs.get(a);
-                addedCargo = -job.getCargoSpaceRange(this.getCargo(false),batches * items.get(a),true,cargoType)[0];
+                addedCargo -= job.getCargoSpaceRange(this.getCargo(false),batches * items.get(a),true,cargoType)[1];
                 CrewReplacer_Log.loging("min cargo space freed is: "+addedCargo,this,logs);
             }
             addedCargo += (addedPerBatch * batches);
@@ -198,7 +199,8 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             batches--;
             CrewReplacer_Log.pop();
         }
-        while(minBatches < batches){
+
+        /*while(minBatches < batches){
             CrewReplacer_Log.loging("getting number of cargo freed / used for " + minBatches + " batches...",this,logs);
             CrewReplacer_Log.push();
             for(int a = 0; a < Jobs.size(); a++){
@@ -216,7 +218,7 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             CrewReplacer_Log.loging("increasing minBatches to see if that works... ",this,logs);
             minBatches++;
             CrewReplacer_Log.pop();
-        }
+        }*/
         CrewReplacer_Log.loging("got min / max batches player can store as: "+minBatches+", "+batches,this,logs);
         CrewReplacer_Log.pop();
         return new float[]{batches,minBatches};

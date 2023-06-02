@@ -1,14 +1,6 @@
 regarding normadicSurvival compatibility:
 DOING RIGHT THIS VERY SECOND:
-    getting a crash right now. something is wrong with array code. going to look into it latter.
-    working on crewReplacer_Job
-        1) (did a lot fo work on this. it works in theory now. ) getCargoSpaceRange -line 645+
-            -current don't get the range of cargo use with any of the following lines. i need to re write them to do so.
-            -in fact, what i have is so broken, i consider it to be non functional.
-    (did some miner work on this. should work better now. need to fix crewReplacer_Job before i can test it though.)working on CrewReplacer_normadicSurvivalA
-        1)checkCapacityLimitGetMaxNumber
-            this function is only partly built. see notes on its construction.
-
+    i have in theory compleated the combatability patch. all thats left is some tests to conferm its all working.
 
 everything works, but one thing and one thing alone:
     the ability to calculate the max number of batches, and the ability to calculate how mush cargo im going to use this batch.

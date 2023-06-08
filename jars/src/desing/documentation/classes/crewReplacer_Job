@@ -4,7 +4,9 @@ you should not try to use functions other then 'addCrew', 'addNewCrew', or 'remo
 1) want to add a new job that supports crew replacer
 2) want to override parts of a crew replacerJob, to completely change its functionality.
 
-
+public static final String CARGO_CARGO;                                         a string representing the cargoType 'cargo'
+public static final String CARGO_CREW;                                          a string representing the cargoType 'crew'
+public static final String CARGO_FUEL;                                          a string representing the cargoType 'fuel'
 public String name;                                                             the internal ID of this job. each job mush have its own ID.
 public ArrayList<ArrayList<Integer>> crewPriority;                              the internal organization of crew available to this job. organized greatest to lowest.
 public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>(); every crew avalable to this job.
@@ -48,8 +50,11 @@ public void applyExtraDataToCrewAndJob(Object newData)                          
 public void resetExtraDataToCrewsAndJob()                                       sets the ExtraData = null; runs  'resetExtraDataToCrews()'
 public void resetExtraDataToCrews()                                             runs resetExtraData() on every crew. (sets the extra data of every crew in memory to null.)
 
-public String[] GetCrewNames()                                                                              returns every crews name.
-public String[] getCrewDisplayNames(CargoAPI cargo)                                                         runs getDisplayName(cargo) on every crew. returns a array of the results
+public String[] GetCrewNames()                                                  returns every crews name.
+public String[] getCrewDisplayNames(CargoAPI cargo)                             runs getDisplayName(cargo) on every crew. returns a array of the results
+
+public float getCargoSpaceUsed(CargoAPI cargo,String cargoType)                                         depending on cargoType, runs getCargoSpaceUse(cargo) OR getFuelSpaceUse(cargo) OR getCrewSpaceUse(cargo) on every crew. returns the total output.
+public float[] getCargoSpaceRange(CargoAPI cargo,float power,boolean includeDefence,String cargoType)   uses math to determine the max a min amount of cargo space of a inputted type that is used in a given amount of power. [0] is min cargo use, [1] is max cargo use. .power = amount of crew power used in the equation. includeDefence = makes it so each crews cargo space is / by its defence (for use when determining how mush crew will be removed in a operation).depending on cargoType, checks for a different cargo type (CREW,FUEL,CARGO).
 
 All In One Methods:
     all in one methods are here for ease of use. mostly they are for creating more jobs, to handle lots of strange things
@@ -86,6 +91,8 @@ private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<
 private String getIntoJobLog()                                                                             a private function for logs. runs every time a function without a inputed cargo or fleet value runs.
 private String getIntoJobLog(CampaignFleetAPI fleet)                                                       a private function for logs. runs every time a function with a fleet value is ran
 private String getIntoJobLog(CargoAPI cargo)                                                               a private function for logs. runs every time a function with a cargo value is ran
+
+
 
 
 NOTE: all functions past this point work, however they are considered obsolete,

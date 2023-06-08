@@ -7,7 +7,7 @@
 		"data.scripts.starfarer.api.impl.campaign.rulemd",
 	],
 	#for the genral function of crew replacer. errors are displayed regardless.
-	"crewReplacerDisplayLogs": true,
+	"crewReplacerDisplayLogs": false,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
 	"crewReplacerDisplayRaidLogs": false,
 
@@ -15,6 +15,6 @@
 	"CrewReplacerDisplayMarineLogs": false,
 
 	#logs for combatability code that interacts with other mods.
-	"crewReplacerDisplay_normadicSurvival_logs": true,
+	"crewReplacerDisplay_normadicSurvival_logs": false,
 }
 

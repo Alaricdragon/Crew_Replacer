@@ -2,6 +2,10 @@ V0.6.3:
     save compatible with v0.6.2+
     mod combatability:
         added combatability with normadic survival. tested and found no bugs. enjoy.
+    documentation:
+        added the missing documentation from the last update.
+    settings:
+        added a setting to activate nomadic survival logs.
 v0.6.2:
     updated to 0.96a
     mod compatibility:

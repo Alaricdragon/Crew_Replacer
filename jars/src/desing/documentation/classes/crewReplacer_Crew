@@ -30,6 +30,18 @@ public void displayCrewLost(CargoAPI cargo,float numberOfItems, TextPanelAPI tex
 public void DisplayedCrewNumbers(CargoAPI cargo,float numberOfItems, TextPanelAPI text)         displays the total number of crew in cargo, alongside there icons.
 
 
+public float getCargoSpaceUse(CargoAPI cargo)                               returns the amount of cargo space this type of crew is using in cargo.
+public float getCargoSpaceUse(CargoAPI cargo,float amountOfCrew)            returns the amount of cargo space a certain amount of this crew uses
+public float getCargoSpacePerItem(CargoAPI cargo)                           returns the amount of cargo space a single crew of this type uses.
+
+public float getFuelSpacePerItem(CargoAPI cargo)                            returns the amount of fuel space this type of crew is using in cargo.
+public float getFuelSpaceUse(CargoAPI cargo,float amountOfCrew)             returns the amount of fuel space a certain amount of this crew uses
+public float getFuelSpaceUse(CargoAPI cargo)                                returns the amount of fuel space a single crew of this type uses.
+
+public float getCrewSpacePerItem(CargoAPI cargo)                            returns the amount of crew space this type of crew is using in cargo.
+public float getCrewSpaceUse(CargoAPI cargo,float amountOfCrew)             returns the amount of crew space a certain amount of this crew uses
+public float getCrewSpaceUse(CargoAPI cargo)                                returns the amount of crew space a single crew of this type uses.
+
 all functions past this ponit are OUTDATED and should never be used.
 
 public void removeCrew(CampaignFleetAPI fleet,float CrewToLost)

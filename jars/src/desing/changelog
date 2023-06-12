@@ -1,7 +1,7 @@
 V0.6.3:
     save compatible with v0.6.2+
-    mod combatability:
-        added combatability with normadic survival. tested and found no bugs. enjoy.
+    mod compatibility:
+        added compatibility with 'nomadic survival'. tested and found no bugs. enjoy.
     documentation:
         added the missing documentation from the last update.
     settings:

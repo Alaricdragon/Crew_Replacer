@@ -709,7 +709,7 @@ public class crewReplacer_Job {
                     cargoTemp += temps[1];
                 }
                 output[0] += cargoTemp;
-                CrewReplacer_Log.loging("CARGO TEMP: "+cargoTemp,this,true);
+                //CrewReplacer_Log.loging("CARGO TEMP: "+cargoTemp,this,true);
                 powerTemp = power;
                 cargoTemp = 0;
                 for(int a = sortedID.size() - 1; a >= 0; a--){

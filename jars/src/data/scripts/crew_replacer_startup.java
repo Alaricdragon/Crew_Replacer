@@ -96,6 +96,11 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob = crewReplacer_Main.getJob("survey_heavyMachinery");
         tempJob.addCrewSet(jobSet_heavy_machinery);
 
+
+        //crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("cat",1,10);
+        //crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("crew",1,11);
+        //crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("AIretrofit_Omega_SurveyDrone",50f,9);
+
     }
     private void addDefaultCrewSets(){
         //crewReplacer_CrewSet set = crewReplacer_Main.getCrewSet(jobSet_crew);

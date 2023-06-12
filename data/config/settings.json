@@ -15,6 +15,6 @@
 	"CrewReplacerDisplayMarineLogs": false,
 
 	#logs for combatability code that interacts with other mods.
-	"crewReplacerDisplay_normadicSurvival_logs": true,
+	"crewReplacerDisplay_normadicSurvival_logs": false,
 }
 

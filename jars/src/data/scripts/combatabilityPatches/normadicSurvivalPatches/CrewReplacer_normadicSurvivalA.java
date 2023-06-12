@@ -24,6 +24,8 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
     public static final String crewReplacer_crewSet = "";
     protected static ArrayList<String> createdJobs = new ArrayList<>();
     public static boolean logs = Global.getSettings().getBoolean("crewReplacerDisplay_normadicSurvival_logs");
+
+    public float CrewReplacer_minBatchesPlayerCanStore=1;
     protected crewReplacer_Job getAndSetJob(String commodityId){
         String jobName = normadicSurvivalJobName + this.intel.getType().getId() + "_" + commodityId;
         String crewSetName = normadicSurvivalCrewSetName + commodityId;
@@ -106,6 +108,7 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
     protected int CCLType = 0;
     @Override
     protected boolean checkCapacityLimit(float perBatch, float capacity) {
+        //if(true) return super.checkCapacityLimit(perBatch,capacity);
         /*if (capacity <= 0.0F)
             return false;
         if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
@@ -115,19 +118,31 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
             return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
         }
         return false;*/
+        CrewReplacer_Log.loging("running function 'checkCapacityLimit'...",this,logs);
+        CrewReplacer_Log.push();
         CCLType++;
+        boolean re;
         switch (CCLType){
             case 1:
-                return checkCapacityLimitCargo(perBatch, capacity);
+                this.maxBatchesPlayerCanStore = this.maxBatchesPlayerCanAfford;
+                re = checkCapacityLimit(perBatch, capacity,crewReplacer_Job.CARGO_CARGO);
+                CrewReplacer_Log.pop();
+                return re;
             case 2:
-                return checkCapacityLimitCrew(perBatch, capacity);
+                re=checkCapacityLimit(perBatch, capacity,crewReplacer_Job.CARGO_CREW);
+                CrewReplacer_Log.pop();
+                return re;
             case 3:
-                return checkCapacityLimitFuel(perBatch, capacity);
+                re= checkCapacityLimit(perBatch, capacity,crewReplacer_Job.CARGO_FUEL);
+                CrewReplacer_Log.pop();
+                return re;
             default:
-                return super.checkCapacityLimit(perBatch, capacity);
+                re= super.checkCapacityLimit(perBatch, capacity);
+                CrewReplacer_Log.pop();
+                return re;
         }
     }
-    protected float checkCapacityLimitGetMaxNumber(float capacity,String cargoType){
+    protected float[] checkCapacityLimitGetMaxNumber(float capacity,String cargoType){
         CrewReplacer_Log.loging("running function 'checkCapacityLimitGetMaxNumber'...",this,logs);
         CrewReplacer_Log.push();
         /*what does this do and what do i need to do?
@@ -143,50 +158,140 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
         //this.intel.getInputs().get(0).getCountPerBatch(false);//? false or true is unknown.
         ArrayList<crewReplacer_Job> Jobs = new ArrayList<>();
         ArrayList<Integer> items = new ArrayList<>();
+        int minBatches = 1;
         for(OperationIntel.Input input : this.intel.getInputs()){
             Jobs.add(getAndSetJob(input.getCommodityID()));
             items.add(input.getCountPerBatch(false));
         }
+        float addedPerBatch = 0;
+        CommoditySpecAPI out = this.type.getOutput();
+        switch (cargoType){
+            case crewReplacer_Job.CARGO_CARGO:
+                addedPerBatch = out.getCargoSpace();
+                break;
+            case crewReplacer_Job.CARGO_CREW:
+                if(out.isPersonnel()) addedPerBatch=1;
+                break;
+            case crewReplacer_Job.CARGO_FUEL:
+                if(out.isFuel()) addedPerBatch=1;
+                break;
+        }
+        addedPerBatch *= this.type.getOutputCountPerBatch();
+        float addedCargo = 0;
+        int batches = this.maxBatchesPlayerCanAfford;
+        while(batches > 0){
+            CrewReplacer_Log.loging("getting number of cargo freed / used for " + batches + " batches...",this,logs);
+            CrewReplacer_Log.push();
+            addedCargo = 0;
+            for(int a = 0; a < Jobs.size(); a++){
+                crewReplacer_Job job = Jobs.get(a);
+                addedCargo -= job.getCargoSpaceRange(this.getCargo(false),batches * items.get(a),true,cargoType)[1];
+                CrewReplacer_Log.loging("min cargo space freed is: "+addedCargo,this,logs);
+            }
+            addedCargo += (addedPerBatch * batches);
+            CrewReplacer_Log.loging("with cargo added is: "+addedCargo,this,logs);
+            if(addedCargo <= capacity || addedCargo <= 0){
+                CrewReplacer_Log.loging("we have enuth cargo space / we are gaining/same cargo space from operation. completing loop with "+batches+" batches",this,logs);
+                CrewReplacer_Log.pop();
+                break;
+            }
+            CrewReplacer_Log.loging("reduceing batches to see if that works... ",this,logs);
+            batches--;
+            CrewReplacer_Log.pop();
+        }
+
+        /*while(minBatches < batches){
+            CrewReplacer_Log.loging("getting number of cargo freed / used for " + minBatches + " batches...",this,logs);
+            CrewReplacer_Log.push();
+            for(int a = 0; a < Jobs.size(); a++){
+                crewReplacer_Job job = Jobs.get(a);
+                addedCargo = -job.getCargoSpaceRange(this.getCargo(false),minBatches * items.get(a),true,cargoType)[0];
+                CrewReplacer_Log.loging("min cargo space freed is: "+addedCargo,logs);
+            }
+            addedCargo += (addedPerBatch * minBatches);
+            CrewReplacer_Log.loging("with cargo added is: "+addedCargo,this,logs);
+            if(addedCargo <= capacity || addedCargo <= 0){
+                CrewReplacer_Log.loging("we have enuth cargo space / we are gaining/same cargo space from operation. completing loop with "+minBatches+" batches",this,logs);
+                CrewReplacer_Log.pop();
+                break;
+            }
+            CrewReplacer_Log.loging("increasing minBatches to see if that works... ",this,logs);
+            minBatches++;
+            CrewReplacer_Log.pop();
+        }*/
+        CrewReplacer_Log.loging("got min / max batches player can store as: "+minBatches+", "+batches,this,logs);
         CrewReplacer_Log.pop();
-        return 0;
+        return new float[]{batches,minBatches};
     }
-    protected boolean checkCapacityLimitCargo(float perBatch, float capacity) {
-        if (capacity <= 0.0F)
+    protected boolean checkCapacityLimit(float perBatch, float capacity,String type) {
+        CrewReplacer_Log.loging("running function 'checkCapacityLimit'...",this,logs);
+        CrewReplacer_Log.push();
+        float[] temp = checkCapacityLimitGetMaxNumber(capacity,type);
+        float limit = temp[0];//capacity / perBatch;//HERE. This is what i need to change.
+        //this.CrewReplacer_minBatchesPlayerCanStore = (int)Math.max(Math.ceil(temp[1]),this.CrewReplacer_minBatchesPlayerCanStore);
+        this.maxBatchesPlayerCanStore = (int)Math.min(Math.ceil(limit),this.maxBatchesPlayerCanStore);
+        if (capacity <= 0.0F) {
+            CrewReplacer_Log.loging("running end 01",this,logs);
+            CrewReplacer_Log.pop();
             return false;
+        }
         if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
             //this.intel.getInputs().
-            float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_CARGO);//capacity / perBatch;//HERE. This is what i need to change.
-            this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
+            CrewReplacer_Log.loging("running end 02",this,logs);
+            CrewReplacer_Log.pop();
             return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
         }
+        CrewReplacer_Log.loging("running end 03",this,logs);
+        CrewReplacer_Log.pop();
         return false;
     }
-    protected boolean checkCapacityLimitFuel(float perBatch, float capacity) {
-        if (capacity <= 0.0F)
+/*    protected boolean checkCapacityLimitFuel(float perBatch, float capacity) {
+        CrewReplacer_Log.loging("running function 'checkCapacityLimitFuel'...",this,logs);
+        CrewReplacer_Log.push();
+        float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_FUEL);//HERE. This is what i need to change.
+        this.maxBatchesPlayerCanStore = (int)Math.min(Math.ceil(limit),this.maxBatchesPlayerCanStore);
+        if (capacity <= 0.0F) {
+            CrewReplacer_Log.loging("running end 01",this,logs);
+            CrewReplacer_Log.pop();
             return false;
+        }
         if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
             //this.intel.getInputs().
-            float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_FUEL);//HERE. This is what i need to change.
-            this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
+            CrewReplacer_Log.loging("running end 02",this,logs);
+            CrewReplacer_Log.pop();
             return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
         }
+        CrewReplacer_Log.loging("running end 03",this,logs);
+        CrewReplacer_Log.pop();
         return false;
     }
     protected boolean checkCapacityLimitCrew(float perBatch, float capacity) {
-        if (capacity <= 0.0F)
+        CrewReplacer_Log.loging("running function 'checkCapacityLimitCrew'...",this,logs);
+        CrewReplacer_Log.push();
+        float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_CREW);//HERE. This is what i need to change.
+        this.maxBatchesPlayerCanStore = (int)Math.min(Math.ceil(limit),this.maxBatchesPlayerCanStore);
+        if (capacity <= 0.0F) {
+            CrewReplacer_Log.loging("running end 01",this,logs);
+            CrewReplacer_Log.pop();
             return false;
+        }
         if (perBatch > 0.0F && perBatch * this.maxBatchesPlayerCanStore > capacity) {
             //this.intel.getInputs().
-            float limit = checkCapacityLimitGetMaxNumber(capacity,crewReplacer_Job.CARGO_CREW);//HERE. This is what i need to change.
-            this.maxBatchesPlayerCanStore = (int)Math.ceil(limit);
+            CrewReplacer_Log.loging("running end 02",this,logs);
+            CrewReplacer_Log.pop();
             return (this.maxBatchesPlayerCanStore - limit > 0.0F && this.maxBatchesPlayerCanStore < this.maxBatchesPlayerCanAfford && this.maxBatchesPlayerCanStore < this.maxBatchesAvailableInAbundance);
         }
+        CrewReplacer_Log.loging("running end 03",this,logs);
+        CrewReplacer_Log.pop();
         return false;
-    }
+    }*/
     @Override
     protected void recalculateBatchLimit() {
+        CrewReplacer_Log.loging("running function 'recalculateBatchLimit'...",this,logs);
+        CrewReplacer_Log.push();
         this.CCLType = 0;
         super.recalculateBatchLimit();
+        CrewReplacer_Log.push();
         /*
         this.maxCapacityReduction = 0;
         float crewPerBatch = 0.0F, cargoPerBatch = 0.0F, fuelPerBatch = 0.0F;

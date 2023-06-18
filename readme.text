@@ -22,11 +22,8 @@
   read the data at the "Job data that needs to be set and implemented" category of this file and look for items that are done to understand whats implemented so far.
   -for real, this is so not done, but i need to help people with something or other, so i gotta go back to this latter
 
-combatability:
-    not fully compatible with Nexerein.
-        -the raid job will fail to do anything so long as Nexerein is installed. everything else works though.
-        -needs an compatibility patch help.
 # Index for all public functions that a person using this library will need to know.
+  this is OUTDATED. look at the documentation because the documentation is cool: https://github.com/Alaricdragon/Crew_Replacer/tree/master/jars/src/desing/documentation
   crewReplacer_main
     -getJob(String job)
         reutrn crewReplacer_job

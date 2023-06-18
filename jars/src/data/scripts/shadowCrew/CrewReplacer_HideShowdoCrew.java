@@ -40,14 +40,19 @@ public class CrewReplacer_HideShowdoCrew implements CommodityIconProvider {
     public static CrewReplacer_HideShowdoCrew getInstance(){
         if(instance == null){
             instance = new CrewReplacer_HideShowdoCrew();
+            CrewReplacer_Log.loging("creating new instance",instance);
         }
+        CrewReplacer_Log.loging("returning instance...",instance);
+        initThings(instance);
         return instance;
     }
     public CrewReplacer_HideShowdoCrew() {
         super();
+    }
+    protected static void initThings(CrewReplacer_HideShowdoCrew instance){
         GenericPluginManagerAPI plugins = Global.getSector().getGenericPlugins();
-        plugins.addPlugin(this, true);
-        Global.getSector().getListenerManager().addListener(this);
+        plugins.addPlugin(instance, true);
+        Global.getSector().getListenerManager().addListener(instance,true);
     }
     @Override
     public String getRankIconName(CargoStackAPI stack) {
@@ -58,7 +63,7 @@ public class CrewReplacer_HideShowdoCrew implements CommodityIconProvider {
                     try {
                         stack.getCargo().removeStack(stack);
                     }catch (Exception e){
-                        CrewReplacer_Log.loging("failed to remove a showdow crew for unknown reasons... please contact the mod author of crew replacer and get them to fix...",this,true);
+                        CrewReplacer_Log.loging("failed to remove a showdow crew for unknown reasons... please contact the mod author of crew replacer and get them to fix...",this);
                     }
                     CrewReplacer_Log.pop();
                     return null;

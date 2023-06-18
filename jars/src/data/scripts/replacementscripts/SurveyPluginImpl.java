@@ -59,7 +59,6 @@ public class SurveyPluginImpl implements SurveyPlugin {
     public void init(CampaignFleetAPI fleet, PlanetAPI planet) {
         this.fleet = fleet;
         this.planet = planet;
-
         float hazard = getHazardMultiplier();
         if (hazard != 1f) {
             costMult.modifyMult("planet_hazard", hazard, "Hazard rating");
@@ -105,7 +104,6 @@ public class SurveyPluginImpl implements SurveyPlugin {
 
     public Map<String, Integer> getRequired() {
         CrewReplacer_HideShowdoCrew.removeShowdoCrewFromPlayersFleet();
-        this.Survey_RunningCrewUse = true;
         //CrewReplacer_Log.loging("getRequired",this,true);
         Map<String, Integer> result = new LinkedHashMap<String, Integer>();
 
@@ -168,7 +166,8 @@ public class SurveyPluginImpl implements SurveyPlugin {
     public long getXP() {
         //CrewReplacer_Log.loging("getXP",this,true);
         if(this.Survey_RunningCrewUse){
-            CrewReplacer_Log.loging("applying crew used / lost from survey...",this,true);
+            CrewReplacer_Log.loging("applying crew used / lost from survey...",this);
+            CrewReplacer_Log.loging("getting crew, machinery, supplys as: "+crewUsed+", "+machineryUsed+", "+supplyUsed,this);
             this.Survey_RunningCrewUse = false;
             crewReplacer_Job suppliesJobTemp = crewReplacer_Main.getJob(supplyJob);
             crewReplacer_Job crewJobTemp = crewReplacer_Main.getJob(crewJob);
@@ -240,6 +239,8 @@ public class SurveyPluginImpl implements SurveyPlugin {
 
         float hazard = planet.getMarket().getHazardValue();
         value -= (hazard - 1f) * 2f;
+        CrewReplacer_Log.loging("preparing to removing items for survey....(from crew replacer.)",this,true);
+        this.Survey_RunningCrewUse = true;
 
         if (value <= 5) return Commodities.SURVEY_DATA_1;
         if (value <= 8) return Commodities.SURVEY_DATA_2;

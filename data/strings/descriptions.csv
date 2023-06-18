@@ -1,0 +1,4 @@
+id,type,text1,text2,text3,text4,notes
+CrewReplacer_Shawdo_crew,RESOURCE,Skilled personnel experienced in the maintenance and day-to-day operation of spaceships and smaller ground-based installations.,,,,
+CrewReplacer_Shawdo_supplies,RESOURCE,"Assorted supplies required by ships and crew, ranging from rations and uniforms to munitions, spare parts, microfab feedstock, and prefab components.",,,,
+CrewReplacer_Shawdo_heavy_machinery,RESOURCE,"Various standardized modules for manipulating matter on an industrial scale. They accept manual input, most common design template formats, or can be slaved to network control.",,,,

@@ -166,7 +166,7 @@ public class SurveyPluginImpl implements SurveyPlugin {
     public long getXP() {
         //CrewReplacer_Log.loging("getXP",this,true);
         if(this.Survey_RunningCrewUse){
-            CrewReplacer_Log.loging("applying crew used / lost from survey...",this);
+            CrewReplacer_Log.loging("applying crew used / lost from survey...",this,true);
             CrewReplacer_Log.loging("getting crew, machinery, supplys as: "+crewUsed+", "+machineryUsed+", "+supplyUsed,this);
             this.Survey_RunningCrewUse = false;
             crewReplacer_Job suppliesJobTemp = crewReplacer_Main.getJob(supplyJob);

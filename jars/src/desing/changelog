@@ -1,3 +1,9 @@
+V0.6.4:
+    save compatible with v0.6.2+
+    fixes:
+        fixed the survey plugging only being able to reduce the amount of crews visable, and not provide you with the amount of crew you have available.
+        finaly.
+        i wanted to do this since i created this mod. i win
 V0.6.3:
     save compatible with v0.6.2+
     mod compatibility:

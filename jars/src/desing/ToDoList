@@ -1,7 +1,6 @@
 regarding normadicSurvival compatibility:
 DOING RIGHT THIS VERY SECOND:
-    i have in theory completed the compatibility patch. all thats left is some tests to conferm its all working.
-
+    i am working on the survey job. see 'regarding survey job' for details.
 
 issue found that needs to be fixed:
     1) the way i overwrite functions. i need to (when possable) find a way to use .super() in every one, for version combatability reasons.
@@ -14,22 +13,12 @@ issue found that needs to be fixed:
 
 
 regarding survey job:
-    POSSIBLE SOLUTION:
-    1) get getConsumed() and getRequired()
-        1) reduce crew/supplies/hevy matchenery cost by available crew replacer crew.
-        2) add crew replacer crew of said jobs to costs in bouth functiions.
-        3) if 2 crews have the same priority should the max required amount of said item?
-        4) having this code runs set 'can xp crew replacer' boolean to true
-        5) save the rqueired amount of items for getXP
-    2) getXP(): THIS FUNCTION RUNS AFTER survey is completed.
-        1) run crewReplacer automaticly get and apply crew losses for all functions.
-        2) set can xp crew replacer boolean to false.
-
-    im trying to find the position were the code is ran for this job, so i can mimic it. it does not exist in the place it should though.
-    im going to try and get myself a new copy of starsector core next time i try to fight with this.
-    i have a path in. my victory is now possible.
-
-
+    my sollution worked. 100 % omg it worked. finaly im free..
+    whats left to do:
+        1) test and make sure everything works. need to make sure the crew is consumed right as well.
+        2) copy the descriptions from the base commodity onto my new showdo crew. as right now they have no descriptions.
+        3) update the documentation on survey plugging to say its finally completed.
+        4) thats it. thats all its done what do i even do next!??
 add all not yet added jobs from vanilla starsector into this mod.
 
 Bugs:

@@ -1,7 +1,7 @@
 this is the replacement to all survey jobs in use. for when you survey a world.
 
 status:
-    patchwork. barely functional.
+    functional.
 
 job name:                   replaced commodity
     survey_crew:            crew
@@ -9,32 +9,13 @@ job name:                   replaced commodity
     survey_heavyMachinery:  heavy_machinery
 
 notes:
-    (this is personal notes for me. hopefully i can repair this almost broken job at some point.)
-    possible leads on the survey plugin
-        -OpenCoreTab. both survey and found a colony use this. no clue how it works. mapping now...
-            -function i think im looking for extends InteractionDialogAPI
-            -found function name useing logs: named o0Oo.
-                -scaned located: com.fs.starfarer.ui.newui.o0Oo
-                -issues: failed to locate o0Oo. cant find it anywhere. might need a java decompiler
-                -found location: in starsector-core (starfarer_obf.jar):
-                    -com.fs.starfarer.campain.ui
-                    -com.fs.starfarer.combat.ai.system
-                    -com.fs.starfarer.coreui
-                    -com.fs.starfarer.ui.impl
-                    -com.fs.starfarer.ui.newui
-                        -THIS IS INVISABLE WHY CANT I SEE IT!!!
-                -data info:
+    this job used to have... issues. for all the worst reasons. now it.. works. completely. hopefully.
 extra data:
     none.
 issues:
-    1) its impossible to have code ran when you press the survey button (as far as i know)
-    2) things added with crew replacer -cannot- be consumed, even when they should be
-        -supply's are consumed as normal
-    3) instead of counting towards the number of items you have, crew replacer instead reduces the cost of surveys
-
+    1) when running getXP(), this attempts to remove items as needed by the survey_supply job from the player inventory. i do hope there is litterly no instance of that happing or im going to need to find a new solution...
 solutions:
-    there are none. unless i find were the number used and the numbers you have are calculated.
-
+    find a better place to put the 'calculate cargo loss' code for surveying. maybe something in the rules CSV?
 
 location of rules and scripts:
     base game:

@@ -1,7 +1,3 @@
-regarding normadicSurvival compatibility:
-DOING RIGHT THIS VERY SECOND:
-    i am working on the survey job. see 'regarding survey job' for details.
-
 issue found that needs to be fixed:
     1) the way i overwrite functions. i need to (when possable) find a way to use .super() in every one, for version combatability reasons.
         even if that means i need to undo changes sometimes, it might still be extremely useful..
@@ -10,16 +6,43 @@ issue found that needs to be fixed:
     2) in CrewReplacer_normadicSurvivalA : checkCapacityLimitGetMaxNumber
         i need to use a more efficient method for getting the amount of batches i can store.
 
+missing core jobs:
+    crewShips
+        -show on how mush crew you have in fleet.
+        -allow min crew to be a things
+        possable locations of things:
+           CargoAPI: getCrew()
+                -this is not a good idea. a lot of the code gets the commodity crew directly. so this would be difficult.
+           shipAPI - getCurrentCR()
+                -for changing the amount of crew on a ship and weather or not its fully crewed.
+                -maybe also use something like a hidden hullmod on player ships that modifys the combat ready interface??
+           Interface CampaignFleetAPI
+                -forceSync()
+                -setAIMode(boolean aiMode)
+           https://fractalsoftworks.com/starfarer.api/com/fs/starfarer/api/campaign/listeners/FleetEventListener.html
+                -maybe for crew losses and recovery after combat..????
+            Interface FleetMemberAPI
+                -might be something good here, i dont know =(
+            Interface MutableFleetStatsAPI
+                -im grasping at straw...
+    fuelShips
+        -FleetLogisticsAPI
+            not mush here, but might be a good backup if i need to do to it what i did to the survey plugin.
+    supplyShips
+    use crew storage
+           CargoAPI: getCrew()
+                -this is not a good idea. a lot of the code gets the commodity crew directly. so this would be difficult.
+                -PlayerFleetPersonnelTracker might be something in here.
+    use fuel storage
+           CargoAPI: getFuel()
+                -this is not a good idea. a lot of the code gets the commodity crew directly. so this would be difficult.
+                -on the other hand, it might be a very good idea if its only used in like one place.
+
 
 
 regarding survey job:
-    my sollution worked. 100 % omg it worked. finaly im free..
-    whats left to do:
-        1) test and make sure everything works. need to make sure the crew is consumed right as well.
-        2) copy the descriptions from the base commodity onto my new showdo crew. as right now they have no descriptions.
-        3) update the documentation on survey plugging to say its finally completed.
-        4) thats it. thats all its done what do i even do next!??
-add all not yet added jobs from vanilla starsector into this mod.
+    this works now. only one issue:
+    getXP() from the survey plugging may cause supplys to drop. because thats were im running my code. this is a issue.
 
 Bugs:
     in getCargoSpaceRange in crewReplacer_Job:

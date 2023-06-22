@@ -27,7 +27,7 @@ changed getRequired to reduce crew cost based on survey cost reduction.
 changed getRequired to change heavy matchenery cost to match lost crew cost (rases cost to match the amount that crew cost was lowerd)
 
  */
-public class SurveyPluginImpl implements SurveyPlugin {
+public class CrewReplacer_SurveyPluginImpl implements SurveyPlugin {
     private String[] showdows = CrewReplacer_HideShowdoCrew.getShowdos("survey");
     private String crewJob = "survey_crew";
     private String supplyJob = "survey_supply";

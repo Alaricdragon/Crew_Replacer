@@ -1,6 +1,6 @@
 {
 	"plugins":{
-		"surveyPlugin":"data.scripts.replacementscripts.SurveyPluginImpl",
+		"surveyPlugin":"data.scripts.replacementscripts.CrewReplacer_SurveyPluginImpl",
 	},
 	"ruleCommandPackages":[
 		"data.scripts.replacementscripts.Salvage",

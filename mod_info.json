@@ -2,7 +2,7 @@
 	"id":"aaacrew_replacer", # internal id
 	"name":"Crew Replacer", # displayed to the player
 	"author":"Alaricdragon",
-	"version":"0.6.4",
+	"version":"0.6.4.1",
 	"description":"library for making new crew. and stuff",
 	"gameVersion":"0.96a-RC8",
 	"jars":["jars/crew_replacer.jar"],

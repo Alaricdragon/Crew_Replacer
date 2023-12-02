@@ -1,3 +1,8 @@
+V0.6.4.1.b:
+    save compatible with v0.6.2+
+    changes:
+        set the survey plugging to simply extend the normal games survey plugging. removing all features.
+        this is a temporarily test for someone else, to help determine the possibility of a crash. i will be undoing the removed features as soon as possible
 V0.6.4.1:
     save compatible with v0.6.2+
     fixes:

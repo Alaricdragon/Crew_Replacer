@@ -45,6 +45,10 @@ regarding survey job:
     getXP() from the survey plugging may cause supplys to drop. because thats were im running my code. this is a issue.
 
 Bugs:
+    supplys going missing every time i move my mouse over a world after survey or attempted survey:
+        -happend without market retorfits.
+        -had a secondary 'supplies' with me at the time (in the form of metals). they DID NOT disapear.
+        -HIGHLY IMPORTANT MUST FIX.
     in getCargoSpaceRange in crewReplacer_Job:
         1) this set of code can cause issues with other sets of code, causeing a miscalculation were i think i need less cargo then i acsualy need at low amounts.
            cant just remove Math.min, because then it can get claim to use mush more cargo then it actually does.

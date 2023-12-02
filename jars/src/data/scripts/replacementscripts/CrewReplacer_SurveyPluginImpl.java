@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.PlanetAPI;
 import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
 import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.fleet.MutableFleetStatsAPI;
+import com.fs.starfarer.api.impl.campaign.SurveyPluginImpl;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
@@ -27,7 +28,9 @@ changed getRequired to reduce crew cost based on survey cost reduction.
 changed getRequired to change heavy matchenery cost to match lost crew cost (rases cost to match the amount that crew cost was lowerd)
 
  */
-public class CrewReplacer_SurveyPluginImpl implements SurveyPlugin {
+public class CrewReplacer_SurveyPluginImpl extends SurveyPluginImpl {
+}
+class temp implements SurveyPlugin {
     private String[] showdows = CrewReplacer_HideShowdoCrew.getShowdos("survey");
     private String crewJob = "survey_crew";
     private String supplyJob = "survey_supply";

@@ -1,3 +1,15 @@
+V0.6.4.2:
+    save compatible with v0.6.2+
+    fixes:
+
+    changes:
+        disabled the endless spam of 'preparing to removing items for survey....(from crew replacer.)' in the logs. now off by default.
+V0.6.4.1.1(private):
+    save compatible with v0.6.2+
+    fixes:
+        none. i started to diagnoss the reason for the 'items over top of each other and moving' error. but im not quite there yet.
+    changes:
+        disabled the endless spam of 'preparing to removing items for survey....(from crew replacer.)' in the logs. now off by default.
 V0.6.4.1.b:
     save compatible with v0.6.2+
     changes:

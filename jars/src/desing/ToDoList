@@ -45,10 +45,24 @@ regarding survey job:
     getXP() from the survey plugging may cause supplys to drop. because thats were im running my code. this is a issue.
 
 Bugs:
-    supplys going missing every time i move my mouse over a world after survey or attempted survey:
-        -happend without market retorfits.
-        -had a secondary 'supplies' with me at the time (in the form of metals). they DID NOT disapear.
-        -HIGHLY IMPORTANT MUST FIX.
+    survying causing items in cargo to go all mismatched. its so frustrating!!!!!
+        -how it works (in theory):
+            the code i have to remove all 'sohwdow crew' from invatory actavates sometimes, and when it does, it reorganizes the invatory a little bit. this is a issue because:
+                IT LEAVES GHOSTS BEHIND!!! so the position of the items -looks- like it was at the location before it was removed, but they are actually not! this is so frustrating!
+                -solutions: find a way to -force- showdo crew to be at the last tile of the cargo. or find a way to force the cargo to reorganize as it fucking should!!!
+
+                -solutions:
+                    1)(done) make it so shawdoCrew are last on every item list, so they get loaded as the last thing in cargo
+                        -this seemed to help. its now mush harder to get this error.
+                    2)(done) make it so surveying removes showdo crew as fast as possable, beofre the survey intell comes in
+                        -this does nothing. at all. im going to keep it though.
+                    4) make it so showdo crew when removed, slide every fucking item past it onto there currest positions.
+
+                -issues:
+                    -exspermentation shoed that the reason for my invatory sliding like it does comes from the fact i remove crew on 'remove icon'.
+                     -this might be fixable if i can create a way to simply remove all showdo crew just after any calculation that requires it. so i need to use the icon trick less.
+                      -i might beable to do this by setting up some type of tick based timer, that i can run that removes all showdos from the invatory provided you are currently NOT at the world you are trying to survey.
+                      -if i could make this code run every X ticks, that would be so so so so so so mush better.
     in getCargoSpaceRange in crewReplacer_Job:
         1) this set of code can cause issues with other sets of code, causeing a miscalculation were i think i need less cargo then i acsualy need at low amounts.
            cant just remove Math.min, because then it can get claim to use mush more cargo then it actually does.

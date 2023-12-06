@@ -9,6 +9,7 @@ import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
 import data.scripts.crews.CrewReplacer_CrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew;
+import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew_2;
 
 import java.util.List;
 
@@ -268,7 +269,8 @@ public class crew_replacer_startup extends BaseModPlugin {
     }
     private void addListinger(){
         Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
-        CrewReplacer_HideShowdoCrew.getInstance();
+        //CrewReplacer_HideShowdoCrew.getInstance();
+        CrewReplacer_HideShowdoCrew_2.addListener();
         //Global.getSector().getListenerManager().addListener(new CrewReplacer_HideShowdoCrew(),true);
     }
 }

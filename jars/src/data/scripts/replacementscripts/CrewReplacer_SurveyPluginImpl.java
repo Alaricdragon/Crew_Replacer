@@ -30,11 +30,16 @@ changed getRequired to change heavy matchenery cost to match lost crew cost (ras
 
  */
 public class CrewReplacer_SurveyPluginImpl implements SurveyPlugin{//extends SurveyPluginImpl {
-    private String[] showdows = CrewReplacer_HideShowdoCrew_2.getShowdos("survey");
-    private String[] showdows2 = CrewReplacer_HideShowdoCrew_2.getShowdos("survey2");
-    private String crewJob = "survey_crew";
-    private String supplyJob = "survey_supply";
-    private String heavy_matchnearyJob = "survey_heavyMachinery";
+    public static final String[] showdows = CrewReplacer_HideShowdoCrew_2.getShowdos("survey");
+    public static final String[] showdows2 = CrewReplacer_HideShowdoCrew_2.getShowdos("survey2");
+    public static final String crewJob = "survey_crew";
+    public static final String supplyJob = "survey_supply";
+    public static final String heavy_matchnearyJob = "survey_heavyMachinery";
+
+
+    public static final String crewJob2 = "colony_crew";
+    public static final String supplyJob2 = "colony_supply";
+    public static final String heavy_matchnearyJob2 = "colony_heavyMachinery";
 
     public boolean Survey_RunningCrewUse = false;
     public PlanetAPI planetLookingAt = null;
@@ -190,7 +195,7 @@ public class CrewReplacer_SurveyPluginImpl implements SurveyPlugin{//extends Sur
                 machineryJobTemp.automaticlyGetAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(), (int) this.machineryUsed, 0);
 
                 suppliesJobTemp.automaticlyGetAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(), (int) this.supplyUsed, (int) this.supplyUsed);
-                //CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet();
+                CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet();
             }
         }catch (Exception e){
             CrewReplacer_Log.loging("failed to get or compaire player fleet to surveyed world and/or failed to remove crew as intended.",this,true);
@@ -280,14 +285,29 @@ public class CrewReplacer_SurveyPluginImpl implements SurveyPlugin{//extends Sur
     }
 
 
-    public Map<String, Integer> getOutpostConsumed() {
+    public Map<String, Integer> getOutpostConsumedOld() {
         //CrewReplacer_Log.loging("getOutpostConsumed",this,true);
         Map<String, Integer> result = new LinkedHashMap<String, Integer>();
-
         result.put(Commodities.CREW, 1000);
         result.put(Commodities.HEAVY_MACHINERY, 100);
         result.put(Commodities.SUPPLIES, 200);
-        //result.put(Commodities.METALS, 200);
+
+        return result;
+    }
+    public Map<String, Integer> getOutpostConsumed() {
+        //CrewReplacer_Log.loging("getOutpostConsumed",this,true);
+        Map<String, Integer> result = new LinkedHashMap<String, Integer>();
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(showdows);
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(showdows2);
+        crewReplacer_Job a = crewReplacer_Main.getJob(crewJob2);
+        crewReplacer_Job b = crewReplacer_Main.getJob(heavy_matchnearyJob2);
+        crewReplacer_Job c = crewReplacer_Main.getJob(supplyJob2);
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows[0],(int)a.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows[1],(int)b.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows2[0],(int)c.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        result.put(showdows[0], 1000);
+        result.put(showdows[1], 100);
+        result.put(showdows2[0], 200);
 
         return result;
     }

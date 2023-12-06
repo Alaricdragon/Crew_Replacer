@@ -12,6 +12,9 @@ V0.6.5:
         disabled the endless spam of 'preparing to removing items for survey....(from crew replacer.)' in the logs. now off by default.
 V0.6.4.1.2(private):
     save compatible with v0.6.2+
+    new:
+        (hopefully) added working version checker support
+        added crew jobs for colonizing, so that's a thing i didn't think i would be doing today.
     fixes:
         fixed the issue of items: apearing on top of each other, not being were they look like, and grabing items that were not the ones you ment to pick up.
         it was me. 100%. sorry guys. and thank you so very mush to the person who suggested the CargoScreenListener. it was something i desperately needed.

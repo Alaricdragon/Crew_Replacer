@@ -153,6 +153,6 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
 
     @Override
     public void reportSubmarketOpened(SubmarketAPI submarket) {
-
+        removeShowdoCrewFromPlayersFleet();
     }
 }

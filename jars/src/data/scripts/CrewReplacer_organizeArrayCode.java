@@ -63,6 +63,7 @@ public class CrewReplacer_organizeArrayCode {
         }
         //console.log("ERROR in addAItemToSortedArray. no item added...");
     };
+
     public static ArrayList<ArrayList<Float>> sortArray(ArrayList<Float>inArray,ArrayList<Float>valueArray){
         /* input is:
         array = array im organizing.

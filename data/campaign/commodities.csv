@@ -1,4 +1,4 @@
 name,id,demand class,base price,export value,price variability,utility,origin,tags,stack size,cargo space,icon,sound id,sound id drop,order,economyTier,econUnitOrigUnused,econUnit,baseRaidDanger,eU * base value,iconWidthMult,plugin,desc
-Supplies,CrewReplacer_Shawdo_supplies,supplies,100,250,3,1,,no_drop,1000,0,graphics/icons/cargo/supplies.png,ui_cargo_supplies,ui_cargo_supplies_drop,0.5,2.1,200,750,,75000,1,,
-Crew,CrewReplacer_Shawdo_crew,crew,50,0,3,1,,no_drop,1000,0,graphics/icons/cargo/crew02.png,ui_cargo_crew,ui_cargo_crew_drop,0.8,3.1,200,500,,25000,0.6,,
-Heavy Machinery,CrewReplacer_Shawdo_heavy_machinery,heavy_machinery,150,500,3,1,,no_drop,1000,0,graphics/icons/cargo/heavymachinery.png,ui_cargo_machinery,ui_cargo_machinery_drop,0.95,2.2,100,300,,45000,1,,
+Supplies,CrewReplacer_Shawdo_supplies,supplies,100,250,3,1,,no_drop,1000,0,graphics/icons/cargo/supplies.png,ui_cargo_supplies,ui_cargo_supplies_drop,2147483647,2.1,200,750,,75000,1,,
+Crew,CrewReplacer_Shawdo_crew,crew,50,0,3,1,,no_drop,1000,0,graphics/icons/cargo/crew02.png,ui_cargo_crew,ui_cargo_crew_drop,2147483647,3.1,200,500,,25000,0.6,,
+Heavy Machinery,CrewReplacer_Shawdo_heavy_machinery,heavy_machinery,150,500,3,1,,no_drop,1000,0,graphics/icons/cargo/heavymachinery.png,ui_cargo_machinery,ui_cargo_machinery_drop,2147483647,2.2,100,300,,45000,1,,

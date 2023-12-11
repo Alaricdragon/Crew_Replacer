@@ -1,22 +1,21 @@
-this is the replacement to all _____ jobs in use.
+this is the replacement to all colonize a world jobs in use.
 status:
-    not yet started
+  done. tested. it works. what the flipy flipers of flips and flippy flips.
 
 notes:
     put random data on jobs here
-    addItem crew 1000; addItem supplies 200; addItem heavy_machinery 200;
-    addItem metals 200;
-
-    getOutpostConsumed in SurveyPluginImpl:
-        you -can- add extra consumed commodities here. it adds them to the view however, and that could be confusing.
-
+    the system used to remove crew from this is... it uses the PlayerColonizationListener. if anyone knows a instance i should not use that to remove crew, please let me know.
+    this will become a issue otherwize.
 job name: replaced commodity
-    job name:           commodity replaced name
+    job name:               commodity replaced name
+    colony_crew             crew
+    colony_supply           supplies
+    colony_heavyMachinery   heavy_machinery
 
 extra data:
-
+    uses the showdo crew system for its displays (mush like surveying does).
 issues:
-
+    there should be none. im not used to this.
 
 solutions:
 

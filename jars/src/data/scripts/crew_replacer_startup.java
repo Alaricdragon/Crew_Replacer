@@ -9,6 +9,7 @@ import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
 import data.scripts.crews.CrewReplacer_CrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew;
+import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew_2;
 
 import java.util.List;
 
@@ -93,11 +94,24 @@ public class crew_replacer_startup extends BaseModPlugin {
 
         tempJob = crewReplacer_Main.getJob("survey_crew");
         tempJob.addCrewSet(jobSet_crew);
-        tempJob.addNewCrew("crew",1,10);
+        tempJob.addNewCrew("crew",1,10,1);
         tempJob = crewReplacer_Main.getJob("survey_supply");
         tempJob.addCrewSet(jobSet_supplies);
         tempJob.addNewCrew("supplies",1,10);
+        //tempJob.addNewCrew("metals",1,10);
         tempJob = crewReplacer_Main.getJob("survey_heavyMachinery");
+        tempJob.addCrewSet(jobSet_heavy_machinery);
+        tempJob.addNewCrew("heavy_machinery",1,10);
+
+        tempJob = crewReplacer_Main.getJob("colony_crew");
+        tempJob.addCrewSet(jobSet_crew);
+        tempJob.addNewCrew("crew",1,10,1);
+        tempJob.addNewCrew("metals",1,10,1);
+        tempJob = crewReplacer_Main.getJob("colony_supply");
+        tempJob.addCrewSet(jobSet_supplies);
+        tempJob.addNewCrew("supplies",1,10);
+        //tempJob.addNewCrew("metals",1,10);
+        tempJob = crewReplacer_Main.getJob("colony_heavyMachinery");
         tempJob.addCrewSet(jobSet_heavy_machinery);
         tempJob.addNewCrew("heavy_machinery",1,10);
 
@@ -267,7 +281,9 @@ public class crew_replacer_startup extends BaseModPlugin {
     }
     private void addListinger(){
         Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
-        CrewReplacer_HideShowdoCrew.getInstance();
+        //CrewReplacer_HideShowdoCrew.getInstance();
+        CrewReplacer_HideShowdoCrew_2.addListener();
+        CrewReplacer_playerMArketFounderListiner.addListiner();//NOTE: this does not get added if the player has market retorfits instaled.
         //Global.getSector().getListenerManager().addListener(new CrewReplacer_HideShowdoCrew(),true);
     }
 }

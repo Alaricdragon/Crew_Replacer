@@ -21,13 +21,14 @@ Crews and there functions:
     crew is trying to represent (unless the crew does not represent a
     commodity. see crewReplacer_Crew for information on that)
 
-public boolean hasCrew(String crew)                                                                     return true if a crew with the inputted name exists in this job. false otherwise
-public crewReplacer_Crew getCrew(String crew)                                                           returns a crew with a name matching the inputted String. if no crew is found, it creates one.
-public boolean removeCrew(String crew)                                                                  returns true if a crew was removed. false otherwise. tries to remove a crew from memory with the inputted name
-public boolean addCrew(crewReplacer_Crew crew)                                                          returns true if no crew was found. false otherwise. tries to add the inputted crew to memory. if a crew with the same name already exists, runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewPriority)
-public boolean addNewCrew(String crew,float crewPower,float crewPriority)                               runs addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority) with a crew defence equal to the inputer crewPower
-public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority)             returns true if no crew was found. false otherwise. tries to create a crew with the inputted stats. always runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)
-private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)     takes a inputted crew (old crew) and sets its power and priority to the inputted stats
+public boolean hasCrew(String crew)                                                                                        return true if a crew with the inputted name exists in this job. false otherwise
+public crewReplacer_Crew getCrew(String crew)                                                                              returns a crew with a name matching the inputted String. if no crew is found, it creates one.
+public boolean removeCrew(String crew)                                                                                     returns true if a crew was removed. false otherwise. tries to remove a crew from memory with the inputted name
+public boolean addCrew(crewReplacer_Crew crew)                                                                             returns true if no crew was found. false otherwise. tries to add the inputted crew to memory. if a crew with the same name already exists, replaces old crew with new crew.
+public boolean addNewCrew(String crew,float crewPower,float crewPriority)                                                  runs addNewCrew(String crew,float crewPower,float crewPriority,float loadPriority) with a load priority equal to 0
+public boolean addNewCrew(String crew,float crewPower,float crewPriority,float loadPriority)                               runs addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority,float loadPriority) with a crew defence equal to the inputer crewPower
+public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority,float loadPriority)             returns true if no crew was found. false otherwise. tries to create a crew with the inputted stats. always runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)
+private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority,float loadPriority)     takes a inputted crew (old crew) and sets its power and priority to the inputted stats
 
 crew sets and there functions:
     crew sets are used to store crew that are going to be stored in a variety of different jobs.

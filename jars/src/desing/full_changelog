@@ -2,6 +2,8 @@ V0.6.5:
     save compatible with v0.6.2+
     new:
         (hopefully) added working version checker support
+        added colonization suooprt. you can now add new commodities that will be used in place of crew, supplies, and heavy machinery when colonizing.
+            -NOTE: this will not work when using market retrofits until i patch it. hopefully i can do that soon.
     fixes:
         fixed the issue of items: apearing on top of each other, not being were they look like, and grabing items that were not the ones you ment to pick up.
         it was me. 100%. sorry guys. and thank you so very mush to the person who suggested the CargoScreenListener. it was something i desperately needed.
@@ -10,6 +12,35 @@ V0.6.5:
         maybe fixed a issue were sometimes surveying would use 2x the supply? i hope that was not a thing though.
     changes:
         disabled the endless spam of 'preparing to removing items for survey....(from crew replacer.)' in the logs. now off by default.
+        crewReplacer_Job:
+            addCrew(crewReplacer_Crew crew) now compleatly replaces the old crew. instead of whatever it was doing before.
+            (NOTE: other instances of addCrew still use merge crew when 2 of the same crew show up, maintaining whatever strange class they might have.)
+
+            added a 'loadPriority' variable to most add instances of addCrew
+            added a new addCrew that has a default 'loadPriority' of zero.
+        crewReplacer_Crew:
+            added the 'public float crewLoadPriority = 0;' variable.
+                -crew will only replace other crew in a job provided there load priority is >= to the old crew.
+        reasoning:
+            the reason i added the 'crewLoadPrioirity' system is because before if a user wanted to override someone elses crew,
+            they would have to load there mod after that persons, and that... did not seem right. at all.
+            hopefully this help avoid some headache
+V0.6.4.1.3(private):
+    save compatible with v0.6.2+
+    changes:
+        crewReplacer_Job:
+            addCrew(crewReplacer_Crew crew) now compleatly replaces the old crew. instead of whatever it was doing before.
+            (NOTE: other instances of addCrew still use merge crew when 2 of the same crew show up, maintaining whatever strange class they might have.)
+
+            added a 'loadPriority' variable to add instances of addCrew
+            added a new addCrew that has a default 'loadPriority' of zero.
+        crewReplacer_Crew:
+            added the 'public float crewLoadPriority = 0;' variable.
+                -crew will only replace other crew in a job provided there load priority is >= to the old crew.
+        reasoning:
+            the reason i added the 'crewLoadPrioirity' system is because before if a user wanted to override someone elses crew,
+            they would have to load there mod after that persons, and that... did not seem right. at all.
+            hopefully this help avoid some headache
 V0.6.4.1.2(private):
     save compatible with v0.6.2+
     new:

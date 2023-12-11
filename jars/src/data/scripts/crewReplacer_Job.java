@@ -121,10 +121,16 @@ public class crewReplacer_Job {
         boolean output = true;
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew.name)){
-                CrewReplacer_Log.loging("crew found. merging crews named: " + Crews.get(a).name,this);
-                output = false;
-                mergeCrew(Crews.get(a),crew.crewPower,crew.crewDefence,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
-                break;
+                CrewReplacer_Log.loging("crew found. replacing crew named: " + Crews.get(a).name,this);
+                if (Crews.get(a).crewLoadPriority > crew.crewLoadPriority){
+                    CrewReplacer_Log.loging("old crew load Priority higher then new crew load priority. no longer replacing crew named: " + Crews.get(a).name,this);
+                    return false;
+                }
+                Crews.remove(a);
+                Crews.add(a,crew);
+                CrewReplacer_Log.push();
+                //mergeCrew(Crews.get(a),crew.crewPower,crew.crewDefence,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
+                return false;
             }
         }
         if(output){
@@ -135,16 +141,23 @@ public class crewReplacer_Job {
         return output;
     }
     public boolean addNewCrew(String crew,float crewPower,float crewPriority){
-        return addNewCrew(crew,crewPower,crewPower,crewPriority);
+        return addNewCrew(crew,crewPower,crewPower,crewPriority,0);
     }
-    public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority){
+    public boolean addNewCrew(String crew,float crewPower,float crewPriority,float loadPriority){
+        return addNewCrew(crew,crewPower,crewPower,crewPriority,loadPriority);
+    }
+    public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority,float loadPriority){
         boolean output = true;
         crewReplacer_Crew temp = new crewReplacer_Crew();
-        CrewReplacer_Log.loging(getIntoJobLog() + "trying to add new crew named: " + crew + " wtih a power & priority of: " + crewPower + " & " + crewPriority,this);
+        CrewReplacer_Log.loging(getIntoJobLog() + "trying to add new crew named: " + crew + " wtih a power, priority & loadPriority of: " + crewPower + ", " + crewPriority+" & "+loadPriority,this);
         CrewReplacer_Log.push();
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
                 CrewReplacer_Log.loging("crew found. preparing merge for crew new named: " + Crews.get(a).name,this);
+                if (loadPriority < Crews.get(a).crewLoadPriority){
+                    CrewReplacer_Log.loging("new crew load priority lower then old crew. NOT adding or merging for crew named: " + Crews.get(a).name,this);
+                    return false;
+                }
                 output = false;
                 temp = Crews.get(a);
                 break;
@@ -156,15 +169,16 @@ public class crewReplacer_Job {
             temp.name = crew;
             Crews.add(temp);
         }
-        mergeCrew(temp,crewPower,crewDefence,crewPriority/*,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules*/);
+        mergeCrew(temp,crewPower,crewDefence,crewPriority,loadPriority/*,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules*/);
         CrewReplacer_Log.pop();
         return output;
     }
-    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority){
+    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority,float loadPriority){
         CrewReplacer_Log.loging(getIntoJobLog() + "running Merge Crew... setting stats to name: " + crew.name + ", power: " + crewPower + ", defence: " + crewDefence + ", priority: " + crewPriority,this);
         crew.crewPower = crewPower;
         crew.crewDefence = crewDefence;
         crew.crewPriority = crewPriority;
+        crew.crewLoadPriority = loadPriority;
         //crew.maxLosePercent = crewMaxLosePercent;
         //crew.maxLosePercent = crewMinLosePercent;
         //crew.NormalLossRules = crewNormalLoseRules;

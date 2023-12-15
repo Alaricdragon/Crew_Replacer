@@ -16,5 +16,11 @@
 
 	#logs for combatability code that interacts with other mods.
 	"crewReplacerDisplay_normadicSurvival_logs": false,
+
+
+
+
+	#strings in this mod
+	"crewReplacerString_class_location_number": "",
 }
 

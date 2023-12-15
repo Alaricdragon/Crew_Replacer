@@ -1,3 +1,33 @@
+crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
+improvements that must be made:
+1) look into classes that i have replaced, and -TRY- to get them to extend the classes they are replacing
+   if exstension is impossable (do to private methods or information) copy the old class, but make everything protected. then exstend that.
+   notes:
+        the rules for changed to the base plugins are: (for replacement pluggin)
+        copy the 'base' class
+        run s/private/protected/g on it.
+        make the replacement class exsend the new replaced class.
+        steel a starship.
+
+   status:
+        need to check:
+            the thing to do with raiding. (market CMD)
+            hyper really replair.
+
+        need a replacement pluggin:
+            (done. partial testing seems clear)crew_replacer_SalvageEntity
+            (done. untested)surveypluggin. (colonize and salvage)
+        can exstend:
+
+2) update all strings and put them into the config. this will help A LOT. with both editing, and people who wan this mod in other languages
+    to do:
+        crewReplacer_Job
+        crewReplacer_Main
+        crewReplacer_Crew
+        crewReplacer_CrewSet
+        crew_replacer_SalvageEntity
+    done:
+
 issue found that needs to be fixed:
     1) the way i overwrite functions. i need to (when possable) find a way to use .super() in every one, for version combatability reasons.
         even if that means i need to undo changes sometimes, it might still be extremely useful..
@@ -5,6 +35,40 @@ issue found that needs to be fixed:
 
     2) in CrewReplacer_normadicSurvivalA : checkCapacityLimitGetMaxNumber
         i need to use a more efficient method for getting the amount of batches i can store.
+
+ask people to add crewReplacer support to there mods.
+i know of a few mods that i would like to add crew replacer support to, but i need to ask:
+1) if they are willing to do so them selfs (and offer to guied them though the process)
+2) if they are willing to let me attempt to add a built in combatability patch if they are not (inform them that it might be impossable)
+3)
+
+hello fellow starsector moder. I was wondering if you would be interested in adding crew replacer support to your mod.
+
+sorry if this is a bit rude of me to ask, but im going to ask anyways, so i apologize in advance.
+so would you be willing to add support for my mod (crew replacer) to your mod? (or baring that, let me attempt to make a in built compatibility patch in crew replacer for your mod? that wont work most the time, granted, but it would work -sometimes-. so the offer for me to try that is there, provided you give permission)
+
+so first thing first: what is crew replacer, and why would you want or need to support it? crew replacer is a mod with the objective of replacing every instance were a 'commodity' is called on by the game, with a special list that's basically (this is oversimplified), a list of commodity's that can act as whatever instance of commodity said list is replacing. this effectively lets moders add there own commodity's to act as the replaced commodity in game. this also fixes a mod compatibility issue, but letting as many commodity act as this items as one wants, over as many mods as one might want. if that makes sense.
+
+as for why you would want to support it with your mod? simple: doing so lets other modders add items that can be used in a thing you made. as a example:
+---INSERT EXAMPLE WITH SOMETHING SAID MODER HAS HERE. THIS IS IMPORTANT. DON'T FORGET TO DO THIS PLEASE FOR THE LOVE OF SOMETHING---
+until lets say 3 modders want to do something like this, with there own commodity's. then it quickly becomes a mess. but if one were to use crew replacer, as many people as wanted to could add there own commodity's to this instance, without even bugging you to mush. and very very easily. (its one line of code to add a crew).
+the possible instances of commodity's being used in your mod(that i know of) that i would like to replace are:
+
+there might be others that i don't know about, or simply think are low priority. but literally any item you use a commodity from the players cargo bay, is a time crew replacer can be involved. i don't know your mod like you do, but would be happy to talk about and help you work out how to add said things easily and cleanly.
+
+please contact me if you are interested and i will walk you though the steps of making your mod have this support. if you want your mod to not require crew replacer to function, i can walk you though how to make it so its not required well still having said compatibility. if you simply dont want to/ dont want me to build a compatibility patch, i understand, but please reply with a -no- anyway, so i can see were people stand on this topic.
+
+link to my mod:[url=https://fractalsoftworks.com/forum/index.php?topic=24249.0]crew replacer[/url]
+
+known mods with possable crew:
+(said they would look into it.)Nexerlin: invasions(done), found a outpost station thing?
+(said i could make my own branch then request to merge)terraforming and station construction: station construction
+(said i could maky my own patch. said they cant work on there mod now.)Forge Production: getting into a dominion era moma ship.
+(asked)ashes of the domion: repairing a cryosleeper
+(asked)Xan empire: the specal ships with the organic ship forge.
+unknown (possibly industrial evolution?): 'removing' a ruin.
+unknown: 'exsploring' a station. required both crew and marines.
+unknwon: random destress call that wanted mariens and crew to exsplor a ship. but i dont know what mod that is from.
 
 missing core jobs:
     (mostly done)found a market:

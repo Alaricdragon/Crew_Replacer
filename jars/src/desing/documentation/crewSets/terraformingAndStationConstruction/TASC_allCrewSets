@@ -1,0 +1,12 @@
+TASC generates crew sets. crew sets and ID are as follows:
+crewSet ID                                                                  replaced commodity
+boogles_TerraformingAndStationConstruction_COMMODITYID          COMMODITYID
+
+all crew sets from TASC extend the base game crew sets of the same commodity id.
+all crew sets from TASC effect all stations.
+
+at the time of writing, were are all the crew sets in TASC:
+boogles_TerraformingAndStationConstruction_metals
+boogles_TerraformingAndStationConstruction_rare_metals
+boogles_TerraformingAndStationConstruction_crew
+boogles_TerraformingAndStationConstruction_heavy_machinery

@@ -1,10 +1,10 @@
 {
 	"plugins":{
-		"surveyPlugin":"data.scripts.replacementscripts.CrewReplacer_SurveyPluginImpl",
+		"surveyPlugin":"data.scripts.replacementscripts.CrewReplacer_SurveyPluginImpl"
 	},
 	"ruleCommandPackages":[
 		"data.scripts.replacementscripts.Salvage",
-		"data.scripts.starfarer.api.impl.campaign.rulemd",
+		"data.scripts.starfarer.api.impl.campaign.rulemd"
 	],
 	#for the genral function of crew replacer. errors are displayed regardless.
 	"crewReplacerDisplayLogs": true,
@@ -21,6 +21,111 @@
 
 
 	#strings in this mod
-	"crewReplacerString_class_location_number": "",
+	#"crewReplacerString_class_function_number": "",
+
+	#strings that are displayed to the player
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_3": ", ",#this represnets a comma that i forgot the reason i need, but its important???
+
+	#strings for debug lines.
+	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_0": "running applyExtraDataToCrew",
+	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_1": "running applyExtraDataToCrew",
+	"crewReplacerString_crewReplacer_Job_running applyExtraDataToCrewAndJob_0": "running applyExtraDataToCrewAndJob",
+	"crewReplacerString_crewReplacer_Job_resetExtraDataToCrewsAndJob_0": "running resetExtraDataToCrewsAndJob",
+	"crewReplacerString_crewReplacer_Job_resetExtraDataToCrews_0": "running resetExtraDataToCrews",
+	"crewReplacerString_crewReplacer_Job_hasCrew_0": "running hasCrew",
+	"crewReplacerString_crewReplacer_Job_hasCrew_1": "found crew with name: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_hasCrew_2": "no crew found with the name: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrew_0": "running getCrew",
+	"crewReplacerString_crewReplacer_Job_getCrew_1": "crew found. returning crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrew_2": "crew not found. creating a new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_removeCrew_0": "running Remove",
+	"crewReplacerString_crewReplacer_Job_removeCrew_1": "crew found. removing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_removeCrew_2": "no crew found. cannot remove crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addCrew_0": "running Add Crew",
+	"crewReplacerString_crewReplacer_Job_addCrew_1": "crew found. replacing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addCrew_2": "old crew load Priority higher then new crew load priority. no longer replacing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addCrew_3": "crew not found. creating new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addNewCrew_0": "trying to add new crew named: %s with a power, priority & loadPriority of: %s, %s & %s", #crew,crewPower,crewPriority,loadPriority,
+	"crewReplacerString_crewReplacer_Job_addNewCrew_1": "crew found. preparing merge for crew new named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addNewCrew_2": "new crew load priority lower then old crew. NOT adding or merging for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addNewCrew_3": "no crew found. adding crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_mergeCrew_0": "running Merge Crew... setting stats to name: %s, power: %s, defence: %s, priority:  %s",#crew.name, crewPower, crewDefence, crewPriority
+	"crewReplacerString_crewReplacer_Job_addCrewSet_0": "running addCrewSet",
+	"crewReplacerString_crewReplacer_Job_addCrewSet_1": "CrewSet '%s' already in CrewSets. cannot add the same crew set twice",#CrewSet
+	"crewReplacerString_crewReplacer_Job_addCrewSet_2": "adding CrewSet '%s' to CrewSets",#CrewSet
+	"crewReplacerString_crewReplacer_Job_removeCrewSet_0": "running removeCrewSet",
+	"crewReplacerString_crewReplacer_Job_removeCrewSet_1": "CrewSet '%s' found in crewSets. removing.",#CrewSet
+	"crewReplacerString_crewReplacer_Job_removeCrewSet_2": "failed to find a CrewSet named '%s' in CrewSets.",#CrewSet
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_0": "running applyCrewSets",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_1": "getting crew set: %s",#crewSet
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_2": "trying to add a new crew '%s'...",#crew.name
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_3": "no crew found. adding crew.",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_4": "crew already exists. crewSets cannot override crew data. skipping adding crew.",
+	"crewReplacerString_crewReplacer_Job_organizePriority_0": "running Organizing Priority",
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_0": "running Getting Available Crew Power",
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_1": "getting crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_2": "adding %s crew power",#crew.getPower()
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_3": "ERROR! failed to get crew power in fleet!!! exception type: %s",#,Exception
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_0": "running Get Available Crew",
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_1": "getting crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_2": "got %s crew",#crew.getAvailableCrew
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_3": "ERROR! failed to get crew numbers in fleet!!! exception type: %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_automaticlyGetDisplayAndApplyCrewLost_0": "running Automatically Get Display And Apply Crew Lost...",
+	"crewReplacerString_crewReplacer_Job_automaticlyGetAndApplyCrewLost_0": "running Automaticly Get And Apply Crew Lost...",
+	"crewReplacerString_crewReplacer_Job_getCrewLost_0": "running getCrewLost...",
+	"crewReplacerString_crewReplacer_Job_getCrewLost_1": "getting crew power for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewLost_2": "got %s defencive strength",#crew.defence
+	"crewReplacerString_crewReplacer_Job_getCrewLost_3": "ERROR!!! failed to get crew power for crew with function getCrewPower(). getting variable instead. Exception type: %s",#Exception
+	"crewReplacerString_crewReplacer_Job_getCrewLost_4": "getting crew lost for new named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewLost_5": "got %s crew lost",#crewlost
+	"crewReplacerString_crewReplacer_Job_getCrewLost_6": "ERROR!!! failed to get crew lost. setting crew lost to zero for temp data... exception type: %s",#Exception
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_0": "running Display Crew Lost...",
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_1": "running DisplayCrewNumbers for crew named %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_2": "ERROR!!! failed to display crew numbers. Exception type: %s",#Exception
+	"crewReplacerString_crewReplacer_Job_applyCrewLost_0": "running Apply Crew Lost",
+	"crewReplacerString_crewReplacer_Job_applyCrewLost_1": "removing crew for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_applyCrewLost_2": "ERROR!!! failed to remove crew. %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_0": "running Get Crew For Job...",
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_1": "fining avialbe crew and power for crew named %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_2": "crew in fleet: %s",#crew.available
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_3": "crew power in fleet: %s",#crew.power
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_4": "ERROR!!! could not get crewInFleet,orCrewPowerInFleet. setting available crew and power to zero for this function. Exception type: %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_5": "getting crew power for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_6": "crew power: %s",#crew.power
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_7": "ERROR!!! failed to get crew power. setting power to zero for this function Exception type %s",#Exception
+	"crewReplacerString_crewReplacer_Job_displayCrewAvailable_0": "running Display Crew Available",
+	"crewReplacerString_crewReplacer_Job_displayCrewAvailable_1": "displaying crew numbers for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_displayCrewAvailable_2": "ERROR!!! failed to display crew numbers. Exception type: %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_GetCrewNames_0": "running Get Crew Names",
+	"crewReplacerString_crewReplacer_Job_GetCrewNames_1": "getting crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_0": "running Get Crew Display Names",
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_1": "getting display name for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_2": "got name %s",#crew.display name
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_3": "ERROR!!! failed to get display name. Exception type %s",#Exception
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_0": "running get Cargo Space Used of type: %s",#inputed cargo type
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_1": "getting cargo use for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_2": "cargo use for crew is: %s",#cargo.use of this type
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_3": "ERROR: failed to get cargo uss. Exception type %s",#Exeption
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_0": "running get Cargo Space Range with includeDefence as %s",#include defence boolean
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_1": "getting crew powers and spaces from a priority...",
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_2": "getting power and cargo for crew named %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_3": "getting a base cargo space of: %s",#tempa
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_4": "getting a final cargo space of: %s",#tempa
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_5": "got total in cargo item power and in cargo item cargo use as %s, %s",#tempb,tempa
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_6": "failed to get power and cargo use for crew named %s. setting power and cargo to zero for this crew.",#crews.name
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_7": "running secondary system with values of: %s,%s",#crewPowerTemp,powerTemp
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_8": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_9": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_10": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_11": "power gained, cargo gained: %s, %s",#temps0,temps1
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_12": "running secondary system with values of: %s,%s",#crewPowerTemp,powerTemp
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_13": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_14": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_15": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_16": "power gained, cargo gained: %s, %s",#temps0,temps1
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_17": "CARGO TEMP: %s",#cargoTemp
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_18": "returnin output as: {%s,%s}",#max,min
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_19": "returnin output as: {%s,%s}",#max,min
+	#"crewReplacerString_crewReplacer_Job__": "",
 }
 

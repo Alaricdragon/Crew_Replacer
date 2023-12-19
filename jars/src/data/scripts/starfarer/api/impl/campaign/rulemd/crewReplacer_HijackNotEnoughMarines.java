@@ -16,7 +16,7 @@ public class crewReplacer_HijackNotEnoughMarines extends BaseCommandPlugin {
         //was: $player.marines < $hijack_marines
         //crewReplacer_HijackNotEnoughMarines $hijack_marines
 
-        float available = crewReplacer_Main.getJob(marinesJob).getAvailableCrewPower(Global.getSector().getPlayerFleet());
+        float available = crewReplacer_Main.getJob(marinesJob).getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo());
         int req = params.get(0).getInt(memoryMap);
         //int[] a = {};
         //a[available]=1;

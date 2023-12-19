@@ -1,32 +1,42 @@
 crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
 improvements that must be made:
-1) look into classes that i have replaced, and -TRY- to get them to extend the classes they are replacing
+1)(DONE) look into classes that i have replaced, and -TRY- to get them to extend the classes they are replacing
    if exstension is impossable (do to private methods or information) copy the old class, but make everything protected. then exstend that.
    notes:
         the rules for changed to the base plugins are: (for replacement pluggin)
         copy the 'base' class
         run s/private/protected/g on it.
         make the replacement class exsend the new replaced class.
-        steel a starship.
-
-   status:
+   (DONE)status:
         need to check:
-            the thing to do with raiding. (market CMD)
-            hyper really replair.
-
+            (DONE)
         need a replacement pluggin:
             (done. partial testing seems clear)crew_replacer_SalvageEntity
             (done. untested)surveypluggin. (colonize and salvage)
         can exstend:
+            (done. tested. had this for like a year and forgot i made the change)CrewReplacerMarketCMD
 
-2) update all strings and put them into the config. this will help A LOT. with both editing, and people who wan this mod in other languages
+        ponitless (nothing to exstend):
+            steel a starship.
+            hyper really repair.
+2) update all strings and put them into the config. this will help A LOT. with both editing, and people who want this mod in other languages
+    theory: its possible that i might require to use a diffrent file at some ponit in the future to hold all the strings. so i have a plan. the best plan even:
+    create a class that handles strings. i can them simply call the calss name, and the 'line id' to get the string i want, then solve for the string from there.
+
     to do:
-        crewReplacer_Job
+        crewReplacer_Job(started)(currontly doing function named: getCargoSpaceRange)
         crewReplacer_Main
         crewReplacer_Crew
         crewReplacer_CrewSet
         crew_replacer_SalvageEntity
-    done:
+        everything in the 'replacedScripts' folder.
+        CrewReplacerMarketCMD
+
+        find and replace all other strings i ever created.
+    done(primary display texts):
+
+    done(debug text):
+
 
 issue found that needs to be fixed:
     1) the way i overwrite functions. i need to (when possable) find a way to use .super() in every one, for version combatability reasons.

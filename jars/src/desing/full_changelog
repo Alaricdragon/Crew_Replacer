@@ -7,6 +7,13 @@ V0.6.6:
         -salvage plugin
     fixed:
         fixed a possible issue were it might have been possible to remove items from players inventory because it was thought that you colonized somewhere.
+V0.6.5.2(private):
+    save compatible with v0.6.2+
+    changes:
+        started to change the following classes to have al there strings in the settings.json:
+            crewReplacer_Job
+    new:
+        added a class detected to handling string related things.
 V0.6.5.1(private):
     save compatible with v0.6.2+
     documentation: added the relevant jobs for TASC into the documentation.

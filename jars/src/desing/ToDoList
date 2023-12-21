@@ -24,19 +24,25 @@ improvements that must be made:
     create a class that handles strings. i can them simply call the calss name, and the 'line id' to get the string i want, then solve for the string from there.
 
     to do:
-        crewReplacer_Job(started)(currontly doing function named: getCargoSpaceRange)
-        crewReplacer_Main
-        crewReplacer_Crew
-        crewReplacer_CrewSet
-        crew_replacer_SalvageEntity
-        everything in the 'replacedScripts' folder.
+        crew_replacer_SalvageEntity_Base
+        CrewReplacer_SurveyPluginImpl_Base
         CrewReplacerMarketCMD
 
         find and replace all other strings i ever created.
     done(primary display texts):
+        crewReplacer_CrewSet
+        crewReplacer_Job
+        crewReplacer_Main
+        crew_replacer_SalvageEntity(NEED TO TEST THIS AND MAKE SURE THINGS ARE DISPLAYING RIGHT!!!)(partial testing complete. need to test ruins and losing units.)
 
     done(debug text):
+        crewReplacer_CrewSet
+        crewReplacer_Job
+        crewReplacer_Main
+        crew_replacer_SalvageEntity
 
+    no strings to replace:
+        crewReplacer_Crew
 
 issue found that needs to be fixed:
     1) the way i overwrite functions. i need to (when possable) find a way to use .super() in every one, for version combatability reasons.

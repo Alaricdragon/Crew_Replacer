@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.Random;
 
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.SalvageEntity;
+import data.scripts.CrewReplacer_Log;
+import data.scripts.CrewReplacer_StringHelper;
 import data.scripts.crewReplacer_Main;
 //import data.scripts.crew_replacer;
 import data.scripts.replacedScripts.crew_replacer_SalvageEntity_Base;
@@ -82,6 +84,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
  *
  */
 public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Base {//SalvageEntity {
+    protected static final String className = "crew_replacer_SalvageEntity";
     private static String JobName = "salvage_crew";//the name of the job in discription here
     private static String SecondJobName = "salvage_heavyMachinery";
     private static String ItemName = "crew";//every time i look for / remove or add this item, get crew_replacer.getPower(JobName);
@@ -221,7 +224,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
         DisplayLosses(crewLost,machineryLost,crewLosses,secondaryJobLosses,highlight);//this runs way i guess?
 
         options.clearOptions();
-        options.addOption("Continue", "salPerform");
+        options.addOption(CrewReplacer_StringHelper.getString(className,"checkAccidents",0), "salPerform");
         //FireBest.fire(null, dialog, memoryMap, "PerformSalvage");
         //FireBest.fire(null, dialog, memoryMap, "PerformSalvage");
     }
@@ -236,7 +239,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
         float machineryContrib = 0.75f;
         valueRecovery.modifyPercent("base", -100f);
         if (machineryContrib < 1f) {
-            valueRecovery.modifyPercent("base_positive", (int) Math.round(100f - 100f * machineryContrib), "Base effectiveness");
+            valueRecovery.modifyPercent("base_positive", (int) Math.round(100f - 100f * machineryContrib), CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",0));
         }
         //valueRecovery.modifyPercent("base", -75f);
 
@@ -262,11 +265,11 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
                 percent = (int) Math.round(val * 100f);
                 Color highlight = Misc.getHighlightColor();//DONE this is temp code, no idea what color this should be
                 //crewReplacer_Main.getJob(SecondJobName).displayCrewAvailable(playerFleet,text,highlight);
-                valueRecovery.modifyPercentAlways("" + i++, percent, Misc.ucFirst(spec.getLowerCaseName()) + " available");
+                valueRecovery.modifyPercentAlways("" + i++, percent,CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",1, Misc.ucFirst(spec.getLowerCaseName())));
             } else {
                 Color highlight = Misc.getHighlightColor();//DONE this is temp code, no idea what color this should be
                 //crewReplacer_Main.getJob(JobName).displayCrewAvailable(playerFleet,text,highlight);
-                valueRecovery.modifyMultAlways("" + i++, val, Misc.ucFirst(spec.getLowerCaseName()) + " available");//DONE?? displays crew available?
+                valueRecovery.modifyMultAlways("" + i++, val, CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",2,Misc.ucFirst(spec.getLowerCaseName())));//DONE?? displays crew available?
             }
 //			float val = Math.max(1f - available / required, 0f) * per;
 //			int percent = -1 * (int) Math.round(val * 100f);
@@ -288,11 +291,11 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
             }
         }
         if (!modified) {
-            valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(0f), "Salvaging skill");
+            valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(0f),CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",3));
         }
 
         float fleetSalvageShips = getPlayerShipsSalvageModUncapped();
-        valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(fleetSalvageShips * 100f), "Fleetwide salvaging capability");
+        valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(fleetSalvageShips * 100f),CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",4));
 
         return valueRecovery;
     }
@@ -310,9 +313,9 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
 
         Map<String, Integer> requiredRes = computeRequiredToSalvage(entity);
 
-        text.addParagraph("You receive a preliminary assessment of a potential salvage operation from the exploration crews.");
+        text.addParagraph(CrewReplacer_StringHelper.getString(className,"showCost",0));
 
-        ResourceCostPanelAPI cost = text.addCostPanel("Crew & machinery: required (available)", COST_HEIGHT,
+        ResourceCostPanelAPI cost = text.addCostPanel(CrewReplacer_StringHelper.getString(className,"showCost",1), COST_HEIGHT,
                 color, playerFaction.getDarkUIColor());
         cost.setNumberOnlyMode(true);
         cost.setWithBorder(false);
@@ -336,7 +339,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
                 curr = bad;
             }
             //text.addParagraph("        -3");
-            cost.addCost(commodityId, "" + required + " (" + available + ")", curr);
+            cost.addCost(commodityId,CrewReplacer_StringHelper.getString(className,"showCost",2,""+required,""+available), curr);
         }
         cost.update();
         //text.addParagraph("        -4");
@@ -346,7 +349,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
         //rareRecovery.unmodify();
         int valuePercent = (int)Math.round(valueRecovery.getModifiedValue() * 100f);
         if (valuePercent < 0) valuePercent = 0;
-        String valueString = "" + valuePercent + "%";
+        String valueString =CrewReplacer_StringHelper.getString(className,"showCost",3,""+valuePercent);
         Color valueColor = highlight;
 
         if (valuePercent < 100) {
@@ -355,7 +358,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
 
         TooltipMakerAPI info = text.beginTooltip();
         info.setParaSmallInsignia();
-        info.addPara("Resource recovery effectiveness: %s", 0f, valueColor, valueString);
+        info.addPara(CrewReplacer_StringHelper.getString(className,"showCost",4), 0f, valueColor, valueString);
         if (!valueRecovery.isUnmodified()) {
             info.addStatModGrid(300, 50, opad, small, valueRecovery, true, getModPrinter());
         }
@@ -379,7 +382,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
 
         //text.addParagraph("You receive a preliminary assessment of a potential salvage operation from the exploration crews.");
 
-        ResourceCostPanelAPI cost = text.addCostPanel("Crew & machinery: required (available)", COST_HEIGHT,
+        ResourceCostPanelAPI cost = text.addCostPanel(CrewReplacer_StringHelper.getString(className,"showCostDebrisField",0), COST_HEIGHT,
                 color, playerFaction.getDarkUIColor());
         cost.setNumberOnlyMode(true);
         cost.setWithBorder(false);
@@ -399,18 +402,18 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
             //if (required > cargo.getQuantity(CargoItemType.RESOURCES, commodityId)) {//notHERE replace get crew with available? again why dose it get it a second time?
                 curr = bad;
             }
-            cost.addCost(commodityId, "" + required + " (" + available + ")", curr);//DONE display crew power available
+            cost.addCost(commodityId,CrewReplacer_StringHelper.getString(className,"showCostDebrisField",1,""+required,""+available), curr);//DONE display crew power available
         }
         cost.update();
 
 
         MutableStat valueRecovery = getValueRecoveryStat(true);
         float overallMult = computeOverallMultForDebrisField();
-        valueRecovery.modifyMult("debris_mult", overallMult, "Debris field density");
+        valueRecovery.modifyMult("debris_mult", overallMult,CrewReplacer_StringHelper.getString(className,"showCostDebrisField",2));
         //rareRecovery.unmodify();
         int valuePercent = (int)Math.round(valueRecovery.getModifiedValue() * 100f);
         if (valuePercent < 0) valuePercent = 0;
-        String valueString = "" + valuePercent + "%";
+        String valueString =CrewReplacer_StringHelper.getString(className,"showCostDebrisField",3,""+valuePercent);
         Color valueColor = highlight;
 
         if (valuePercent < 100) {
@@ -419,7 +422,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
 
         TooltipMakerAPI info = text.beginTooltip();
         info.setParaSmallInsignia();
-        info.addPara("Scavenging effectiveness: %s", 0f, valueColor, valueString);
+        info.addPara(CrewReplacer_StringHelper.getString(className,"showCostDebrisField",4), 0f, valueColor, valueString);
         if (!valueRecovery.isUnmodified()) {
             info.addStatModGrid(300, 50, opad, small, valueRecovery, true, getModPrinter());
         }
@@ -436,7 +439,7 @@ public class crew_replacer_SalvageEntity extends crew_replacer_SalvageEntity_Bas
     //requerd
     private void DisplayLosses(int crewLost,int machineryLost,ArrayList<Float> crewLosses,ArrayList<Float> secondaryJobLosses,Color highlight){
         if(crewLost != 0 || machineryLost != 0) {
-            text.addParagraph("An accident during the operation has resulted in the loss of: ");
+            text.addParagraph(CrewReplacer_StringHelper.getString(className,"DisplayLosses",0));
         }
         //if(crewLost >= 0){
             //text.addParagraph("");

@@ -1,5 +1,5 @@
 V0.6.6:
-    not save compatible with any previous version.
+    save compatible with v0.6.2+
     changes:
         updated the following plugins to (hopefully) be easyer to keep up to date.
         please note: this might cause unknown issues. i did all i can to keep things stable, but crew replacer might have some growing pains for a bit.
@@ -7,6 +7,13 @@ V0.6.6:
         -salvage plugin
     fixed:
         fixed a possible issue were it might have been possible to remove items from players inventory because it was thought that you colonized somewhere.
+V0.6.5.3(private):
+    save compatible with v0.6.2+
+    moved all strings into the config for the following classes:
+        crewReplacer_CrewSet
+        crewReplacer_Job
+        crewReplacer_Main
+        crew_replacer_SalvageEntity
 V0.6.5.2(private):
     save compatible with v0.6.2+
     changes:

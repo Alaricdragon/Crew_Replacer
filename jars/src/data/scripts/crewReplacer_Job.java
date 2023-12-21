@@ -603,13 +603,13 @@ public class crewReplacer_Job {
         return output;
     }
     public float[] getCargoSpaceRange(CargoAPI cargo,float power,boolean includeDefence,String cargoType){
-        CrewReplacer_Log.loging(getIntoJobLog(cargo) + "running get Cargo Space Range with includeDefence as " + includeDefence,this);
+        CrewReplacer_Log.loging(getIntoJobLog(cargo) + CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",0,includeDefence),this);
         CrewReplacer_Log.push();
         float[] output = new float[2];
         //ArrayList<Float> CrewUsed = this.getAvailableCrew(CargoAPI cargo);
         //this.crewPriority;//NOTE: first crew i use is prioity 0. then it goes up from there.
         for(ArrayList<Integer> priority : this.crewPriority){
-            CrewReplacer_Log.loging("getting crew powers and spaces from a priority...",this);
+            CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",1),this);
             CrewReplacer_Log.push();
             ArrayList<Float> cargoSpacesPerPower = new ArrayList<Float>();//cargo space per power.
             //ArrayList<Float> powers = new ArrayList<Float>();
@@ -627,7 +627,7 @@ public class crewReplacer_Job {
             for(int ID : priority){
                 crewReplacer_Crew Crew = this.Crews.get(ID);
                 try {
-                    CrewReplacer_Log.loging("getting power and cargo for crew named " + Crew.name,this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",2,Crew.name),this);
                     float tempa = 0;
                     float tempc = 0;
                     float tempd;
@@ -657,7 +657,7 @@ public class crewReplacer_Job {
                             }
                             break;
                     }//power / cargo
-                    CrewReplacer_Log.loging("getting a base cargo space of: " +tempa,this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",3,""+tempa),this);
                     if(includeDefence){
                         float tempDefence = Crew.getCrewDefence(cargo) / Crew.getCrewPower(cargo);
                         float tempbT =  tempa / tempDefence;
@@ -666,14 +666,14 @@ public class crewReplacer_Job {
                         tempc = tempcT;//Math.min(tempc,tempcT);
                         tempc /= Crew.getCrewPower(cargo);//10p,5d,2c. 5 / 10 = 0.5.   tempc = 2 / 0.5 = 4. 4 / 10 = 0.4
                     }
-                    CrewReplacer_Log.loging("getting a final cargo space of: "+tempa,this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",4,""+tempa),this);
                     float tempb = Crew.getCrewPowerInCargo(cargo);
                     powerTemp+= tempb;
                     cargoTemp+= tempa;
                     cargoSpacesPerPower.add(tempc);
-                    CrewReplacer_Log.loging("got total in cargo item power and in cargo item cargo use as " + tempb + ", " + tempa,this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",5,""+tempb,""+tempa),this);
                 }catch (Exception e){
-                    CrewReplacer_Log.loging("failed to get power and cargo use for crew named " + this.Crews.get(ID).name + ". setting power and cargo to zero for this crew.",this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",6,this.Crews.get(ID).name),this);
                     //powers.add(0f);
                     cargoSpacesPerPower.add(0f);
                 }
@@ -696,11 +696,11 @@ public class crewReplacer_Job {
                     int id = (int)(float)sortedID.get(a);
                     float crewPowerTemp = Crews.get(id).getCrewPowerInCargo(cargo);
                     if(crewPowerTemp > powerTemp){
-                        CrewReplacer_Log.loging("running secondary system with values of: "+crewPowerTemp+","+powerTemp,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",7,""+crewPowerTemp,""+powerTemp),this);
                         float tempa=0;
                         float tempb = powerTemp / crewPowerTemp;//500 req pow / 750 have power = 0.75
                         float tempc = Math.round(0.499+(Crews.get(id).getCrewInCargo(cargo) * tempb));
-                        CrewReplacer_Log.loging("cargo space used, crew % used, crew used,   "+tempa+", "+tempb+", "+tempc,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",8,""+tempa,""+tempb,""+tempc),this);
                         switch (cargoType) {
                             case CARGO_CARGO:
                                 tempa = Crews.get(id).getCargoSpaceUse(cargo,tempc);
@@ -712,17 +712,17 @@ public class crewReplacer_Job {
                                 tempa = Crews.get(id).getCrewSpaceUse(cargo,tempc);
                                 break;
                         }
-                        CrewReplacer_Log.loging("cargo space used, crew % used, crew used,   "+tempa+", "+tempb+", "+tempc,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",9,""+tempa,""+tempb,""+tempc),this);
                         if(includeDefence){
                             float tempbT =  tempa / (Crews.get(id).getCrewDefence(cargo) / Crews.get(id).getCrewPower(cargo));
                             tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
                         }
-                        CrewReplacer_Log.loging("cargo space used, crew % used, crew used,   "+tempa+", "+tempb+", "+tempc,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",10,""+tempa,""+tempb,""+tempc),this);
                         cargoTemp += tempa;
                         break;
                     }
                     float[] temps = {Crews.get(id).getCrewPowerInCargo(cargo),Crews.get(id).getCargoSpaceUse(cargo)};
-                    CrewReplacer_Log.loging("power gained, cargo gained: "+temps[0]+", "+temps[1],this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",11,""+temps[0],""+temps[1]),this);
                     powerTemp -= temps[0];
                     cargoTemp += temps[1];
                 }
@@ -734,11 +734,11 @@ public class crewReplacer_Job {
                     int id = (int)(float)sortedID.get(a);
                     float crewPowerTemp = Crews.get(id).getCrewPowerInCargo(cargo);
                     if(crewPowerTemp > powerTemp){
-                        CrewReplacer_Log.loging("running secondary system with values of: "+crewPowerTemp+","+powerTemp,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",12,""+crewPowerTemp,""+powerTemp),this);
                         float tempa=0;
                         float tempb = powerTemp / crewPowerTemp;//500 req pow / 750 have power = 0.75
                         float tempc = Math.round(0.499+(Crews.get(id).getCrewInCargo(cargo) * tempb));
-                        CrewReplacer_Log.loging("cargo space used, crew % used, crew used,   "+tempa+", "+tempb+", "+tempc,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",13,""+tempa,""+tempb,""+tempc),this);
                         switch (cargoType) {
                             case CARGO_CARGO:
                                 tempa = Crews.get(id).getCargoSpaceUse(cargo,tempc);
@@ -750,25 +750,25 @@ public class crewReplacer_Job {
                                 tempa = Crews.get(id).getCrewSpaceUse(cargo,tempc);
                                 break;
                         }
-                        CrewReplacer_Log.loging("cargo space used, crew % used, crew used,   "+tempa+", "+tempb+", "+tempc,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",14,""+tempa,""+tempb,""+tempc),this);
                         if(includeDefence){
                             float tempbT =  tempa / (Crews.get(id).getCrewDefence(cargo) / Crews.get(id).getCrewPower(cargo));
                             tempa = Math.min(tempa,tempbT);//this exsists to prevent crew with a defence less then 1, from increaseing the apparent amount of cargo that the crew is useing past how mush is in the cargo at all.
                         }
-                        CrewReplacer_Log.loging("cargo space used, crew % used, crew used,   "+tempa+", "+tempb+", "+tempc,this);
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",15,""+tempa,""+tempb,""+tempc),this);
                         cargoTemp += tempa;
                         break;
                     }
                     float[] temps = {Crews.get(id).getCrewPowerInCargo(cargo),Crews.get(id).getCargoSpaceUse(cargo)};
-                    CrewReplacer_Log.loging("power gained, cargo gained: "+temps[0]+", "+temps[1],this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",16,""+temps[0],""+temps[1]),this);
                     powerTemp -= temps[0];
                     cargoTemp += temps[1];
                 }
                 output[1] += cargoTemp;
-                CrewReplacer_Log.loging("CARGO TEMP: "+cargoTemp,this,true);
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",17,true,""+cargoTemp),this,true);
                 CrewReplacer_Log.pop();
                 CrewReplacer_Log.pop();
-                CrewReplacer_Log.loging("returnin output as: {"+output[0]+","+output[1]+"}",this);
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",18,""+output[0],""+output[1]),this);
                 return output;
             }
             output[0] += cargoTemp;
@@ -777,7 +777,7 @@ public class crewReplacer_Job {
             CrewReplacer_Log.pop();
             if(power <= 0){
                 CrewReplacer_Log.pop();
-                CrewReplacer_Log.loging("returnin output as: {"+output[0]+","+output[1]+"}",this);
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCargoSpaceRange",19,""+output[0],""+output[1]),this);
                 return output;
             }
         }
@@ -786,7 +786,7 @@ public class crewReplacer_Job {
     }
 
     private ArrayList<Float> getRandomNumberList(ArrayList<Float> maxCrew,ArrayList<Float> power,float input){
-        CrewReplacer_Log.loging(getIntoJobLog() + "getting random number list...",this);
+        CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"getRandomNumberList",0),this);
         CrewReplacer_Log.push();
         //edited, inproved, and tested. only returns hole numbers now. still in flpat formthough cause im lazzy.
 
@@ -891,20 +891,13 @@ public class crewReplacer_Job {
     }
 
     private String getIntoJobLog(){
-        return "in job named '" + name + "' ";
-    }
-    private String getIntoJobLog(CampaignFleetAPI fleet){
-        try {
-            return getIntoJobLog() + "in fleet named '" + fleet.getName() + "' ";
-        }catch (Exception e){
-            return getIntoJobLog() + "in fleet named " + "'ERROR!!!'" + " ";
-        }
+        return CrewReplacer_StringHelper.getLogString(className,"getIntoJobLog",0,name);
     }
     private String getIntoJobLog(CargoAPI cargo){
         try {
-            return getIntoJobLog() + "in fleet named '" + cargo.getFleetData().getFleet().getName() + "' ";
+            return getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"getIntoJobLog",1,cargo.getFleetData().getFleet().getName());
         }catch (Exception e){
-            return getIntoJobLog() + "in fleet named " + "'ERROR!!!'" + " ";
+            return getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"getIntoJobLog",2);
         }
     }
 

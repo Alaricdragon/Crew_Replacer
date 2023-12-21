@@ -26,6 +26,24 @@
 	#strings that are displayed to the player
 	"crewReplacerString_crewReplacer_Job_displayCrewLost_3": ", ",#this represnets a comma that i forgot the reason i need, but its important???
 
+	"crewReplacerString_crew_replacer_SalvageEntity_checkAccidents_0": "Continue",
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_0": "Base effectiveness",
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_1": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_2": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_3": "Salvaging skill",
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_4": "Fleetwide salvaging capability",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_0": "You receive a preliminary assessment of a potential salvage operation from the exploration crews.",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_1": "Crew & machinery: required (available)",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_2": "%s (%s)",#required,availble
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_3": "%s%",#valuepercent
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_4": "Resource recovery effectiveness: %s",#,crewReplacerString_crew_replacer_SalvageEntity_showCost_3
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_0": "Crew & machinery: required (available)",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_1": "%s (%s)",#required,available
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_2": "Debris field density",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_3": "%s%",#valuePercent
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_4": "Scavenging effectiveness: %s",#,crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_3
+	"crewReplacerString_crew_replacer_SalvageEntity_DisplayLosses_0": "An accident during the operation has resulted in the loss of: ",
+
 	#strings for debug lines.
 	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_0": "running applyExtraDataToCrew",
 	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_1": "running applyExtraDataToCrew",
@@ -126,6 +144,54 @@
 	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_17": "CARGO TEMP: %s",#cargoTemp
 	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_18": "returnin output as: {%s,%s}",#max,min
 	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_19": "returnin output as: {%s,%s}",#max,min
-	#"crewReplacerString_crewReplacer_Job__": "",
+	"crewReplacerString_crewReplacer_Job_getRandomNumberList_0": "getting random number list...",
+	"crewReplacerString_crewReplacer_Job_getIntoJobLog_0": "in job named '%s' ",#jobID
+	"crewReplacerString_crewReplacer_Job_getIntoJobLog_1": "in fleet named '%s'",#cargos.fleet.name
+	"crewReplacerString_crewReplacer_Job_getIntoJobLog_2": "in fleet named 'ERROR!!!'",
+
+	"crewReplacerString_crewReplacer_Main_getJob_0": "getJob found matching job name. getting job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_getJob_1": "getJob job not formed yet. creating new job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_removeJob_0": "removeJob successfully. removing job %s",#job.name
+	"crewReplacerString_crewReplacer_Main_removeJob_1": "remove job failed. no job name: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeJob_0": "addOrMergeJob didnt find any job by the name: %s. creating new job.",#job.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeJob_1": "addOrMergeJob found a matching job named: %s. moveing data to new class...",#job.name
+	"crewReplacerString_crewReplacer_Main_organizePriority_0": "organizing Priority...",
+	"crewReplacerString_crewReplacer_Main_organizePriority_1": "adding crews from relevant jobSets to job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_organizePriority_2": "organizing job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_getCrewSet_0": "getCrewSet found matching crewSet name. getting crewSet named: %s",#crewSet.name
+	"crewReplacerString_crewReplacer_Main_getCrewSet_1": "getCrewSet crewSet not formed yet. creating new crewSet named: %s",#crewSet.name
+	"crewReplacerString_crewReplacer_Main_removeCrewSet_0": "remove CrewSet sucsesfull. removeing crewSet %s",#crewset.name
+	"crewReplacerString_crewReplacer_Main_removeCrewSet_1": "remove crewSet failed. no crewSet name: %s",#crewset.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeCrewSet_0": "addOrMergeCrewSet didnt find any crewSet by the name: %s. creating new crewSet.",#crewset.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeCrewSet_1": "addOrMergeCrewSet found a matching crewSet named: %s. moveing data to new class...",#crewset.name
+
+	"crewReplacerString_crewReplacer_CrewSet_hasCrew_0": "running hasCrew",
+	"crewReplacerString_crewReplacer_CrewSet_hasCrew_1": "found crew with name: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_hasCrew_2": "no crew found with the name: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getCrew_0": "running getCrew",
+	"crewReplacerString_crewReplacer_CrewSet_getCrew_1": "crew found. returning crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getCrew_2": "crew not found. creating a new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrew_0": "running RemoveCrew",
+	"crewReplacerString_crewReplacer_CrewSet_removeCrew_1": "crew found. removing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrew_2": "no crew found. cannot remove crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addCrew_0": "running Add Crew",
+	"crewReplacerString_crewReplacer_CrewSet_addCrew_1": "crew found. merging crews named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addCrew_2": "crew not found. creating new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addNewCrew_0": "trying to add new crew named: %s wtih a power & priority of: %s & %s",#crew.name,crew.power,crew.priority
+	"crewReplacerString_crewReplacer_CrewSet_addNewCrew_1": "crew found. preparing merge for crew new named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addNewCrew_2": "no crew found. adding crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_mergeCrew_0": "running Merge Crew... setting stats to name: %s, power: %s, defence: %s, priority: %s",#crew.name,crew.power,crew.defence,crew.priority
+	"crewReplacerString_crewReplacer_CrewSet_addCrewSet_0": "running addCrewSet",
+	"crewReplacerString_crewReplacer_CrewSet_addCrewSet_1": "CrewSet '%s' already in CrewSets. cannot add the same crew set twice",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_addCrewSet_2": "adding CrewSet '%s' to CrewSets",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrewSet_0": "running removeCrewSet",
+	"crewReplacerString_crewReplacer_CrewSet_removeCrewSet_1": "CrewSet '%s' found in jobSets. removing.",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrewSet_2": "failed to find a CrewSet named '%s' in CrewSets.",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_0": "running getAllLinedCrews",
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_1": "adding crew to output named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_2": "adding crew sets crew to output named: %s",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_3": "adding crew to output named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getIntoCrewSetLog_0": "in crewSet named '%s' ",#crewSet.name,
+
 }
 

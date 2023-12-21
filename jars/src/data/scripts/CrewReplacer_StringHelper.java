@@ -2,12 +2,16 @@ package data.scripts;
 
 import com.fs.starfarer.api.Global;
 
+import java.util.Arrays;
+
 public class CrewReplacer_StringHelper {
     public static String modString = "crewReplacerString";
     public static String getString(String className, String function, int lineID){
         try {
+            CrewReplacer_Log.loging("got string at: "+modString + "_" + className + "_" + function + "_" + lineID ,new CrewReplacer_StringHelper(),true);
             return Global.getSettings().getString(modString + "_" + className + "_" + function + "_" + lineID);
         }catch (Exception e){
+            CrewReplacer_Log.loging("failed to get string of ID: "+modString + "_" + className + "_" + function + "_" + lineID ,new CrewReplacer_StringHelper(),true);
             return "";
         }
     }
@@ -35,10 +39,15 @@ public class CrewReplacer_StringHelper {
     protected static String getSplitString(String primary,String[] secondary){
         StringBuilder output = new StringBuilder();
         String[] a = primary.split("%s");
-        for (int b = 0; b < a.length - 1; b++){
-            output.append(a[b]).append(secondary[b]);
+        try {
+            for (int b = 0; b < a.length - 1; b++) {
+                output.append(a[b]).append(secondary[b]);
+            }
+            output.append(a[a.length - 1]);
+        }catch (Exception e){
+            CrewReplacer_Log.loging("failed to get split string: "+primary+" , "+ Arrays.toString(secondary),new CrewReplacer_StringHelper(),true);
+            return "";
         }
-        output.append(a[a.length - 1]);
         return output.toString();
     }
 }

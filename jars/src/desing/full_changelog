@@ -7,6 +7,12 @@ V0.6.6:
         -salvage plugin
     fixed:
         fixed a possible issue were it might have been possible to remove items from players inventory because it was thought that you colonized somewhere.
+V0.6.5.4(private):
+    save compatible with v0.6.2+
+    moved all strings into the config for the following classes(not tested):
+        CrewReplacer_SurveyPluginImpl_Base
+        crew_replacer_SalvageEntity_Base
+        CrewReplacerMarketCMD
 V0.6.5.3(private):
     save compatible with v0.6.2+
     moved all strings into the config for the following classes:

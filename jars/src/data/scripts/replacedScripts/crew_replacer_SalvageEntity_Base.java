@@ -23,6 +23,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.CrewReplacer_StringHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 import java.awt.Color;
@@ -54,7 +55,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
  *
  */
 public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//SalvageEntity
-
+    protected static final String className = "crew_replacer_SalvageEntity_Base";
     public static float SALVAGE_DETECTION_MOD_FLAT = 1000;
 
     public static int FIELD_RADIUS_FOR_BASE_REQ = 200;
@@ -258,16 +259,16 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
 
 
         text.setFontInsignia();
-        text.addParagraph("An accident during the operation has resulted in the loss of ");
+        text.addParagraph(CrewReplacer_StringHelper.getString(className,"checkAccidents",0));
 
         if (crewLost <= 0) {
-            text.appendToLastParagraph("" + machineryLost + " heavy machinery.");
+            text.appendToLastParagraph(CrewReplacer_StringHelper.getString(className,"checkAccidents",1,"" + machineryLost));
             text.highlightInLastPara(highlight, "" + machineryLost);
         } else if (machineryLost <= 0) {
-            text.appendToLastParagraph("" + crewLost + " crew.");
+            text.appendToLastParagraph(CrewReplacer_StringHelper.getString(className,"checkAccidents",2,""+crewLost));
             text.highlightInLastPara(highlight, "" + crewLost);
         } else {
-            text.appendToLastParagraph("" + crewLost + " crew and " + machineryLost + " heavy machinery.");
+            text.appendToLastParagraph(CrewReplacer_StringHelper.getString(className,"checkAccidents",3,""+crewLost,""+machineryLost));
             text.highlightInLastPara(highlight, "" + crewLost, "" + machineryLost);
         }
 
@@ -275,7 +276,7 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
         Global.getSoundPlayer().playSound("hit_solid", 1, 1, Global.getSoundPlayer().getListenerPos(), new Vector2f());
 
         options.clearOptions();
-        options.addOption("Continue", "salPerform");
+        options.addOption(CrewReplacer_StringHelper.getString(className,"checkAccidents",4), "salPerform");
         //FireBest.fire(null, dialog, memoryMap, "PerformSalvage");
         //FireBest.fire(null, dialog, memoryMap, "PerformSalvage");
     }
@@ -285,10 +286,10 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
 
         float daysLeft = debris.getDaysLeft();
         if (daysLeft >= 1000) {
-            text.addParagraph("The field appears stable and will not drift apart any time soon.");
+            text.addParagraph(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",0));
         } else {
             String atLeastTime = Misc.getAtLeastStringForDays((int) daysLeft);
-            text.addParagraph("The field is unstable, but should not drift apart for " + atLeastTime + ".");
+            text.addParagraph(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",1,""+atLeastTime));
         }
 
 //		boolean stillHot = debris.getGlowDaysLeft() > 0;
@@ -333,27 +334,24 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
 //		}
 
         if (lootValue < 500) {
-            text.appendToLastParagraph(" Long-range scans indicate it's unlikely anything of much value would be found inside.");
-            text.highlightLastInLastPara("unlikely", Misc.getNegativeHighlightColor());
+            text.appendToLastParagraph(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",2));
+            text.highlightLastInLastPara(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",3), Misc.getNegativeHighlightColor());
         } else if (lootValue < 2500) {
-            text.appendToLastParagraph(" Long-range scans indicate it's possible something of value could be found inside.");
-            text.highlightLastInLastPara("possible", Misc.getHighlightColor());
+            text.appendToLastParagraph(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",4));
+            text.highlightLastInLastPara(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",5), Misc.getHighlightColor());
         } else {
-            text.appendToLastParagraph(" Long-range scans indicate it's likely something of value could be found inside.");
-            text.highlightLastInLastPara("likely", Misc.getPositiveHighlightColor());
+            text.appendToLastParagraph(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",6));
+            text.highlightLastInLastPara(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",7), Misc.getPositiveHighlightColor());
         }
 
         float accidentProbability = getAccidentProbability();
         if (accidentProbability <= 0.2f) {
             //text.addParagraph("There are indications of some easy pickings to be had, and the risk of an accident during a salvage operation is low.");
-            text.addPara("There are indications of some easy pickings to be had, and the risk of an accident during a salvage operation is low.",
-                    Misc.getPositiveHighlightColor(), "low");
+            text.addPara(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",8), Misc.getPositiveHighlightColor(),CrewReplacer_StringHelper.getString(className,"showDebrisDescription",9));
         } else if (accidentProbability < 0.7f) {
-            text.addPara("There are indications that what salvage is to be had may not be easy to get to, " +
-                    "and there's %s risk involved in running a salvage operation.", Misc.getHighlightColor(), "significant");
+            text.addPara(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",10), Misc.getHighlightColor(),CrewReplacer_StringHelper.getString(className,"showDebrisDescription",11));
         } else {
-            text.addPara("The salvage that remains is extremely difficult to get to, " +
-                    "and there's %s risk involved in running a salvage operation.", Misc.getNegativeHighlightColor(), "high");
+            text.addPara(CrewReplacer_StringHelper.getString(className,"showDebrisDescription",12), Misc.getNegativeHighlightColor(),CrewReplacer_StringHelper.getString(className,"showDebrisDescription",13));
         }
     }
 
@@ -390,7 +388,7 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
         float machineryContrib = 0.75f;
         valueRecovery.modifyPercent("base", -100f);
         if (machineryContrib < 1f) {
-            valueRecovery.modifyPercent("base_positive", (int) Math.round(100f - 100f * machineryContrib), "Base effectiveness");
+            valueRecovery.modifyPercent("base_positive", (int) Math.round(100f - 100f * machineryContrib),CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",0));
         }
         //valueRecovery.modifyPercent("base", -75f);
 
@@ -408,9 +406,9 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
             if (Commodities.HEAVY_MACHINERY.equals(commodityId)) {
                 val = Math.min(available / required, machineryContrib) * per;
                 percent = (int) Math.round(val * 100f);
-                valueRecovery.modifyPercentAlways("" + i++, percent, Misc.ucFirst(spec.getLowerCaseName()) + " available");
+                valueRecovery.modifyPercentAlways("" + i++, percent,CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",1,Misc.ucFirst(spec.getLowerCaseName())));
             } else {
-                valueRecovery.modifyMultAlways("" + i++, val, Misc.ucFirst(spec.getLowerCaseName()) + " available");
+                valueRecovery.modifyMultAlways("" + i++, val,CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",2,Misc.ucFirst(spec.getLowerCaseName())));
             }
 //			float val = Math.max(1f - available / required, 0f) * per;
 //			int percent = -1 * (int) Math.round(val * 100f);
@@ -432,11 +430,11 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
             }
         }
         if (!modified) {
-            valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(0f), "Salvaging skill");
+            valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(0f),CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",3));
         }
 
         float fleetSalvageShips = getPlayerShipsSalvageModUncapped();
-        valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(fleetSalvageShips * 100f), "Fleetwide salvaging capability");
+        valueRecovery.modifyPercentAlways("" + i++, (int) Math.round(fleetSalvageShips * 100f),CrewReplacer_StringHelper.getString(className,"getValueRecoveryStat",4));
 
         return valueRecovery;
     }
@@ -449,7 +447,7 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
 //		}
 //		return rareRecovery;
 //	}
-
+    //OVERDIDEN!! NO NEED TO REPLACE STRINGS
     public void showCost() {
         Color color = playerFaction.getColor();
         Color bad = Misc.getNegativeHighlightColor();
@@ -513,8 +511,8 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
                 // should make it not shown; it's a "base" value that has to be applied to make the calculations work with multipliers
                 if (mod.desc == null || mod.desc.isEmpty()) return "";
 
-                String prefix = mod.getValue() >= 0 ? "+" : "";
-                return prefix + (int)(mod.getValue()) + "%";
+                String prefix = mod.getValue() >= 0 ? CrewReplacer_StringHelper.getString(className,"getModPrinter",0) : CrewReplacer_StringHelper.getString(className,"getModPrinter",1);
+                return CrewReplacer_StringHelper.getString(className,"getModPrinter",2,prefix + (int)(mod.getValue()));
             }
             public String getMultValue(MutableStat.StatMod mod) {percent = false; return null;}
             public String getFlatValue(MutableStat.StatMod mod) {percent = false; return null;}
@@ -528,31 +526,30 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
     protected void printSalvageModifiers() {
 
         float fuelMult = playerFleet.getStats().getDynamic().getValue(Stats.FUEL_SALVAGE_VALUE_MULT_FLEET);
-        String fuelStr = "" + (int)Math.round((fuelMult - 1f) * 100f) + "%";
+        String fuelStr = CrewReplacer_StringHelper.getString(className,"printSalvageModifiers",0,"" + (int)Math.round((fuelMult - 1f) * 100f));
 
         float rareMult = playerFleet.getStats().getDynamic().getValue(Stats.SALVAGE_VALUE_MULT_FLEET_INCLUDES_RARE);
-        String rareStr = "" + (int)Math.round((rareMult - 1f) * 100f) + "%";
+        String rareStr = CrewReplacer_StringHelper.getString(className,"printSalvageModifiers",1,"" + (int)Math.round((rareMult - 1f) * 100f));
 
         if (fuelMult > 1f && rareMult > 1f) {
-            text.addPara("Your fleet also has a %s bonus to the amount of fuel recovered, and " +
-                            "a %s bonus to the number of rare items found.",
+            text.addPara(CrewReplacer_StringHelper.getString(className,"printSalvageModifiers",2),
                     Misc.getHighlightColor(), fuelStr, rareStr);
         } else if (fuelMult > 1) {
-            text.addPara("Your fleet also has a %s bonus to the amount of fuel recovered.",
+            text.addPara(CrewReplacer_StringHelper.getString(className,"printSalvageModifiers",3),
                     Misc.getHighlightColor(), fuelStr);
         } else if (rareMult > 1) {
-            text.addPara("Your fleet also has a %s bonus to the number of rare items found.",
+            text.addPara(CrewReplacer_StringHelper.getString(className,"printSalvageModifiers",4),
                     Misc.getHighlightColor(), rareStr);
         }
 
         if (debris != null) {
-            text.addParagraph("The density of the debris field affects both the amount of resources and the number of rare items found.");
+            text.addParagraph(CrewReplacer_StringHelper.getString(className,"printSalvageModifiers",5));
         } else {
-            text.addPara("The recovery effectiveness does not affect the chance of finding rare and valuable items.");
+            text.addPara(CrewReplacer_StringHelper.getString(className,"printSalvageModifiers",6));
         }
 
     }
-
+    //OVERWRITTEN. I don't need to replace this text.
     public void showCostDebrisField() {
         Color color = playerFaction.getColor();
         Color bad = Misc.getNegativeHighlightColor();
@@ -702,7 +699,7 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
 
         //if (loot)
         if (!salvage.isEmpty()) {
-            dialog.getVisualPanel().showLoot("Salvaged", salvage, false, true, true, new CoreInteractionListener() {
+            dialog.getVisualPanel().showLoot(CrewReplacer_StringHelper.getString(className,"performSalvage",0), salvage, false, true, true, new CoreInteractionListener() {
                 public void coreUIDismissed() {
                     long xp = 0;
                     if (entity.hasSalvageXP()) {
@@ -734,9 +731,9 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
             options.clearOptions();
             dialog.setPromptText("");
         } else {
-            text.addParagraph("Operations conclude with nothing of value found.");
+            text.addParagraph(CrewReplacer_StringHelper.getString(className,"performSalvage",1));
             options.clearOptions();
-            String leave = "Leave";
+            String leave = CrewReplacer_StringHelper.getString(className,"performSalvage",2);
             if (memory.contains("$salvageLeaveText")) {
                 leave = memory.getString("$salvageLeaveText");
             }
@@ -757,8 +754,8 @@ public class crew_replacer_SalvageEntity_Base extends BaseCommandPlugin {//Salva
         }
 
         if (playerFleet != null) {
-            playerFleet.getStats().addTemporaryModFlat(0.25f, "salvage_ops",
-                    "Recent salvage operation", SALVAGE_DETECTION_MOD_FLAT,
+            playerFleet.getStats().addTemporaryModFlat(0.25f, "salvage_ops",CrewReplacer_StringHelper.getString(className,"performSalvage",3)
+                    , SALVAGE_DETECTION_MOD_FLAT,
                     playerFleet.getStats().getDetectedRangeMod());
             Global.getSector().addPing(playerFleet, "noticed_player");
         }

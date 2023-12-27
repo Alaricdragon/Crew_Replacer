@@ -7,7 +7,7 @@
 		"data.scripts.starfarer.api.impl.campaign.rulemd"
 	],
 	#for the genral function of crew replacer. errors are displayed regardless.
-	"crewReplacerDisplayLogs": true,
+	"crewReplacerDisplayLogs": false,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
 	"crewReplacerDisplayRaidLogs": false,
 
@@ -44,6 +44,119 @@
 	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_4": "Scavenging effectiveness: %s",#,crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_3
 	"crewReplacerString_crew_replacer_SalvageEntity_DisplayLosses_0": "An accident during the operation has resulted in the loss of: ",
 
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_0": "An accident during the operation has resulted in the loss of ",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_1": "%s heavy machinery.",#matchneneryLost
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_2": "%s crew.",#crewLost
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_3": "%s crew and %s heavy machinery.",#crewLost, machineryLost
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_4": "Continue",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_0": "The field appears stable and will not drift apart any time soon.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_1": "The field is unstable, but should not drift apart for %s",#atLeastTime
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_2": " Long-range scans indicate it's unlikely anything of much value would be found inside.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_3": "unlikely",#highlight for 2
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_4": " Long-range scans indicate it's possible something of value could be found inside.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_5": "possible",#highlight for 4
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_6": " Long-range scans indicate it's likely something of value could be found inside.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_7": "likely",#highlight for 6
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_8": "There are indications of some easy pickings to be had, and the risk of an accident during a salvage operation is low.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_9": "low",#highlight for 8,
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_10": "There are indications that what salvage is to be had may not be easy to get to, and there's %s risk involved in running a salvage operation.",#crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_11
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_11": "significant",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_12": "The salvage that remains is extremely difficult to get to, and there's %s risk involved in running a salvage operation.",#crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_13
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_13": "high",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_0": "Base effectiveness",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_1": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_2": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_3": "Salvaging skill",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_4": "Fleetwide salvaging capability",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getModPrinter_0": "+",#more mods to print, print this after this mod???? what even is this function??
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getModPrinter_1": "",#lost mod in list, add this????
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getModPrinter_2": "%s%",#prefix + (int)(mod.getValue())   #add at the end of the mod list????
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_0": "%s%",#,FUEL_SALVAGE_VALUE_MULT_FLEET
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_1": "%s%",#SALVAGE_VALUE_MULT_FLEET_INCLUDES_RARE
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_2": "Your fleet also has a %s bonus to the amount of fuel recovered, and a %s bonus to the number of rare items found.",#,fuel gain text,rare salvage gain text
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_3": "Your fleet also has a %s bonus to the amount of fuel recovered.",#fuel gain text
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_4": "Your fleet also has a %s bonus to the number of rare items found.",#rare salvage gain text
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_5": "The density of the debris field affects both the amount of resources and the number of rare items found.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_6": "The recovery effectiveness does not affect the chance of finding rare and valuable items.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_0": "Salvaged",#i hope this was something i was suppose to beable to change lol
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_1": "Operations conclude with nothing of value found.",#this to
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_2": "Leave",#and this.
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_3": "Recent salvage operation",#also this.
+
+	"crewReplacerString_CrewReplacer_SurveyPluginImpl_Base_init_0" : "Hazard rating",
+	"crewReplacerString_CrewReplacer_SurveyPluginImpl_Base_init_1" : "Planet size",
+
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_0" : "Ground troops on board",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_1" : "Fleet capability for ground support",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_2" : "Expected resistance",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_3" : "Increased defender preparedness",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_4" : "getting attacker and defender str as: %s, %s",#attackerSte,defenderStr
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_5" : "%s is  not currently hostile. Your fleet's transponder is on, and carrying out a raid will result in open hostilities.",#faction name and data
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_6" : "%s is  not currently hostile. Your fleet's transponder is off, and carrying out a raid will only result in a minor penalty to your standing.",#faction name and data
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_7" : "Raid strength: %s",#raid strangth
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_8" : "Operation difficulty: %s",#raid defnece
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_9" : "Projected raid effectiveness: %s",#how good ye are
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_10" : "You do not have the forces to carry out an effective raid.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_11" : "Designate raid objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_12" : "Go back",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_0" : "Ground troops on board",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_1" : "Fleet capability for ground support",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_2" : "Increased defender preparedness",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_3" : "%s is not currently hostile. Your fleet's transponder is on, and carrying out a raid will result in open hostilities.",#,faction.getDisplayNameWithArticle()
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_4" : "%s is not currently hostile. Your fleet's transponder is off, and carrying out a raid will only result in a minor penalty to your standing.",#Misc.ucFirst(faction.getDisplayNameWithArticle())
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_5" : "Raid strength: %s",#raid strangth
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_6" : "Ground defense strength: %s",#defence strangth
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_7" : "Projected raid effectiveness: %s",#raid effectiveness
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_8" : "%s%",#,temp.raidMult
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_9" : "The ground defenses are too strong for your forces to be able to cause long-term disruption.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_10" : "You do not have the forces to carry out an effective raid to acquire valuables or achieve other objectives.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_11" : "Try to acquire valuables, such as commodities or blueprints, or achieve other objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_12" : "Disrupt the operations of a specific industry or facility",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_13" : "%s%",#distruption threshold
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_14" : "Requires at least %s raid effectiveness.",#pct
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_15" : "Go back",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_0" : "After careful consideration, there do not appear to be any targets likely to yield anything of value.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_1" : "Select raid objectives",#might cause a issue
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_2" : "Select",#might cause a issue
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_3" : "objective",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_4" : "objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_5" : "Your marine commander submits a plan for your approval. Losses during this operation are projected to be %s. There is a effective strength of %s ground troop power available in your fleet",#projected losses,effectove ground troop ability
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_6" : "your total available ground combat force is consisted of: ",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_7" : "%s targeted: %s.",#,Misc.ucFirst(item),list
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_8" : "The estimated value of the items obtained is projected to be around %s.",#,value of resoses gained
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_9" : "The combat force are ready to go, awaiting your final confirmation.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_10" : "%s%",#(int)(temptemp.raidMult * 100f)
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_0" : "There are no industries or facilities present that could be disrupted by a raid.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_1" : "Select raid objectives",#might cause issues
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_2" : "Select",#might cause issues
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_3" : "objective",
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_4" : "objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_5" : "Your marine commander submits a plan for your approval. Losses during this operation are projected to be %s.",#projected losses
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_6" : "%s targeted: %s.",#Misc.ucFirst(item),list
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_7" : "The estimated value of the items obtained is projected to be around %s.",#value of items gained estamate
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_8" : "The combat force are ready to go, awaiting your final confirmation. There are a total of %s ground troop power in your fleet.",#amount of ground troops you have
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_9" : "%s%",#,(int)(temptemp.raidMult * 100f)
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_0" : "Danger level of objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_1" : "Colony hazard rating",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_2" : "High raid effectiveness",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_3" : "Low raid effectiveness",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_4" : "Forces held in reserve",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_5" : "Increased defender preparedness",
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_0" : "Recently raided",
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_1" : "%s raid",#,playerFaction.getDisplayName()
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_2" : "Your forces have not suffered any casualties.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_3" : "You forces have suffered casualties during the raid.",#wiredly, the function i took this from has data for the number of units lost, but not in the string? if it failes to display amount of units lost, maybe add a %s to this?
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_4" : "Stability of %s reduced by %s.",#,market.getName(), stability lost
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_5" : "Continue",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_0" : "Launch raid",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_1" : "Make special efforts to keep your preparations secret, then proceed",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_2" : "\n\nRequires transponder to be turned off",#I dont know what the 2 /n's are here. might be important'
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_3" : "Suffer no penalty to your standing with %s. Will not help if forced to turn your transponder on by patrols arriving to investigate the raid. %s",#market.getFaction().getDisplayNameWithArticle(),req
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_4" : "Secretly raided %s",#market.getName()	#might not have been nesesary, but i dont know.
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_5" : "Never mind",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_6" : "The %s %s not currently hostile, and you have been positively identified. Are you sure you want to engage in open hostilities?",#faction.getDisplayNameLong(),faction.getDisplayNameIsOrAre()
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_7" : "Yes",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_8" : "Never mind",
 	#strings for debug lines.
 	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_0": "running applyExtraDataToCrew",
 	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_1": "running applyExtraDataToCrew",
@@ -191,7 +304,6 @@
 	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_1": "adding crew to output named: %s",#crew.name
 	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_2": "adding crew sets crew to output named: %s",#crewSet.name
 	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_3": "adding crew to output named: %s",#crew.name
-	"crewReplacerString_crewReplacer_CrewSet_getIntoCrewSetLog_0": "in crewSet named '%s' ",#crewSet.name,
-
+	"crewReplacerString_crewReplacer_CrewSet_getIntoCrewSetLog_0": "in crewSet named '%s' ",#crewSet.name
 }
 

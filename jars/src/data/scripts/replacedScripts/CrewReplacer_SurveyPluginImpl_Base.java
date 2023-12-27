@@ -13,11 +13,13 @@ import com.fs.starfarer.api.impl.campaign.procgen.ConditionGenDataSpec;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.DerelictThemeGenerator;
 import com.fs.starfarer.api.plugins.SurveyPlugin;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.CrewReplacer_StringHelper;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CrewReplacer_SurveyPluginImpl_Base implements SurveyPlugin {//SurveyPluginImpl
+    protected static final String className = "CrewReplacer_SurveyPluginImpl_Base";
     public static int FLAT_SUPPLIES = 10;
 
     public static int BASE_MACHINERY = 10;
@@ -42,11 +44,11 @@ public class CrewReplacer_SurveyPluginImpl_Base implements SurveyPlugin {//Surve
 
         float hazard = getHazardMultiplier();
         if (hazard != 1f) {
-            costMult.modifyMult("planet_hazard", hazard, "Hazard rating");
+            costMult.modifyMult("planet_hazard", hazard, CrewReplacer_StringHelper.getString(className,"init",0));
         }
         float size = getSizeMultiplier();
         if (size != 1f) {
-            costMult.modifyMult("planet_size", size, "Planet size");
+            costMult.modifyMult("planet_size", size,CrewReplacer_StringHelper.getString(className,"init",1));
         }
 
         xpMult.applyMods(costMult);

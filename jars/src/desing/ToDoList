@@ -22,11 +22,10 @@ improvements that must be made:
 2) update all strings and put them into the config. this will help A LOT. with both editing, and people who want this mod in other languages
     theory: its possible that i might require to use a diffrent file at some ponit in the future to hold all the strings. so i have a plan. the best plan even:
     create a class that handles strings. i can them simply call the calss name, and the 'line id' to get the string i want, then solve for the string from there.
-
+    NOTE: the reason i want shit to be displayed is so others can view it. personal logs, like the debug logs for the market CMD (not the error logs) should not be added to the settings.
     to do:
-        crew_replacer_SalvageEntity_Base
-        CrewReplacer_SurveyPluginImpl_Base
-        CrewReplacerMarketCMD
+
+
 
         find and replace all other strings i ever created.
     done(primary display texts):
@@ -34,13 +33,16 @@ improvements that must be made:
         crewReplacer_Job
         crewReplacer_Main
         crew_replacer_SalvageEntity(NEED TO TEST THIS AND MAKE SURE THINGS ARE DISPLAYING RIGHT!!!)(partial testing complete. need to test ruins and losing units.)
-
+        crew_replacer_SalvageEntity_Base(NEED TO TEST THIS AND MAKE SURE ITS DISPLAYING THINGS RIGHT!!!)(no testing complete)
+        CrewReplacer_SurveyPluginImpl_Base
+        CrewReplacerMarketCMD(OMG THERE IS SO MANY STRINGS IM ALMOST SCARED TO TEST IT BUT I NEED TO AT SOME POINT)
     done(debug text):
         crewReplacer_CrewSet
         crewReplacer_Job
         crewReplacer_Main
         crew_replacer_SalvageEntity
-
+        crew_replacer_SalvageEntity_Base
+        CrewReplacer_SurveyPluginImpl_Base
     no strings to replace:
         crewReplacer_Crew
 

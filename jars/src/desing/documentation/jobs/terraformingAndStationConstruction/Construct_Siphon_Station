@@ -1,0 +1,32 @@
+this is the replacement to all Construct_Siphon_Station jobs in use.
+status:
+    complete
+notes:
+
+job name: replaced commodity
+    job name:                                                           commodity replaced name
+    boogles_TerraformingAndStationConstruction_Si_S_metals              metals
+    boogles_TerraformingAndStationConstruction_Si_S_rare_metals         rare_metals
+    boogles_TerraformingAndStationConstruction_Si_S_crew                crew
+    boogles_TerraformingAndStationConstruction_Si_S_heavy_machinery     heavy_machinery
+extra data:
+    all jobs are part of the boogles_TerraformingAndStationConstruction_COMMODITYID crew set. this effects all of the stations from this mod. this crew set also extended any present COMMODITYID crewSet
+
+    all jobs here are -generated-. so if TASC changes what a station requires, that jobs will mostlikely change.
+    the formulore for generating a giving job is:
+    boogles_TerraformingAndStationConstruction_STATIONTYPE_COMMODITYID
+    this tasks STATIONTYPE is: Si_S
+
+
+
+issues:
+    none
+
+possible solutions:
+    none
+
+location of rules and scripts:
+    TASC game:
+        in there mod
+    crew Replacer:
+        NA

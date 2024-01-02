@@ -21,10 +21,10 @@ public class crewReplacer_cTapRepairSel extends BaseCommandPlugin {
     String rare_metalsJob = "CoronalHyperShunt_repair_RareMetals";
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
         int req0 = params.get(0).getInt(memoryMap);
-        crewReplacer_Main.getJob(metalsJob).automaticlyGetDisplayAndApplyCrewLost(Global.getSector().getPlayerFleet(),req0,req0,dialog.getTextPanel());
+        crewReplacer_Main.getJob(metalsJob).automaticlyGetDisplayAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(),req0,req0,dialog.getTextPanel());
 
         int req1 = params.get(1).getInt(memoryMap);
-        crewReplacer_Main.getJob(rare_metalsJob).automaticlyGetDisplayAndApplyCrewLost(Global.getSector().getPlayerFleet(),req1,req1,dialog.getTextPanel());
+        crewReplacer_Main.getJob(rare_metalsJob).automaticlyGetDisplayAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(),req1,req1,dialog.getTextPanel());
         return true;
     }
 }

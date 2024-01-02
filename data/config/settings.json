@@ -1,13 +1,13 @@
 {
 	"plugins":{
-		"surveyPlugin":"data.scripts.replacementscripts.CrewReplacer_SurveyPluginImpl",
+		"surveyPlugin":"data.scripts.replacementscripts.CrewReplacer_SurveyPluginImpl"
 	},
 	"ruleCommandPackages":[
 		"data.scripts.replacementscripts.Salvage",
-		"data.scripts.starfarer.api.impl.campaign.rulemd",
+		"data.scripts.starfarer.api.impl.campaign.rulemd"
 	],
 	#for the genral function of crew replacer. errors are displayed regardless.
-	"crewReplacerDisplayLogs": true,
+	"crewReplacerDisplayLogs": false,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
 	"crewReplacerDisplayRaidLogs": false,
 
@@ -16,5 +16,299 @@
 
 	#logs for combatability code that interacts with other mods.
 	"crewReplacerDisplay_normadicSurvival_logs": false,
+
+
+
+
+	#strings in this mod
+	#"crewReplacerString_class_function_number": "",
+
+	#strings that are displayed to the player
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_3": ", ",#this represnets a comma that i forgot the reason i need, but its important???
+
+	"crewReplacerString_crew_replacer_SalvageEntity_checkAccidents_0": "Continue",
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_0": "Base effectiveness",
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_1": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_2": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_3": "Salvaging skill",
+	"crewReplacerString_crew_replacer_SalvageEntity_getValueRecoveryStat_4": "Fleetwide salvaging capability",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_0": "You receive a preliminary assessment of a potential salvage operation from the exploration crews.",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_1": "Crew & machinery: required (available)",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_2": "%s (%s)",#required,availble
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_3": "%s%",#valuepercent
+	"crewReplacerString_crew_replacer_SalvageEntity_showCost_4": "Resource recovery effectiveness: %s",#,crewReplacerString_crew_replacer_SalvageEntity_showCost_3
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_0": "Crew & machinery: required (available)",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_1": "%s (%s)",#required,available
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_2": "Debris field density",
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_3": "%s%",#valuePercent
+	"crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_4": "Scavenging effectiveness: %s",#,crewReplacerString_crew_replacer_SalvageEntity_showCostDebrisField_3
+	"crewReplacerString_crew_replacer_SalvageEntity_DisplayLosses_0": "An accident during the operation has resulted in the loss of: ",
+
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_0": "An accident during the operation has resulted in the loss of ",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_1": "%s heavy machinery.",#matchneneryLost
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_2": "%s crew.",#crewLost
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_3": "%s crew and %s heavy machinery.",#crewLost, machineryLost
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_checkAccidents_4": "Continue",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_0": "The field appears stable and will not drift apart any time soon.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_1": "The field is unstable, but should not drift apart for %s",#atLeastTime
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_2": " Long-range scans indicate it's unlikely anything of much value would be found inside.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_3": "unlikely",#highlight for 2
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_4": " Long-range scans indicate it's possible something of value could be found inside.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_5": "possible",#highlight for 4
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_6": " Long-range scans indicate it's likely something of value could be found inside.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_7": "likely",#highlight for 6
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_8": "There are indications of some easy pickings to be had, and the risk of an accident during a salvage operation is low.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_9": "low",#highlight for 8,
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_10": "There are indications that what salvage is to be had may not be easy to get to, and there's %s risk involved in running a salvage operation.",#crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_11
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_11": "significant",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_12": "The salvage that remains is extremely difficult to get to, and there's %s risk involved in running a salvage operation.",#crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_13
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_showDebrisDescription_13": "high",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_0": "Base effectiveness",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_1": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_2": "%s available",#Misc.ucFirst(spec.getLowerCaseName())
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_3": "Salvaging skill",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getValueRecoveryStat_4": "Fleetwide salvaging capability",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getModPrinter_0": "+",#more mods to print, print this after this mod???? what even is this function??
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getModPrinter_1": "",#lost mod in list, add this????
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_getModPrinter_2": "%s%",#prefix + (int)(mod.getValue())   #add at the end of the mod list????
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_0": "%s%",#,FUEL_SALVAGE_VALUE_MULT_FLEET
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_1": "%s%",#SALVAGE_VALUE_MULT_FLEET_INCLUDES_RARE
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_2": "Your fleet also has a %s bonus to the amount of fuel recovered, and a %s bonus to the number of rare items found.",#,fuel gain text,rare salvage gain text
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_3": "Your fleet also has a %s bonus to the amount of fuel recovered.",#fuel gain text
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_4": "Your fleet also has a %s bonus to the number of rare items found.",#rare salvage gain text
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_5": "The density of the debris field affects both the amount of resources and the number of rare items found.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_printSalvageModifiers_6": "The recovery effectiveness does not affect the chance of finding rare and valuable items.",
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_0": "Salvaged",#i hope this was something i was suppose to beable to change lol
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_1": "Operations conclude with nothing of value found.",#this to
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_2": "Leave",#and this.
+	"crewReplacerString_crew_replacer_SalvageEntity_Base_performSalvage_3": "Recent salvage operation",#also this.
+
+	"crewReplacerString_CrewReplacer_SurveyPluginImpl_Base_init_0" : "Hazard rating",
+	"crewReplacerString_CrewReplacer_SurveyPluginImpl_Base_init_1" : "Planet size",
+
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_0" : "Ground troops on board",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_1" : "Fleet capability for ground support",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_2" : "Expected resistance",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_3" : "Increased defender preparedness",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_4" : "getting attacker and defender str as: %s, %s",#attackerSte,defenderStr
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_5" : "%s is  not currently hostile. Your fleet's transponder is on, and carrying out a raid will result in open hostilities.",#faction name and data
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_6" : "%s is  not currently hostile. Your fleet's transponder is off, and carrying out a raid will only result in a minor penalty to your standing.",#faction name and data
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_7" : "Raid strength: %s",#raid strangth
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_8" : "Operation difficulty: %s",#raid defnece
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_9" : "Projected raid effectiveness: %s",#how good ye are
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_10" : "You do not have the forces to carry out an effective raid.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_11" : "Designate raid objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidNonMarket_12" : "Go back",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_0" : "Ground troops on board",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_1" : "Fleet capability for ground support",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_2" : "Increased defender preparedness",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_3" : "%s is not currently hostile. Your fleet's transponder is on, and carrying out a raid will result in open hostilities.",#,faction.getDisplayNameWithArticle()
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_4" : "%s is not currently hostile. Your fleet's transponder is off, and carrying out a raid will only result in a minor penalty to your standing.",#Misc.ucFirst(faction.getDisplayNameWithArticle())
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_5" : "Raid strength: %s",#raid strangth
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_6" : "Ground defense strength: %s",#defence strangth
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_7" : "Projected raid effectiveness: %s",#raid effectiveness
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_8" : "%s%",#,temp.raidMult
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_9" : "The ground defenses are too strong for your forces to be able to cause long-term disruption.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_10" : "You do not have the forces to carry out an effective raid to acquire valuables or achieve other objectives.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_11" : "Try to acquire valuables, such as commodities or blueprints, or achieve other objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_12" : "Disrupt the operations of a specific industry or facility",
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_13" : "%s%",#distruption threshold
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_14" : "Requires at least %s raid effectiveness.",#pct
+	"crewReplacerString_CrewReplacerMarketCMD_raidMenu_15" : "Go back",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_0" : "After careful consideration, there do not appear to be any targets likely to yield anything of value.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_1" : "Select raid objectives",#might cause a issue
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_2" : "Select",#might cause a issue
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_3" : "objective",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_4" : "objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_5" : "Your marine commander submits a plan for your approval. Losses during this operation are projected to be %s. There is a effective strength of %s ground troop power available in your fleet",#projected losses,effectove ground troop ability
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_6" : "your total available ground combat force is consisted of: ",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_7" : "%s targeted: %s.",#,Misc.ucFirst(item),list
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_8" : "The estimated value of the items obtained is projected to be around %s.",#,value of resoses gained
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_9" : "The combat force are ready to go, awaiting your final confirmation.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidValuable_10" : "%s%",#(int)(temptemp.raidMult * 100f)
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_0" : "There are no industries or facilities present that could be disrupted by a raid.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_1" : "Select raid objectives",#might cause issues
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_2" : "Select",#might cause issues
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_3" : "objective",
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_4" : "objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_5" : "Your marine commander submits a plan for your approval. Losses during this operation are projected to be %s.",#projected losses
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_6" : "%s targeted: %s.",#Misc.ucFirst(item),list
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_7" : "The estimated value of the items obtained is projected to be around %s.",#value of items gained estamate
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_8" : "The combat force are ready to go, awaiting your final confirmation. There are a total of %s ground troop power in your fleet.",#amount of ground troops you have
+	"crewReplacerString_CrewReplacerMarketCMD_raidDisrupt_9" : "%s%",#,(int)(temptemp.raidMult * 100f)
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_0" : "Danger level of objectives",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_1" : "Colony hazard rating",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_2" : "High raid effectiveness",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_3" : "Low raid effectiveness",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_4" : "Forces held in reserve",
+	"crewReplacerString_CrewReplacerMarketCMD_getMarineLossesStat_5" : "Increased defender preparedness",
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_0" : "Recently raided",
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_1" : "%s raid",#,playerFaction.getDisplayName()
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_2" : "Your forces have not suffered any casualties.",
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_3" : "You forces have suffered casualties during the raid.",#wiredly, the function i took this from has data for the number of units lost, but not in the string? if it failes to display amount of units lost, maybe add a %s to this?
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_4" : "Stability of %s reduced by %s.",#,market.getName(), stability lost
+	"crewReplacerString_CrewReplacerMarketCMD_raidConfirm_5" : "Continue",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_0" : "Launch raid",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_1" : "Make special efforts to keep your preparations secret, then proceed",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_2" : "\n\nRequires transponder to be turned off",#I dont know what the 2 /n's are here. might be important'
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_3" : "Suffer no penalty to your standing with %s. Will not help if forced to turn your transponder on by patrols arriving to investigate the raid. %s",#market.getFaction().getDisplayNameWithArticle(),req
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_4" : "Secretly raided %s",#market.getName()	#might not have been nesesary, but i dont know.
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_5" : "Never mind",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_6" : "The %s %s not currently hostile, and you have been positively identified. Are you sure you want to engage in open hostilities?",#faction.getDisplayNameLong(),faction.getDisplayNameIsOrAre()
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_7" : "Yes",
+	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_8" : "Never mind",
+
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewAvailable_0" : "%s%",#power increase from XP
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewAvailable_1" : "   + %s power from marine XP",#crewReplacerString_CrewReplacer_CrewType_marine_displayCrewAvailable_0
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewLost_0" : "%s%",#loss modifyer from XP
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewLost_1" : "   - %s losses from marine XP",#crewReplacerString_CrewReplacer_CrewType_marine_displayCrewLost_0
+	#strings for debug lines.
+	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_0": "running applyExtraDataToCrew",
+	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_1": "running applyExtraDataToCrew",
+	"crewReplacerString_crewReplacer_Job_running applyExtraDataToCrewAndJob_0": "running applyExtraDataToCrewAndJob",
+	"crewReplacerString_crewReplacer_Job_resetExtraDataToCrewsAndJob_0": "running resetExtraDataToCrewsAndJob",
+	"crewReplacerString_crewReplacer_Job_resetExtraDataToCrews_0": "running resetExtraDataToCrews",
+	"crewReplacerString_crewReplacer_Job_hasCrew_0": "running hasCrew",
+	"crewReplacerString_crewReplacer_Job_hasCrew_1": "found crew with name: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_hasCrew_2": "no crew found with the name: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrew_0": "running getCrew",
+	"crewReplacerString_crewReplacer_Job_getCrew_1": "crew found. returning crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrew_2": "crew not found. creating a new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_removeCrew_0": "running Remove",
+	"crewReplacerString_crewReplacer_Job_removeCrew_1": "crew found. removing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_removeCrew_2": "no crew found. cannot remove crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addCrew_0": "running Add Crew",
+	"crewReplacerString_crewReplacer_Job_addCrew_1": "crew found. replacing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addCrew_2": "old crew load Priority higher then new crew load priority. no longer replacing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addCrew_3": "crew not found. creating new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addNewCrew_0": "trying to add new crew named: %s with a power, priority & loadPriority of: %s, %s & %s", #crew,crewPower,crewPriority,loadPriority,
+	"crewReplacerString_crewReplacer_Job_addNewCrew_1": "crew found. preparing merge for crew new named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addNewCrew_2": "new crew load priority lower then old crew. NOT adding or merging for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addNewCrew_3": "no crew found. adding crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_mergeCrew_0": "running Merge Crew... setting stats to name: %s, power: %s, defence: %s, priority:  %s",#crew.name, crewPower, crewDefence, crewPriority
+	"crewReplacerString_crewReplacer_Job_addCrewSet_0": "running addCrewSet",
+	"crewReplacerString_crewReplacer_Job_addCrewSet_1": "CrewSet '%s' already in CrewSets. cannot add the same crew set twice",#CrewSet
+	"crewReplacerString_crewReplacer_Job_addCrewSet_2": "adding CrewSet '%s' to CrewSets",#CrewSet
+	"crewReplacerString_crewReplacer_Job_removeCrewSet_0": "running removeCrewSet",
+	"crewReplacerString_crewReplacer_Job_removeCrewSet_1": "CrewSet '%s' found in crewSets. removing.",#CrewSet
+	"crewReplacerString_crewReplacer_Job_removeCrewSet_2": "failed to find a CrewSet named '%s' in CrewSets.",#CrewSet
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_0": "running applyCrewSets",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_1": "getting crew set: %s",#crewSet
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_2": "trying to add a new crew '%s'...",#crew.name
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_3": "no crew found. adding crew.",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_4": "crew already exists. crewSets cannot override crew data. skipping adding crew.",
+	"crewReplacerString_crewReplacer_Job_organizePriority_0": "running Organizing Priority",
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_0": "running Getting Available Crew Power",
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_1": "getting crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_2": "adding %s crew power",#crew.getPower()
+	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_3": "ERROR! failed to get crew power in fleet!!! exception type: %s",#,Exception
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_0": "running Get Available Crew",
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_1": "getting crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_2": "got %s crew",#crew.getAvailableCrew
+	"crewReplacerString_crewReplacer_Job_getAvailableCrew_3": "ERROR! failed to get crew numbers in fleet!!! exception type: %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_automaticlyGetDisplayAndApplyCrewLost_0": "running Automatically Get Display And Apply Crew Lost...",
+	"crewReplacerString_crewReplacer_Job_automaticlyGetAndApplyCrewLost_0": "running Automaticly Get And Apply Crew Lost...",
+	"crewReplacerString_crewReplacer_Job_getCrewLost_0": "running getCrewLost...",
+	"crewReplacerString_crewReplacer_Job_getCrewLost_1": "getting crew power for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewLost_2": "got %s defencive strength",#crew.defence
+	"crewReplacerString_crewReplacer_Job_getCrewLost_3": "ERROR!!! failed to get crew power for crew with function getCrewPower(). getting variable instead. Exception type: %s",#Exception
+	"crewReplacerString_crewReplacer_Job_getCrewLost_4": "getting crew lost for new named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewLost_5": "got %s crew lost",#crewlost
+	"crewReplacerString_crewReplacer_Job_getCrewLost_6": "ERROR!!! failed to get crew lost. setting crew lost to zero for temp data... exception type: %s",#Exception
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_0": "running Display Crew Lost...",
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_1": "running DisplayCrewNumbers for crew named %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_displayCrewLost_2": "ERROR!!! failed to display crew numbers. Exception type: %s",#Exception
+	"crewReplacerString_crewReplacer_Job_applyCrewLost_0": "running Apply Crew Lost",
+	"crewReplacerString_crewReplacer_Job_applyCrewLost_1": "removing crew for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_applyCrewLost_2": "ERROR!!! failed to remove crew. %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_0": "running Get Crew For Job...",
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_1": "fining avialbe crew and power for crew named %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_2": "crew in fleet: %s",#crew.available
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_3": "crew power in fleet: %s",#crew.power
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_4": "ERROR!!! could not get crewInFleet,orCrewPowerInFleet. setting available crew and power to zero for this function. Exception type: %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_5": "getting crew power for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_6": "crew power: %s",#crew.power
+	"crewReplacerString_crewReplacer_Job_getCrewForJob_7": "ERROR!!! failed to get crew power. setting power to zero for this function Exception type %s",#Exception
+	"crewReplacerString_crewReplacer_Job_displayCrewAvailable_0": "running Display Crew Available",
+	"crewReplacerString_crewReplacer_Job_displayCrewAvailable_1": "displaying crew numbers for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_displayCrewAvailable_2": "ERROR!!! failed to display crew numbers. Exception type: %s",#Exseption
+	"crewReplacerString_crewReplacer_Job_GetCrewNames_0": "running Get Crew Names",
+	"crewReplacerString_crewReplacer_Job_GetCrewNames_1": "getting crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_0": "running Get Crew Display Names",
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_1": "getting display name for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_2": "got name %s",#crew.display name
+	"crewReplacerString_crewReplacer_Job_getCrewDisplayNames_3": "ERROR!!! failed to get display name. Exception type %s",#Exception
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_0": "running get Cargo Space Used of type: %s",#inputed cargo type
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_1": "getting cargo use for crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_2": "cargo use for crew is: %s",#cargo.use of this type
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceUsed_3": "ERROR: failed to get cargo uss. Exception type %s",#Exeption
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_0": "running get Cargo Space Range with includeDefence as %s",#include defence boolean
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_1": "getting crew powers and spaces from a priority...",
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_2": "getting power and cargo for crew named %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_3": "getting a base cargo space of: %s",#tempa
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_4": "getting a final cargo space of: %s",#tempa
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_5": "got total in cargo item power and in cargo item cargo use as %s, %s",#tempb,tempa
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_6": "failed to get power and cargo use for crew named %s. setting power and cargo to zero for this crew.",#crews.name
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_7": "running secondary system with values of: %s,%s",#crewPowerTemp,powerTemp
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_8": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_9": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_10": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_11": "power gained, cargo gained: %s, %s",#temps0,temps1
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_12": "running secondary system with values of: %s,%s",#crewPowerTemp,powerTemp
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_13": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_14": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_15": "cargo space used, crew % used, crew used,   %s, %s, %s",#tempa,tempb,tempc
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_16": "power gained, cargo gained: %s, %s",#temps0,temps1
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_17": "CARGO TEMP: %s",#cargoTemp
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_18": "returnin output as: {%s,%s}",#max,min
+	"crewReplacerString_crewReplacer_Job_getCargoSpaceRange_19": "returnin output as: {%s,%s}",#max,min
+	"crewReplacerString_crewReplacer_Job_getRandomNumberList_0": "getting random number list...",
+	"crewReplacerString_crewReplacer_Job_getIntoJobLog_0": "in job named '%s' ",#jobID
+	"crewReplacerString_crewReplacer_Job_getIntoJobLog_1": "in fleet named '%s'",#cargos.fleet.name
+	"crewReplacerString_crewReplacer_Job_getIntoJobLog_2": "in fleet named 'ERROR!!!'",
+
+	"crewReplacerString_crewReplacer_Main_getJob_0": "getJob found matching job name. getting job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_getJob_1": "getJob job not formed yet. creating new job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_removeJob_0": "removeJob successfully. removing job %s",#job.name
+	"crewReplacerString_crewReplacer_Main_removeJob_1": "remove job failed. no job name: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeJob_0": "addOrMergeJob didnt find any job by the name: %s. creating new job.",#job.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeJob_1": "addOrMergeJob found a matching job named: %s. moveing data to new class...",#job.name
+	"crewReplacerString_crewReplacer_Main_organizePriority_0": "organizing Priority...",
+	"crewReplacerString_crewReplacer_Main_organizePriority_1": "adding crews from relevant jobSets to job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_organizePriority_2": "organizing job named: %s",#job.name
+	"crewReplacerString_crewReplacer_Main_getCrewSet_0": "getCrewSet found matching crewSet name. getting crewSet named: %s",#crewSet.name
+	"crewReplacerString_crewReplacer_Main_getCrewSet_1": "getCrewSet crewSet not formed yet. creating new crewSet named: %s",#crewSet.name
+	"crewReplacerString_crewReplacer_Main_removeCrewSet_0": "remove CrewSet sucsesfull. removeing crewSet %s",#crewset.name
+	"crewReplacerString_crewReplacer_Main_removeCrewSet_1": "remove crewSet failed. no crewSet name: %s",#crewset.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeCrewSet_0": "addOrMergeCrewSet didnt find any crewSet by the name: %s. creating new crewSet.",#crewset.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeCrewSet_1": "addOrMergeCrewSet found a matching crewSet named: %s. moveing data to new class...",#crewset.name
+
+	"crewReplacerString_crewReplacer_CrewSet_hasCrew_0": "running hasCrew",
+	"crewReplacerString_crewReplacer_CrewSet_hasCrew_1": "found crew with name: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_hasCrew_2": "no crew found with the name: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getCrew_0": "running getCrew",
+	"crewReplacerString_crewReplacer_CrewSet_getCrew_1": "crew found. returning crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getCrew_2": "crew not found. creating a new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrew_0": "running RemoveCrew",
+	"crewReplacerString_crewReplacer_CrewSet_removeCrew_1": "crew found. removing crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrew_2": "no crew found. cannot remove crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addCrew_0": "running Add Crew",
+	"crewReplacerString_crewReplacer_CrewSet_addCrew_1": "crew found. merging crews named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addCrew_2": "crew not found. creating new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addNewCrew_0": "trying to add new crew named: %s wtih a power & priority of: %s & %s",#crew.name,crew.power,crew.priority
+	"crewReplacerString_crewReplacer_CrewSet_addNewCrew_1": "crew found. preparing merge for crew new named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_addNewCrew_2": "no crew found. adding crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_mergeCrew_0": "running Merge Crew... setting stats to name: %s, power: %s, defence: %s, priority: %s",#crew.name,crew.power,crew.defence,crew.priority
+	"crewReplacerString_crewReplacer_CrewSet_addCrewSet_0": "running addCrewSet",
+	"crewReplacerString_crewReplacer_CrewSet_addCrewSet_1": "CrewSet '%s' already in CrewSets. cannot add the same crew set twice",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_addCrewSet_2": "adding CrewSet '%s' to CrewSets",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrewSet_0": "running removeCrewSet",
+	"crewReplacerString_crewReplacer_CrewSet_removeCrewSet_1": "CrewSet '%s' found in jobSets. removing.",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_removeCrewSet_2": "failed to find a CrewSet named '%s' in CrewSets.",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_0": "running getAllLinedCrews",
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_1": "adding crew to output named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_2": "adding crew sets crew to output named: %s",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_3": "adding crew to output named: %s",#crew.name
+	"crewReplacerString_crewReplacer_CrewSet_getIntoCrewSetLog_0": "in crewSet named '%s' ",#crewSet.name
 }
 

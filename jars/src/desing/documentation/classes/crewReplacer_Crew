@@ -1,5 +1,6 @@
 public String name;                     required for a crew to function. the name is normally the commodity ID this crew represents.
 public ArrayList<String> tags;          for user use. has no connections to anything, but they can be used and accused by other players.
+public float crewLoadPriority = 0;      higher load priority crew will not be replaced by lower priority crew if someone attempts to add the same crew to a job twice.
 
 public float crewPriority = 0;          the priority of a crew the lower this is, the early your crew will be selected to do a job.
 public float crewPower = 1;             the power of your crew. this is how mush your crew is worth for things like required crew calculations.

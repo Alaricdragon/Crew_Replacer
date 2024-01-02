@@ -4,7 +4,7 @@ import com.fs.starfarer.api.Global;
 import org.apache.log4j.Logger;
 
 public class CrewReplacer_Log {
-    static final private boolean logsActive = Global.getSettings().getBoolean("crewReplacerDisplayLogs");
+    static final public boolean logsActive = Global.getSettings().getBoolean("crewReplacerDisplayLogs");
     public static int depth = 0;
     private static final char space = ' ';
     public static void push(){

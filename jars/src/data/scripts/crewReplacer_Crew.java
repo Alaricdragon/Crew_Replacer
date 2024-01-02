@@ -15,6 +15,8 @@ public class crewReplacer_Crew {
     public String name;//comonidie ID
     public ArrayList<String> tags;//for user
 
+    public float crewLoadPriority = 0;//higher load priority crew will not be replaced by lower priority crew if someone attempts to add the same crew to a job twice.
+
     public float crewPriority = 0;//order crew is used in. lower numbers first i think?
     public float crewPower = 1;//crew power. for calculation how mush a crew is worth.
     public float crewDefence = 1;//crew defence. for calculation how mush a crew is worth.

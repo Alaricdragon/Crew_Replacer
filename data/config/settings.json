@@ -157,6 +157,11 @@
 	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_6" : "The %s %s not currently hostile, and you have been positively identified. Are you sure you want to engage in open hostilities?",#faction.getDisplayNameLong(),faction.getDisplayNameIsOrAre()
 	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_7" : "Yes",
 	"crewReplacerString_CrewReplacerMarketCMD_addConfirmOptions_8" : "Never mind",
+
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewAvailable_0" : "%s%",#power increase from XP
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewAvailable_1" : "   + %s power from marine XP",#crewReplacerString_CrewReplacer_CrewType_marine_displayCrewAvailable_0
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewLost_0" : "%s%",#loss modifyer from XP
+	"crewReplacerString_CrewReplacer_CrewType_marine_displayCrewLost_1" : "   - %s losses from marine XP",#crewReplacerString_CrewReplacer_CrewType_marine_displayCrewLost_0
 	#strings for debug lines.
 	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_0": "running applyExtraDataToCrew",
 	"crewReplacerString_crewReplacer_Job_applyExtraDataToCrew_1": "running applyExtraDataToCrew",

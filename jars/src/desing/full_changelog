@@ -5,8 +5,14 @@ V0.6.6:
         please note: this might cause unknown issues. i did all i can to keep things stable, but crew replacer might have some growing pains for a bit.
         -survey Plugin.
         -salvage plugin
+
+        updated the strings from (hopefully) every none log instance in the game to be in the config, so i can change them and spellcheck them because i suck
+        -also did this for some of the logs. mainly, the crewReplacer_Job logs, and the crewReplacer_CrewSet logs.
     fixed:
         fixed a possible issue were it might have been possible to remove items from players inventory because it was thought that you colonized somewhere.
+V0.6.5.4(private):
+    save compatible with v0.6.2+
+    checked everything, also added the 'CrewReplacer_CrewType_marine' text to the settings.
 V0.6.5.4(private):
     save compatible with v0.6.2+
     moved all strings into the config for the following classes(not tested):

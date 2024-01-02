@@ -16,7 +16,7 @@ public class CrewReplacer_StringHelper {
         }
     }
     public static String getString(String className, String function, int lineID,String... splits){
-        return getSplitString(getLogString(className, function, lineID),splits);
+        return getSplitString(getString(className, function, lineID),splits);
     }
 
     public static String getLogString(String className, String function, int lineID){

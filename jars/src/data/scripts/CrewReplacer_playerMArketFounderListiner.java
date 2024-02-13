@@ -20,7 +20,7 @@ public class CrewReplacer_playerMArketFounderListiner implements PlayerColonizat
 
     @Override
     public void reportPlayerColonizedPlanet(PlanetAPI planet) {
-
+        if(CrewReplacer_SurveyPluginImpl.colonyPlanetTemp == null || !planet.getId().equals(CrewReplacer_SurveyPluginImpl.colonyPlanetTemp.getId())) return;;
         crewReplacer_Job a = crewReplacer_Main.getJob(crewJob2);
         crewReplacer_Job b = crewReplacer_Main.getJob(heavy_matchnearyJob2);
         crewReplacer_Job c = crewReplacer_Main.getJob(supplyJob2);

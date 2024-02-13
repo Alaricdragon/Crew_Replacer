@@ -13,6 +13,7 @@ import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.CrewReplacer_Log;
+import data.scripts.CrewReplacer_StringHelper;
 import data.scripts.crewReplacer_Crew;
 
 public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
@@ -22,6 +23,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
     * basicly handled all of the things. here. like XP gathering, or the power bonus to marines when you raid.
     * so i moved all that here, resalting in this mess.
     * there is aslo a little of it in 'CrewReplacer_PlayerFleetPersonnelTracker' that removes the XP gain from  raiding, so i can handle it better here.*/
+    private static final String className = "CrewReplacer_CrewType_marine";
     private static final boolean logsActive = Global.getSettings().getBoolean("CrewReplacerDisplayMarineLogs");
     private float[] XPGainData = new float[]{0f,0f};
     private float ratio = 0;
@@ -110,10 +112,10 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
         float xpTemp = Math.round(100 * (getXPPowerMulti(cargo) - 1));//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel());
 
         if(xpTemp != 0 || true) {
-            String temp = "%";
-            String XP = xpTemp+"";// + "%";
-            XP+=temp;
-            iwt.addPara("   + %s power from marine XP", 0, Misc.getHighlightColor(), XP);
+            //String temp = "%";
+            String XP = CrewReplacer_StringHelper.getString(className,"displayCrewAvailable",0,xpTemp+"");// + "%";
+            //XP+=temp;
+            iwt.addPara(CrewReplacer_StringHelper.getString(className,"displayCrewAvailable",1), 0, Misc.getHighlightColor(), XP);
         }
         tt.addImageWithText(0);
 
@@ -130,10 +132,10 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
         //cargo.getFleetData().getFleet().getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD).getMultBonus()
         float xpTemp = Math.round(100 * (1 - MarinesLossMultiTemp));//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel());
         if(xpTemp != 0 || true) {
-            String temp = "%";
-            String XP = xpTemp+"";// + "%";
-            XP+=temp;
-            iwt.addPara("   - %s losses from marine XP", 0, Misc.getHighlightColor(),XP);
+            //String temp = "%";
+            String XP = CrewReplacer_StringHelper.getString(className,"displayCrewLost",0,xpTemp+"");// + "%";
+            //XP+=temp;
+            iwt.addPara(CrewReplacer_StringHelper.getString(className,"displayCrewLost",1), 0, Misc.getHighlightColor(),XP);
             CrewReplacer_Log.loging("loss multi that was saved is: " + MarinesLossMultiTemp,this,logsActive);
         }
         tt.addImageWithText(0);

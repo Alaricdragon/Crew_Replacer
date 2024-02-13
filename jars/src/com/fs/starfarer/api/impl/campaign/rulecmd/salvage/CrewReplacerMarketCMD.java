@@ -1141,7 +1141,7 @@ public class CrewReplacerMarketCMD extends MarketCMD{//BaseCommandPlugin {
 
         boolean hostile = faction.isHostileTo(Factions.PLAYER);
         if (tOn && !hostile && !faction.isNeutralFaction()) {
-            options.addOptionConfirmation(RAID_CONFIRM,CrewReplacer_StringHelper.getString(className,"addConfirmOptions",6,faction.getDisplayNameLong(),faction.getDisplayNameIsOrAre()),CrewReplacer_StringHelper.getString(className,"addConfirmOptions",6),CrewReplacer_StringHelper.getString(className,"addConfirmOptions",6));
+            options.addOptionConfirmation(RAID_CONFIRM,CrewReplacer_StringHelper.getString(className,"addConfirmOptions",6,faction.getDisplayNameLong(),faction.getDisplayNameIsOrAre()),CrewReplacer_StringHelper.getString(className,"addConfirmOptions",7),CrewReplacer_StringHelper.getString(className,"addConfirmOptions",8));
         }
         CrewReplacer_Log.pop();
     }

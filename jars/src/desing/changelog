@@ -1,3 +1,10 @@
+V0.6.7:
+    save compatible with v0.6.2+
+    updated to the latest starsector version
+    fixed some a broken button from the last alpha release.
+
+    i tested a lot of things to make sure everything still works, but please send me a messesge if anything breaks again
+
 V0.6.6:
     save compatible with v0.6.2+
     changes:

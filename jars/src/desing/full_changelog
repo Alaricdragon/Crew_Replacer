@@ -1,3 +1,6 @@
+V0.6.8:
+    save compatible with v0.6.2+
+    fixed broken combatability and crashes with Perilous Expanse
 V0.6.7:
     save compatible with v0.6.2+
     updated to the latest starsector version

@@ -143,6 +143,8 @@ regarding survey job:
     getXP() from the survey plugging may cause supplys to drop. because thats were im running my code. this is a issue.
 
 Bugs:
+    in the debug logs in crewReplacer_Job:
+        the code is refusing to display the names of jobs or crew anywere. please investagate.
     in getCargoSpaceRange in crewReplacer_Job:
         1) this set of code can cause issues with other sets of code, causeing a miscalculation were i think i need less cargo then i acsualy need at low amounts.
            cant just remove Math.min, because then it can get claim to use mush more cargo then it actually does.

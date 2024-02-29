@@ -5,10 +5,11 @@ import com.fs.starfarer.api.Global;
 import java.util.Arrays;
 
 public class CrewReplacer_StringHelper {
+    public static final boolean logs = Global.getSettings().getBoolean("crewReplacer_StringLogs");
     public static String modString = "crewReplacerString";
     public static String getString(String className, String function, int lineID){
         try {
-            CrewReplacer_Log.loging("got string at: "+modString + "_" + className + "_" + function + "_" + lineID ,new CrewReplacer_StringHelper(),true);
+            CrewReplacer_Log.loging("got string at: "+modString + "_" + className + "_" + function + "_" + lineID ,new CrewReplacer_StringHelper(),logs);
             return Global.getSettings().getString(modString + "_" + className + "_" + function + "_" + lineID);
         }catch (Exception e){
             CrewReplacer_Log.loging("failed to get string of ID: "+modString + "_" + className + "_" + function + "_" + lineID ,new CrewReplacer_StringHelper(),true);
@@ -39,6 +40,14 @@ public class CrewReplacer_StringHelper {
     protected static String getSplitString(String primary,String[] secondary){
         StringBuilder output = new StringBuilder();
         String[] a = primary.split("%s");
+        if (primary.charAt(primary.length() - 1) == 's' && primary.charAt(primary.length() - 2) == '%'){
+            String[] b = a;
+            a = new String[b.length+1];
+            for (int c = 0; c < b.length; c++){
+                a[c] = b[c];
+            }
+            a[a.length -1] = "";
+        }
         try {
             for (int b = 0; b < a.length - 1; b++) {
                 output.append(a[b]).append(secondary[b]);

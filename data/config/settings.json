@@ -10,6 +10,8 @@
 	"crewReplacerDisplayLogs": false,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
 	"crewReplacerDisplayRaidLogs": false,
+	#for what string has been gotten
+	"crewReplacer_StringLogs": false,
 
 	#logs for costom crew types, becuas there are quite a lot fo them.
 	"CrewReplacerDisplayMarineLogs": false,

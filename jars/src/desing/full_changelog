@@ -1,3 +1,8 @@
+V0.6.9:
+    save compatible with v0.6.2+
+    fixes:
+        fixed spam in the starsector logs every time crew replacer did anything (sorry)
+        fixed logs failing to name there crewReplacer_Job and crewReplacer_Crew. as well as some other things probably.
 V0.6.8:
     save compatible with v0.6.2+
     fixed broken combatability and crashes with Perilous Expanse

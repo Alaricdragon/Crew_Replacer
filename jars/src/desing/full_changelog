@@ -1,3 +1,7 @@
+V0.6.10:
+    save compatible with v0.6.2+
+    fixes:
+        fixed a issue were 'metals' might have been a valid commodity for founding a colonly provided market retrofits was not installed. sorry
 V0.6.9:
     save compatible with v0.6.2+
     fixes:

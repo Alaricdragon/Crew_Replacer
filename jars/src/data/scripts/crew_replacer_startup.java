@@ -106,7 +106,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob = crewReplacer_Main.getJob("colony_crew");
         tempJob.addCrewSet(jobSet_crew);
         tempJob.addNewCrew("crew",1,10,1);
-        tempJob.addNewCrew("metals",1,10,1);
+        //tempJob.addNewCrew("metals",1,10,1);
         tempJob = crewReplacer_Main.getJob("colony_supply");
         tempJob.addCrewSet(jobSet_supplies);
         tempJob.addNewCrew("supplies",1,10);

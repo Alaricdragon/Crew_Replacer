@@ -1,52 +1,26 @@
 crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
 improvements that must be made:
-1)(DONE) look into classes that i have replaced, and -TRY- to get them to extend the classes they are replacing
-   if exstension is impossable (do to private methods or information) copy the old class, but make everything protected. then exstend that.
-   notes:
-        the rules for changed to the base plugins are: (for replacement pluggin)
-        copy the 'base' class
-        run s/private/protected/g on it.
-        make the replacement class exsend the new replaced class.
-   (DONE)status:
-        need to check:
-            (DONE)
-        need a replacement pluggin:
-            (done. partial testing seems clear)crew_replacer_SalvageEntity
-            (done. untested)surveypluggin. (colonize and salvage)
-        can exstend:
-            (done. tested. had this for like a year and forgot i made the change)CrewReplacerMarketCMD
-
-        ponitless (nothing to exstend):
-            steel a starship.
-            hyper really repair.
-2)(done) update all strings and put them into the config. this will help A LOT. with both editing, and people who want this mod in other languages
-    theory: its possible that i might require to use a diffrent file at some ponit in the future to hold all the strings. so i have a plan. the best plan even:
-    create a class that handles strings. i can them simply call the calss name, and the 'line id' to get the string i want, then solve for the string from there.
-    NOTE: the reason i want shit to be displayed is so others can view it. personal logs, like the debug logs for the market CMD (not the error logs) should not be added to the settings.
-    to do:
-
-
-        find and replace all other strings i ever created. (NOTE: this should only be done for strings that display for the player, or are used as a main log for a modder to know what the flip is even going on.)
-    done(primary display texts):
-        crewReplacer_CrewSet
-        crewReplacer_Job
-        crewReplacer_Main
-        crew_replacer_SalvageEntity(NEED TO TEST THIS AND MAKE SURE THINGS ARE DISPLAYING RIGHT!!!)(partial testing complete. need to test ruins and losing units.)
-        crew_replacer_SalvageEntity_Base(NEED TO TEST THIS AND MAKE SURE ITS DISPLAYING THINGS RIGHT!!!)(no testing complete)
-        CrewReplacer_SurveyPluginImpl_Base
-        CrewReplacerMarketCMD(OMG THERE IS SO MANY STRINGS IM ALMOST SCARED TO TEST IT BUT I NEED TO AT SOME POINT)
-        CrewReplacer_CrewType_marine
-    done(debug text):
-        crewReplacer_CrewSet
-        crewReplacer_Job
-        crewReplacer_Main
-        crew_replacer_SalvageEntity
-        crew_replacer_SalvageEntity_Base
-        CrewReplacer_SurveyPluginImpl_Base
-        (not doing. becuase i dont see a reason to. debugs for meeeee)CrewReplacer_CrewType_marine
-    no strings to replace:
-        crewReplacer_Crew
-
+    1:(done) loadPrioirity system:
+        crew, jobs, and crewsets need a new float called 'load priority'. only things with >= 'load priority' of what is already there may be valid replacements.
+        all crew, jobs, and crew set have this varuble. whats left to do:
+        1) in all instances of adding or merging a crew, check the load priority instead of preveus processes when desided what to keep.
+            -this includes: (from both jobs and crewSets)
+            -addOrMergeCrew.
+            -addCrew.
+            -applyCrewSets
+    2:(done) change the way replacements for crew work:
+        for some reason, replaceing a crew class trys to grab the old crews stats. this is stupid. fix this.
+            -note: this is fine for things like, lets say, jobs, because i want to keep the data if i change the class.
+    3: set crewReplacer_Job.crews and crewReplacer_Job.crewPriority to protected
+        -note: this is not possable, as currently, nexerlin looks at the data here directly, so i cant change this yet.
+    4: add a new array to crewReplacer_Job and crewReplacer_CrewSet called 'exclude_crew'. it will hold a list containing names and a 'load priority'. so long as the load prioity is greater then a inputed crew, will remove that crew from the job / crewset and prevent it from joining until one with higher loadPriority is added
+        1)(done) add this varuble
+        2)(done) make it addable and removingable
+        3)(done) make it remove its crew on being added.
+        4)(done) make it stop any crew from being added with a lower priority
+            -to do here:
+                1)(done) make it so addNewCrew runs addCrew.
+                2)(done) make it so addCrew check loadPriority and BlackListCrew
 testing:
     (done)makue sure the the salvage on runins and worlds works.
         -(YES IT DOES)make sure 'without crew replacer' salvaging also shows all the -zero percent- modifyers. just in case.
@@ -85,8 +59,8 @@ link to my mod:[url=https://fractalsoftworks.com/forum/index.php?topic=24249.0]c
 
 known mods with possable crew:
 (said they would look into it.)Nexerlin: invasions(done), found a outpost station thing?
-(said i could make my own branch then request to merge)terraforming and station construction: station construction
-(said i could maky my own patch. said they cant work on there mod now.)Forge Production: getting into a dominion era moma ship.
+(done)terraforming and station construction: station construction
+(said i can work on my own patch, or release what i have already finished. im going to patch this into crew replacer.)Forge Production: getting into a dominion era moma ship.
 (said not now. currently doing a rework of systems)ashes of the domion: repairing a cryosleeper
 (said sure, why not. although they wont help, they are busy.)Xan empire: the specal ships with the organic ship forge.
 unknown (possibly industrial evolution?): 'removing' a ruin.

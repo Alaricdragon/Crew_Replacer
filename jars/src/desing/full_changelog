@@ -1,3 +1,33 @@
+V0.7:
+    save compatible with v0.6.2+
+    added the following classes and varubles:
+        crewReplacer_Job:
+            public float loadPriority;
+            public ArrayList<CrewReplacer_BlackListCrew> blackListCrews = new ArrayList<>();
+            public boolean addBlackListCrew(String crew,float loadPriority)
+            public CrewReplacer_BlackListCrew getBlackListCrewIfExists(String crew)
+            public boolean removeBlackListCrew(String crew)
+            protected boolean addBlackListCrew(CrewReplacer_BlackListCrew EC)
+        crewReplacer_CrewSet:
+            public ArrayList<CrewReplacer_BlackListCrew> blackListCrews = new ArrayList<>();
+            public boolean addBlackListCrew(String crew,float loadPriority)
+            public CrewReplacer_BlackListCrew getBlackListCrewIfExists(String crew)
+            public boolean removeBlackListCrew(String crew)
+            protected boolean addBlackListCrew(CrewReplacer_BlackListCrew EC)
+            public crewReplacer_CrewSet getAllLinkedCrewsSets()
+            getAllLinkedCrewsSets(int maxDepthForGathering)
+        crewReplacer_Main:
+            static public boolean addOrMergeJob(crewReplacer_Job job, float loadPriority)
+    changes:
+        crewReplacer_Job.addNewCrew now runs addCrew.
+        made crewReplacer_Job.addCrew and crewReplacer_CrewSet.addCrew respect blacklist.
+    removed:
+        crewReplacer_Job:
+            mergeCrew
+        crewReplacer_CrewSet:
+            mergeCrew
+    fixes:
+        made crewReplacer_Job.applyCrewSets() get all the inheanent crew sets form its crew sets like it was suppose to.
 V0.6.10:
     save compatible with v0.6.2+
     fixes:

@@ -8,7 +8,6 @@ import com.thoughtworks.xstream.XStream;
 import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
 import data.scripts.crews.CrewReplacer_CrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
-import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew;
 import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew_2;
 
 import java.util.List;
@@ -39,7 +38,22 @@ public class crew_replacer_startup extends BaseModPlugin {
         //x.alias("PlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
     }
     private void startup2() {
+        //this.test();
         this.addDefaultCrew();
+    }
+    private void test(){
+        CrewReplacer_Log.loging("TESTING HERE:",this,true);
+        crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
+        tempJob.addNewCrew("crew",1,10);
+        tempJob.addBlackListCrew("crew",1);
+        tempJob.addNewCrew("crew",1,10);
+        tempJob.addBlackListCrew("crew",0);
+        tempJob.addBlackListCrew("crew",1);
+        tempJob.addBlackListCrew("crew",15);
+        tempJob.addNewCrew("crew",1,10,16);
+        tempJob.getBlackListCrewIfExists("crew");
+        tempJob.removeBlackListCrew("crew");
+
     }
     private void addDefaultCrew(){
         String jobSet_crew = "crew";

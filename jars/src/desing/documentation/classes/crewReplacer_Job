@@ -8,6 +8,8 @@ public static final String CARGO_CARGO;                                         
 public static final String CARGO_CREW;                                          a string representing the cargoType 'crew'
 public static final String CARGO_FUEL;                                          a string representing the cargoType 'fuel'
 public String name;                                                             the internal ID of this job. each job mush have its own ID.
+public float loadPriority;                                                      the loadPriority for this class. if a custom crewReplacer_Job class trys to replace this one, it will only work if it has a loadPriority >= to this one.
+public ArrayList<CrewReplacer_BlackListCrew> excludeCrews = new ArrayList<>();  a list of crew that are forbidden from being added to this job. crew with a higher crewLoadPriority then its LoadPriority will be ignored by this.
 public ArrayList<ArrayList<Integer>> crewPriority;                              the internal organization of crew available to this job. organized greatest to lowest.
 public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>(); every crew avalable to this job.
 public Object ExtraData = null;                                                 extra data. only a few jobs need extra data. see the ExtraData functions to learn more about them
@@ -29,6 +31,18 @@ public boolean addNewCrew(String crew,float crewPower,float crewPriority)       
 public boolean addNewCrew(String crew,float crewPower,float crewPriority,float loadPriority)                               runs addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority,float loadPriority) with a crew defence equal to the inputer crewPower
 public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority,float loadPriority)             returns true if no crew was found. false otherwise. tries to create a crew with the inputted stats. always runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)
 private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority,float loadPriority)     takes a inputted crew (old crew) and sets its power and priority to the inputted stats
+
+BlackListCrew and there functions:
+    BlackListCrew is a system developed pacifically so one can 'blacklist' a crew form a certain job.
+    this is useful if you want to add a crew to a crewSet, but don't want it to do a certain job within that crew set.
+    anytime a BlackListCrew attempted to be added, it first checks the 'load_prioirty' of the crew already added. only if the attempted to be added
+    excludeCrew has a >= load priority then that crew, will it be added.
+    when a excludeCrew is added to a job, it removed its targeted crew from that job. and will prevent it from being added until one with a > LoadPriority is added.
+public boolean addBlackListCrew(String crew,float loadPriority)                                                               attempts to create a new BlackListCrew for the imputed crew. runs 'addBlackListCrew(CrewReplacer_BlackListCrew EC)' if the imputed loadPriority is >= to the crew its trying to replace. returns true if added sucsesfully. false otherwize.
+public CrewReplacer_BlackListCrew getBlackListCrewIfExists(String crew)                                                        attempts to return a BlackListCrew with the imputed name. if not found, will return null instead.
+public boolean removeBlackListCrew(String crew)                                                                               attempts to remove the BlackListCrew with the imputed name. returns true if successful. false otherwise.
+protected boolean addBlackListCrew(CrewReplacer_BlackListCrew EC)                                                             attempts to add an already built exclude crew. will do nothing if there is already a excludeCrew with the same name and higher priority. if added, will run 'removeCrew(EC.crew)'
+
 
 crew sets and there functions:
     crew sets are used to store crew that are going to be stored in a variety of different jobs.

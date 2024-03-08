@@ -7,7 +7,7 @@
 		"data.scripts.starfarer.api.impl.campaign.rulemd"
 	],
 	#for the genral function of crew replacer. errors are displayed regardless.
-	"crewReplacerDisplayLogs": false,
+	"crewReplacerDisplayLogs": true,
 	#for the raiding. it creates a lot of logs, so its a diffrent option.
 	"crewReplacerDisplayRaidLogs": false,
 	#for what string has been gotten
@@ -183,10 +183,12 @@
 	"crewReplacerString_crewReplacer_Job_addCrew_1": "crew found. replacing crew named: %s",#crew.name
 	"crewReplacerString_crewReplacer_Job_addCrew_2": "old crew load Priority higher then new crew load priority. no longer replacing crew named: %s",#crew.name
 	"crewReplacerString_crewReplacer_Job_addCrew_3": "crew not found. creating new crew named: %s",#crew.name
+	"crewReplacerString_crewReplacer_Job_addCrew_4": "crew blacklisted with a loadPriority of %s. crewLoad Priority of %s is to low to be added. exiting...",#BlackListCrew.loadPriority,Crew.CrewloadPriority
+	"crewReplacerString_crewReplacer_Job_addCrew_5": "crew blacklisted with a loadPriority of %s. crewLoad Priority of %s is to high enough to be added. continuing...",#crew.name
 	"crewReplacerString_crewReplacer_Job_addNewCrew_0": "trying to add new crew named: %s with a power, priority & loadPriority of: %s, %s & %s", #crew,crewPower,crewPriority,loadPriority,
-	"crewReplacerString_crewReplacer_Job_addNewCrew_1": "crew found. preparing merge for crew new named: %s",#crew.name
-	"crewReplacerString_crewReplacer_Job_addNewCrew_2": "new crew load priority lower then old crew. NOT adding or merging for crew named: %s",#crew.name
-	"crewReplacerString_crewReplacer_Job_addNewCrew_3": "no crew found. adding crew named: %s",#crew.name
+	#"crewReplacerString_crewReplacer_Job_addNewCrew_1": "crew found. preparing merge for crew new named: %s",#crew.name
+	#"crewReplacerString_crewReplacer_Job_addNewCrew_2": "new crew load priority lower then old crew. NOT adding or merging for crew named: %s",#crew.name
+	#"crewReplacerString_crewReplacer_Job_addNewCrew_3": "no crew found. adding crew named: %s",#crew.name
 	"crewReplacerString_crewReplacer_Job_mergeCrew_0": "running Merge Crew... setting stats to name: %s, power: %s, defence: %s, priority:  %s",#crew.name, crewPower, crewDefence, crewPriority
 	"crewReplacerString_crewReplacer_Job_addCrewSet_0": "running addCrewSet",
 	"crewReplacerString_crewReplacer_Job_addCrewSet_1": "CrewSet '%s' already in CrewSets. cannot add the same crew set twice",#CrewSet
@@ -196,9 +198,9 @@
 	"crewReplacerString_crewReplacer_Job_removeCrewSet_2": "failed to find a CrewSet named '%s' in CrewSets.",#CrewSet
 	"crewReplacerString_crewReplacer_Job_applyCrewSets_0": "running applyCrewSets",
 	"crewReplacerString_crewReplacer_Job_applyCrewSets_1": "getting crew set: %s",#crewSet
-	"crewReplacerString_crewReplacer_Job_applyCrewSets_2": "trying to add a new crew '%s'...",#crew.name
-	"crewReplacerString_crewReplacer_Job_applyCrewSets_3": "no crew found. adding crew.",
-	"crewReplacerString_crewReplacer_Job_applyCrewSets_4": "crew already exists. crewSets cannot override crew data. skipping adding crew.",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_2": "adding blackListed crew gathered from this crew set...",#
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_3": "adding crew gathered from this crew set...",
+	#"crewReplacerString_crewReplacer_Job_applyCrewSets_4": "crew already exists. crewSets cannot override crew data. skipping adding crew.",
 	"crewReplacerString_crewReplacer_Job_organizePriority_0": "running Organizing Priority",
 	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_0": "running Getting Available Crew Power",
 	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_1": "getting crew named: %s",#crew.name
@@ -268,6 +270,20 @@
 	"crewReplacerString_crewReplacer_Job_getIntoJobLog_0": "in job named '%s' ",#jobID
 	"crewReplacerString_crewReplacer_Job_getIntoJobLog_1": "in fleet named '%s'",#cargos.fleet.name
 	"crewReplacerString_crewReplacer_Job_getIntoJobLog_2": "in fleet named 'ERROR!!!'",
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_0": "running addBlackListCrew for a new exclude crew with a crew and loadPriority of %s,%s",#crewName,loadPriority
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_1": "matching crew found with <= load prioirty. (%s,compared to %s). attempting to add exsclude crew....",#crew.loadPriority,exscludeCrew.loadPriority
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_2": "matching crew found with > load priority. aborting process... (%s, compared to %s)",#crew.loadPriority,exscludeCrew.loadPriority
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_3": "no matching crew found. attempting to add exclude crew...",
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_4": "attempting to add a new exsclude crew with a crew and loadPriority of %s,%s",#exscludeCrew.crew,exscludeCrew.loadPriority
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_5": "added exclude crew has >= load priority then current exclude crew (%s,%s). removing crew and replacing old exsclude crew",#keept loadPriority
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_6": "added exclude crew has < load priority then current exclude crew (%s,%s). removing crew and adding excludeCrew",#excludeCrew.loadPrioity, excludeCrew.loadPrioirty
+	"crewReplacerString_crewReplacer_Job_addBlackListCrew_7": "no exclude crew found. removing crew and adding excludeCrew",
+	"crewReplacerString_crewReplacer_Job_getBlackListCrewIfExists_0": "running getBlackListCrewIfExists with a name of: ",#crew name
+	"crewReplacerString_crewReplacer_Job_getBlackListCrewIfExists_1": "got excludeCrew returning...",
+	"crewReplacerString_crewReplacer_Job_getBlackListCrewIfExists_2": "failed to get excludeCrew. returning null...",
+	"crewReplacerString_crewReplacer_Job_removeBlackListCrew_0": "running removeBlackListCrew for a BlackListCrew named: %s",#BlackListCrew.name
+	"crewReplacerString_crewReplacer_Job_removeBlackListCrew_1": "found a BlackListCrew with a matching name. removing...",
+	"crewReplacerString_crewReplacer_Job_removeBlackListCrew_2": "failed to find a BlackListCrew with a matching name. exiting...",
 
 	"crewReplacerString_crewReplacer_Main_getJob_0": "getJob found matching job name. getting job named: %s",#job.name
 	"crewReplacerString_crewReplacer_Main_getJob_1": "getJob job not formed yet. creating new job named: %s",#job.name
@@ -275,6 +291,7 @@
 	"crewReplacerString_crewReplacer_Main_removeJob_1": "remove job failed. no job name: %s",#job.name
 	"crewReplacerString_crewReplacer_Main_addOrMergeJob_0": "addOrMergeJob didnt find any job by the name: %s. creating new job.",#job.name
 	"crewReplacerString_crewReplacer_Main_addOrMergeJob_1": "addOrMergeJob found a matching job named: %s. moveing data to new class...",#job.name
+	"crewReplacerString_crewReplacer_Main_addOrMergeJob_2": "addOrMergeJob found a matching job named: %s, but is aborting swap because the new jobs priority is to low (kept jobs priority, compared to discarded jobs priority: %s, %s)",#job.name
 	"crewReplacerString_crewReplacer_Main_organizePriority_0": "organizing Priority...",
 	"crewReplacerString_crewReplacer_Main_organizePriority_1": "adding crews from relevant jobSets to job named: %s",#job.name
 	"crewReplacerString_crewReplacer_Main_organizePriority_2": "organizing job named: %s",#job.name
@@ -312,5 +329,23 @@
 	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_2": "adding crew sets crew to output named: %s",#crewSet.name
 	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrews_3": "adding crew to output named: %s",#crew.name
 	"crewReplacerString_crewReplacer_CrewSet_getIntoCrewSetLog_0": "in crewSet named '%s' ",#crewSet.name
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_0": "running addBlackListCrew for a new exclude crew with a crew and loadPriority of %s,%s",#crewName,loadPriority
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_1": "matching crew found with <= load prioirty. (%s,compared to %s). attempting to add exsclude crew....",#crew.loadPriority,exscludeCrew.loadPriority
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_2": "matching crew found with > load priority. aborting process... (%s, compared to %s)",#crew.loadPriority,exscludeCrew.loadPriority
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_3": "no matching crew found. attempting to add exclude crew...",
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_4": "attempting to add a new exsclude crew with a crew and loadPriority of %s,%s",#exscludeCrew.crew,exscludeCrew.loadPriority
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_5": "added exclude crew has >= load priority then current exclude crew (%s,%s). removing crew and replacing old exsclude crew",#keept loadPriority
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_6": "added exclude crew has < load priority then current exclude crew (%s,%s). removing crew and adding excludeCrew",#excludeCrew.loadPrioity, excludeCrew.loadPrioirty
+	"crewReplacerString_crewReplacer_CrewSet_addBlackListCrew_7": "no exclude crew found. removing crew and adding excludeCrew",
+	"crewReplacerString_crewReplacer_CrewSet_getBlackListCrewIfExists_0": "running getBlackListCrewIfExists with a name of: ",#crew name
+	"crewReplacerString_crewReplacer_CrewSet_getBlackListCrewIfExists_1": "got excludeCrew returning...",
+	"crewReplacerString_crewReplacer_CrewSet_getBlackListCrewIfExists_2": "failed to get excludeCrew. returning null...",
+	"crewReplacerString_crewReplacer_CrewSet_removeBlackListCrew_0": "running removeBlackListCrew for a BlackListCrew named: %s",#BlackListCrew.name
+	"crewReplacerString_crewReplacer_CrewSet_removeBlackListCrew_1": "found a BlackListCrew with a matching name. removing...",
+	"crewReplacerString_crewReplacer_CrewSet_removeBlackListCrew_2": "failed to find a BlackListCrew with a matching name. exiting...",
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrewsSets_0": "running etAllLinkedCrewsSets with a remaining depth of %s",#max depth to exsplore.
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrewsSets_1": "adding blacklisted crews to output...",
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrewsSets_2": "adding crews to output...",
+	"crewReplacerString_crewReplacer_CrewSet_getAllLinkedCrewsSets_3": "getting all linked crew sets..."
 }
 

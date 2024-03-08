@@ -38,21 +38,44 @@ public class crew_replacer_startup extends BaseModPlugin {
         //x.alias("PlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
     }
     private void startup2() {
-        //this.test();
+        this.test();
         this.addDefaultCrew();
     }
     private void test(){
         CrewReplacer_Log.loging("TESTING HERE:",this,true);
+        crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
+        tempJob.addCrewSet("animals");
+        tempJob.addCrewSet("trees");
+        crewReplacer_CrewSet a = crewReplacer_Main.getCrewSet("animals");
+        a.addCrewSet("cats");
+        a.addCrewSet("dogs");
+        a.addNewCrew("the suppream dogo",100,1,10);
+        a.addBlackListCrew("jef",5);
+        a.addBlackListCrew("def",25);
+        a = crewReplacer_Main.getCrewSet("cats");
+        a.addNewCrew("jef",100,1,10);
+        a.addNewCrew("def",1,1);
+        a.addNewCrew("gate",1,1);
+        a = crewReplacer_Main.getCrewSet("dogs");
+        a.addNewCrew("man",100,1,10);
+        a.addNewCrew("def",1,1);
+        a.addNewCrew("life itself",1,1);
+        a = crewReplacer_Main.getCrewSet("tress");
+        a.addBlackListCrew("life itself",14000);
+        tempJob.applyCrewSets();
+        /*
         crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
         tempJob.addNewCrew("crew",1,10);
         tempJob.addBlackListCrew("crew",1);
         tempJob.addNewCrew("crew",1,10);
         tempJob.addBlackListCrew("crew",0);
         tempJob.addBlackListCrew("crew",1);
-        tempJob.addBlackListCrew("crew",15);
         tempJob.addNewCrew("crew",1,10,16);
         tempJob.getBlackListCrewIfExists("crew");
         tempJob.removeBlackListCrew("crew");
+        tempJob.addBlackListCrew("crew",20);
+        tempJob.addNewCrew("crew",1,10,5);
+        tempJob.addNewCrew("crew",1,10,21);*/
 
     }
     private void addDefaultCrew(){

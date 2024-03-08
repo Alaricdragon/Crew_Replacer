@@ -78,6 +78,7 @@ public class crewReplacer_CrewSet {
                 }else{
                     CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addCrew",5,""+a.loadPriority,""+crew.crewLoadPriority),this);
                     //continue
+                    break;
                 }
             }
         }
@@ -144,62 +145,62 @@ public class crewReplacer_CrewSet {
 
 
     public boolean addBlackListCrew(String crew, float loadPriority) {
-        CrewReplacer_Log.loging(getIntoCrewSetLog()+CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",0,crew,""+loadPriority),this);
+        CrewReplacer_Log.loging(getIntoCrewSetLog()+CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",0,crew,""+loadPriority),this);
         CrewReplacer_Log.push();
         for (int c = 0; c < Crews.size(); c++){
             crewReplacer_Crew a = Crews.get(c);
             if (a.name.equals(crew)){
                 if(a.crewLoadPriority <= loadPriority){
-                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",1,""+a.crewLoadPriority,""+loadPriority),this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",1,""+a.crewLoadPriority,""+loadPriority),this);
                     boolean temp = addBlackListCrew(new CrewReplacer_BlackListCrew(crew,loadPriority));
                     CrewReplacer_Log.pop();
                     return temp;
                 }else{
-                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",2,""+a.crewLoadPriority,""+loadPriority),this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",2,""+a.crewLoadPriority,""+loadPriority),this);
                     CrewReplacer_Log.pop();
                     return false;
                 }
             }
         }
-        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",3),this);
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",3),this);
         boolean temp = addBlackListCrew(new CrewReplacer_BlackListCrew(crew,loadPriority));
         CrewReplacer_Log.pop();
         return temp;
     }
     protected boolean addBlackListCrew(CrewReplacer_BlackListCrew EC){
-        CrewReplacer_Log.loging(getIntoCrewSetLog() + CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",4,EC.crew,""+EC.loadPriority),this);
+        CrewReplacer_Log.loging(getIntoCrewSetLog() + CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",4,EC.crew,""+EC.loadPriority),this);
         CrewReplacer_Log.push();
         for (int b = 0; b < BlackListCrews.size(); b++){
             if (BlackListCrews.get(b).loadPriority <= EC.loadPriority){
                 BlackListCrews.remove(b);
                 BlackListCrews.add(EC);
-                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",5,""+EC.loadPriority,""+ BlackListCrews.get(b).loadPriority),this);
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",5,""+EC.loadPriority,""+ BlackListCrews.get(b).loadPriority),this);
                 this.removeCrew(EC.crew);
                 CrewReplacer_Log.pop();
                 return true;
             }else{
-                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",6,""+EC.loadPriority,""+ BlackListCrews.get(b).loadPriority),this);
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",6,""+EC.loadPriority,""+ BlackListCrews.get(b).loadPriority),this);
                 CrewReplacer_Log.pop();
                 return false;
             }
         }
         BlackListCrews.add(EC);
-        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addExcludeCrew",7),this);
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",7),this);
         this.removeCrew(EC.crew);
         CrewReplacer_Log.pop();
         return true;
     }
     public CrewReplacer_BlackListCrew getBlackListCrewIfExists(String crew){
-        CrewReplacer_Log.loging(getIntoCrewSetLog()+CrewReplacer_StringHelper.getLogString(className,"getExcludeCrewIfExists",0,crew),this);
+        CrewReplacer_Log.loging(getIntoCrewSetLog()+CrewReplacer_StringHelper.getLogString(className,"getBlackListCrewIfExists",0,crew),this);
         CrewReplacer_Log.push();
         for(int a = 0; a < BlackListCrews.size(); a++){
             if (BlackListCrews.get(a).crew.equals(crew)) {
-                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getExcludeCrewIfExists",1),this);
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getBlackListCrewIfExists",1),this);
                 CrewReplacer_Log.pop();
                 return BlackListCrews.get(a);
             }
         }
-        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getExcludeCrewIfExists",2),this);
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getBlackListCrewIfExists",2),this);
         CrewReplacer_Log.pop();
         return null;
     }

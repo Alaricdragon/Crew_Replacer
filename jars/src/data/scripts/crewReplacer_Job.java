@@ -90,7 +90,7 @@ public class crewReplacer_Job {
         CrewReplacer_Log.pop();
         return temp;
     }
-    protected boolean addBlackListCrew(CrewReplacer_BlackListCrew EC){
+    private boolean addBlackListCrew(CrewReplacer_BlackListCrew EC){
         CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",4,EC.crew,""+EC.loadPriority),this);
         CrewReplacer_Log.push();
         for (int b = 0; b < BlackListCrews.size(); b++){
@@ -207,6 +207,7 @@ public class crewReplacer_Job {
                     return false;//?
                 }else{
                     CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addCrew",5,""+a.loadPriority,""+crew.crewLoadPriority),this);
+                    break;
                     //continue
                 }
             }

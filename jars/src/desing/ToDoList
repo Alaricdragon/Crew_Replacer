@@ -1,6 +1,11 @@
 crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
 improvements that must be made:
-    1:(done) loadPrioirity system:
+    -- whats left to do for the next update:
+        1) go into settings and swap all mentions of 'excluded crew' with 'blacklisted crew'.
+        2) create documentation explaining how to use the blacklist system. (in the readme part.)
+        3) attempt to add the crew replacer compatibility for forge production
+        4) clean up this to do list.
+    1:(done)(tested) loadPrioirity system:
         crew, jobs, and crewsets need a new float called 'load priority'. only things with >= 'load priority' of what is already there may be valid replacements.
         all crew, jobs, and crew set have this varuble. whats left to do:
         1) in all instances of adding or merging a crew, check the load priority instead of preveus processes when desided what to keep.
@@ -8,12 +13,12 @@ improvements that must be made:
             -addOrMergeCrew.
             -addCrew.
             -applyCrewSets
-    2:(done) change the way replacements for crew work:
+    2:(done)(not tested, but I cant foresee anything at all going wrong.) change the way replacements for crew work:
         for some reason, replaceing a crew class trys to grab the old crews stats. this is stupid. fix this.
             -note: this is fine for things like, lets say, jobs, because i want to keep the data if i change the class.
     3: set crewReplacer_Job.crews and crewReplacer_Job.crewPriority to protected
         -note: this is not possable, as currently, nexerlin looks at the data here directly, so i cant change this yet.
-    4: add a new array to crewReplacer_Job and crewReplacer_CrewSet called 'exclude_crew'. it will hold a list containing names and a 'load priority'. so long as the load prioity is greater then a inputed crew, will remove that crew from the job / crewset and prevent it from joining until one with higher loadPriority is added
+    4:(done, and tested) add a new array to crewReplacer_Job and crewReplacer_CrewSet called 'exclude_crew'. it will hold a list containing names and a 'load priority'. so long as the load prioity is greater then a inputed crew, will remove that crew from the job / crewset and prevent it from joining until one with higher loadPriority is added
         1)(done) add this varuble
         2)(done) make it addable and removingable
         3)(done) make it remove its crew on being added.
@@ -21,7 +26,7 @@ improvements that must be made:
             -to do here:
                 1)(done) make it so addNewCrew runs addCrew.
                 2)(done) make it so addCrew check loadPriority and BlackListCrew
-testing:
+testing: (for each and every update =()
     (done)makue sure the the salvage on runins and worlds works.
         -(YES IT DOES)make sure 'without crew replacer' salvaging also shows all the -zero percent- modifyers. just in case.
 

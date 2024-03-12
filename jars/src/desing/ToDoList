@@ -1,54 +1,13 @@
 crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
 improvements that must be made:
-1)(DONE) look into classes that i have replaced, and -TRY- to get them to extend the classes they are replacing
-   if exstension is impossable (do to private methods or information) copy the old class, but make everything protected. then exstend that.
-   notes:
-        the rules for changed to the base plugins are: (for replacement pluggin)
-        copy the 'base' class
-        run s/private/protected/g on it.
-        make the replacement class exsend the new replaced class.
-   (DONE)status:
-        need to check:
-            (DONE)
-        need a replacement pluggin:
-            (done. partial testing seems clear)crew_replacer_SalvageEntity
-            (done. untested)surveypluggin. (colonize and salvage)
-        can exstend:
-            (done. tested. had this for like a year and forgot i made the change)CrewReplacerMarketCMD
-
-        ponitless (nothing to exstend):
-            steel a starship.
-            hyper really repair.
-2)(done) update all strings and put them into the config. this will help A LOT. with both editing, and people who want this mod in other languages
-    theory: its possible that i might require to use a diffrent file at some ponit in the future to hold all the strings. so i have a plan. the best plan even:
-    create a class that handles strings. i can them simply call the calss name, and the 'line id' to get the string i want, then solve for the string from there.
-    NOTE: the reason i want shit to be displayed is so others can view it. personal logs, like the debug logs for the market CMD (not the error logs) should not be added to the settings.
-    to do:
-
-
-        find and replace all other strings i ever created. (NOTE: this should only be done for strings that display for the player, or are used as a main log for a modder to know what the flip is even going on.)
-    done(primary display texts):
-        crewReplacer_CrewSet
-        crewReplacer_Job
-        crewReplacer_Main
-        crew_replacer_SalvageEntity(NEED TO TEST THIS AND MAKE SURE THINGS ARE DISPLAYING RIGHT!!!)(partial testing complete. need to test ruins and losing units.)
-        crew_replacer_SalvageEntity_Base(NEED TO TEST THIS AND MAKE SURE ITS DISPLAYING THINGS RIGHT!!!)(no testing complete)
-        CrewReplacer_SurveyPluginImpl_Base
-        CrewReplacerMarketCMD(OMG THERE IS SO MANY STRINGS IM ALMOST SCARED TO TEST IT BUT I NEED TO AT SOME POINT)
-        CrewReplacer_CrewType_marine
-    done(debug text):
-        crewReplacer_CrewSet
-        crewReplacer_Job
-        crewReplacer_Main
-        crew_replacer_SalvageEntity
-        crew_replacer_SalvageEntity_Base
-        CrewReplacer_SurveyPluginImpl_Base
-        (not doing. becuase i dont see a reason to. debugs for meeeee)CrewReplacer_CrewType_marine
-    no strings to replace:
-        crewReplacer_Crew
-
-testing:
-    (done)makue sure the the salvage on runins and worlds works.
+    none.
+talking to people:
+    1) ask the nexerlin person to stop directly accsessing my crewReplacer.jobs.crews.
+    2) create a 'how to make a commodity tutorial'
+    3) create a sequel to that, that's 'how to make crews in crew replacer.'
+        -once that's done, i can add onto it and explain how to add crewReplacer support to your mods.
+testing: (for each and game every update =()
+    (done)make sure the the salvage on ruins and worlds works.
         -(YES IT DOES)make sure 'without crew replacer' salvaging also shows all the -zero percent- modifyers. just in case.
 
     (done)make sure that everything to do with raiding works.
@@ -85,8 +44,8 @@ link to my mod:[url=https://fractalsoftworks.com/forum/index.php?topic=24249.0]c
 
 known mods with possable crew:
 (said they would look into it.)Nexerlin: invasions(done), found a outpost station thing?
-(said i could make my own branch then request to merge)terraforming and station construction: station construction
-(said i could maky my own patch. said they cant work on there mod now.)Forge Production: getting into a dominion era moma ship.
+(done)terraforming and station construction: station construction
+(said i can work on my own patch, or release what i have already finished. im going to patch this into crew replacer.) (partly patched into crew replacer (only the mother ship event for now))Forge Production: getting into a dominion era moma ship.
 (said not now. currently doing a rework of systems)ashes of the domion: repairing a cryosleeper
 (said sure, why not. although they wont help, they are busy.)Xan empire: the specal ships with the organic ship forge.
 unknown (possibly industrial evolution?): 'removing' a ruin.
@@ -143,8 +102,6 @@ regarding survey job:
     getXP() from the survey plugging may cause supplys to drop. because thats were im running my code. this is a issue.
 
 Bugs:
-    in the debug logs in crewReplacer_Job:
-        the code is refusing to display the names of jobs or crew anywere. please investagate.
     in getCargoSpaceRange in crewReplacer_Job:
         1) this set of code can cause issues with other sets of code, causeing a miscalculation were i think i need less cargo then i acsualy need at low amounts.
            cant just remove Math.min, because then it can get claim to use mush more cargo then it actually does.

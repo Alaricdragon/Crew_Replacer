@@ -2,14 +2,17 @@ package data.scripts.combatabilityPatches;
 
 import com.fs.starfarer.api.Global;
 import data.scripts.CrewReplacer_Log;
+import data.scripts.combatabilityPatches.forgeProdPatches.CrewReplacer_ForgeProd_Patch;
 import data.scripts.combatabilityPatches.normadicSurvivalPatches.CrewReplacer_normadicSurvival_init;
 
 public class CrewReplacer_InitCombatabilityPatches {
     public static String[][] modNames = {
-            {"sun_nomadic_survival","sun_perilous_expanse"}
+            {"sun_nomadic_survival","sun_perilous_expanse"},
+            {"forge_production"}
     };
     public static CrewReplacer_PatchBase[] patches = {
            new CrewReplacer_normadicSurvival_init(),
+            new CrewReplacer_ForgeProd_Patch()
     };
     public static void onApplicationLoad() {
         for(int a = 0; a < modNames.length; a++) {

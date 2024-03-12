@@ -20,7 +20,9 @@ public class crewReplacer_Job {
         -i don't want to rebuild the crew display 40 times thanks
      */
     public static final String CARGO_CARGO = "cargo", CARGO_CREW = "crew", CARGO_FUEL ="fuel";
-    public String name;
+    public String name = "";
+    public float loadPriority = 0;
+    public ArrayList<CrewReplacer_BlackListCrew> BlackListCrews = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> crewPriority;//organized greatest to lowest.
     public ArrayList<crewReplacer_Crew> Crews = new ArrayList<crewReplacer_Crew>();
     public Object ExtraData = null;
@@ -65,6 +67,81 @@ public class crewReplacer_Job {
         CrewReplacer_Log.pop();
     }
 
+    public boolean addBlackListCrew(String crew, float loadPriority) {
+        CrewReplacer_Log.loging(getIntoJobLog()+CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",0,crew,""+loadPriority),this);
+        CrewReplacer_Log.push();
+        for (int c = 0; c < Crews.size(); c++){
+            crewReplacer_Crew a = Crews.get(c);
+            if (a.name.equals(crew)){
+                if(a.crewLoadPriority <= loadPriority){
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",1,""+a.crewLoadPriority,""+loadPriority),this);
+                    boolean temp = addBlackListCrew(new CrewReplacer_BlackListCrew(crew,loadPriority));
+                    CrewReplacer_Log.pop();
+                    return temp;
+                }else{
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",2,""+a.crewLoadPriority,""+loadPriority),this);
+                    CrewReplacer_Log.pop();
+                    return false;
+                }
+            }
+        }
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",3),this);
+        boolean temp = addBlackListCrew(new CrewReplacer_BlackListCrew(crew,loadPriority));
+        CrewReplacer_Log.pop();
+        return temp;
+    }
+    private boolean addBlackListCrew(CrewReplacer_BlackListCrew EC){
+        CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",4,EC.crew,""+EC.loadPriority),this);
+        CrewReplacer_Log.push();
+        for (int b = 0; b < BlackListCrews.size(); b++){
+            if (BlackListCrews.get(b).loadPriority <= EC.loadPriority){
+                BlackListCrews.remove(b);
+                BlackListCrews.add(EC);
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",5,""+EC.loadPriority,""+ BlackListCrews.get(b).loadPriority),this);
+                this.removeCrew(EC.crew);
+                CrewReplacer_Log.pop();
+                return true;
+            }else{
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",6,""+EC.loadPriority,""+ BlackListCrews.get(b).loadPriority),this);
+                CrewReplacer_Log.pop();
+                return false;
+            }
+        }
+        BlackListCrews.add(EC);
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",7),this);
+        this.removeCrew(EC.crew);
+        CrewReplacer_Log.pop();
+        return true;
+    }
+    public CrewReplacer_BlackListCrew getBlackListCrewIfExists(String crew){
+        CrewReplacer_Log.loging(getIntoJobLog()+CrewReplacer_StringHelper.getLogString(className,"getBlackListCrewIfExists",0,crew),this);
+        CrewReplacer_Log.push();
+        for(int a = 0; a < BlackListCrews.size(); a++){
+            if (BlackListCrews.get(a).crew.equals(crew)) {
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getBlackListCrewIfExists",1),this);
+                CrewReplacer_Log.pop();
+                return BlackListCrews.get(a);
+            }
+        }
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getBlackListCrewIfExists",2),this);
+        CrewReplacer_Log.pop();
+        return null;
+    }
+    public boolean removeBlackListCrew(String crew){
+        CrewReplacer_Log.loging(getIntoJobLog()+CrewReplacer_StringHelper.getLogString(className,"removeBlackListCrew",0,crew),this);
+        CrewReplacer_Log.push();
+        for(int a = 0; a < BlackListCrews.size(); a++){
+            if (BlackListCrews.get(a).crew.equals(crew)) {
+                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"removeBlackListCrew",1),this);
+                CrewReplacer_Log.pop();
+                BlackListCrews.remove(a);
+                return true;
+            }
+        }
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"removeBlackListCrew",2),this);
+        CrewReplacer_Log.pop();
+        return false;
+    }
 
     public boolean hasCrew(String crew){
         CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"hasCrew",0),this);
@@ -122,7 +199,19 @@ public class crewReplacer_Job {
     public boolean addCrew(crewReplacer_Crew crew){
         CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"addCrew",0),this);
         CrewReplacer_Log.push();
-        boolean output = true;
+        for(CrewReplacer_BlackListCrew a : BlackListCrews){
+            if (a.crew.equals(crew.name)){
+                if (a.loadPriority >= crew.crewLoadPriority){
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addCrew",4,""+a.loadPriority,""+crew.crewLoadPriority),this);
+                    CrewReplacer_Log.pop();
+                    return false;//?
+                }else{
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addCrew",5,""+a.loadPriority,""+crew.crewLoadPriority),this);
+                    break;
+                    //continue
+                }
+            }
+        }
         for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew.name)){
                 CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addCrew",1,Crews.get(a).name),this);
@@ -134,15 +223,13 @@ public class crewReplacer_Job {
                 Crews.add(a,crew);
                 CrewReplacer_Log.push();
                 //mergeCrew(Crews.get(a),crew.crewPower,crew.crewDefence,crew.crewPriority/*,crew.maxLosePercent,crew.minLosePercent,crew.NormalLossRules*/);
-                return false;
+                return true;
             }
         }
-        if(output){
-            CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addCrew",3,crew.name),this);
-            Crews.add(crew);
-        }
+        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addCrew",3,crew.name),this);
+        Crews.add(crew);
         CrewReplacer_Log.pop();
-        return output;
+        return true;
     }
     public boolean addNewCrew(String crew,float crewPower,float crewPriority){
         return addNewCrew(crew,crewPower,crewPower,crewPriority,0);
@@ -155,7 +242,14 @@ public class crewReplacer_Job {
         crewReplacer_Crew temp = new crewReplacer_Crew();
         CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"addNewCrew",0,crew,""+crewPower,""+crewPriority,""+loadPriority),this);
         CrewReplacer_Log.push();
-        for(int a = 0; a < Crews.size(); a++){
+        crewReplacer_Crew a = new crewReplacer_Crew();
+        a.name = crew;
+        a.crewPower = crewPower;
+        a.crewDefence = crewDefence;
+        a.crewPriority = crewPriority;
+        a.crewLoadPriority = loadPriority;
+        output = addCrew(a);
+        /*for(int a = 0; a < Crews.size(); a++){
             if(Crews.get(a).name.equals(crew)){
                 CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addNewCrew",1,Crews.get(a).name),this);
                 if (loadPriority < Crews.get(a).crewLoadPriority){
@@ -173,19 +267,9 @@ public class crewReplacer_Job {
             temp.name = crew;
             Crews.add(temp);
         }
-        mergeCrew(temp,crewPower,crewDefence,crewPriority,loadPriority/*,crewMaxLosePercent,crewMinLosePercent,crewNormalLoseRules*/);
+        mergeCrew(temp,crewPower,crewDefence,crewPriority,loadPriority);*/
         CrewReplacer_Log.pop();
         return output;
-    }
-    private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority,float loadPriority){
-        CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"mergeCrew",0,crew.name,""+crewPower,""+crewDefence,""+crewPriority),this);
-        crew.crewPower = crewPower;
-        crew.crewDefence = crewDefence;
-        crew.crewPriority = crewPriority;
-        crew.crewLoadPriority = loadPriority;
-        //crew.maxLosePercent = crewMaxLosePercent;
-        //crew.maxLosePercent = crewMinLosePercent;
-        //crew.NormalLossRules = crewNormalLoseRules;
     }
 
     public boolean addCrewSet(String CrewSet){
@@ -222,18 +306,33 @@ public class crewReplacer_Job {
         CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",0),this);
         CrewReplacer_Log.push();
         for (String a : CrewSets){
-            CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",1,""+CrewSets),this);
+            CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",1,""+a),this);
             CrewReplacer_Log.push();
-            crewReplacer_CrewSet jobSet = crewReplacer_Main.getCrewSet(a);
+            crewReplacer_CrewSet jobSet = crewReplacer_Main.getCrewSet(a).getAllLinkedCrewsSets();
+            CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",2),this);
+            CrewReplacer_Log.push();
+            for(CrewReplacer_BlackListCrew crew : jobSet.BlackListCrews){
+                this.addBlackListCrew(crew.crew,crew.loadPriority);
+            }
+            CrewReplacer_Log.pop();
+            CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",3),this);
+            CrewReplacer_Log.push();
             for(crewReplacer_Crew crew : jobSet.Crews){
-                CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",2,crew.name),this);
+                this.addCrew(crew);
+            }
+            CrewReplacer_Log.pop();
+
+            /*
+            for(CrewReplacer_BlackListCrew crew : jobSet.BlackListCrews){
+                this.addBlackListCrew(crew.crew,crew.loadPriority);
+            }
+            for(crewReplacer_Crew crew : jobSet.Crews){
                 if(!hasCrew(crew.name)){
-                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",3),this);
                     addCrew(crew);
                 }else{
                     CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",4),this);
                 }
-            }
+            }*/
             CrewReplacer_Log.pop();
         }
         CrewReplacer_Log.pop();

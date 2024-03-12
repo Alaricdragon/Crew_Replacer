@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="forge_production">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Forge Production/jars/forge_production.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

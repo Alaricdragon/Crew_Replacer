@@ -8,7 +8,6 @@ import com.thoughtworks.xstream.XStream;
 import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
 import data.scripts.crews.CrewReplacer_CrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
-import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew;
 import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew_2;
 
 import java.util.List;
@@ -39,7 +38,40 @@ public class crew_replacer_startup extends BaseModPlugin {
         //x.alias("PlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
     }
     private void startup2() {
+        //this.test();
         this.addDefaultCrew();
+    }
+    private void test(){
+        CrewReplacer_Log.loging("TESTING HERE:",this,true);
+        crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
+        tempJob.addCrewSet("animals");
+        tempJob.addCrewSet("trees");
+        crewReplacer_CrewSet a = crewReplacer_Main.getCrewSet("animals");
+        a.addCrewSet("cats");
+        a.addCrewSet("dogs");
+        a.addNewCrew("the suppream dogo",100,1,10);
+        a.addBlackListCrew("jef",5);
+        a.addBlackListCrew("def",25);
+        a = crewReplacer_Main.getCrewSet("cats");
+        a.addNewCrew("jef",100,1,10);
+        a.addNewCrew("def",1,1);
+        a.addNewCrew("gate",1,1);
+        a = crewReplacer_Main.getCrewSet("dogs");
+        a.addNewCrew("man",100,1,10);
+        a.addNewCrew("def",1,1);
+        a.addNewCrew("life itself",1,1);
+        a = crewReplacer_Main.getCrewSet("tress");
+        a.addBlackListCrew("life itself",14000);
+        tempJob.applyCrewSets();
+
+        tempJob = new crewReplacer_Job();
+        tempJob.name = "salvage_crew";
+        tempJob.loadPriority = 1;
+        crewReplacer_Main.addOrMergeJob(tempJob);
+        tempJob = new crewReplacer_Job();
+        tempJob.loadPriority = -1;
+        tempJob.name = "salvage_crew";
+        crewReplacer_Main.addOrMergeJob(tempJob);
     }
     private void addDefaultCrew(){
         String jobSet_crew = "crew";

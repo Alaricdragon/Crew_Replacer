@@ -39,13 +39,22 @@ public class crewReplacer_Main {
         return output;
     }
     static public boolean addOrMergeJob(crewReplacer_Job job){
+        return addOrMergeJob(job,job.loadPriority);
+    }
+    static public boolean addOrMergeJob(crewReplacer_Job job, float loadPriority){
         boolean output = true;
         int temp = 0;
         for(int a = 0; a < Jobs.size(); a++){
             if(Jobs.get(a).name.equals(job.name)){
-                temp = a;
-                output = false;
-                break;
+                if (Jobs.get(a).loadPriority <= loadPriority) {
+                    temp = a;
+                    output = false;
+                    job.loadPriority = loadPriority;
+                    break;
+                }else{
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"addOrMergeJob",2,job.name),new crewReplacer_Main());
+                    return false;
+                }
             }
         }
         if(output){

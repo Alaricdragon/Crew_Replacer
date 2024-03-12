@@ -5,8 +5,12 @@ crewReplacer_job should generally not have there functions overwritten, unless y
 you can do so, but I advice only doing so when you want to change how a crewReplacer_job behaves, not when you want to
 do something strange with a crewReplacer_crew.
 
-crewReplacer_crewSet has no functions, and only exists as a way to add crew across a large range of jobs easily. for example,
-NOTE: i need to finish this class before i write down how to edit and change it. if you see this message, i forgot to rewrite this small part of the documentation. dm me or something plz.
+crewReplacer_crewSet has few functions, and only exists as a way to add crew across a large range of jobs easily. for example,
+you have a crew you want to do anything a 'crew' in the base game can. to accomplish this you run the following:
+crewReplacer_Main.getCrewSet("crew").addNewCrew("gremlins",1,10);
+    -the "crew" here can be swapped for the ID of commodity.
+    -see the section in this read me about crewReplacer_Crew for how the .addNewCrew(String,float,float) works. but its the same as there.
+
 
 crewReplacer_Crew should have any function you want overwritten. every single function in said class is designed with that in mind.
 to that end, despite that its made for turning commodities into crew, crews can be modified to be anything,
@@ -26,3 +30,23 @@ if you are looking to do something simpler, like turn a commodity into a crew wi
 3) repeat 1 and 2 for every job you want your crew to be able to preform.
 -) example of adding a crew to a job.:
     crewReplacer_Main.getJob("salvage_heavyMachinery").addNewCrew("heavy_machinery",1,1,10);
+
+
+
+
+
+notes: overriding crew added by another mod:
+when you want to override crew from antoher mod, you can do this. provided any of the following is true:
+1) your mod loads after the mods crew you want to overwrite, and your new crew has a 'crewLoadPriority' >= then the one you are replaceing.
+2) your new crew has a 'crewLoadPriority' >= then the one you are replacing. (regardless of load order)
+
+
+notes: excluding crew from certain jobs:
+so, sometimes (like when using a crew set) you might want to make it so a crew of a certain name cant be part of a job.
+to do so, we use the blacklist system that exists on crewReplacer_CrewSet and crewReplacer_Job.
+for example:
+    crewReplacer_Main.getJob("jobName").addBlackListCrew("crewName",0);
+    in this example, i am going into the job named jobName, and blacklisting any crew with the name of "crewName" from joing this job.
+    you might notice that there is a integer at the end of this blacklist. that is the 'loadPriority' of the blacklist. this value needs to be equal or greater to the 'crewLoadPriority' that all crew have for the blacklist to wrok.
+    if the blacklists priority is >= then the crews crewLoadPriority, it will automatically remove any crew with the inputted name.
+    note: if a crew is inputted with the blacklisted name, and its crewLoadPriority is higher then the blacklisted loadPriority, the crew will be added, and the blacklist will be ignored.

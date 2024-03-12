@@ -1,0 +1,27 @@
+this is the replacement to all (forge production)motherShip quest jobs in use.
+status:
+    95% done. no code runs afterwards, so i cant do extra calculations base on crew used.
+
+notes:
+
+
+job name: replaced commodity
+    job name:                   commodity replaced name
+    ForgeProd_MotherShip_crew               crew
+    ForgeProd_MotherShip_heavy_machinery    heavy_machinery
+    ForgeProd_MotherShip_gamma_core         gamma_core
+
+extra data:
+    put extra data here
+
+
+issues:
+
+
+possible solutions:
+
+
+location of rules and scripts:
+    base game:
+
+    crew Replacer:

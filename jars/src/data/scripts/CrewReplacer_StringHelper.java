@@ -38,25 +38,30 @@ public class CrewReplacer_StringHelper {
     }
 
     protected static String getSplitString(String primary,String[] secondary){
-        StringBuilder output = new StringBuilder();
-        String[] a = primary.split("%s");
-        if (primary.charAt(primary.length() - 1) == 's' && primary.charAt(primary.length() - 2) == '%'){
-            String[] b = a;
-            a = new String[b.length+1];
-            for (int c = 0; c < b.length; c++){
-                a[c] = b[c];
-            }
-            a[a.length -1] = "";
-        }
         try {
-            for (int b = 0; b < a.length - 1; b++) {
-                output.append(a[b]).append(secondary[b]);
+            StringBuilder output = new StringBuilder();
+            String[] a = primary.split("%s");
+            if (primary.charAt(primary.length() - 1) == 's' && primary.charAt(primary.length() - 2) == '%') {
+                String[] b = a;
+                a = new String[b.length + 1];
+                for (int c = 0; c < b.length; c++) {
+                    a[c] = b[c];
+                }
+                a[a.length - 1] = "";
             }
-            output.append(a[a.length - 1]);
+            try {
+                for (int b = 0; b < a.length - 1; b++) {
+                    output.append(a[b]).append(secondary[b]);
+                }
+                output.append(a[a.length - 1]);
+            } catch (Exception e) {
+                CrewReplacer_Log.loging("failed to get split string: " + primary + " , " + Arrays.toString(secondary), new CrewReplacer_StringHelper(), true);
+                return "";
+            }
+            return output.toString();
         }catch (Exception e){
-            CrewReplacer_Log.loging("failed to get split string: "+primary+" , "+ Arrays.toString(secondary),new CrewReplacer_StringHelper(),true);
-            return "";
+            CrewReplacer_Log.loging("error on getting split string in crew replacer. returning error log as:" +e.getLocalizedMessage(),true);
+            return "failed to get string. see logs for details.";
         }
-        return output.toString();
     }
 }

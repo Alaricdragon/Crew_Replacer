@@ -20,7 +20,7 @@ public class crewReplacer_Job {
         -i don't want to rebuild the crew display 40 times thanks
      */
     public static final String CARGO_CARGO = "cargo", CARGO_CREW = "crew", CARGO_FUEL ="fuel";
-    public String name;
+    public String name = "";
     public float loadPriority = 0;
     public ArrayList<CrewReplacer_BlackListCrew> BlackListCrews = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> crewPriority;//organized greatest to lowest.

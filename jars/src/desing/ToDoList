@@ -1,33 +1,13 @@
 crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
 improvements that must be made:
-    -- whats left to do for the next update:
-        1) go into settings and swap all mentions of 'excluded crew' with 'blacklisted crew'.
-        2) create documentation explaining how to use the blacklist system. (in the readme part.)
-        3) attempt to add the crew replacer compatibility for forge production
-        4) clean up this to do list.
-    1:(done)(tested) loadPrioirity system:
-        crew, jobs, and crewsets need a new float called 'load priority'. only things with >= 'load priority' of what is already there may be valid replacements.
-        all crew, jobs, and crew set have this varuble. whats left to do:
-        1) in all instances of adding or merging a crew, check the load priority instead of preveus processes when desided what to keep.
-            -this includes: (from both jobs and crewSets)
-            -addOrMergeCrew.
-            -addCrew.
-            -applyCrewSets
-    2:(done)(not tested, but I cant foresee anything at all going wrong.) change the way replacements for crew work:
-        for some reason, replaceing a crew class trys to grab the old crews stats. this is stupid. fix this.
-            -note: this is fine for things like, lets say, jobs, because i want to keep the data if i change the class.
-    3: set crewReplacer_Job.crews and crewReplacer_Job.crewPriority to protected
-        -note: this is not possable, as currently, nexerlin looks at the data here directly, so i cant change this yet.
-    4:(done, and tested) add a new array to crewReplacer_Job and crewReplacer_CrewSet called 'exclude_crew'. it will hold a list containing names and a 'load priority'. so long as the load prioity is greater then a inputed crew, will remove that crew from the job / crewset and prevent it from joining until one with higher loadPriority is added
-        1)(done) add this varuble
-        2)(done) make it addable and removingable
-        3)(done) make it remove its crew on being added.
-        4)(done) make it stop any crew from being added with a lower priority
-            -to do here:
-                1)(done) make it so addNewCrew runs addCrew.
-                2)(done) make it so addCrew check loadPriority and BlackListCrew
-testing: (for each and every update =()
-    (done)makue sure the the salvage on runins and worlds works.
+    none.
+talking to people:
+    1) ask the nexerlin person to stop directly accsessing my crewReplacer.jobs.crews.
+    2) create a 'how to make a commodity tutorial'
+    3) create a sequel to that, that's 'how to make crews in crew replacer.'
+        -once that's done, i can add onto it and explain how to add crewReplacer support to your mods.
+testing: (for each and game every update =()
+    (done)make sure the the salvage on ruins and worlds works.
         -(YES IT DOES)make sure 'without crew replacer' salvaging also shows all the -zero percent- modifyers. just in case.
 
     (done)make sure that everything to do with raiding works.
@@ -65,7 +45,7 @@ link to my mod:[url=https://fractalsoftworks.com/forum/index.php?topic=24249.0]c
 known mods with possable crew:
 (said they would look into it.)Nexerlin: invasions(done), found a outpost station thing?
 (done)terraforming and station construction: station construction
-(said i can work on my own patch, or release what i have already finished. im going to patch this into crew replacer.)Forge Production: getting into a dominion era moma ship.
+(said i can work on my own patch, or release what i have already finished. im going to patch this into crew replacer.) (partly patched into crew replacer (only the mother ship event for now))Forge Production: getting into a dominion era moma ship.
 (said not now. currently doing a rework of systems)ashes of the domion: repairing a cryosleeper
 (said sure, why not. although they wont help, they are busy.)Xan empire: the specal ships with the organic ship forge.
 unknown (possibly industrial evolution?): 'removing' a ruin.
@@ -122,8 +102,6 @@ regarding survey job:
     getXP() from the survey plugging may cause supplys to drop. because thats were im running my code. this is a issue.
 
 Bugs:
-    in the debug logs in crewReplacer_Job:
-        the code is refusing to display the names of jobs or crew anywere. please investagate.
     in getCargoSpaceRange in crewReplacer_Job:
         1) this set of code can cause issues with other sets of code, causeing a miscalculation were i think i need less cargo then i acsualy need at low amounts.
            cant just remove Math.min, because then it can get claim to use mush more cargo then it actually does.

@@ -11,5 +11,6 @@
     <orderEntry type="library" name="starsector-core" level="project" />
     <orderEntry type="library" name="Nomadic Survival" level="project" />
     <orderEntry type="library" name="NomadicSurvival" level="project" />
+    <orderEntry type="library" name="forge_production" level="project" />
   </component>
 </module>

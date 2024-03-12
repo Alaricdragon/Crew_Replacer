@@ -27,7 +27,21 @@ V0.7:
         crewReplacer_CrewSet:
             mergeCrew
     fixes:
-        made crewReplacer_Job.applyCrewSets() get all the inheanent crew sets form its crew sets like it was suppose to.
+        made crewReplacer_Job.applyCrewSets() get all the inherent crew sets form its crew sets like it was suppose to.
+        added some crash protection onto some variable bits of code that related to getting strings.
+    readme:
+        updated the readme with info on the blacklist system, and on the crewSet system
+    mod compatibility:
+        added some random mod compatibility for forge production. crew replacer now supports its mothership quest
+V0.6.10.1(private):
+    save compatible with v0.6.2+
+    fixes:
+        changed the settings so the logos show blacklisted crew instead of exclude crew.
+        added some crash protection onto some variable bits of code that related to getting strings.
+    readme:
+        updated the readme with info on the blacklist system, and on the crewSet system
+    mod compatibility:
+        added some random mod compatibility for forge production. crew replacer now supports its mothership quest
 V0.6.10.1(private):
     save compatible with v0.6.2+
     added the following classes and variables:

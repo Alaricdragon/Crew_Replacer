@@ -57,3 +57,25 @@ sun_ns_exploitOption2,DialogOptionSelected,$option == sun_ns_exploitPerform2 sco
 sun_ns_exploitOption3,DialogOptionSelected,$option == sun_ns_exploitPerform3 score:12,crewReplacer_normadicSurvivalC 3,,,
 sun_ns_exploitOption4,DialogOptionSelected,$option == sun_ns_exploitPerform4 score:12,crewReplacer_normadicSurvivalC 4,,,
 sun_ns_exploitOption5,DialogOptionSelected,$option == sun_ns_exploitPerform5 score:12,crewReplacer_normadicSurvivalC 5,,,
+,,,,,,
+#forge production mothership changes,,,,,,
+forgprod_salvage_consider,DialogOptionSelected,"crewReplacer_ForgeprodEnabled score:12
+$option == forgprodConsiderRecovery
+!$global.hardwareRecovered","CrewReplacer_ForgprodShowRetrievalCost
+FireBest ForgprodTryEquipmentCheck
+SetShortcut forgprodReconsider ESCAPE","It appears that sizable portions of the original autoforge compartment are still operational, rusted and worn out by time as they may be.
+
+Given necessary preparations, it might be possible to recover workable production modules as-is instead of scuttling them for machinery.","1:forgprodProceedRecovery:Commence recovery operation
+2:forgprodReconsider:Reconsider",
+forgprod_salvage_start_selected,DialogOptionSelected,"crewReplacer_ForgeprodEnabled score:12
+$option == forgprodInvestigate
+!$global.hardwareRecovered","CrewReplacer_ForgprodShowRetrievalCost
+FireBest ForgprodTryEquipmentCheck
+SetShortcut forgprodReconsider ESCAPE
+$mothershipInvestigated = true","Upon thorough examination of undamaged sections, exploration team's officer concludes that most of the hardware in sight is decayed beyond any practical hope of recovery.
+
+However, there's one important exception: it appears that sizable portions of the original autoforge compartment are still operational, rusted and worn out by time as they may be. Given necessary preparations, it might be possible to recover workable production modules as-is instead of scuttling them for machinery.","1:forgprodProceedRecovery:Commence recovery operation
+2:forgprodReconsider:Reconsider",
+forgprod_equipment_check,ForgprodTryEquipmentCheck,"crewReplacer_ForgeprodEnabled score:12
+!CrewReplacer_ForgprodCheckEquipment playerHasEquipment","SetTooltip forgprodProceedRecovery ""Commencing operation without sufficient equipment present would be a pointless endeavour.""
+SetEnabled forgprodProceedRecovery false",,,

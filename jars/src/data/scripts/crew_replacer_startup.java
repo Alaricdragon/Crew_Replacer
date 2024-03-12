@@ -38,7 +38,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         //x.alias("PlayerFleetPersonnelTracker", CrewReplacer_PlayerFleetPersonnelTracker.class);
     }
     private void startup2() {
-        this.test();
+        //this.test();
         this.addDefaultCrew();
     }
     private void test(){
@@ -63,20 +63,15 @@ public class crew_replacer_startup extends BaseModPlugin {
         a = crewReplacer_Main.getCrewSet("tress");
         a.addBlackListCrew("life itself",14000);
         tempJob.applyCrewSets();
-        /*
-        crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
-        tempJob.addNewCrew("crew",1,10);
-        tempJob.addBlackListCrew("crew",1);
-        tempJob.addNewCrew("crew",1,10);
-        tempJob.addBlackListCrew("crew",0);
-        tempJob.addBlackListCrew("crew",1);
-        tempJob.addNewCrew("crew",1,10,16);
-        tempJob.getBlackListCrewIfExists("crew");
-        tempJob.removeBlackListCrew("crew");
-        tempJob.addBlackListCrew("crew",20);
-        tempJob.addNewCrew("crew",1,10,5);
-        tempJob.addNewCrew("crew",1,10,21);*/
 
+        tempJob = new crewReplacer_Job();
+        tempJob.name = "salvage_crew";
+        tempJob.loadPriority = 1;
+        crewReplacer_Main.addOrMergeJob(tempJob);
+        tempJob = new crewReplacer_Job();
+        tempJob.loadPriority = -1;
+        tempJob.name = "salvage_crew";
+        crewReplacer_Main.addOrMergeJob(tempJob);
     }
     private void addDefaultCrew(){
         String jobSet_crew = "crew";

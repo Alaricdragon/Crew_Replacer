@@ -1,3 +1,9 @@
+V0.7.1:
+    save compatible with v0.6.2+
+V0.7.0.1:
+    save compatible with v0.6.2+
+    started work on the crew and personel data.
+    built a hullmod that seems to work, but i require additional information to conform weather or not it fucking works because OMG this is frustrating.
 V0.7:
     save compatible with v0.6.2+
     added the following classes and variables:

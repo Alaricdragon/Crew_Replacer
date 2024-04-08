@@ -9,7 +9,6 @@ import data.scripts.CrewReplacer_Log;
 import java.util.List;
 
 public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
-    public static CrewReplacer_HideShowdoCrew_2 log = new CrewReplacer_HideShowdoCrew_2();
     public static boolean clean = false;
     public static String[][] showdos = {{
             "CrewReplacer_Shawdo_crew",

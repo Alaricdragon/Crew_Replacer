@@ -80,7 +80,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         crewReplacer_Main.getJob("crewStorage").addNewCrew("ore",1,10);
     }
     private void addDefaultCrew(){
-        test();
+        //test();
 
         String jobSet_crew = "crew";
         String jobSet_supplies = "supplies";
@@ -331,6 +331,6 @@ public class crew_replacer_startup extends BaseModPlugin {
         CrewReplacer_HideShowdoCrew_2.addListener();
         CrewReplacer_playerMArketFounderListiner.addListiner();//NOTE: this does not get added if the player has market retorfits instaled.
 
-        CrewReplacer_CAPChanger_listiner.addListener();
+        //CrewReplacer_CAPChanger_listiner.addListener();
     }
 }

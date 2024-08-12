@@ -1,3 +1,6 @@
+V0.7.1:
+    save compatible with v0.6.2+
+    fixed supply's not being consumed by surveying (thanks to the person who reported this
 V0.7:
     save compatible with v0.6.2+
     added the following classes and variables:

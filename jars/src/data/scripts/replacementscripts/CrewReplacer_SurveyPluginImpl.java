@@ -50,6 +50,14 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
     protected float supplyUsed;
 
     public static PlanetAPI colonyPlanetTemp = null;
+    @Override
+    public String getSurveyDataType(PlanetAPI planet) {
+        if (planet.getMarket() != null) {
+            this.Survey_RunningCrewUse = true;
+            this.planetLookingAt = planet;
+        }
+        return super.getSurveyDataType(planet);
+    }
     //REQUIRED
     @Override
     public Map<String, Integer> getRequired() {
@@ -116,6 +124,7 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
     public long getXP() {
         //CrewReplacer_Log.loging("getXP",this,true);
         try {
+            CrewReplacer_Log.loging("current status: "+this.Survey_RunningCrewUse+", "+this.planetLookingAt+", "+this.planetLookingAt2,this,true);
             if (this.Survey_RunningCrewUse && !this.planetLookingAt.equals(this.planetLookingAt2)) {
                 //if(Global.getSector().getPlayerFleet().getInteractionTarget().getId().equals(this.planetLookingAt.getId())){
 
@@ -135,7 +144,7 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
                 CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet();
             }
         }catch (Exception e){
-            CrewReplacer_Log.loging("failed to get or compaire player fleet to surveyed world and/or failed to remove crew as intended.",this,true);
+            CrewReplacer_Log.loging("failed to get or compare player fleet to surveyed world and/or failed to remove crew as intended. Exception: "+e,this,true);
         }
         float xp = 0;
 

@@ -1,5 +1,6 @@
 V0.7.1:
     save compatible with v0.6.2+
+    fixed supply's not being consumed by surveying (thanks to the person who reported this
 V0.7.0.2:
     save compatible with v0.6.2+
     disabled the hullmod and listener as well as the test code for crew_storage and crew_ships jobs.

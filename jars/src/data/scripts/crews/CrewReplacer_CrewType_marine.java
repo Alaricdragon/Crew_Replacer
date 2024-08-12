@@ -20,9 +20,9 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
     /*Notes:
     * why is this so complecated?
     * because the marketCMD (were the raid plugin is) and 'PlayerFleetPersonnelTracker' (were the XP calculations were)
-    * basicly handled all of the things. here. like XP gathering, or the power bonus to marines when you raid.
-    * so i moved all that here, resalting in this mess.
-    * there is aslo a little of it in 'CrewReplacer_PlayerFleetPersonnelTracker' that removes the XP gain from  raiding, so i can handle it better here.*/
+    * basically handled all of the things. here. like XP gathering, or the power bonus to marines when you raid.
+    * so i moved all that here, resulting in this mess.
+    * there is also a little of it in 'CrewReplacer_PlayerFleetPersonnelTracker' that removes the XP gain from  raiding, so i can handle it better here.*/
     private static final String className = "CrewReplacer_CrewType_marine";
     private static final boolean logsActive = Global.getSettings().getBoolean("CrewReplacerDisplayMarineLogs");
     private float[] XPGainData = new float[]{0f,0f};

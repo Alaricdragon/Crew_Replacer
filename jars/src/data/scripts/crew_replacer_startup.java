@@ -7,6 +7,7 @@ import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.thoughtworks.xstream.XStream;
 import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
 import data.scripts.crews.CrewReplacer_CrewType_marine;
+import data.scripts.modifications.crewAndPersonellChanger.CrewReplacer_CAPChanger_listiner;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew_2;
 
@@ -42,7 +43,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         this.addDefaultCrew();
     }
     private void test(){
-        CrewReplacer_Log.loging("TESTING HERE:",this,true);
+        /*CrewReplacer_Log.loging("TESTING HERE:",this,true);
         crewReplacer_Job tempJob = crewReplacer_Main.getJob("salvage_crew");
         tempJob.addCrewSet("animals");
         tempJob.addCrewSet("trees");
@@ -72,8 +73,15 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob.loadPriority = -1;
         tempJob.name = "salvage_crew";
         crewReplacer_Main.addOrMergeJob(tempJob);
+         */
+        //crewReplacer_Main.getJob()
+
+        crewReplacer_Main.getJob("crewShips").addNewCrew("ore",1,10);
+        crewReplacer_Main.getJob("crewStorage").addNewCrew("ore",1,10);
     }
     private void addDefaultCrew(){
+        //test();
+
         String jobSet_crew = "crew";
         String jobSet_supplies = "supplies";
         String jobSet_heavy_machinery = "heavy_machinery";
@@ -148,6 +156,12 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempJob.addNewCrew("heavy_machinery",1,10);
 
 
+        tempJob = crewReplacer_Main.getJob("crewShips");
+        tempJob.addCrewSet(jobSet_crew);
+        tempJob.addNewCrew("ore",1,10);
+        tempJob = crewReplacer_Main.getJob("crewStorage");
+        tempJob.addCrewSet(jobSet_crew);
+        tempJob.addCrewSet(jobSet_marines);
         //crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("cat",1,10);
         //crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("crew",1,11);
         //crewReplacer_Main.getCrewSet("normadicSurvival_metals").addNewCrew("AIretrofit_Omega_SurveyDrone",50f,9);
@@ -312,10 +326,11 @@ public class crew_replacer_startup extends BaseModPlugin {
         CrewReplacer_Log.pop();
     }
     private void addListinger(){
+
         Global.getSector().getListenerManager().addListener(new CrewReplacer_PlayerFleetPersonnelTracker(),true);
-        //CrewReplacer_HideShowdoCrew.getInstance();
         CrewReplacer_HideShowdoCrew_2.addListener();
         CrewReplacer_playerMArketFounderListiner.addListiner();//NOTE: this does not get added if the player has market retorfits instaled.
-        //Global.getSector().getListenerManager().addListener(new CrewReplacer_HideShowdoCrew(),true);
+
+        //CrewReplacer_CAPChanger_listiner.addListener();
     }
 }

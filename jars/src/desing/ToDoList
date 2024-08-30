@@ -1,10 +1,11 @@
 crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
 modification list for tortoreal:
-1) change the order of the functions in 'automaticlyGetDisplayAndApplyCrewLost' to have the display be last
+1)(DONE) change the order of the functions in 'automaticlyGetDisplayAndApplyCrewLost' to have the display be last
     -edit any and all code that might have rellyed on that (marines for raiding)
-2) add onto crewsets (NOTE: DONT DO CREWSETS. MAKES NO SENCE. WILL BE OVERRIDEN BY THE JOB ANYWAYS), and jobs, a 'defalt crew' class. this class can be changed, and will be the defalt class as opposed to the normal crew replacer crew.
-    -make it so crew that is added not as a class, but by functions, is stored as something like a 'blank crew'. this 'blank crew' will hold the stats of the crew, but will be transformed into the crewReplacer_Jobs default class on compilation.
-3) before updateing this, ether finish the 'crew ships and crew personell' jobs, or disable them.
+2)(done. requires testing) add onto crewsets (NOTE: DONT DO CREWSETS. MAKES NO SENCE. WILL BE OVERRIDEN BY THE JOB ANYWAYS), and jobs, a 'defalt crew' class. this class can be changed, and will be the defalt class as opposed to the normal crew replacer crew.
+    -(done)make it so crew that is added not as a class, but by functions, is stored as something like a 'blank crew'. this 'blank crew' will hold the stats of the crew, but will be transformed into the crewReplacer_Jobs default class on compilation.
+    -make it so nomadic survival uses the new default crew system, as the creator of said mod intended.
+3)(disabled) before updateing this, ether finish the 'crew ships and crew personell' jobs, or disable them.
 
 
 crew ships, and crew personel jobs:

@@ -10,6 +10,8 @@ public boolean addCrew(crewReplacer_Crew crew)                                  
 public boolean addNewCrew(String crew,float crewPower,float crewPriority)                               runs addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority) with a crew defence equal to the inputer crewPower
 public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority)             returns true if no crew was found. false otherwise. tries to create a crew with the inputted stats. always runs mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)
 private void mergeCrew(crewReplacer_Crew crew,float crewPower,float crewDefence,float crewPriority)     takes a inputted crew (old crew) and sets its power and priority to the inputted stats
+public crewReplacer_Crew createDefaultCrew()                                                            creates a new crew of the 'CrewReplacer_BlankCrew' class. is ran by default any time someone creates a crew with a crewSet. this exists so crewReplacer_Jobs know what crew are 'safe' to override, changing the crews class to there own.
+
 public boolean addCrewSet(String jobSet)                                                                adds a crew set to this crewset with the inputted name. returns true if a new crew set was added successfully.
 public boolean removeCrewSet(String jobSet)                                                             removed a crew set in this crewset with the inputted name. returns true if the crew set existed to be removed.
 public ArrayList<crewReplacer_Crew> getAllLinkedCrews()                                                 outdated, and will someday be removed. dont use this...

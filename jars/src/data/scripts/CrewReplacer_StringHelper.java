@@ -56,11 +56,11 @@ public class CrewReplacer_StringHelper {
                 output.append(a[a.length - 1]);
             } catch (Exception e) {
                 CrewReplacer_Log.loging("failed to get split string: " + primary + " , " + Arrays.toString(secondary), new CrewReplacer_StringHelper(), true);
-                return "";
+                return "failed to get string. see logs for details";
             }
             return output.toString();
         }catch (Exception e){
-            CrewReplacer_Log.loging("error on getting split string in crew replacer. returning error log as:" +e.getLocalizedMessage(),true);
+            CrewReplacer_Log.loging("error on getting split string in crew replacer. returning error log as:" +e.getLocalizedMessage(),new CrewReplacer_StringHelper(),true);
             return "failed to get string. see logs for details.";
         }
     }

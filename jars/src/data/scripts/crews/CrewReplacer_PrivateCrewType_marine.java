@@ -16,7 +16,7 @@ import data.scripts.CrewReplacer_Log;
 import data.scripts.CrewReplacer_StringHelper;
 import data.scripts.crewReplacer_Crew;
 
-public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
+public class CrewReplacer_PrivateCrewType_marine extends crewReplacer_Crew {
     /*Notes:
     * why is this so complecated?
     * because the marketCMD (were the raid plugin is) and 'PlayerFleetPersonnelTracker' (were the XP calculations were)
@@ -58,6 +58,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
     }
     @Override
     public void removeCrew(CargoAPI cargo, float CrewToLost){
+        CrewLostXPTemp = Math.round(100 * (1 - MarinesLossMultiTemp));
         cargo.removeCommodity(name, CrewToLost);
         PlayerFleetPersonnelTracker.getInstance().getMarineData().remove((int) CrewToLost,true);
         addMarineXP(cargo);
@@ -121,6 +122,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
 
         text.addTooltip();
     }
+    private float CrewLostXPTemp=0;
     @Override
     public void displayCrewLost(CargoAPI cargo,float numberOfItems, TextPanelAPI text){
         String displayName = getDisplayName(cargo);
@@ -130,7 +132,7 @@ public class CrewReplacer_CrewType_marine extends crewReplacer_Crew {
         String numberStr = (int) numberOfItems + "";
         LabelAPI label = iwt.addPara(numberStr + " " + displayName, 0, Misc.getHighlightColor(), numberStr);
         //cargo.getFleetData().getFleet().getStats().getDynamic().getMod(Stats.PLANETARY_OPERATIONS_MOD).getMultBonus()
-        float xpTemp = Math.round(100 * (1 - MarinesLossMultiTemp));//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel());
+        float xpTemp = CrewLostXPTemp;//Math.round(100 * (1 - MarinesLossMultiTemp));//PlayerFleetPersonnelTracker.getInstance().getMarineData().getXPLevel());
         if(xpTemp != 0 || true) {
             //String temp = "%";
             String XP = CrewReplacer_StringHelper.getString(className,"displayCrewLost",0,xpTemp+"");// + "%";

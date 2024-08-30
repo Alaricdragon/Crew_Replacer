@@ -201,6 +201,9 @@
 	"crewReplacerString_crewReplacer_Job_applyCrewSets_2": "adding blackListed crew gathered from this crew set...",#
 	"crewReplacerString_crewReplacer_Job_applyCrewSets_3": "adding crew gathered from this crew set...",
 	#"crewReplacerString_crewReplacer_Job_applyCrewSets_4": "crew already exists. crewSets cannot override crew data. skipping adding crew.",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_5": "adding crew named %s to this job...",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_6": "adding crew named %s to this job using the default crewReplacer_Crew class of this job",
+	"crewReplacerString_crewReplacer_Job_applyCrewSets_7": "ERROR: failed to add crew named %s to job named %s from crewsets. error: %s",
 	"crewReplacerString_crewReplacer_Job_organizePriority_0": "running Organizing Priority",
 	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_0": "running Getting Available Crew Power",
 	"crewReplacerString_crewReplacer_Job_getAvailableCrewPower_1": "getting crew named: %s",#crew.name

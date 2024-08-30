@@ -3,6 +3,7 @@ package data.scripts;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import data.scripts.crews.CrewReplacer_BlankCrew;
 
 import java.util.ArrayList;
 
@@ -172,7 +173,7 @@ public class crewReplacer_Job {
         }
         if(out){
             CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCrew",2,crew),this);
-            output = new crewReplacer_Crew();
+            output = this.createDefaultCrew();
             output.name = crew;
             Crews.add(output);
         }
@@ -239,10 +240,9 @@ public class crewReplacer_Job {
     }
     public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority,float loadPriority){
         boolean output = true;
-        crewReplacer_Crew temp = new crewReplacer_Crew();
         CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"addNewCrew",0,crew,""+crewPower,""+crewPriority,""+loadPriority),this);
         CrewReplacer_Log.push();
-        crewReplacer_Crew a = new crewReplacer_Crew();
+        crewReplacer_Crew a = this.createDefaultCrew();//new crewReplacer_Crew();
         a.name = crew;
         a.crewPower = crewPower;
         a.crewDefence = crewDefence;
@@ -270,6 +270,10 @@ public class crewReplacer_Job {
         mergeCrew(temp,crewPower,crewDefence,crewPriority,loadPriority);*/
         CrewReplacer_Log.pop();
         return output;
+    }
+
+    public crewReplacer_Crew createDefaultCrew(){
+        return new crewReplacer_Crew();
     }
 
     public boolean addCrewSet(String CrewSet){
@@ -303,7 +307,7 @@ public class crewReplacer_Job {
         return false;
     }
     public void applyCrewSets(){
-        CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",0),this);
+        CrewReplacer_Log.loging(getIntoJobLog() + CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",0),this,true);
         CrewReplacer_Log.push();
         for (String a : CrewSets){
             CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",1,""+a),this);
@@ -318,7 +322,17 @@ public class crewReplacer_Job {
             CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"applyCrewSets",3),this);
             CrewReplacer_Log.push();
             for(crewReplacer_Crew crew : jobSet.Crews){
-                this.addCrew(crew);
+                try {
+                    if (crew instanceof CrewReplacer_BlankCrew) {
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 6, crew.name), this);
+                        this.addNewCrew(crew.name, crew.crewPower, crew.crewDefence, crew.crewPriority, crew.crewLoadPriority);
+                    } else {
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 5, crew.name), this );
+                        this.addCrew(crew);
+                    }
+                }catch (Exception e){
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 7,true, crew.name,this.name,e.toString()), this);
+                }
             }
             CrewReplacer_Log.pop();
 
@@ -446,8 +460,8 @@ public class crewReplacer_Job {
         CrewReplacer_Log.push();
         ArrayList<Float> crewUsed = getCrewForJob(cargo,crewPowerRequired);
         ArrayList<Float> crewLost = getCrewLost(cargo,crewUsed,crew_power_to_lose);
-        displayCrewLost(cargo,crewLost,text);
         applyCrewLost(crewLost,cargo);
+        displayCrewLost(cargo,crewLost,text);
         CrewReplacer_Log.pop();
     }
     public ArrayList<Float> automaticlyGetAndApplyCrewLost(CargoAPI cargo, int crewPowerRequired, float crew_power_to_lose){

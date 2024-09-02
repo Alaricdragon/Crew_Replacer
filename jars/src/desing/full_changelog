@@ -1,3 +1,8 @@
+V0.7.1.2:
+    save compatible with v0.6.2+
+    fixed 'CrewReplacer_normadicSurvival_crew' so it no longer causes crashes
+    fixed nomadic survival not giving crew extra data like its suppose to (only what commodity the job is acting as for now)
+    changed the 'default crew' in all nomadic survival jobs to 'CrewReplacer_normadicSurvival_crew'
 V0.7.1.1:
     save compatible with v0.6.2+
     changed crewReplacer_Job.automaticlyGetDisplayAndApplyCrewLost() to run 'displayCrewLost' after 'applyCrewLost'

@@ -327,11 +327,11 @@ public class crewReplacer_Job {
                         CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 6, crew.name), this);
                         this.addNewCrew(crew.name, crew.crewPower, crew.crewDefence, crew.crewPriority, crew.crewLoadPriority);
                     } else {
-                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 5, crew.name), this );
+                        CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 5, crew.name), this);
                         this.addCrew(crew);
                     }
                 }catch (Exception e){
-                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 7,true, crew.name,this.name,e.toString()), this);
+                    CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className, "applyCrewSets", 7,true, crew.name,this.name,e.toString()), this,true);
                 }
             }
             CrewReplacer_Log.pop();

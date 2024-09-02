@@ -14,6 +14,8 @@ public class CrewReplacer_normadicSurvival_crew extends crewReplacer_Crew {
         return crewDefence * getEffectiveCrewPowerRelative(cargo);
     }
     public float getEffectiveCrewPowerRelative(CargoAPI cargo){
-        return getCrewPower(cargo) / Global.getSector().getEconomy().getCommoditySpec((String) this.ExtraData).getBasePrice();
+        return  Global.getSector().getEconomy().getCommoditySpec((String) name).getBasePrice() / Global.getSector().getEconomy().getCommoditySpec((String) this.ExtraData).getBasePrice();
+        // 25 / 50 = 0.5 (one of this crew equal to 0.5 of normal)
+        //100 / 50 = 2
     }
 }

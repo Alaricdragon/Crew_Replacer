@@ -75,8 +75,10 @@ public class crew_replacer_startup extends BaseModPlugin {
          */
         //crewReplacer_Main.getJob()
 
-        crewReplacer_Main.getJob("crewShips").addNewCrew("ore",1,10);
-        crewReplacer_Main.getJob("crewStorage").addNewCrew("ore",1,10);
+        //normadicSurvival_crew
+        crewReplacer_Main.getCrewSet("normadicSurvival_crew").addNewCrew("ore",1,10);
+        //crewReplacer_Main.getCrewSet("normadicSurvival_crew").addNewCrew("rare_ore",1,10);
+
     }
     private void addDefaultCrew(){
         //test();
@@ -108,7 +110,7 @@ public class crew_replacer_startup extends BaseModPlugin {
         tempcrew.name = "marines";
         tempJob.addCrew(tempcrew);
         tempJob.addCrewSet(jobSet_marines);
-        crewReplacer_Main.getCrewSet("marines").addNewCrew("crew",1,10);
+
         //supplyDemandChangeInit();
 
 

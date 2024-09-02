@@ -5,10 +5,7 @@ import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.impl.campaign.rulecmd.AddRemoveCommodity;
-import data.scripts.CrewReplacer_Log;
-import data.scripts.crewReplacer_Job;
-import data.scripts.crewReplacer_Main;
-import data.scripts.crewReplacer_CrewSet;
+import data.scripts.*;
 import nomadic_survival.campaign.OperationInteractionDialogPlugin;
 import nomadic_survival.campaign.intel.OperationIntel;
 
@@ -38,14 +35,23 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
                 CrewReplacer_Log.loging("adding exstra data to job...",this,logs);
                 CrewReplacer_Log.pop();
                 b.ExtraData = commodityId;
+                b.applyExtraDataToCrew();
                 return b;
             }
         }
         CrewReplacer_Log.loging("job is not prepared. getting new job...",this,logs);
-        crewReplacer_Job job = crewReplacer_Main.getJob(jobName);
+        crewReplacer_Job job = new CrewReplacer_normadicSurvival_Job();
+        job.name = jobName;
+        crewReplacer_Main.addOrMergeJob(job);
+        //crewReplacer_Job job = crewReplacer_Main.getJob(jobName);
 
         CrewReplacer_Log.loging("adding crew,crewset,and extra data to job...",this,logs);
-        job.addNewCrew(commodityId,1,10);//does not use custom crew because it always returns 1 power and defence anyways
+        crewReplacer_Crew crew = new crewReplacer_Crew();
+        crew.name = commodityId;
+        crew.crewPower = 1;
+        crew.crewPriority = 10;
+        job.addCrew(crew);
+        //job.addNewCrew(commodityId,1,10);//does not use custom crew because it always returns 1 power and defence anyways
         job.addCrewSet(crewSetName);
         crewReplacer_Main.getCrewSet(crewSetName).addCrewSet(crewReplacer_crewSet + commodityId);
         job.applyCrewSets();
@@ -64,6 +70,7 @@ public class CrewReplacer_normadicSurvivalA extends OperationInteractionDialogPl
         CrewReplacer_Log.loging("remembering prepared job....",this,logs);
         CrewReplacer_Log.pop();
         createdJobs.add(jobName);
+        job.applyExtraDataToCrew();
         return job;
     }
 

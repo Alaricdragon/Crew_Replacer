@@ -1,5 +1,7 @@
 package data.scripts;
 
+import data.scripts.crews.CrewReplacer_BlankCrew;
+
 import java.util.ArrayList;
 
 public class crewReplacer_CrewSet {
@@ -42,7 +44,7 @@ public class crewReplacer_CrewSet {
         }
         if(out){
             CrewReplacer_Log.loging(CrewReplacer_StringHelper.getLogString(className,"getCrew",2,crew),this);
-            output = new crewReplacer_Crew();
+            output = this.createDefaultCrew();
             output.name = crew;
             Crews.add(output);
         }
@@ -109,10 +111,10 @@ public class crewReplacer_CrewSet {
     }
     public boolean addNewCrew(String crew,float crewPower,float crewDefence,float crewPriority,float loadPriority){
         boolean output = true;
-        crewReplacer_Crew temp = new crewReplacer_Crew();
+        //crewReplacer_Crew temp = new crewReplacer_Crew();
         CrewReplacer_Log.loging(getIntoCrewSetLog() + CrewReplacer_StringHelper.getLogString(className,"addNewCrew",0,crew,""+crewPower,""+crewPriority,""+loadPriority),this);
         CrewReplacer_Log.push();
-        crewReplacer_Crew a = new crewReplacer_Crew();
+        crewReplacer_Crew a = this.createDefaultCrew();
         a.name = crew;
         a.crewPower = crewPower;
         a.crewDefence = crewDefence;
@@ -142,7 +144,9 @@ public class crewReplacer_CrewSet {
         return output;
     }
 
-
+    public crewReplacer_Crew createDefaultCrew(){
+        return new CrewReplacer_BlankCrew();
+    }
 
     public boolean addBlackListCrew(String crew, float loadPriority) {
         CrewReplacer_Log.loging(getIntoCrewSetLog()+CrewReplacer_StringHelper.getLogString(className,"addBlackListCrew",0,crew,""+loadPriority),this);

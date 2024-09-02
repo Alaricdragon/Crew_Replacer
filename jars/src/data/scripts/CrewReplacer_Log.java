@@ -30,7 +30,7 @@ public class CrewReplacer_Log {
             return;
         }
         String add = "";
-        for(int a = 0; a < depth; a++){
+        for(int a = 0; a < depth && a < 10; a++){
             add+=space;
         }
         //crew_replacer_startup a = new crew_replacer_startup();

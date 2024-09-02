@@ -6,8 +6,7 @@ import com.fs.starfarer.api.campaign.listeners.*;
 import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
 import com.thoughtworks.xstream.XStream;
 import data.scripts.combatabilityPatches.CrewReplacer_InitCombatabilityPatches;
-import data.scripts.crews.CrewReplacer_CrewType_marine;
-import data.scripts.modifications.crewAndPersonellChanger.CrewReplacer_CAPChanger_listiner;
+import data.scripts.crews.CrewReplacer_PrivateCrewType_marine;
 import data.scripts.replacementscripts.CrewReplacer_PlayerFleetPersonnelTracker;
 import data.scripts.shadowCrew.CrewReplacer_HideShowdoCrew_2;
 
@@ -76,8 +75,10 @@ public class crew_replacer_startup extends BaseModPlugin {
          */
         //crewReplacer_Main.getJob()
 
-        crewReplacer_Main.getJob("crewShips").addNewCrew("ore",1,10);
-        crewReplacer_Main.getJob("crewStorage").addNewCrew("ore",1,10);
+        //normadicSurvival_crew
+        crewReplacer_Main.getCrewSet("normadicSurvival_crew").addNewCrew("ore",1,10);
+        //crewReplacer_Main.getCrewSet("normadicSurvival_crew").addNewCrew("rare_ore",1,10);
+
     }
     private void addDefaultCrew(){
         //test();
@@ -103,12 +104,13 @@ public class crew_replacer_startup extends BaseModPlugin {
 
 
         tempJob = crewReplacer_Main.getJob("raiding_marines");
-        CrewReplacer_CrewType_marine tempcrew = new CrewReplacer_CrewType_marine();
+        CrewReplacer_PrivateCrewType_marine tempcrew = new CrewReplacer_PrivateCrewType_marine();
         tempcrew.crewPower = 1;
         tempcrew.crewPriority = 10;
         tempcrew.name = "marines";
         tempJob.addCrew(tempcrew);
         tempJob.addCrewSet(jobSet_marines);
+
         //supplyDemandChangeInit();
 
 

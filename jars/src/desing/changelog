@@ -1,6 +1,27 @@
+V0.7.2:
+    save compatible with v0.6.2+
+    changed crewReplacer_Job.automaticlyGetDisplayAndApplyCrewLost() to run 'displayCrewLost' after 'applyCrewLost'
+    altered the 'CrewReplacer_CrewType_marine' class a little to respect this change.
+    changed the name of the following classes:
+        'CrewReplacer_CrewType_marine' to 'CrewReplacer_PrivateCrewType_marine'
+        'CrewReplacer_CrewType_crew' to 'CrewReplacer_PrivateCrewType_crew'
+        -this is to make it more obvious that said classes are not for other moders to use.
+    crewReplacer_Job:
+        added a new function: public crewReplacer_Crew createDefaultCrew()
+            -this function simply creates a new crew. this is for overriding on certain jobs that might want the 'default' crew to be a custom crew, for whatever reason.
+        (partly tested) changed 'applyCrewSets()' to replace any crew that is an instance of 'CrewReplacer_BlankCrew' with this jobs own default crew
+            -this means, that any crew added to a crew set that is not specified as a certain type of crew, will be replaced by a crew belonging to this jobs default crew class. stats will stay the same though.
+    crewReplacer_CrewSet:
+        added a new function: public crewReplacer_Crew createDefaultCrew()
+            -this function simply creates a new crew. this is for overriding on certain crewSets that might want the 'default' crew to be a custom crew, for whatever reason.
+            -in addition, this function returns the new 'CrewReplacer_BlankCrew' class. a class designed to be overwritten by all other crewReplacer crew classes, when it enters a job.
+    normadic survival compatibility:
+        fixed 'CrewReplacer_normadicSurvival_crew' so it no longer causes crashes
+        fixed nomadic survival not giving crew extra data like its suppose to (only what commodity the job is acting as for now)
+        changed the 'default crew' in all nomadic survival jobs to 'CrewReplacer_normadicSurvival_crew'
 V0.7.1:
     save compatible with v0.6.2+
-    fixed supply's not being consumed by surveying (thanks to the person who reported this
+    fixed supply's not being consumed by surveying (thanks to the person who reported this)
 V0.7:
     save compatible with v0.6.2+
     added the following classes and variables:

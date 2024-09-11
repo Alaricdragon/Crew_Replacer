@@ -1,3 +1,20 @@
+V0.7.3:
+    save compatible with v0.6.2+
+    crewReplacer_Job:
+        new functions:
+            protected static void moveCrewData(crewReplacer_Crew newCrew,crewReplacer_Crew oldCrew)
+                -this function is built to handle moving crew data from one crew to another. usefull when transforming crew classes
+            protected static crewReplacer_Crew createBlankCrew()
+                -this function creates a single 'CrewReplacer_BlankCrew', and returns it. useful when creating crew
+            public void transformBlankCrew();
+                -this function transforms all 'blank crew' in a job to the jobs 'default crew'.
+        changes:
+            changed 'applyCrewSets()' to no longer change any instance of blank crew to a jobs default crew
+            changed 'organizePriority' to run 'transformBlankCrew'.
+            changed all times were one could create a new crew in 'crewReplacer_Job' to instead create a blank crew
+
+    the reason behind this change is that do to crew replaces nature, its possible to add a crew to a job before a mod might 'change' the default crew of said job.
+    by making all crew added 'blank', then making the 'blank' crew become the jobs 'default' crew on the organize priority stage, this fixes that, as all jobs should be set by this time.
 V0.7.2:
     save compatible with v0.6.2+
     changed crewReplacer_Job.automaticlyGetDisplayAndApplyCrewLost() to run 'displayCrewLost' after 'applyCrewLost'

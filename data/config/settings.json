@@ -287,6 +287,11 @@
 	"crewReplacerString_crewReplacer_Job_removeBlackListCrew_0": "running removeBlackListCrew for a BlackListCrew named: %s",#BlackListCrew.name
 	"crewReplacerString_crewReplacer_Job_removeBlackListCrew_1": "found a BlackListCrew with a matching name. removing...",
 	"crewReplacerString_crewReplacer_Job_removeBlackListCrew_2": "failed to find a BlackListCrew with a matching name. exiting...",
+	"crewReplacerString_crewReplacer_Job_transformBlankCrew_0": "running transformBlankCrew",
+	"crewReplacerString_crewReplacer_Job_transformBlankCrew_1": "attempting to transform a crew named %s",
+	"crewReplacerString_crewReplacer_Job_transformBlankCrew_2": "failed to transform crew. error of :%s",
+
+
 
 	"crewReplacerString_crewReplacer_Main_getJob_0": "getJob found matching job name. getting job named: %s",#job.name
 	"crewReplacerString_crewReplacer_Main_getJob_1": "getJob job not formed yet. creating new job named: %s",#job.name

@@ -8,26 +8,6 @@ modification list for tortoreal:
 3)(disabled) before updateing this, ether finish the 'crew ships and crew personell' jobs, or disable them.
 
 
-crew ships, and crew personel jobs:
-I have organized a 4 step process to managing this.
-1) apply min / max crew modification, based on crew jobs.
-    -status on making the stats work
-        OMFG. this is stuped. its like there is no way to do this at fucking all.
-        the ids keep changing or something. its rediculus. why even barther with that methood?
-        maybe i can add tags onto the ships themselfs? that might be fucking easyer at this ponit in time, because o my fucking god tyuehadjbsahhasjdbasjsdj
-    -this needs to update when:
-        1) i add/remove/scrap/move a ship.
-        2) when i modify a ship in any way.
-        3) whenever i open/close my cargo
-        4) whenever i move a item inside of my cargo in any way
-2) apply the hullmod that apply all modifications to the fleet to every ship when:
-    -i add/remove a ship.
-    -also make it make sure every ship has said mod, just in case.
-3) create a intill to show how mush min / max crew i have.
-4) create a way to display a ping when im over modded crew capacity
-    -Global.getSector().addPing();?
-5) create a way to apply 'overincomberd' modifications to the fleet when im over modded crew capacity
-6) create a way for new 'crew' to have losses from combat (like normal crew)
 
 
 

@@ -1,3 +1,19 @@
+V0.7.4:
+    save compatible with v0.6.2+
+    fixes:
+        fixed CrewReplacer_ApplyAndDisplayLosses removing items twice.
+    new:
+        added 1 new rules.CSV thing:
+            CrewReplacer_ApplyLossesWithoutDisplay
+V0.7.3.1 (private):
+    save compatible with v0.6.2+
+    changes:
+        changed the 'steal a starship' and 'repair conal hyper tap' jobs to use the new rules.CSV file tools.
+    new:
+        added 2 new rules.CSV things:
+            CrewReplacer_CheckCrewRequirements
+            CrewReplacer_ApplyAndDisplayLosses -ISSUE: losses are being applyed twice. unknown reason only testing on hypertap for now.
+        this change will hopefully help with the annoyance of adding crew replacer support through the rules.CSV file.
 V0.7.3:
     save compatible with v0.6.2+
     crewReplacer_Job:

@@ -1,4 +1,11 @@
-V0.7.3.1:
+V0.7.4:
+    save compatible with v0.6.2+
+    fixes:
+        fixed CrewReplacer_ApplyAndDisplayLosses removing items twice.
+    new:
+        added 1 new rules.CSV thing:
+            CrewReplacer_ApplyLossesWithoutDisplay
+V0.7.3.1 (private):
     save compatible with v0.6.2+
     changes:
         changed the 'steal a starship' and 'repair conal hyper tap' jobs to use the new rules.CSV file tools.

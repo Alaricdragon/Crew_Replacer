@@ -46,7 +46,6 @@ public class CrewReplacer_ApplyLossesWithoutDisplay extends BaseCommandPlugin{
             i++;
             t = params.get(i);
             curr.required = t.getInt(memoryMap);
-            data.add(curr);
             i++;
             t = params.get(i);
             curr.losses = t.getInt(memoryMap);

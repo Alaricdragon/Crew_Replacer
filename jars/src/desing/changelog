@@ -1,3 +1,11 @@
+V0.7.4:
+    save compatible with v0.6.2+
+        new rule.csv tools:
+            CrewReplacer_ApplyLossesWithoutDisplay
+            CrewReplacer_CheckCrewRequirements
+            CrewReplacer_ApplyAndDisplayLosses
+    changes:
+        changed the 'steal a starship' and 'repair conal hyper tap' jobs to use the new rules.CSV file tools.
 V0.7.3:
     save compatible with v0.6.2+
     crewReplacer_Job:

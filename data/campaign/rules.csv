@@ -24,7 +24,7 @@ marketHostileRaidConfirmSel,DialogOptionSelected,$option == mktRaidConfirm,CrewR
 marketHostileRaidConfirmContSel,DialogOptionSelected,$option == mktRaidConfirmContinue,CrewReplacerMarketCMD raidConfirmContinue,,,
 #marketHostileRaidNeverMindSel,DialogOptionSelected,$option == mktRaidNeverMind,CrewReplacerMarketCMD raidNeverMind,,,
 marketHostileRaidResultSel,DialogOptionSelected,$option == mktRaidResult,CrewReplacerMarketCMD raidResult,,,
-#marketHostileRaidPostRaidDefault,PostGroundRaid,,CrewReplacerMarketCMD addContinueToRaidResultOption,,,
+marketHostileRaidPostRaidDefault,PostGroundRaid,,CrewReplacerMarketCMD addContinueToRaidResultOption,,,
 ,,,,,,
 #mission:hijack. marrien cheack,,,,,,
 #HijackNotEnoughMarines,HijackNotEnoughMarines,crewReplacer_HijackNotEnoughMarines $hijack_marines,SetEnabled hijack_op1 false,You don't have sufficient marines to carry out this operation.,,

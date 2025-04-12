@@ -1,3 +1,6 @@
+V0.7.6:
+    updated to starsector 0.98
+    probably not save compatible. they did... something to the salvage plugin. hopefully this is working right.
 V0.7.5:
     save compatible with v0.6.2+
     fixed some broken raid quest things. hopefully.

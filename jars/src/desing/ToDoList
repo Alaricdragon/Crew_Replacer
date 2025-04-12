@@ -1,4 +1,17 @@
 crewReplacer_Main.getCrewSet(name+"_"+"crew").addNewCrew("AIretrofit_WorkerDrone",1,9);
+ISSUES:
+    when replacing something to a list, i should never use the follow lines:
+        Crews.remove(a);
+        Crews.add(a,crew);
+    instead i should use:
+        Crews.add(a,crew);
+        Crews.remove(a+1);
+        OR
+        Crews.remove(a);
+        Crews.add(crew);
+
+
+
 modification list for tortoreal:
 1)(DONE) change the order of the functions in 'automaticlyGetDisplayAndApplyCrewLost' to have the display be last
     -edit any and all code that might have rellyed on that (marines for raiding)

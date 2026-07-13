@@ -1,3 +1,8 @@
+V0.7.7:
+    fixes:
+        fixed a bug were if any mod override anything about supply's, crew, or heavy machinery it would resalt in 'fake crew' being at every god dammed market all the time.
+        hid the strange not crew / supply's / heavy machinery in the codex.
+        added some more protection to prevent shadow crew / supply's / heavy machinery from showing up at strange times. (hopefully it works this time)
 V0.7.6:
     updated to starsector 0.98
     probably not save compatible. they did... something to the salvage plugin. hopefully this is working right.

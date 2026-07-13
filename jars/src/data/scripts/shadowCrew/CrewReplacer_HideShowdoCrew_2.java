@@ -4,9 +4,6 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.CargoScreenListener;
-import data.scripts.CrewReplacer_Log;
-
-import java.util.List;
 
 public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
     public static boolean clean = false;
@@ -19,13 +16,20 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
             "survey",
             "survey2"
     };
-    public static void addShowdoCrewToPlayerFleet(String commodityID,int amount){
+    public static void addShadowCrewToPlayerFleetWithoutAutoClean(String commodityID, int amount){
         clean = false;
         //CrewReplacer_Log.loging("adding showdows to player fleet of ID, amount: "+commodityID+", "+amount,getInstance(),true);
         Global.getSector().getPlayerFleet().getCargo().addCommodity(commodityID,amount);
         //CrewReplacer_Log.loging("player fleet now has: "+Global.getSector().getPlayerFleet().getCargo().getCommodityQuantity(commodityID)+" showdo crew of this commodityID",getInstance(),true);
     }
-    public static void removeShowdoCrewFromPlayersFleet(){
+    public static void addShadowCrewToPlayerFleet(String commodityID, int amount){
+        clean = false;
+        //CrewReplacer_Log.loging("adding showdows to player fleet of ID, amount: "+commodityID+", "+amount,getInstance(),true);
+        Global.getSector().getPlayerFleet().getCargo().addCommodity(commodityID,amount);
+        //CrewReplacer_Log.loging("player fleet now has: "+Global.getSector().getPlayerFleet().getCargo().getCommodityQuantity(commodityID)+" showdo crew of this commodityID",getInstance(),true);
+        if (!Global.getSector().getPlayerFleet().hasScriptOfClass(CrewReplacer_AutoClean.class)) Global.getSector().getPlayerFleet().addScript(new CrewReplacer_AutoClean());
+    }
+    public static void removeShadowCrewFromPlayersFleet(){
         CargoAPI cargo = Global.getSector().getPlayerFleet().getCargo();
         for(String[] remove : showdos) {
             for (String a : remove) {
@@ -72,7 +76,7 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
         CrewReplacer_Log.pop();
         clean = true;*/
     }
-    public static void removeShowdoCrewFromPlayersFleet(String[] remove){
+    public static void removeShadowCrewFromPlayersFleet(String[] remove){
         CargoAPI cargo = Global.getSector().getPlayerFleet().getCargo();
         for (String a : remove){
             removeItem(cargo,a);
@@ -117,27 +121,12 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
         }
         return null;
     }
-    /*private static CrewReplacer_HideShowdoCrew instance = null;
-    public static CrewReplacer_HideShowdoCrew getInstance(){
-        if(instance == null){
-            instance = new CrewReplacer_HideShowdoCrew();
-            CrewReplacer_Log.loging("creating new instance",instance);
-        }
-        CrewReplacer_Log.loging("returning instance...",instance);
-        initThings(instance);
-        return instance;
-    }
-    protected static void initThings(CrewReplacer_HideShowdoCrew instance){
-        GenericPluginManagerAPI plugins = Global.getSector().getGenericPlugins();
-        plugins.addPlugin(instance, true);
-        Global.getSector().getListenerManager().addListener(instance,true);
-    }*/
     public static void addListener(){
         Global.getSector().getListenerManager().addListener(new CrewReplacer_HideShowdoCrew_2(), true);
     }
     @Override
     public void reportCargoScreenOpened() {
-        removeShowdoCrewFromPlayersFleet();
+        removeShadowCrewFromPlayersFleet();
     }
 
     @Override
@@ -152,6 +141,6 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
 
     @Override
     public void reportSubmarketOpened(SubmarketAPI submarket) {
-        removeShowdoCrewFromPlayersFleet();
+        removeShadowCrewFromPlayersFleet();
     }
 }

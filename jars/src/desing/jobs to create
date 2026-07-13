@@ -9,12 +9,17 @@ supply ships
 
 
 crew ships, and crew personel jobs:
+    notice:
+        toConstruct.getCrewComposition().addToCargo();
+        this might be the key to everything here. Crew Composition.
+        Still cant edit the crew in the personel tab though. Because why would I?!?!?!?!?!
     I have organized a 4 step process to managing this.
     1) apply min / max crew modification, based on crew jobs.
         -status on making the stats work
             OMFG. this is stuped. its like there is no way to do this at fucking all.
             the ids keep changing or something. its rediculus. why even barther with that methood?
             maybe i can add tags onto the ships themselfs? that might be fucking easyer at this ponit in time, because o my fucking god tyuehadjbsahhasjdbasjsdj
+            !!--getCrewComposition()--!! on ships. this --might-- be usefull.
         -this needs to update when:
             1) i add/remove/scrap/move a ship.
             2) when i modify a ship in any way.

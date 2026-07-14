@@ -22,14 +22,14 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
         Global.getSector().getPlayerFleet().getCargo().addCommodity(commodityID,amount);
         //CrewReplacer_Log.loging("player fleet now has: "+Global.getSector().getPlayerFleet().getCargo().getCommodityQuantity(commodityID)+" showdo crew of this commodityID",getInstance(),true);
     }
-    public static void addShadowCrewToPlayerFleet(String commodityID, int amount){
+    public static void addShowdoCrewToPlayerFleet(String commodityID, int amount){
         clean = false;
         //CrewReplacer_Log.loging("adding showdows to player fleet of ID, amount: "+commodityID+", "+amount,getInstance(),true);
         Global.getSector().getPlayerFleet().getCargo().addCommodity(commodityID,amount);
         //CrewReplacer_Log.loging("player fleet now has: "+Global.getSector().getPlayerFleet().getCargo().getCommodityQuantity(commodityID)+" showdo crew of this commodityID",getInstance(),true);
         if (!Global.getSector().getPlayerFleet().hasScriptOfClass(CrewReplacer_AutoClean.class)) Global.getSector().getPlayerFleet().addScript(new CrewReplacer_AutoClean());
     }
-    public static void removeShadowCrewFromPlayersFleet(){
+    public static void removeShowdoCrewFromPlayersFleet(){
         CargoAPI cargo = Global.getSector().getPlayerFleet().getCargo();
         for(String[] remove : showdos) {
             for (String a : remove) {
@@ -76,7 +76,7 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
         CrewReplacer_Log.pop();
         clean = true;*/
     }
-    public static void removeShadowCrewFromPlayersFleet(String[] remove){
+    public static void removeShowdoCrewFromPlayersFleet(String[] remove){
         CargoAPI cargo = Global.getSector().getPlayerFleet().getCargo();
         for (String a : remove){
             removeItem(cargo,a);
@@ -126,7 +126,7 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
     }
     @Override
     public void reportCargoScreenOpened() {
-        removeShadowCrewFromPlayersFleet();
+        removeShowdoCrewFromPlayersFleet();
     }
 
     @Override
@@ -141,6 +141,6 @@ public class CrewReplacer_HideShowdoCrew_2 implements CargoScreenListener {
 
     @Override
     public void reportSubmarketOpened(SubmarketAPI submarket) {
-        removeShadowCrewFromPlayersFleet();
+        removeShowdoCrewFromPlayersFleet();
     }
 }

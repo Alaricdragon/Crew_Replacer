@@ -1,3 +1,6 @@
+V0.7.8:
+    fixes:
+        fixed a crash because I renamed a function I misnamed ages ago and it was bugging me but now it bugs me again
 V0.7.7:
     fixes:
         fixed a bug were if any mod override anything about supply's, crew, or heavy machinery it would resalt in 'fake crew' being at every god dammed market all the time.

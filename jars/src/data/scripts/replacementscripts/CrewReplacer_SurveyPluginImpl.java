@@ -51,7 +51,7 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
     //REQUIRED
     @Override
     public Map<String, Integer> getRequired() {
-        CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet(showdows);
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(showdows);
         //CrewReplacer_Log.loging("getRequired",this,true);
         Map<String, Integer> result = new LinkedHashMap<String, Integer>();
 
@@ -72,8 +72,8 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
         crew = Math.max(0,crew);
         machinery = Math.max(0,machinery);*/
 
-        CrewReplacer_HideShowdoCrew_2.addShadowCrewToPlayerFleet(showdows[0],(int)crewJobTemp.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
-        CrewReplacer_HideShowdoCrew_2.addShadowCrewToPlayerFleet(showdows[1],(int)machineryJobTemp.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows[0],(int)crewJobTemp.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows[1],(int)machineryJobTemp.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
         this.crewUsed = crew;
         this.machineryUsed = machinery;
 
@@ -86,7 +86,7 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
     //REQUIRED
     @Override
     public Map<String, Integer> getConsumed() {
-        CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet(showdows2);
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(showdows2);
         //CrewReplacer_Log.loging("getConsumed",this,true);
         Map<String, Integer> result = new LinkedHashMap<String, Integer>();
 
@@ -102,7 +102,7 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
         supplies = Math.max(0,supplies);*/
 
 
-        CrewReplacer_HideShowdoCrew_2.addShadowCrewToPlayerFleet(showdows2[0],(int)suppliesJobTemp.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows2[0],(int)suppliesJobTemp.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
         this.supplyUsed = supplies;
         result.put(showdows2[0], supplies);
 
@@ -131,7 +131,7 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
                 machineryJobTemp.automaticlyGetAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(), (int) this.machineryUsed, 0);
 
                 suppliesJobTemp.automaticlyGetAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(), (int) this.supplyUsed, (int) this.supplyUsed);
-                CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet();
+                CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet();
             }
         }catch (Exception e){
             CrewReplacer_Log.loging("failed to get or compare player fleet to surveyed world and/or failed to remove crew as intended. Exception: "+e,this,true);
@@ -151,14 +151,14 @@ public class CrewReplacer_SurveyPluginImpl extends CrewReplacer_SurveyPluginImpl
     public Map<String, Integer> getOutpostConsumed() {
         //CrewReplacer_Log.loging("getOutpostConsumed",this,true);
         Map<String, Integer> result = new LinkedHashMap<String, Integer>();
-        CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet(showdows);
-        CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet(showdows2);
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(showdows);
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(showdows2);
         crewReplacer_Job a = crewReplacer_Main.getJob(crewJob2);
         crewReplacer_Job b = crewReplacer_Main.getJob(heavy_matchnearyJob2);
         crewReplacer_Job c = crewReplacer_Main.getJob(supplyJob2);
-        CrewReplacer_HideShowdoCrew_2.addShadowCrewToPlayerFleet(showdows[0],(int)a.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
-        CrewReplacer_HideShowdoCrew_2.addShadowCrewToPlayerFleet(showdows[1],(int)b.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
-        CrewReplacer_HideShowdoCrew_2.addShadowCrewToPlayerFleet(showdows2[0],(int)c.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows[0],(int)a.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows[1],(int)b.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
+        CrewReplacer_HideShowdoCrew_2.addShowdoCrewToPlayerFleet(showdows2[0],(int)c.getAvailableCrewPower(Global.getSector().getPlayerFleet().getCargo()));
         result.put(showdows[0], 1000);
         result.put(showdows[1], 100);
         result.put(showdows2[0], 200);

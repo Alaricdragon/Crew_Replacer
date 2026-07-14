@@ -17,7 +17,7 @@ public class CrewReplacer_AutoClean implements EveryFrameScript {
     @Override
     public void advance(float amount) {
         if (amount == 0) return;//don't use well paused.
-        CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet();
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet();
         done = true;
     }
 }

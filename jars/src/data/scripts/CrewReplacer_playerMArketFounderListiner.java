@@ -28,8 +28,8 @@ public class CrewReplacer_playerMArketFounderListiner implements PlayerColonizat
         b.automaticlyGetAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(),costHM,costHM);
         c.automaticlyGetAndApplyCrewLost(Global.getSector().getPlayerFleet().getCargo(),costSupply,costSupply);
         CrewReplacer_Log.loging("removing crew because you made a market. or so i think.",this,true);
-        CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet(CrewReplacer_SurveyPluginImpl.showdows);
-        CrewReplacer_HideShowdoCrew_2.removeShadowCrewFromPlayersFleet(CrewReplacer_SurveyPluginImpl.showdows2);
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(CrewReplacer_SurveyPluginImpl.showdows);
+        CrewReplacer_HideShowdoCrew_2.removeShowdoCrewFromPlayersFleet(CrewReplacer_SurveyPluginImpl.showdows2);
     }
 
     @Override
